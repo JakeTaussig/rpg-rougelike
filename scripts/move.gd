@@ -8,7 +8,7 @@ var move_name = "Bubblebeam"
 
 var type: Types = Types.Human
 
-var modifier: MoveCategory = MoveCategory.ATK
+var category: MoveCategory = MoveCategory.ATK
 
 # Accuracy
 var acc: int = 100
@@ -24,10 +24,10 @@ var max_pp: int = 10
 # 0 = Normal, 1 = Priority
 var priority: bool = 0
 
-func _init(_name: String, _type: Types, _modifier:  MoveCategory, _acc: int, _bp: int, _pp: int, _priority: bool):
+func _init(_name: String, _type: Types, _category:  MoveCategory, _acc: int, _bp: int, _pp: int, _priority: bool):
 	move_name = _name
 	type = _type
-	modifier = modifier
+	category = category
 	acc = _acc
 	base_power = _bp
 	pp = _pp
@@ -44,7 +44,7 @@ func _process(delta: float) -> void:
 	
 func _to_string() -> String:
 	var output = ""
-	for property_name in ["move_name", "type", "modifier", "acc", "base_power", "pp", "max_pp", "priority"]:
+	for property_name in ["move_name", "type", "category", "acc", "base_power", "pp", "max_pp", "priority"]:
 		output += "\n%s: %s" % [property_name, get(property_name)]
 		
 	return output

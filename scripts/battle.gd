@@ -40,4 +40,6 @@ func _on_attack_pressed() -> void:
 	%Attack.get_child(0).grab_focus()
 	
 func _on_move_pressed(index: int) -> void:
-	pass
+	%Player.use_move(index, %Enemy)
+	_render_hp()
+	
