@@ -1,0 +1,115 @@
+[gd_scene load_steps=6 format=3 uid="uid://bpa0ix5wqg68n"]
+
+[ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
+[ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
+[ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_p1qf1"]
+[ext_resource type="StyleBox" uid="uid://bqu8isrlk0fya" path="res://assets/styles/battle.tres" id="2_th188"]
+[ext_resource type="PackedScene" uid="uid://dspy5d5yn1fxj" path="res://scenes/battle_participant.tscn" id="5_lpir7"]
+
+[node name="Battle" type="Node2D"]
+script = ExtResource("1_a12nh")
+
+[node name="PokemonRpgScreenGrayscale" type="Sprite2D" parent="."]
+position = Vector2(128, 72)
+texture = ExtResource("1_dn72j")
+
+[node name="BottomBar" type="Node2D" parent="."]
+
+[node name="Status" type="Label" parent="BottomBar"]
+offset_top = 96.0
+offset_right = 128.0
+offset_bottom = 144.0
+theme = ExtResource("2_p1qf1")
+text = "What will PLAYER do"
+autowrap_mode = 2
+
+[node name="Action" type="VBoxContainer" parent="BottomBar"]
+unique_name_in_owner = true
+offset_left = 128.0
+offset_top = 96.0
+offset_right = 256.0
+offset_bottom = 144.0
+theme = ExtResource("2_p1qf1")
+theme_override_constants/separation = 0
+
+[node name="Attack" type="Button" parent="BottomBar/Action"]
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+text = "   Attack"
+alignment = 0
+
+[node name="Item" type="Button" parent="BottomBar/Action"]
+layout_mode = 2
+text = "   Item"
+alignment = 0
+
+[node name="Attack" type="GridContainer" parent="BottomBar"]
+unique_name_in_owner = true
+visible = false
+offset_top = 96.0
+offset_right = 256.0
+offset_bottom = 148.0
+theme = ExtResource("2_p1qf1")
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="Move1" type="Button" parent="BottomBar/Attack"]
+custom_minimum_size = Vector2(128, 24)
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+text = "   Move 1"
+alignment = 0
+
+[node name="Move2" type="Button" parent="BottomBar/Attack"]
+custom_minimum_size = Vector2(128, 24)
+layout_mode = 2
+text = "   Move 2"
+alignment = 0
+
+[node name="Move3" type="Button" parent="BottomBar/Attack"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "   Move 3"
+alignment = 0
+
+[node name="Move4" type="Button" parent="BottomBar/Attack"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "   Move 4
+"
+alignment = 0
+
+[node name="HealthPanels" type="Node2D" parent="."]
+
+[node name="EnemyPanel" type="Label" parent="HealthPanels"]
+unique_name_in_owner = true
+offset_left = 17.0
+offset_top = 12.0
+offset_right = 112.0
+offset_bottom = 36.0
+theme = ExtResource("2_p1qf1")
+text = "Enemy"
+
+[node name="PlayerPanel" type="Label" parent="HealthPanels"]
+unique_name_in_owner = true
+offset_left = 145.0
+offset_top = 56.0
+offset_right = 240.0
+offset_bottom = 88.0
+theme = ExtResource("2_p1qf1")
+theme_override_styles/normal = ExtResource("2_th188")
+text = "Player"
+
+[node name="Player" parent="." instance=ExtResource("5_lpir7")]
+unique_name_in_owner = true
+position = Vector2(64, 72)
+
+[node name="Enemies" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("5_lpir7")]
+unique_name_in_owner = true
+position = Vector2(192, 32)
+
+[connection signal="pressed" from="BottomBar/Action/Attack" to="." method="_on_attack_pressed"]
