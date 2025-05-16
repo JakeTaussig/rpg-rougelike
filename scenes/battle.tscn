@@ -16,6 +16,7 @@ texture = ExtResource("1_dn72j")
 [node name="BottomBar" type="Node2D" parent="."]
 
 [node name="Status" type="Label" parent="BottomBar"]
+unique_name_in_owner = true
 offset_top = 96.0
 offset_right = 128.0
 offset_bottom = 143.0
