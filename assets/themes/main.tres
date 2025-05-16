@@ -1,15 +1,15 @@
 [gd_resource type="Theme" load_steps=3 format=3 uid="uid://bb5xdt6d0xc8h"]
 
 [ext_resource type="StyleBox" uid="uid://bqu8isrlk0fya" path="res://assets/styles/battle.tres" id="1_aiue4"]
-[ext_resource type="FontFile" uid="uid://c58mwwxfngjom" path="res://assets/fonts/LoRes 12 OT Narrow Regular.ttf" id="1_pgokm"]
+[ext_resource type="FontFile" uid="uid://c27kqqygdffnr" path="res://assets/fonts/LoRes 9 Minus OT Wide Regular.ttf" id="1_pgokm"]
 
 [resource]
 Button/colors/font_focus_color = Color(0.0705882, 0.305882, 0.537255, 1)
 Button/constants/h_separation = 4
-Button/font_sizes/font_size = 12
+Button/font_sizes/font_size = 9
 Button/fonts/font = ExtResource("1_pgokm")
 Button/styles/normal = ExtResource("1_aiue4")
-Label/font_sizes/font_size = 12
+Label/font_sizes/font_size = 9
 Label/fonts/font = ExtResource("1_pgokm")
 Label/styles/normal = ExtResource("1_aiue4")
 VBoxContainer/constants/separation = 4
