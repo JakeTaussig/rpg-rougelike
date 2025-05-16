@@ -11,15 +11,23 @@ var type: Types = Types.Human
 var category: MoveCategory = MoveCategory.ATK
 
 # Accuracy
-var acc: int = 100
+var acc: int = 100:
+	set(new_acc):
+		acc = max(0, new_acc)
 
-var base_power: int = 50
+var base_power: int = 50:
+	set(new_base_power):
+		base_power = max(1, new_base_power)
 
 # Power Points
-var pp: int = 10
+var pp: int = 10:
+	set(new_pp):
+		pp = max(0, new_pp)
 
 # Max Power Points
-var max_pp: int = 10
+var max_pp: int = 10:
+	set(new_max_pp):
+		max_pp = max(1, new_max_pp)
 
 # 0 = Normal, 1 = Priority
 var priority: bool = 0
