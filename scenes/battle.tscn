@@ -16,6 +16,7 @@ texture = ExtResource("1_dn72j")
 [node name="BottomBar" type="Node2D" parent="."]
 
 [node name="Status" type="Label" parent="BottomBar"]
+unique_name_in_owner = true
 offset_top = 96.0
 offset_right = 128.0
 offset_bottom = 143.0
@@ -111,6 +112,14 @@ unique_name_in_owner = true
 [node name="Enemy" parent="Enemies" instance=ExtResource("5_lpir7")]
 unique_name_in_owner = true
 position = Vector2(192, 32)
+
+[node name="StateDisplay" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 96.0
+offset_right = 255.0
+offset_bottom = 12.0
+theme = ExtResource("2_p1qf1")
+text = "state:"
 
 [connection signal="pressed" from="BottomBar/Action/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="BottomBar/Attack/Move1" to="." method="_on_move_pressed" binds= [0]]
