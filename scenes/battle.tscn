@@ -114,3 +114,7 @@ unique_name_in_owner = true
 position = Vector2(192, 32)
 
 [connection signal="pressed" from="BottomBar/Action/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="BottomBar/Attack/Move1" to="." method="_on_move_pressed" binds= [0]]
+[connection signal="pressed" from="BottomBar/Attack/Move2" to="." method="_on_move_pressed" binds= [1]]
+[connection signal="pressed" from="BottomBar/Attack/Move3" to="." method="_on_move_pressed" binds= [2]]
+[connection signal="pressed" from="BottomBar/Attack/Move4" to="." method="_on_move_pressed" binds= [3]]

@@ -9,15 +9,14 @@ extends Node2D
 @export var speed: int = 30
 @export var luck: int = 10
 var is_player = true
-var moves_dict: Array[String] = ["Bubblebeam", "Flamethrower", "Razor_leaf", "Fire_punch"]
-var moves: Array[move] = []
+var moves: Array[Move] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for dict_move in moves_dict:
-		var _move:move = move.new()
-		moves.append(_move)
 	pass
+	
+func _init():
+	moves = GameManager.moves_list
 	
 func use_move(index: int, target_self: bool) -> void:
 	var move = moves[index]
