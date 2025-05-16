@@ -59,7 +59,7 @@ func _init_battle_participants():
 	battle_participants.sort_custom(func(a, b): return a.speed - b.speed)
 
 func _input(event):
-	if Input.is_action_pressed("ui_accept"):
+	if Input.is_action_just_pressed("ui_accept"):
 		if state == State.PLAYER_ATTACK_INFO:
 			_update_state(State.ENEMY_ATTACK)
 		elif state == State.ENEMY_ATTACK_INFO:
