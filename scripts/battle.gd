@@ -3,7 +3,6 @@ var moves_list = MovesList.new()
 var turn: int = 0
 var turn_order_index: int = 0
 var battle_participants = []
-var turn_order = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,9 +30,7 @@ func _start_battle():
 	if battle_participants[turn_order_index].is_player:
 		%Action.get_child(0).grab_focus()
 	else:
-		pass
-		#enemy_turn()
-	
+		_enemy_turn()
 func _on_attack_pressed() -> void:
 	%Action.visible = false
 	%Attack.visible = true
@@ -41,5 +38,22 @@ func _on_attack_pressed() -> void:
 	
 func _on_move_pressed(index: int) -> void:
 	%Player.use_move(index, %Enemy)
+	_increment_turn()
+
+func _increment_turn():
+	%Action.visible = true
+	%Attack.visible = false
 	_render_hp()
+	turn_order_index += 1
+	if turn_order_index == battle_participants.size():
+		turn_order_index = 0
+		turn += 1
+	if battle_participants[turn_order_index].is_player:
+		%Action.get_child(0).grab_focus()
+	else:
+		_enemy_turn()
+		
+func _enemy_turn():
+	%Enemy.use_move(0, %Player)
+	_increment_turn()
 	
