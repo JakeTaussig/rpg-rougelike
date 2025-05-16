@@ -24,6 +24,8 @@ func _update_state(new_state: State):
 	var old_state = state
 	state = new_state
 
+	%StateDisplay.text = State.keys()[state]
+
 	if old_state == State.WAITING_FOR_INPUT:
 		%Action.visible = true
 		%Attack.visible = false
