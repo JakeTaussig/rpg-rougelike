@@ -74,10 +74,11 @@ func _on_move_pressed(index: int) -> void:
 	_on_move_selected(index, %Enemy)
 	
 func _on_move_selected(index: int, target: BattleParticipant) -> void:
-	var results = battle_participants[turn_order_index].use_move(index, target)
+	var attacker = battle_participants[turn_order_index]
+	var results = attacker.use_move(index, target)
 	var used_move_name = results[0].move_name
 	var damage = results[1]
-	var message = "%s used %s on %s for %d damage!" % [battle_participants[turn_order_index].character_name, used_move_name, target.character_name, damage]
+	var message = "%s used %s on %s for %d damage!" % [attacker.character_name, used_move_name, target.character_name, damage]
 	_update_state(State.ATTACKING_INFO, message)
 
 func _render_hp() -> void:
