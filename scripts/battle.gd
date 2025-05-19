@@ -4,7 +4,7 @@ var turn: int = 0
 var turn_order_index: int = 0
 var battle_participants = []
 
-enum State {SELECTING_ACTION, SELECTING_ATTACK, PLAYER_ATTACK_INFO, ENEMY_ATTACK, ENEMY_ATTACK_INFO}
+enum State {SELECTING_ACTION, SELECTING_ATTACK, PLAYER_ATTACK_INFO, ENEMY_ATTACK, ENEMY_ATTACK_INFO, PLAYER_WIN, PLAYER_LOSS}
 var state: State = State.SELECTING_ACTION
 
 # Called when the node enters the scene tree for the first time.
@@ -36,6 +36,12 @@ func _update_state(new_state: State):
 		%ContinueButton.visible = false
 		%BattleStatus.visible = false
 		_render_hp()
+		if %Enemy.hp <= 0:
+			_update_state(State.PLAYER_WIN)
+			return
+		elif %Player.hp <= 0:
+			_update_state(State.PLAYER_LOSS)
+			return
 
 	if state == State.SELECTING_ACTION:
 		%PlayerPrompt.visible = true
@@ -58,6 +64,16 @@ func _update_state(new_state: State):
 		%BattleStatus.visible = true
 		%BattleStatus.text = "Enemy Attacked Player"
 		%ContinueButton.visible = true
+		%ContinueButton.grab_focus()
+	elif state == State.PLAYER_WIN:
+		%BattleStatus.visible = true
+		%BattleStatus.size.x = 255
+		%BattleStatus.text = "Player defeated Enemy"
+		%ContinueButton.grab_focus()
+	elif state == State.PLAYER_LOSS:
+		%BattleStatus.visible = true
+		%BattleStatus.size.x = 255
+		%BattleStatus.text = "Enemy defeated Player"
 		%ContinueButton.grab_focus()
 
 func _init_battle_participants():
