@@ -27,16 +27,20 @@ func _update_state(new_state: State):
 	%StateDisplay.text = State.keys()[state]
 
 	if old_state == State.SELECTING_ACTION:
+		%PlayerPrompt.visible = false
 		%Action.visible = false
+		
 	elif old_state == State.SELECTING_ATTACK:
 		%MovesMenu.visible = false
 	elif old_state == State.PLAYER_ATTACK_INFO || old_state == State.ENEMY_ATTACK_INFO:
 		%ContinueButton.visible = false
+		%BattleStatus.visible = false
 		_render_hp()
 
 	if state == State.SELECTING_ACTION:
-		%Status.size.x = 255
-		%Status.text = "What will PLAYER do?"
+		%PlayerPrompt.visible = true
+		#%PlayerPrompt.size.x = 255
+		%PlayerPrompt.text = "What will PLAYER do?"
 		%Action.visible = true
 		%Action.get_child(0).grab_focus()
 	elif state == State.SELECTING_ATTACK:
@@ -46,11 +50,13 @@ func _update_state(new_state: State):
 		%Enemy.use_move(0, %Player)
 		_update_state(State.ENEMY_ATTACK_INFO)
 	elif state == State.PLAYER_ATTACK_INFO:
-		%Status.text = "Player Attacked Enemy"
+		%BattleStatus.visible = true
+		%BattleStatus.text = "Player Attacked Enemy"
 		%ContinueButton.visible = true
 		%ContinueButton.grab_focus()
 	elif state == State.ENEMY_ATTACK_INFO:
-		%Status.text = "Enemy Attacked Player"
+		%BattleStatus.visible = true
+		%BattleStatus.text = "Enemy Attacked Player"
 		%ContinueButton.visible = true
 		%ContinueButton.grab_focus()
 

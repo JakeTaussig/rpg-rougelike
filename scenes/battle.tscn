@@ -15,18 +15,22 @@ texture = ExtResource("1_dn72j")
 
 [node name="BottomBar" type="Node2D" parent="."]
 
-[node name="Status" type="Label" parent="BottomBar"]
+[node name="PlayerPrompt" type="Label" parent="BottomBar"]
 unique_name_in_owner = true
+z_index = 1
 offset_top = 96.0
 offset_right = 144.0
 offset_bottom = 143.0
+mouse_filter = 1
 theme = ExtResource("2_p1qf1")
 text = "What will PLAYER do?"
+horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Action" type="VBoxContainer" parent="BottomBar"]
 unique_name_in_owner = true
+z_index = 2
 offset_left = 144.0
 offset_top = 96.0
 offset_right = 255.0
@@ -81,13 +85,22 @@ text = "   Move 4
 "
 alignment = 0
 
-[node name="ContinueButton" type="Button" parent="BottomBar"]
+[node name="BattleStatus" type="Label" parent="BottomBar"]
 unique_name_in_owner = true
 visible = false
-offset_left = 144.0
 offset_top = 96.0
+offset_right = 256.0
+offset_bottom = 144.0
+mouse_filter = 1
+theme = ExtResource("2_p1qf1")
+text = "Player Attacked Enemy"
+
+[node name="ContinueButton" type="Button" parent="BottomBar/BattleStatus"]
+unique_name_in_owner = true
+z_index = -1
+layout_mode = 0
 offset_right = 255.0
-offset_bottom = 143.0
+offset_bottom = 47.0
 theme = ExtResource("2_p1qf1")
 text = "Continue"
 
@@ -137,4 +150,4 @@ text = "state:"
 [connection signal="pressed" from="BottomBar/MovesMenu/Move2" to="." method="_on_move_pressed" binds= [1]]
 [connection signal="pressed" from="BottomBar/MovesMenu/Move3" to="." method="_on_move_pressed" binds= [2]]
 [connection signal="pressed" from="BottomBar/MovesMenu/Move4" to="." method="_on_move_pressed" binds= [3]]
-[connection signal="pressed" from="BottomBar/ContinueButton" to="." method="_on_info_button_pressed"]
+[connection signal="pressed" from="BottomBar/BattleStatus/ContinueButton" to="." method="_on_info_button_pressed"]
