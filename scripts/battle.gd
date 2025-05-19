@@ -36,11 +36,11 @@ func _update_state(new_state: State, label_text: String = ""):
 		%BattleStatus.visible = false
 		_render_hp()
 		if %Enemy.hp <= 0:
-			%BattleStatus.text = "Player defeated Enemy"
+			%BattleStatus.text = "%s defeated %s" % [%Player.character_name, %Enemy.character_name]
 			_update_state(State.GAME_END)
 			return
 		elif %Player.hp <= 0:
-			%BattleStatus.text = "Enemy defeated Player"
+			%BattleStatus.text = "%s defeated %s" % [%Enemy.character_name, %Player.character_name]
 			_update_state(State.GAME_END)
 			return
 
