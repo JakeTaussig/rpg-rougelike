@@ -3,7 +3,6 @@ var moves_list = MovesList.new()
 var turn: int = 0
 var turn_order_index: int = 0
 var battle_participants = []
-
 enum State {SELECTING_ACTION, SELECTING_ATTACK, PLAYER_ATTACK_INFO, ENEMY_ATTACK, ENEMY_ATTACK_INFO, GAME_END}
 var state: State = State.SELECTING_ACTION
 
@@ -11,10 +10,8 @@ var state: State = State.SELECTING_ACTION
 func _ready() -> void:
 	_init_battle_participants()
 	_render_hp()
-
 	for i in %Player.moves.size():
 		%MovesMenu.get_child(i).text = %Player.moves[i].move_name
-
 	if battle_participants[turn_order_index].is_player:
 		_update_state(State.SELECTING_ACTION, "What will %s do?" % %Player.character_name)
 	else:
@@ -81,11 +78,15 @@ func _init_battle_participants():
 	battle_participants.sort_custom(func(a, b): return a.speed - b.speed)
 
 func _on_move_pressed(index: int) -> void:
+	_on_move_selected(index)
+	
+func _on_move_selected(index: int) -> void:
 	var results = %Player.use_move(index, %Enemy)
 	var used_move_name = results[0].move_name
 	var damage = results[1]
 	var message = "%s used %s on %s for %d damage!" % [%Player.character_name, used_move_name, %Enemy.character_name, damage]
 	_update_state(State.PLAYER_ATTACK_INFO, message)
+
 
 func _render_hp() -> void:
 	%EnemyPanel.text = "Enemy " + str(%Enemy.hp) + " / " + str(%Enemy.max_hp)

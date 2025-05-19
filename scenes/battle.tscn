@@ -131,6 +131,7 @@ text = "Player"
 unique_name_in_owner = true
 position = Vector2(64, 72)
 max_hp = 200
+hp = 200
 
 [node name="Enemies" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -140,6 +141,7 @@ unique_name_in_owner = true
 position = Vector2(192, 32)
 character_name = "Pink Box"
 max_hp = 200
+hp = 200
 
 [node name="StateDisplay" type="Label" parent="."]
 unique_name_in_owner = true
