@@ -50,11 +50,8 @@ func _update_state(new_state: State, label_text: String = ""):
 		%MovesMenu.visible = true
 		%MovesMenu.get_child(0).grab_focus()
 	elif state == State.ENEMY_ATTACK:
-		var results = %Enemy.use_move(0, %Player)
-		var used_move_name = results[0].move_name
-		var damage = results[1]
-		var message = "%s used %s on %s for %d damage!" % [%Enemy.character_name, used_move_name, %Player.character_name, damage]
-		_update_state(State.ATTACKING_INFO, message)
+		# TODO: Randomly select enemy move / implement smart AI
+		_on_move_selected(0, %Player)
 	elif state == State.ATTACKING_INFO:
 		turn_order_index += 1
 		%BattleStatus.visible = true
@@ -74,13 +71,13 @@ func _init_battle_participants():
 	battle_participants.sort_custom(func(a, b): return a.speed - b.speed)
 
 func _on_move_pressed(index: int) -> void:
-	_on_move_selected(index)
+	_on_move_selected(index, %Enemy)
 	
-func _on_move_selected(index: int) -> void:
-	var results = %Player.use_move(index, %Enemy)
+func _on_move_selected(index: int, target: BattleParticipant) -> void:
+	var results = battle_participants[turn_order_index].use_move(index, target)
 	var used_move_name = results[0].move_name
 	var damage = results[1]
-	var message = "%s used %s on %s for %d damage!" % [%Player.character_name, used_move_name, %Enemy.character_name, damage]
+	var message = "%s used %s on %s for %d damage!" % [battle_participants[turn_order_index].character_name, used_move_name, target.character_name, damage]
 	_update_state(State.ATTACKING_INFO, message)
 
 func _render_hp() -> void:
