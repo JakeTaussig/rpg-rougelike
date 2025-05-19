@@ -4,7 +4,7 @@ class_name MovesList
 const moves: Array[Dictionary] = [
 	{"name": "Tackle", "type": Move.Types.Human, "category": Move.MoveCategory.ATK, "acc": 90, "bp": 35, "pp": 30, "priority": 0},
 	{"name": "Flamethrower", "type": Move.Types.Fire, "category": Move.MoveCategory.SP_ATK, "acc": 100, "bp": 100, "pp": 15, "priority": 0},
-	{"name": "Bubblebeam", "type": Move.Types.Water, "category": Move.MoveCategory.SP_ATK, "acc": 100, "bp": 20, "pp": 20, "priority": 0},
+	{"name": "Bubblebeam", "type": Move.Types.Water, "category": Move.MoveCategory.SP_ATK, "acc": 100, "bp": 60, "pp": 20, "priority": 0},
 	{"name": "Fire Punch", "type": Move.Types.Fire, "category": Move.MoveCategory.SP_ATK, "acc": 95, "bp": 75, "pp": 10, "priority": 0}
 	]
 
