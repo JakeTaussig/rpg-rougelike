@@ -31,7 +31,6 @@ func _update_state(new_state: State, label_text: String = ""):
 		%MovesMenu.visible = false
 	elif old_state == State.ATTACKING_INFO:
 		%BattleStatus.visible = false
-		_render_hp()
 		if %Enemy.hp <= 0:
 			%BattleStatus.text = "%s defeated %s" % [%Player.character_name, %Enemy.character_name]
 			_update_state(State.GAME_END)
@@ -53,7 +52,7 @@ func _update_state(new_state: State, label_text: String = ""):
 		# TODO: Randomly select enemy move / implement smart AI
 		_on_move_selected(0, %Player)
 	elif state == State.ATTACKING_INFO:
-		turn_order_index += 1
+		_render_hp()
 		%BattleStatus.visible = true
 		%BattleStatus.text = label_text
 		%ContinueButton.visible = true
@@ -74,11 +73,10 @@ func _on_move_pressed(index: int) -> void:
 	_on_move_selected(index, %Enemy)
 	
 func _on_move_selected(index: int, target: BattleParticipant) -> void:
-	var attacker = battle_participants[turn_order_index]
-	var results = attacker.use_move(index, target)
+	var results = battle_participants[turn_order_index].use_move(index, target)
 	var used_move_name = results[0].move_name
 	var damage = results[1]
-	var message = "%s used %s on %s for %d damage!" % [attacker.character_name, used_move_name, target.character_name, damage]
+	var message = "%s used %s on %s for %d damage!" % [battle_participants[turn_order_index].character_name, used_move_name, target.character_name, damage]
 	_update_state(State.ATTACKING_INFO, message)
 
 func _render_hp() -> void:
@@ -87,15 +85,19 @@ func _render_hp() -> void:
 
 func _on_continue_button_pressed() -> void:
 	if state == State.ATTACKING_INFO:
-		if turn_order_index == battle_participants.size():
-			turn_order_index = 0
-			turn += 1
-		if battle_participants[turn_order_index].is_player:
-			_update_state(State.SELECTING_ACTION, "What will %s do?" % %Player.character_name)
-		else:
-			_update_state(State.ENEMY_ATTACK)
+		_increment_turn_order()
 	elif state == State.GAME_END:
 		get_tree().quit()
+		
+func _increment_turn_order():
+	turn_order_index += 1
+	if turn_order_index == battle_participants.size():
+		turn_order_index = 0
+		turn += 1
+	if battle_participants[turn_order_index].is_player:
+		_update_state(State.SELECTING_ACTION, "What will %s do?" % %Player.character_name)
+	else:
+		_update_state(State.ENEMY_ATTACK)
 
 func _on_attack_pressed() -> void:
 	if state == State.SELECTING_ACTION:
