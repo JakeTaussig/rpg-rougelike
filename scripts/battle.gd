@@ -97,6 +97,8 @@ func _on_continue_button_pressed() -> void:
 		_update_state(State.ENEMY_ATTACK)
 	elif state == State.ENEMY_ATTACK_INFO:
 		_update_state(State.SELECTING_ACTION)
+	elif state == State.PLAYER_WIN || state == State.PLAYER_LOSS:
+		get_tree().quit()
 
 func _on_attack_pressed() -> void:
 	if state == State.SELECTING_ACTION:
