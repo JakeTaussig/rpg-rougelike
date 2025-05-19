@@ -88,6 +88,7 @@ func _on_continue_button_pressed() -> void:
 	if state == State.ATTACKING_INFO:
 		if turn_order_index == battle_participants.size():
 			turn_order_index = 0
+			turn += 1
 		if battle_participants[turn_order_index].is_player:
 			_update_state(State.SELECTING_ACTION, "What will %s do?" % %Player.character_name)
 		else:
