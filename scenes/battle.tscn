@@ -152,4 +152,4 @@ text = "state:"
 [connection signal="pressed" from="BottomBar/MovesMenu/Move2" to="." method="_on_move_pressed" binds= [1]]
 [connection signal="pressed" from="BottomBar/MovesMenu/Move3" to="." method="_on_move_pressed" binds= [2]]
 [connection signal="pressed" from="BottomBar/MovesMenu/Move4" to="." method="_on_move_pressed" binds= [3]]
-[connection signal="pressed" from="BottomBar/BattleStatus/ContinueButton" to="." method="_on_info_button_pressed"]
+[connection signal="pressed" from="BottomBar/BattleStatus/ContinueButton" to="." method="_on_continue_button_pressed"]
