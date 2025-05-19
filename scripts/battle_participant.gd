@@ -34,18 +34,23 @@ func _ready() -> void:
 	pass
 	
 func _init():
-	moves = GameManager.moves_list
+	# DEBUG: for now each battle participant's moves are set to copy the global moves_list
+	moves = []
+	for move in GameManager.moves_list:
+		moves.append(move.copy())
+
 	
 func use_move(index: int, target: BattleParticipant) -> Array:
 	var move = moves[index]
+	var damage = 0
 	if move.category == Move.MoveCategory.ATK:
-		var damage = _attack(move, target, 1)
-		return [move, damage]
+		damage = _attack(move, target, 1)
 	elif move.category == Move.MoveCategory.SP_ATK:
-		var damage = _attack(move, target, 0)
-		return [move, damage]
-	# Placeholder
-	return []
+		damage = _attack(move, target, 0)
+
+	move.pp -= 1
+	return [move, damage]
+
 func increment_health(value: int) -> void:
 	hp += value
 	

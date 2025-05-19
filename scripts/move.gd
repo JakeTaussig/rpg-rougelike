@@ -42,6 +42,9 @@ func _init(_name: String, _type: Types, _category:  MoveCategory, _acc: int, _bp
 	max_pp = _pp
 	priority = _priority
 
+func copy() -> Move:
+	return Move.new(move_name, type, category, acc, base_power, pp, priority)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
