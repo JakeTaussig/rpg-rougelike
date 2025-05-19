@@ -16,16 +16,18 @@ texture = ExtResource("1_dn72j")
 [node name="BottomBar" type="Node2D" parent="."]
 
 [node name="Status" type="Label" parent="BottomBar"]
+unique_name_in_owner = true
 offset_top = 96.0
-offset_right = 128.0
+offset_right = 144.0
 offset_bottom = 143.0
 theme = ExtResource("2_p1qf1")
-text = "What will PLAYER do"
+text = "What will PLAYER do?"
+vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Action" type="VBoxContainer" parent="BottomBar"]
 unique_name_in_owner = true
-offset_left = 128.0
+offset_left = 144.0
 offset_top = 96.0
 offset_right = 255.0
 offset_bottom = 144.0
@@ -42,42 +44,52 @@ layout_mode = 2
 text = "   Item"
 alignment = 0
 
-[node name="Attack" type="GridContainer" parent="BottomBar"]
+[node name="MovesMenu" type="GridContainer" parent="BottomBar"]
 unique_name_in_owner = true
 visible = false
 offset_top = 96.0
-offset_right = 256.0
-offset_bottom = 148.0
+offset_right = 255.0
+offset_bottom = 143.0
 theme = ExtResource("2_p1qf1")
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 2
 
-[node name="Move1" type="Button" parent="BottomBar/Attack"]
+[node name="Move1" type="Button" parent="BottomBar/MovesMenu"]
 custom_minimum_size = Vector2(128, 24)
 layout_mode = 2
 theme = ExtResource("2_p1qf1")
 text = "   Move 1"
 alignment = 0
 
-[node name="Move2" type="Button" parent="BottomBar/Attack"]
+[node name="Move2" type="Button" parent="BottomBar/MovesMenu"]
 custom_minimum_size = Vector2(127, 24)
 layout_mode = 2
 text = "   Move 2"
 alignment = 0
 
-[node name="Move3" type="Button" parent="BottomBar/Attack"]
+[node name="Move3" type="Button" parent="BottomBar/MovesMenu"]
 custom_minimum_size = Vector2(0, 23)
 layout_mode = 2
 text = "   Move 3"
 alignment = 0
 
-[node name="Move4" type="Button" parent="BottomBar/Attack"]
+[node name="Move4" type="Button" parent="BottomBar/MovesMenu"]
 custom_minimum_size = Vector2(0, 23)
 layout_mode = 2
 text = "   Move 4
 "
 alignment = 0
+
+[node name="ContinueButton" type="Button" parent="BottomBar"]
+unique_name_in_owner = true
+visible = false
+offset_left = 144.0
+offset_top = 96.0
+offset_right = 255.0
+offset_bottom = 143.0
+theme = ExtResource("2_p1qf1")
+text = "Continue"
 
 [node name="HealthPanels" type="Node2D" parent="."]
 position = Vector2(-1, 0)
@@ -86,7 +98,7 @@ position = Vector2(-1, 0)
 unique_name_in_owner = true
 offset_left = 17.0
 offset_top = 12.0
-offset_right = 112.0
+offset_right = 113.0
 offset_bottom = 36.0
 theme = ExtResource("2_p1qf1")
 text = "Enemy"
@@ -95,7 +107,7 @@ text = "Enemy"
 unique_name_in_owner = true
 offset_left = 145.0
 offset_top = 56.0
-offset_right = 240.0
+offset_right = 241.0
 offset_bottom = 88.0
 theme = ExtResource("2_p1qf1")
 theme_override_styles/normal = ExtResource("4_lpir7")
@@ -112,8 +124,17 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 position = Vector2(192, 32)
 
+[node name="StateDisplay" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 96.0
+offset_right = 255.0
+offset_bottom = 12.0
+theme = ExtResource("2_p1qf1")
+text = "state:"
+
 [connection signal="pressed" from="BottomBar/Action/Attack" to="." method="_on_attack_pressed"]
-[connection signal="pressed" from="BottomBar/Attack/Move1" to="." method="_on_move_pressed" binds= [0]]
-[connection signal="pressed" from="BottomBar/Attack/Move2" to="." method="_on_move_pressed" binds= [1]]
-[connection signal="pressed" from="BottomBar/Attack/Move3" to="." method="_on_move_pressed" binds= [2]]
-[connection signal="pressed" from="BottomBar/Attack/Move4" to="." method="_on_move_pressed" binds= [3]]
+[connection signal="pressed" from="BottomBar/MovesMenu/Move1" to="." method="_on_move_pressed" binds= [0]]
+[connection signal="pressed" from="BottomBar/MovesMenu/Move2" to="." method="_on_move_pressed" binds= [1]]
+[connection signal="pressed" from="BottomBar/MovesMenu/Move3" to="." method="_on_move_pressed" binds= [2]]
+[connection signal="pressed" from="BottomBar/MovesMenu/Move4" to="." method="_on_move_pressed" binds= [3]]
+[connection signal="pressed" from="BottomBar/ContinueButton" to="." method="_on_info_button_pressed"]
