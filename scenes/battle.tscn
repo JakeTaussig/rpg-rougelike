@@ -94,6 +94,7 @@ offset_bottom = 144.0
 mouse_filter = 1
 theme = ExtResource("2_p1qf1")
 text = "Player Attacked Enemy"
+autowrap_mode = 2
 
 [node name="ContinueButton" type="Button" parent="BottomBar/BattleStatus"]
 unique_name_in_owner = true
@@ -136,6 +137,7 @@ unique_name_in_owner = true
 [node name="Enemy" parent="Enemies" instance=ExtResource("5_lpir7")]
 unique_name_in_owner = true
 position = Vector2(192, 32)
+character_name = "Pink Box"
 
 [node name="StateDisplay" type="Label" parent="."]
 unique_name_in_owner = true
