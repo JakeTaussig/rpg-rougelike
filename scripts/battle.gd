@@ -8,6 +8,8 @@ var state: State = State.SELECTING_ACTION
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Called once to seed the random number generator
+	randomize()
 	_init_battle_participants()
 	_render_hp()
 	for i in %Player.moves.size():
@@ -73,10 +75,15 @@ func _on_move_pressed(index: int) -> void:
 	_on_move_selected(index, %Enemy)
 	
 func _on_move_selected(index: int, target: BattleParticipant) -> void:
-	var results = battle_participants[turn_order_index].use_move(index, target)
+	var message = ""
+	var attacker = battle_participants[turn_order_index]
+	var results = attacker.use_move(index, target)
 	var used_move_name = results[0].move_name
 	var damage = results[1]
-	var message = "%s used %s on %s for %d damage!" % [battle_participants[turn_order_index].character_name, used_move_name, target.character_name, damage]
+	if damage <= 0:
+		message = "%s missed %s!" % [attacker.character_name, used_move_name]
+	else:
+		message = "%s used %s on %s for %d damage!" % [attacker.character_name, used_move_name, target.character_name, damage]
 	_update_state(State.ATTACKING_INFO, message)
 
 func _render_hp() -> void:

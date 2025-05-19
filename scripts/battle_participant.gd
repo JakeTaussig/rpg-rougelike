@@ -38,14 +38,26 @@ func _init():
 	
 func use_move(index: int, target: BattleParticipant) -> Array:
 	var move = moves[index]
-	if move.category == Move.MoveCategory.ATK:
-		var damage = max(1, _attack(move, target, 1))
-		return [move, damage]
-	elif move.category == Move.MoveCategory.SP_ATK:
-		var damage = max(1, _attack(move, target, 0))
-		return [move, damage]
+	var attack_hit: bool = _does_attack_hit(move.acc)
+	if attack_hit:
+		if move.category == Move.MoveCategory.ATK:
+			var damage = max(1, _attack(move, target, 1))
+			return [move, damage]
+		elif move.category == Move.MoveCategory.SP_ATK:
+			var damage = max(1, _attack(move, target, 0))
+			return [move, damage]
+	else:
+		return [move, 0]
 	# Placeholder
 	return []
+	
+func _does_attack_hit(accuracy: int):
+	accuracy = clamp(accuracy, 0, 100)
+	
+	# Generates a number between 1 and 100
+	var roll = randi() % 100 + 1
+	return roll <= accuracy
+	
 	
 func increment_health(value: int) -> void:
 	hp += value
