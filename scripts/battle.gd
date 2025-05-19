@@ -67,7 +67,6 @@ func _update_state(new_state: State, label_text: String = ""):
 		%BattleStatus.visible = true
 		%BattleStatus.text = label_text
 		%ContinueButton.visible = true
-		%BattleStatus.text = "Player Attacked Enemy"
 		%ContinueButton.grab_focus()
 	elif state == State.GAME_END:
 		%BattleStatus.visible = true
