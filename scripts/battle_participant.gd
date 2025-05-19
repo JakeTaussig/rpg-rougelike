@@ -39,13 +39,14 @@ func _init():
 func use_move(index: int, target: BattleParticipant) -> Array:
 	var move = moves[index]
 	if move.category == Move.MoveCategory.ATK:
-		var damage = _attack(move, target, 1)
+		var damage = max(1, _attack(move, target, 1))
 		return [move, damage]
 	elif move.category == Move.MoveCategory.SP_ATK:
-		var damage = _attack(move, target, 0)
+		var damage = max(1, _attack(move, target, 0))
 		return [move, damage]
 	# Placeholder
 	return []
+	
 func increment_health(value: int) -> void:
 	hp += value
 	
