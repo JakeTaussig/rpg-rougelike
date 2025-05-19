@@ -76,7 +76,7 @@ func _render_hp() -> void:
 	%EnemyPanel.text = "Enemy " + str(%Enemy.hp) + " / " + str(%Enemy.max_hp)
 	%PlayerPanel.text = "Player " + str(%Player.hp) + " / " + str(%Player.max_hp)
 
-func _on_info_button_pressed() -> void:
+func _on_continue_button_pressed() -> void:
 	if state == State.PLAYER_ATTACK_INFO:
 		_update_state(State.ENEMY_ATTACK)
 	elif state == State.ENEMY_ATTACK_INFO:
