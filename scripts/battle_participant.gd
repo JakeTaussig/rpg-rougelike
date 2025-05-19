@@ -1,6 +1,7 @@
 extends Node2D
 class_name BattleParticipant
 
+@export var character_name: String = "Player"
 @export var max_hp: int = 100:
 	set(new_health):
 		max_hp = max(1, new_health)
@@ -35,17 +36,20 @@ func _ready() -> void:
 func _init():
 	moves = GameManager.moves_list
 	
-func use_move(index: int, target: BattleParticipant) -> void:
+func use_move(index: int, target: BattleParticipant) -> Array:
 	var move = moves[index]
 	if move.category == Move.MoveCategory.ATK:
-		_attack(move, target, 1)
+		var damage = _attack(move, target, 1)
+		return [move, damage]
 	elif move.category == Move.MoveCategory.SP_ATK:
-		_attack(move, target, 0)
-	
+		var damage = _attack(move, target, 0)
+		return [move, damage]
+	# Placeholder
+	return []
 func increment_health(value: int) -> void:
 	hp += value
 	
-func _attack(move: Move, target: BattleParticipant, is_physical: bool):
+func _attack(move: Move, target: BattleParticipant, is_physical: bool) -> int:
 	var power = move.base_power
 	var damage = 0
 	if is_physical:
@@ -55,6 +59,7 @@ func _attack(move: Move, target: BattleParticipant, is_physical: bool):
 		power = power * sp_atk
 		damage = power / target.sp_def
 	target.hp -= damage
+	return damage
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
