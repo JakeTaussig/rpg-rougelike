@@ -63,12 +63,10 @@ func _update_state(new_state: State):
 		%ContinueButton.grab_focus()
 	elif state == State.PLAYER_WIN:
 		%BattleStatus.visible = true
-		%BattleStatus.size.x = 255
 		%BattleStatus.text = "Player defeated Enemy"
 		%ContinueButton.grab_focus()
 	elif state == State.PLAYER_LOSS:
 		%BattleStatus.visible = true
-		%BattleStatus.size.x = 255
 		%BattleStatus.text = "Enemy defeated Player"
 		%ContinueButton.grab_focus()
 
