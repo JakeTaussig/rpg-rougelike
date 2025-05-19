@@ -44,7 +44,7 @@ layout_mode = 2
 text = "   Item"
 alignment = 0
 
-[node name="Attack" type="GridContainer" parent="BottomBar"]
+[node name="MovesMenu" type="GridContainer" parent="BottomBar"]
 unique_name_in_owner = true
 visible = false
 offset_top = 96.0
@@ -55,26 +55,26 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 2
 
-[node name="Move1" type="Button" parent="BottomBar/Attack"]
+[node name="Move1" type="Button" parent="BottomBar/MovesMenu"]
 custom_minimum_size = Vector2(128, 24)
 layout_mode = 2
 theme = ExtResource("2_p1qf1")
 text = "   Move 1"
 alignment = 0
 
-[node name="Move2" type="Button" parent="BottomBar/Attack"]
+[node name="Move2" type="Button" parent="BottomBar/MovesMenu"]
 custom_minimum_size = Vector2(127, 24)
 layout_mode = 2
 text = "   Move 2"
 alignment = 0
 
-[node name="Move3" type="Button" parent="BottomBar/Attack"]
+[node name="Move3" type="Button" parent="BottomBar/MovesMenu"]
 custom_minimum_size = Vector2(0, 23)
 layout_mode = 2
 text = "   Move 3"
 alignment = 0
 
-[node name="Move4" type="Button" parent="BottomBar/Attack"]
+[node name="Move4" type="Button" parent="BottomBar/MovesMenu"]
 custom_minimum_size = Vector2(0, 23)
 layout_mode = 2
 text = "   Move 4
@@ -133,8 +133,8 @@ theme = ExtResource("2_p1qf1")
 text = "state:"
 
 [connection signal="pressed" from="BottomBar/Action/Attack" to="." method="_on_attack_pressed"]
-[connection signal="pressed" from="BottomBar/Attack/Move1" to="." method="_on_move_pressed" binds= [0]]
-[connection signal="pressed" from="BottomBar/Attack/Move2" to="." method="_on_move_pressed" binds= [1]]
-[connection signal="pressed" from="BottomBar/Attack/Move3" to="." method="_on_move_pressed" binds= [2]]
-[connection signal="pressed" from="BottomBar/Attack/Move4" to="." method="_on_move_pressed" binds= [3]]
+[connection signal="pressed" from="BottomBar/MovesMenu/Move1" to="." method="_on_move_pressed" binds= [0]]
+[connection signal="pressed" from="BottomBar/MovesMenu/Move2" to="." method="_on_move_pressed" binds= [1]]
+[connection signal="pressed" from="BottomBar/MovesMenu/Move3" to="." method="_on_move_pressed" binds= [2]]
+[connection signal="pressed" from="BottomBar/MovesMenu/Move4" to="." method="_on_move_pressed" binds= [3]]
 [connection signal="pressed" from="BottomBar/ContinueButton" to="." method="_on_info_button_pressed"]

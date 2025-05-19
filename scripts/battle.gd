@@ -13,7 +13,7 @@ func _ready() -> void:
 	_render_hp()
 
 	for i in %Player.moves.size():
-		%Attack.get_child(i).text = %Player.moves[i].move_name
+		%MovesMenu.get_child(i).text = %Player.moves[i].move_name
 
 	if battle_participants[turn_order_index].is_player:
 		_update_state(State.SELECTING_ACTION)
@@ -29,7 +29,7 @@ func _update_state(new_state: State):
 	if old_state == State.SELECTING_ACTION:
 		%Action.visible = false
 	elif old_state == State.SELECTING_ATTACK:
-		%Attack.visible = false
+		%MovesMenu.visible = false
 	elif old_state == State.PLAYER_ATTACK_INFO || old_state == State.ENEMY_ATTACK_INFO:
 		%ContinueButton.visible = false
 		_render_hp()
@@ -40,8 +40,8 @@ func _update_state(new_state: State):
 		%Action.visible = true
 		%Action.get_child(0).grab_focus()
 	elif state == State.SELECTING_ATTACK:
-		%Attack.visible = true
-		%Attack.get_child(0).grab_focus()
+		%MovesMenu.visible = true
+		%MovesMenu.get_child(0).grab_focus()
 	elif state == State.ENEMY_ATTACK:
 		%Enemy.use_move(0, %Player)
 		_update_state(State.ENEMY_ATTACK_INFO)
