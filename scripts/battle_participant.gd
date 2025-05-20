@@ -1,6 +1,9 @@
 extends Node2D
 class_name BattleParticipant
 
+enum AI_TYPE { RANDOM, AGGRESSIVE, HIGH_EV }
+@export var ai_type: AI_TYPE = AI_TYPE.HIGH_EV
+
 @export var character_name: String = "Player"
 @export var max_hp: int = 100:
 	set(new_health):
