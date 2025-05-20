@@ -125,7 +125,7 @@ func _display_pp_info(moveIndex: int) -> void:
 		%PPInfo.set_theme_type_variation("RedTextLabel")
 	else:
 		%PPInfo.set_theme_type_variation("NoBorderLabel")
-	%TypeInfo.text = Move.Types.keys()[move.type]
+	%TypeInfo.text = MovesData.Type.keys()[move.type]
 
 func _render_moves():
 	for i in %Player.moves.size():
