@@ -1,23 +1,13 @@
 extends Resource
 class_name MovesList
 
-const moves: Array[Dictionary] = [
-	{"name": "Tackle", "type": Move.Types.Human, "category": Move.MoveCategory.ATK, "acc": 90, "bp": 35, "pp": 30, "priority": 0},
-	{"name": "Flamethrower", "type": Move.Types.Fire, "category": Move.MoveCategory.SP_ATK, "acc": 100, "bp": 100, "pp": 15, "priority": 0},
-	{"name": "Bubblebeam", "type": Move.Types.Water, "category": Move.MoveCategory.SP_ATK, "acc": 100, "bp": 60, "pp": 20, "priority": 0},
-	{"name": "Fire Punch", "type": Move.Types.Fire, "category": Move.MoveCategory.SP_ATK, "acc": 95, "bp": 75, "pp": 10, "priority": 0}
-	]
+var moves: Array[Move]
 
-var moves_list: Array[Move] = []
+func _init():
+	_initialize_moves()
 
-func initialize_moves():
-	for move_object in moves:
-		var move = Move.new(move_object["name"], move_object["type"], move_object["category"], move_object["acc"], move_object["bp"], move_object["pp"], move_object["priority"])
-		moves_list.append(move)
-
-func _to_string() -> String:
-	var output = ""
-	for move in moves_list:
-		output += move._to_string()
-		output += "\n"
-	return output
+func _initialize_moves():
+	moves.append(Move.new("Tackle", Move.Types.Human, Move.MoveCategory.ATK, 90, 35, 30, false))
+	moves.append(Move.new("Flamethrower", Move.Types.Fire, Move.MoveCategory.SP_ATK, 100, 100, 15, false))
+	moves.append(Move.new("Bubblebeam", Move.Types.Water, Move.MoveCategory.SP_ATK, 100, 60, 20, false))
+	moves.append(Move.new("Fire Punch", Move.Types.Fire, Move.MoveCategory.SP_ATK, 95, 75, 10, false))

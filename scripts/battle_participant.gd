@@ -35,7 +35,6 @@ func _ready() -> void:
 	
 func _init():
 	# DEBUG: for now each battle participant's moves are set to copy the global moves_list
-	moves = []
 	for move in GameManager.moves_list:
 		moves.append(move.copy())
 
@@ -80,3 +79,4 @@ func _attack(move: Move, target: BattleParticipant, is_physical: bool) -> int:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+	
