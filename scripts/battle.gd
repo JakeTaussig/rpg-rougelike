@@ -87,12 +87,21 @@ func _on_move_selected(index: int, target: BattleParticipant) -> void:
 	var results = attacker.use_move(index, target)
 	var used_move_name = results[0].move_name
 	var damage = results[1]
-	var effectiveness_multiplier: float = attacker.get_effectiveness_modifier(attacker.moves[index], target)
 	if damage <= 0:
 		message = "%s missed %s!" % [attacker.character_name, used_move_name]
 	else:
+		var effectiveness_multiplier: float = attacker.get_effectiveness_modifier(attacker.moves[index], target)
 		message = "%s used %s on %s for %d damage!" % [attacker.character_name, used_move_name, target.character_name, damage]
-	_update_state(State.ATTACKING_INFO, message)
+		_update_state(State.ATTACKING_INFO, message)
+		await _wait_for_action("ui_accept")
+		if effectiveness_multiplier > 1.0:
+			message = "%s was super effective!" % used_move_name
+			_update_state(State.ATTACKING_INFO, message)
+			_wait_for_action("ui_accept")
+		elif effectiveness_multiplier < 1.0:
+			message = "%s was not very effective!" % used_move_name
+			_update_state(State.ATTACKING_INFO, message)
+			_wait_for_action("ui_accept")
 
 func _render_hp() -> void:
 	%EnemyPanel.text = "Enemy " + str(%Enemy.hp) + " / " + str(%Enemy.max_hp)
@@ -135,3 +144,11 @@ func _render_moves():
 			%MovesMenu.get_child(i).set_theme_type_variation("DisabledButton")
 		else:
 			%MovesMenu.get_child(i).set_theme_type_variation("Button")
+			
+func _wait_for_action(action: String):
+	await get_tree().process_frame
+	while true:
+		await get_tree().process_frame
+		if Input.is_action_just_pressed(action):
+			break
+	
