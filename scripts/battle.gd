@@ -51,7 +51,7 @@ func _update_state(new_state: State, label_text: String = ""):
 		%MovesMenu.get_child(lastFocusedMoveIndex).grab_focus()
 	elif state == State.ENEMY_ATTACK:
 		var enemy = battle_participants[turn_order_index]
-		var enemyMoveIdx = _select_enemy_move(enemy)
+		var enemyMoveIdx = enemy.select_move()
 		if enemyMoveIdx != -1:
 			_on_move_selected(enemyMoveIdx, %Player)
 		else:
@@ -137,35 +137,3 @@ func _render_moves():
 			%MovesMenu.get_child(i).set_theme_type_variation("DisabledButton")
 		else:
 			%MovesMenu.get_child(i).set_theme_type_variation("Button")
-
-func _select_enemy_move(enemy: BattleParticipant) -> int:
-	var available_moves = []
-	for i in %Enemy.moves.size():
-		if %Enemy.moves[i].pp > 0:
-			available_moves.append(i)
-	if available_moves.is_empty():
-		return -1
-
-	match enemy.ai_type:
-		BattleParticipant.AI_TYPE.RANDOM:
-			return available_moves.pick_random()
-		BattleParticipant.AI_TYPE.AGGRESSIVE:
-			var best_move = available_moves[0]
-			var max_power = 0
-			for idx in available_moves:
-				if enemy.moves[idx].base_power > max_power:
-					max_power = enemy.moves[idx].base_power
-					best_move = idx
-			return best_move
-		BattleParticipant.AI_TYPE.HIGH_EV:
-			var best_move = available_moves[0]
-			var max_ev = 0
-			for idx in available_moves:
-				var move = enemy.moves[idx]
-				var move_ev = move.base_power * move.acc
-				if move_ev > max_ev:
-					max_ev = move_ev
-					best_move = idx
-			return best_move
-
-	return available_moves.pick_random()
