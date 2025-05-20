@@ -34,22 +34,26 @@ func _ready() -> void:
 	pass
 	
 func _init():
-	moves = GameManager.moves_list
+	# DEBUG: for now each battle participant's moves are set to copy the global moves_list
+	moves = []
+	for move in GameManager.moves_list:
+		moves.append(move.copy())
+
 	
 func use_move(index: int, target: BattleParticipant) -> Array:
 	var move = moves[index]
+	move.pp -= 1
 	var attack_hit: bool = _does_attack_hit(move.acc)
 	if attack_hit:
+		var damage = 0
 		if move.category == Move.MoveCategory.ATK:
-			var damage = max(1, _attack(move, target, 1))
+			damage = max(1, _attack(move, target, 1))
 			return [move, damage]
 		elif move.category == Move.MoveCategory.SP_ATK:
-			var damage = max(1, _attack(move, target, 0))
+			damage = max(1, _attack(move, target, 0))
 			return [move, damage]
-	else:
-		return [move, 0]
-	# Placeholder
-	return []
+	return [move, 0]
+
 	
 func _does_attack_hit(accuracy: int):
 	accuracy = clamp(accuracy, 0, 100)
@@ -57,7 +61,6 @@ func _does_attack_hit(accuracy: int):
 	# Generates a number between 1 and 100
 	var roll = randi() % 100 + 1
 	return roll <= accuracy
-	
 	
 func increment_health(value: int) -> void:
 	hp += value

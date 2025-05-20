@@ -11,6 +11,7 @@ func _ready() -> void:
 	# Called once to seed the random number generator
 	randomize()
 	_init_battle_participants()
+	_init_moves()
 	_render_hp()
 	for i in %Player.moves.size():
 		%MovesMenu.get_child(i).text = %Player.moves[i].move_name
@@ -19,18 +20,17 @@ func _ready() -> void:
 	else:
 		_update_state(State.ENEMY_ATTACK)
 
-# The label_text can be turned into an Array of strings if we end up needing to pass multiple messages. 
+# The label_text can be turned into an Array of strings if we end up needing to pass multiple messages.
 func _update_state(new_state: State, label_text: String = ""):
 	var old_state = state
 	state = new_state
-
 	%StateDisplay.text = State.keys()[state]
 
 	if old_state == State.SELECTING_ACTION:
 		%PlayerPrompt.visible = false
 		%Action.visible = false
 	elif old_state == State.SELECTING_ATTACK:
-		%MovesMenu.visible = false
+		%Moves.visible = false
 	elif old_state == State.ATTACKING_INFO:
 		%BattleStatus.visible = false
 		if %Enemy.hp <= 0:
@@ -48,7 +48,8 @@ func _update_state(new_state: State, label_text: String = ""):
 		%Action.visible = true
 		%Action.get_child(0).grab_focus()
 	elif state == State.SELECTING_ATTACK:
-		%MovesMenu.visible = true
+		_render_moves()
+		%Moves.visible = true
 		%MovesMenu.get_child(0).grab_focus()
 	elif state == State.ENEMY_ATTACK:
 		# TODO: Randomly select enemy move / implement smart AI
@@ -70,6 +71,11 @@ func _init_battle_participants():
 		battle_participants.append(enemy)
 	battle_participants.append(%Player)
 	battle_participants.sort_custom(func(a, b): return a.speed - b.speed)
+
+func _init_moves():
+	for i in %Player.moves.size():
+		%MovesMenu.get_child(i).text = %Player.moves[i].move_name
+		%MovesMenu.get_child(i).focus_entered.connect(func(): _display_pp_info(%Player.moves[i]))
 
 func _on_move_pressed(index: int) -> void:
 	_on_move_selected(index, %Enemy)
@@ -109,3 +115,15 @@ func _increment_turn_order():
 func _on_attack_pressed() -> void:
 	if state == State.SELECTING_ACTION:
 		_update_state(State.SELECTING_ATTACK)
+
+func _display_pp_info(move: Move) -> void:
+	%PPInfo.text = "%d / %d" % [move.pp, move.max_pp]
+	%TypeInfo.text = Move.Types.keys()[move.type]
+
+func _render_moves():
+	for i in %Player.moves.size():
+		var move = %Player.moves[i]
+		if move.pp <= 0:
+			%MovesMenu.get_child(i).disabled = true
+		else:
+			%MovesMenu.get_child(i).disabled = false
