@@ -76,6 +76,7 @@ func _init_moves():
 	for i in %Player.moves.size():
 		%MovesMenu.get_child(i).text = %Player.moves[i].move_name
 		%MovesMenu.get_child(i).focus_entered.connect(func(): _display_pp_info(%Player.moves[i]))
+		%MovesMenu.get_child(i).mouse_entered.connect(%MovesMenu.get_child(i).grab_focus)
 
 func _on_move_pressed(index: int) -> void:
 	var move = %Player.moves[index]
