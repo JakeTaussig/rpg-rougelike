@@ -1,5 +1,4 @@
 extends Node2D
-var moves_list = MovesList.new()
 var turn: int = 0
 var turn_order_index: int = 0
 var battle_participants = []
