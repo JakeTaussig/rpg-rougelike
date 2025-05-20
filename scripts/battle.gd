@@ -50,8 +50,12 @@ func _update_state(new_state: State, label_text: String = ""):
 		%Moves.visible = true
 		%MovesMenu.get_child(lastFocusedMoveIndex).grab_focus()
 	elif state == State.ENEMY_ATTACK:
-		# TODO: Randomly select enemy move / implement smart AI
-		_on_move_selected(0, %Player)
+		var enemy = battle_participants[turn_order_index]
+		var enemyMoveIdx = enemy.select_move()
+		if enemyMoveIdx != -1:
+			_on_move_selected(enemyMoveIdx, %Player)
+		else:
+			_update_state(State.ATTACKING_INFO, "%s can't attack!" % enemy.character_name)
 	elif state == State.ATTACKING_INFO:
 		_render_hp()
 		%BattleStatus.visible = true
@@ -64,11 +68,10 @@ func _update_state(new_state: State, label_text: String = ""):
 
 func _init_battle_participants():
 	for enemy in %Enemies.get_children():
-		enemy.speed = 20
 		enemy.is_player = false
 		battle_participants.append(enemy)
 	battle_participants.append(%Player)
-	battle_participants.sort_custom(func(a, b): return a.speed - b.speed)
+	battle_participants.sort_custom(func(a, b): return a.speed > b.speed)
 
 func _init_moves():
 	for i in %Player.moves.size():

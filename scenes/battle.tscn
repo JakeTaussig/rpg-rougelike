@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=7 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_p1qf1"]
 [ext_resource type="StyleBox" uid="uid://dwb68ajbfeqp0" path="res://assets/styles/normal_sbf.tres" id="4_lpir7"]
 [ext_resource type="PackedScene" uid="uid://dspy5d5yn1fxj" path="res://scenes/battle_participant.tscn" id="5_lpir7"]
+[ext_resource type="Script" uid="uid://cstx4ogvno1si" path="res://scripts/enemy.gd" id="6_6vh42"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_a12nh")
@@ -176,6 +177,8 @@ unique_name_in_owner = true
 [node name="Enemy" parent="Enemies" instance=ExtResource("5_lpir7")]
 unique_name_in_owner = true
 position = Vector2(192, 32)
+script = ExtResource("6_6vh42")
+ai_type = 2
 character_name = "Pink Box"
 max_hp = 200
 hp = 200

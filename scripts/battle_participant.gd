@@ -92,4 +92,3 @@ func get_effectiveness_modifier(move: Move, defender: BattleParticipant) -> floa
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-	
