@@ -64,11 +64,10 @@ func _update_state(new_state: State, label_text: String = ""):
 
 func _init_battle_participants():
 	for enemy in %Enemies.get_children():
-		enemy.speed = 20
 		enemy.is_player = false
 		battle_participants.append(enemy)
 	battle_participants.append(%Player)
-	battle_participants.sort_custom(func(a, b): return a.speed - b.speed)
+	battle_participants.sort_custom(func(a, b): return a.speed > b.speed)
 
 func _init_moves():
 	for i in %Player.moves.size():
