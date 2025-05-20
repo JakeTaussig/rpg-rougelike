@@ -15,6 +15,7 @@ const TYPES = {
 	Type.Light: 6
 }
 
+# Row = Attacker, Col = Defender
 const TYPE_CHART = [
 # Human Fire  Water Grass Earth Dark  Light
 [ 1.0,  1.0,  1.0,  1.0,  1.0,  1.0,  1.0 ], # Human
