@@ -4,6 +4,7 @@ var turn_order_index: int = 0
 var battle_participants = []
 enum State {SELECTING_ACTION, SELECTING_ATTACK, ENEMY_ATTACK, ATTACKING_INFO, GAME_END}
 var state: State = State.SELECTING_ACTION
+var lastFocusedMoveIndex: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,8 +13,6 @@ func _ready() -> void:
 	_init_battle_participants()
 	_init_moves()
 	_render_hp()
-	for i in %Player.moves.size():
-		%MovesMenu.get_child(i).text = %Player.moves[i].move_name
 	if battle_participants[turn_order_index].is_player:
 		_update_state(State.SELECTING_ACTION, "What will %s do?" % %Player.character_name)
 	else:
@@ -49,7 +48,7 @@ func _update_state(new_state: State, label_text: String = ""):
 	elif state == State.SELECTING_ATTACK:
 		_render_moves()
 		%Moves.visible = true
-		%MovesMenu.get_child(0).grab_focus()
+		%MovesMenu.get_child(lastFocusedMoveIndex).grab_focus()
 	elif state == State.ENEMY_ATTACK:
 		# TODO: Randomly select enemy move / implement smart AI
 		_on_move_selected(0, %Player)
@@ -74,10 +73,13 @@ func _init_battle_participants():
 func _init_moves():
 	for i in %Player.moves.size():
 		%MovesMenu.get_child(i).text = %Player.moves[i].move_name
-		%MovesMenu.get_child(i).focus_entered.connect(func(): _display_pp_info(%Player.moves[i]))
+		%MovesMenu.get_child(i).focus_entered.connect(func(): _display_pp_info(i))
+		%MovesMenu.get_child(i).mouse_entered.connect(%MovesMenu.get_child(i).grab_focus)
 
 func _on_move_pressed(index: int) -> void:
-	_on_move_selected(index, %Enemy)
+	var move = %Player.moves[index]
+	if move.pp > 0:
+		_on_move_selected(index, %Enemy)
 	
 func _on_move_selected(index: int, target: BattleParticipant) -> void:
 	var message = ""
@@ -115,14 +117,20 @@ func _on_attack_pressed() -> void:
 	if state == State.SELECTING_ACTION:
 		_update_state(State.SELECTING_ATTACK)
 
-func _display_pp_info(move: Move) -> void:
+func _display_pp_info(moveIndex: int) -> void:
+	lastFocusedMoveIndex = moveIndex
+	var move = %Player.moves[moveIndex]
 	%PPInfo.text = "%d / %d" % [move.pp, move.max_pp]
+	if move.pp <= 0:
+		%PPInfo.set_theme_type_variation("RedTextLabel")
+	else:
+		%PPInfo.set_theme_type_variation("NoBorderLabel")
 	%TypeInfo.text = Move.Types.keys()[move.type]
 
 func _render_moves():
 	for i in %Player.moves.size():
 		var move = %Player.moves[i]
 		if move.pp <= 0:
-			%MovesMenu.get_child(i).disabled = true
+			%MovesMenu.get_child(i).set_theme_type_variation("DisabledButton")
 		else:
-			%MovesMenu.get_child(i).disabled = false
+			%MovesMenu.get_child(i).set_theme_type_variation("Button")
