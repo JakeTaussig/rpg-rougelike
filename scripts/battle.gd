@@ -78,7 +78,9 @@ func _init_moves():
 		%MovesMenu.get_child(i).focus_entered.connect(func(): _display_pp_info(%Player.moves[i]))
 
 func _on_move_pressed(index: int) -> void:
-	_on_move_selected(index, %Enemy)
+	var move = %Player.moves[index]
+	if move.pp > 0:
+		_on_move_selected(index, %Enemy)
 	
 func _on_move_selected(index: int, target: BattleParticipant) -> void:
 	var message = ""
@@ -124,6 +126,6 @@ func _render_moves():
 	for i in %Player.moves.size():
 		var move = %Player.moves[i]
 		if move.pp <= 0:
-			%MovesMenu.get_child(i).disabled = true
+			%MovesMenu.get_child(i).set_theme_type_variation("DisabledButton")
 		else:
-			%MovesMenu.get_child(i).disabled = false
+			%MovesMenu.get_child(i).set_theme_type_variation("Button")
