@@ -13,8 +13,6 @@ func _ready() -> void:
 	_init_battle_participants()
 	_init_moves()
 	_render_hp()
-	for i in %Player.moves.size():
-		%MovesMenu.get_child(i).text = %Player.moves[i].move_name
 	if battle_participants[turn_order_index].is_player:
 		_update_state(State.SELECTING_ACTION, "What will %s do?" % %Player.character_name)
 	else:
