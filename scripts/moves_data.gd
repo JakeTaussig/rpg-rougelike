@@ -17,7 +17,7 @@ const TYPES = {
 
 # Row = Attacker, Col = Defender
 const TYPE_CHART = [
-# Human Fire  Water Grass Earth Dark  Light
+# Human Fire  Water Plant Earth Dark  Light
 [ 1.0,  1.0,  1.0,  1.0,  1.0,  1.0,  1.0 ], # Human
 [ 1.0,  1.0,  0.5,  2.0,  1.0,  0.5,  2.0 ], # Fire
 [ 1.0,  2.0,  1.0,  0.5,  2.0,  1.0,  0.5 ], # Water
