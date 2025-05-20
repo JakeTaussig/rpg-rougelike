@@ -8,11 +8,14 @@
 
 [resource]
 Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_disabled_color = Color(0.352941, 0.411765, 0.533333, 1)
 Button/colors/font_focus_color = Color(0.172549, 0.909804, 0.960784, 1)
 Button/colors/font_hover_color = Color(0.172549, 0.909804, 0.960784, 1)
+Button/colors/icon_disabled_color = Color(0.721569, 0.435294, 0.313726, 1)
 Button/constants/h_separation = 4
 Button/font_sizes/font_size = 9
 Button/fonts/font = ExtResource("1_pgokm")
+Button/styles/disabled = ExtResource("2_7mpy8")
 Button/styles/focus = ExtResource("2_7mpy8")
 Button/styles/hover = ExtResource("2_7mpy8")
 Button/styles/normal = ExtResource("3_6fsoa")

@@ -46,6 +46,7 @@ func _update_state(new_state: State, label_text: String = ""):
 		%Action.visible = true
 		%Action.get_child(0).grab_focus()
 	elif state == State.SELECTING_ATTACK:
+		_render_moves()
 		%Moves.visible = true
 		%MovesMenu.get_child(0).grab_focus()
 	elif state == State.ENEMY_ATTACK:
@@ -111,3 +112,11 @@ func _on_attack_pressed() -> void:
 func _display_pp_info(move: Move) -> void:
 	%PPInfo.text = "%d / %d" % [move.pp, move.max_pp]
 	%TypeInfo.text = Move.Types.keys()[move.type]
+
+func _render_moves():
+	for i in %Player.moves.size():
+		var move = %Player.moves[i]
+		if move.pp <= 0:
+			%MovesMenu.get_child(i).disabled = true
+		else:
+			%MovesMenu.get_child(i).disabled = false
