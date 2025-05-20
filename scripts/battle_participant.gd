@@ -26,6 +26,7 @@ class_name BattleParticipant
 @export var luck: int = 10:
 	set(new_luck):
 		luck = max(1, new_luck)
+@export var type: MovesData.Type = MovesData.Type.Human
 var is_player = true
 var moves: Array[Move] = []
 
@@ -38,7 +39,6 @@ func _init():
 	for move in GameManager.moves_list:
 		moves.append(move.copy())
 
-	
 func use_move(index: int, target: BattleParticipant) -> Array:
 	var move = moves[index]
 	move.pp -= 1
@@ -53,7 +53,6 @@ func use_move(index: int, target: BattleParticipant) -> Array:
 			return [move, damage]
 	return [move, 0]
 
-	
 func _does_attack_hit(accuracy: int):
 	accuracy = clamp(accuracy, 0, 100)
 	
@@ -67,14 +66,23 @@ func increment_health(value: int) -> void:
 func _attack(move: Move, target: BattleParticipant, is_physical: bool) -> int:
 	var power = move.base_power
 	var damage = 0
+	var effectiveness_modifier = get_type_effectiveness(move, self, target)
 	if is_physical:
 		power = power * atk
 		damage = power / target.def
+		damage *= effectiveness_modifier
 	else:
 		power = power * sp_atk
 		damage = power / target.sp_def
+		damage *= effectiveness_modifier
 	target.hp -= damage
 	return damage
+	
+func get_type_effectiveness(move: Move, attacker: BattleParticipant, defender: BattleParticipant) -> float:
+	var same_type_attack_bonus: float = 1.5 if attacker.type == move.type else 1.0
+	var atk_idx = MovesData.TYPES[move.type]
+	var def_idx = MovesData.TYPES[defender.type]
+	return MovesData.TYPE_CHART[atk_idx][def_idx] * same_type_attack_bonus
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

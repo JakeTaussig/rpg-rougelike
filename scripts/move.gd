@@ -1,12 +1,10 @@
 class_name Move extends Resource
 
-enum Types {Human, Fire, Water, Plant, Plasma, Dark, Light}
-
 enum MoveCategory {ATK, SP_ATK, EFFECT, STAT_MODIFIER}
 
 var move_name = "Bubblebeam"
 
-var type: Types = Types.Human
+var type: MovesData.Type = MovesData.Type.Human
 
 var category: MoveCategory = MoveCategory.ATK
 
@@ -32,7 +30,7 @@ var max_pp: int = 10:
 # 0 = Normal, 1 = Priority
 var priority: bool = 0
 
-func _init(_name: String, _type: Types, _category:  MoveCategory, _acc: int, _bp: int, _pp: int, _priority: bool):
+func _init(_name: String, _type: MovesData.Type, _category:  MoveCategory, _acc: int, _bp: int, _pp: int, _priority: bool):
 	move_name = _name
 	type = _type
 	category = category
