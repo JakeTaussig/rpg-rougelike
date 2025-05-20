@@ -42,20 +42,18 @@ func _init():
 	
 func use_move(index: int, target: BattleParticipant) -> Array:
 	var move = moves[index]
-  move.pp -= 1
+	move.pp -= 1
 	var attack_hit: bool = _does_attack_hit(move.acc)
 	if attack_hit:
-    var damage = 0
+		var damage = 0
 		if move.category == Move.MoveCategory.ATK:
 			damage = max(1, _attack(move, target, 1))
 			return [move, damage]
 		elif move.category == Move.MoveCategory.SP_ATK:
 			damage = max(1, _attack(move, target, 0))
 			return [move, damage]
-	else:
-		return [move, 0]
-	# Placeholder
-	return []
+	return [move, 0]
+
 	
 func _does_attack_hit(accuracy: int):
 	accuracy = clamp(accuracy, 0, 100)
