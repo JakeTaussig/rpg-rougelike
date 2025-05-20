@@ -82,11 +82,12 @@ func _on_move_pressed(index: int) -> void:
 		_on_move_selected(index, %Enemy)
 	
 func _on_move_selected(index: int, target: BattleParticipant) -> void:
-	var message = ""
-	var attacker = battle_participants[turn_order_index]
+	var message: String = ""
+	var attacker: BattleParticipant = battle_participants[turn_order_index]
 	var results = attacker.use_move(index, target)
 	var used_move_name = results[0].move_name
 	var damage = results[1]
+	var effectiveness_multiplier: float = attacker.get_effectiveness_modifier(attacker.moves[index], target)
 	if damage <= 0:
 		message = "%s missed %s!" % [attacker.character_name, used_move_name]
 	else:

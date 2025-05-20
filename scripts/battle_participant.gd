@@ -29,6 +29,7 @@ class_name BattleParticipant
 @export var type: MovesData.Type = MovesData.Type.Human
 var is_player = true
 var moves: Array[Move] = []
+enum effectiveness { NORMAL, SUPER_EFFECTIVE, NOT_VERY_EFFECTIVE}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -66,7 +67,7 @@ func increment_health(value: int) -> void:
 func _attack(move: Move, target: BattleParticipant, is_physical: bool) -> int:
 	var power = move.base_power
 	var damage = 0
-	var effectiveness_modifier = get_type_effectiveness(move, self, target)
+	var effectiveness_modifier = get_move_effectiveness(move, target)
 	if is_physical:
 		power = power * atk
 		damage = power / target.def
@@ -78,11 +79,17 @@ func _attack(move: Move, target: BattleParticipant, is_physical: bool) -> int:
 	target.hp -= damage
 	return damage
 	
-func get_type_effectiveness(move: Move, attacker: BattleParticipant, defender: BattleParticipant) -> float:
-	var same_type_attack_bonus: float = 1.5 if attacker.type == move.type else 1.0
+func get_move_effectiveness(move: Move,  defender: BattleParticipant) -> float:
+	var same_type_attack_bonus: float = 1.5 if self.type == move.type else 1.0
+	var base_modifier = get_effectiveness_modifier(move, defender)
+	var move_effectiveness = effectiveness.NORMAL if base_modifier == 1.0 else effectiveness.SUPER_EFFECTIVE if base_modifier > 1.0 else effectiveness.NOT_VERY_EFFECTIVE
+	return base_modifier * same_type_attack_bonus
+	
+func get_effectiveness_modifier(move: Move, defender: BattleParticipant) -> float:
 	var atk_idx = MovesData.TYPES[move.type]
 	var def_idx = MovesData.TYPES[defender.type]
-	return MovesData.TYPE_CHART[atk_idx][def_idx] * same_type_attack_bonus
+	var base_modifier = MovesData.TYPE_CHART[atk_idx][def_idx]
+	return base_modifier
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
