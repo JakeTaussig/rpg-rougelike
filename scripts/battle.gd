@@ -121,6 +121,10 @@ func _on_attack_pressed() -> void:
 
 func _display_pp_info(move: Move) -> void:
 	%PPInfo.text = "%d / %d" % [move.pp, move.max_pp]
+	if move.pp <= 0:
+		%PPInfo.set_theme_type_variation("RedTextLabel")
+	else:
+		%PPInfo.set_theme_type_variation("NoBorderLabel")
 	%TypeInfo.text = Move.Types.keys()[move.type]
 
 func _render_moves():

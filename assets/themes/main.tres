@@ -28,4 +28,6 @@ Label/styles/normal = ExtResource("3_6fsoa")
 NoBorderLabel/base_type = &"Label"
 NoBorderLabel/styles/normal = SubResource("StyleBoxEmpty_7mpy8")
 Panel/styles/panel = ExtResource("3_6fsoa")
+RedTextLabel/base_type = &"NoBorderLabel"
+RedTextLabel/colors/font_color = Color(0.635294, 0.14902, 0.2, 1)
 VBoxContainer/constants/separation = 4
