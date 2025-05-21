@@ -32,6 +32,8 @@ func _update_state(new_state: State, messages: Array = []):
 		%Moves.visible = false
 		
 	elif old_state == State.ATTACKING_INFO:
+		%BattleStatus.visible = false
+		%ContinueButton.release_focus()
 		if %Enemy.hp <= 0:
 			%BattleStatus.text = "%s defeated %s" % [%Player.character_name, %Enemy.character_name]
 			_update_state(State.GAME_END)
@@ -62,7 +64,6 @@ func _update_state(new_state: State, messages: Array = []):
 			
 	elif state == State.ATTACKING_INFO:
 		_render_hp()
-		%BattleStatus.visible = true
 		var index = 0
 		for message in messages:
 			index += 1
@@ -70,11 +71,10 @@ func _update_state(new_state: State, messages: Array = []):
 			%BattleStatus.text = message
 			if not index == messages.size():
 				await _wait_for_action("ui_accept")
-		%ContinueButton.visible = true
+		%BattleStatus.visible = true
 		%ContinueButton.grab_focus()
 		
 	elif state == State.INCREMENT_TURN:
-		%ContinueButton.release_focus()
 		turn_order_index += 1
 		if turn_order_index == battle_participants.size():
 			turn_order_index = 0
