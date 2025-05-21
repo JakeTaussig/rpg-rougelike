@@ -39,6 +39,7 @@ func _init(_name: String, _type: MovesData.Type, _category:  MoveCategory, _acc:
 	max_pp = _pp
 	priority = _priority
 	status_effect = _status_effect
+	status_effect_chance = _status_effect_chance
 	
 func copy() -> Move:
 	return Move.new(move_name, type, category, acc, base_power, pp, priority, status_effect)

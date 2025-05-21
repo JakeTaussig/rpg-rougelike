@@ -23,6 +23,7 @@ func _update_state(new_state: State, label_text: String = ""):
 	var old_state = state
 	state = new_state
 	%StateDisplay.text = State.keys()[state]
+	%TurnDisplay.text = "trn: %s idx: %s" % [turn, turn_order_index]
 	if old_state == State.SELECTING_ACTION:
 		%PlayerPrompt.visible = false
 		%Action.visible = false
