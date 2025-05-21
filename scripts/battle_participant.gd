@@ -83,10 +83,7 @@ func _roll_and_apply_status_effect(move: Move, target: BattleParticipant):
 	# Only attempt to apply a status effect if one is not already applied
 	if target.status_effect == MovesData.StatusEffect.NONE:
 		var status_applied = _does_move_hit(move.status_effect_chance)
-		print("logging status_applied", status_applied)
-		print("logging move.status_effect_chance", move.status_effect_chance)
 		if status_applied:
-			print("applying status to target")
 			target.status_effect = move.status_effect
 		
 func get_move_effectiveness(move: Move,  defender: BattleParticipant) -> float:
