@@ -131,7 +131,7 @@ func _on_move_selected(index: int, target: BattleParticipant) -> void:
 	# This should only be status effects for now
 	else:
 		var status_effect_string = String(MovesData.StatusEffect.find_key(target.status_effect)).to_lower()
-		messages.append("%s applied %s on %s!" % [attacker.character_name, status_effect_string, target.character_name])
+		messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
 		
 	_update_state(State.ATTACKING_INFO, messages)
 		
