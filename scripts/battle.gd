@@ -15,8 +15,10 @@ func _ready() -> void:
 	_render_hp()
 	if battle_participants[turn_order_index].is_player:
 		_update_state(State.SELECTING_ACTION, ["What will %s do?" % %Player.character_name])
+		return
 	else:
 		_update_state(State.ENEMY_ATTACK)
+		return
 
 # The label_text can be turned into an Array of strings if we end up needing to pass multiple messages.
 func _update_state(new_state: State, messages: Array = []):
@@ -59,8 +61,10 @@ func _update_state(new_state: State, messages: Array = []):
 		var enemyMoveIdx = enemy.select_move()
 		if enemyMoveIdx != -1:
 			_on_move_selected(enemyMoveIdx, %Player)
+			return
 		else:
 			_update_state(State.ATTACKING_INFO, ["%s can't attack!" % enemy.character_name])
+			return
 			
 	elif state == State.ATTACKING_INFO:
 		_render_hp()
@@ -81,8 +85,10 @@ func _update_state(new_state: State, messages: Array = []):
 			turn += 1
 		if battle_participants[turn_order_index].is_player:
 			_update_state(State.SELECTING_ACTION, ["What will %s do?" % %Player.character_name])
+			return
 		else:
 			_update_state(State.ENEMY_ATTACK)
+			return
 			
 	elif state == State.GAME_END:
 		%BattleStatus.visible = true
@@ -142,8 +148,8 @@ func _render_hp() -> void:
 func _on_continue_button_pressed() -> void:
 	if state == State.ATTACKING_INFO:
 		_update_state(State.INCREMENT_TURN)
+		return
 	if state == State.GAME_END:
-		await _wait_for_action("ui_accept")
 		get_tree().quit()
 
 func _on_attack_pressed() -> void:
