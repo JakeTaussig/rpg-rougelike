@@ -42,7 +42,6 @@ func _update_state(new_state: State, messages: Array = []):
 			return
 			
 	if state == State.SELECTING_ACTION:
-		%Attack.disabled = false
 		%PlayerPrompt.visible = true
 		%PlayerPrompt.text = messages[0]
 		%Action.visible = true
@@ -62,7 +61,6 @@ func _update_state(new_state: State, messages: Array = []):
 			_update_state(State.ATTACKING_INFO, ["%s can't attack!" % enemy.character_name])
 			
 	elif state == State.ATTACKING_INFO:
-		%Attack.disabled = true
 		_render_hp()
 		%BattleStatus.visible = true
 		var index = 0
