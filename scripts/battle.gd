@@ -5,6 +5,8 @@ var battle_participants = []
 enum State {SELECTING_ACTION, SELECTING_ATTACK, ENEMY_ATTACK, ATTACKING_INFO, INCREMENT_TURN, GAME_END}
 var state: State = State.SELECTING_ACTION
 var lastFocusedMoveIndex: int = 0
+var message_index: int = 0
+var messages: Array = []
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,7 +23,7 @@ func _ready() -> void:
 		return
 
 # The label_text can be turned into an Array of strings if we end up needing to pass multiple messages.
-func _update_state(new_state: State, messages: Array = []):
+func _update_state(new_state: State, _messages: Array = []):
 	var old_state = state
 	state = new_state
 	%StateDisplay.text = State.keys()[state]
@@ -36,6 +38,7 @@ func _update_state(new_state: State, messages: Array = []):
 	elif old_state == State.ATTACKING_INFO:
 		%BattleStatus.visible = false
 		%ContinueButton.release_focus()
+		messages = []
 		if %Enemy.hp <= 0:
 			%BattleStatus.text = "%s defeated %s" % [%Player.character_name, %Enemy.character_name]
 			_update_state(State.GAME_END)
@@ -47,7 +50,7 @@ func _update_state(new_state: State, messages: Array = []):
 			
 	if state == State.SELECTING_ACTION:
 		%PlayerPrompt.visible = true
-		%PlayerPrompt.text = messages[0]
+		%PlayerPrompt.text = _messages[0]
 		%Action.visible = true
 		%Action.get_child(0).grab_focus()
 		
@@ -68,15 +71,11 @@ func _update_state(new_state: State, messages: Array = []):
 			
 	elif state == State.ATTACKING_INFO:
 		_render_hp()
-		var index = 0
-		for message in messages:
-			index += 1
-			%BattleStatus.visible = true
-			%BattleStatus.text = message
-			if not index == messages.size():
-				await _wait_for_action("ui_accept")
 		%BattleStatus.visible = true
 		%ContinueButton.grab_focus()
+		messages = _messages
+		message_index = 0
+		%BattleStatus.text = _messages[message_index]
 		
 	elif state == State.INCREMENT_TURN:
 		turn_order_index += 1
@@ -116,30 +115,30 @@ func _on_move_pressed(index: int) -> void:
 		_on_move_selected(index, %Enemy)
 	
 func _on_move_selected(index: int, target: BattleParticipant) -> void:
-	var messages = []
+	var _messages = []
 	var attacker: BattleParticipant = battle_participants[turn_order_index]
 	var results = attacker.use_move(index, target)
 	var used_move_name = results["move"].move_name
 	var damage = results["damage"]
 	var move_hit = results["move_hit"]
 	if not move_hit:
-		messages.append("%s missed %s!" % [attacker.character_name, used_move_name])
+		_messages.append("%s missed %s!" % [attacker.character_name, used_move_name])
 	elif damage > 0:
 		var effectiveness_multiplier: float = attacker.get_effectiveness_modifier(attacker.moves[index], target)
-		messages.append("%s used %s on %s for %d damage!" % [attacker.character_name, used_move_name, target.character_name, damage])
+		_messages.append("%s used %s on %s for %d damage!" % [attacker.character_name, used_move_name, target.character_name, damage])
 
 		if effectiveness_multiplier > 1.0:
-			messages.append("%s was super effective!" % used_move_name)
+			_messages.append("%s was super effective!" % used_move_name)
 
 		elif effectiveness_multiplier < 1.0:
-			messages.append("%s was not very effective!" % used_move_name)
+			_messages.append("%s was not very effective!" % used_move_name)
 
 	# This should only be status effects for now
 	else:
 		var status_effect_string = String(MovesData.StatusEffect.find_key(target.status_effect)).to_lower()
-		messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
+		_messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
 		
-	_update_state(State.ATTACKING_INFO, messages)
+	_update_state(State.ATTACKING_INFO, _messages)
 		
 func _render_hp() -> void:
 	%EnemyPanel.text = "Enemy " + str(%Enemy.hp) + " / " + str(%Enemy.max_hp)
@@ -147,9 +146,13 @@ func _render_hp() -> void:
 
 func _on_continue_button_pressed() -> void:
 	if state == State.ATTACKING_INFO:
-		_update_state(State.INCREMENT_TURN)
-		return
-	if state == State.GAME_END:
+		message_index += 1
+		if message_index < messages.size():
+			%BattleStatus.text = messages[message_index]
+		else:
+			_update_state(State.INCREMENT_TURN)
+			return
+	elif state == State.GAME_END:
 		get_tree().quit()
 
 func _on_attack_pressed() -> void:
@@ -173,10 +176,3 @@ func _render_moves():
 			%MovesMenu.get_child(i).set_theme_type_variation("DisabledButton")
 		else:
 			%MovesMenu.get_child(i).set_theme_type_variation("Button")
-			
-func _wait_for_action(action: String):
-	await get_tree().process_frame
-	while true:
-		await get_tree().process_frame
-		if Input.is_action_just_pressed(action):
-			break
