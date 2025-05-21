@@ -26,9 +26,10 @@ class_name BattleParticipant
 @export var luck: int = 10:
 	set(new_luck):
 		luck = max(1, new_luck)
-@export var type: MovesData.Type = MovesData.Type.Human
+@export var type: MovesData.Type = MovesData.Type.HUMAN
 var is_player = true
 var moves: Array[Move] = []
+var status_effect = MovesData.StatusEffect.NONE
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,21 +40,21 @@ func _init():
 	for move in GameManager.moves_list:
 		moves.append(move.copy())
 
-func use_move(index: int, target: BattleParticipant) -> Array:
+func use_move(index: int, target: BattleParticipant) -> Dictionary:
 	var move = moves[index]
 	move.pp -= 1
-	var attack_hit: bool = _does_attack_hit(move.acc)
-	if attack_hit:
-		var damage = 0
+	var move_hit: bool = _does_move_hit(move.acc)
+	var damage = 0
+	if move_hit:
 		if move.category == Move.MoveCategory.ATK:
 			damage = max(1, _attack(move, target, 1))
-			return [move, damage]
 		elif move.category == Move.MoveCategory.SP_ATK:
 			damage = max(1, _attack(move, target, 0))
-			return [move, damage]
-	return [move, 0]
+		if move.status_effect != MovesData.StatusEffect.NONE:
+			_roll_and_apply_status_effect(move, target)
+	return {"move": move, "damage": damage, "move_hit": move_hit}
 
-func _does_attack_hit(accuracy: int):
+func _does_move_hit(accuracy: int) -> bool:
 	accuracy = clamp(accuracy, 0, 100)
 	
 	# Generates a number between 1 and 100
@@ -78,6 +79,16 @@ func _attack(move: Move, target: BattleParticipant, is_physical: bool) -> int:
 	target.hp -= damage
 	return damage
 	
+func _roll_and_apply_status_effect(move: Move, target: BattleParticipant):
+	# Only attempt to apply a status effect if one is not already applied
+	if target.status_effect == MovesData.StatusEffect.NONE:
+		var status_applied = _does_move_hit(move.status_effect_chance)
+		print("logging status_applied", status_applied)
+		print("logging move.status_effect_chance", move.status_effect_chance)
+		if status_applied:
+			print("applying status to target")
+			target.status_effect = move.status_effect
+		
 func get_move_effectiveness(move: Move,  defender: BattleParticipant) -> float:
 	var same_type_attack_bonus: float = 1.5 if self.type == move.type else 1.0
 	var base_modifier = get_effectiveness_modifier(move, defender)

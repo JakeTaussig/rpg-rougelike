@@ -1,12 +1,16 @@
 class_name Move extends Resource
 
-enum MoveCategory {ATK, SP_ATK, EFFECT, STAT_MODIFIER}
+enum MoveCategory {ATK, SP_ATK, STATUS_EFFECT, STAT_MODIFIER}
 
 var move_name = "Bubblebeam"
 
-var type: MovesData.Type = MovesData.Type.Human
+var type: MovesData.Type = MovesData.Type.HUMAN
 
 var category: MoveCategory = MoveCategory.ATK
+
+var status_effect: MovesData.StatusEffect = MovesData.StatusEffect.NONE
+
+var status_effect_chance: int = 100
 
 # Accuracy
 var acc: int = 100:
@@ -30,18 +34,19 @@ var max_pp: int = 10:
 # 0 = Normal, 1 = Priority
 var priority: bool = 0
 
-func _init(_name: String, _type: MovesData.Type, _category:  MoveCategory, _acc: int, _bp: int, _pp: int, _priority: bool):
+func _init(_name: String, _type: MovesData.Type, _category:  MoveCategory, _acc: int, _bp: int, _pp: int, _priority: bool, _status_effect: MovesData.StatusEffect = MovesData.StatusEffect.NONE, _status_effect_chance: int = 100):
 	move_name = _name
 	type = _type
-	category = category
+	category = _category
 	acc = _acc
 	base_power = _bp
 	pp = _pp
 	max_pp = _pp
 	priority = _priority
-
+	status_effect = _status_effect
+	
 func copy() -> Move:
-	return Move.new(move_name, type, category, acc, base_power, pp, priority)
+	return Move.new(move_name, type, category, acc, base_power, pp, priority, status_effect)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
