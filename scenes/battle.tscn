@@ -169,7 +169,7 @@ unique_name_in_owner = true
 position = Vector2(64, 72)
 max_hp = 200
 hp = 200
-type = 2
+type = 4
 
 [node name="Enemies" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -191,6 +191,11 @@ offset_right = 255.0
 offset_bottom = 12.0
 theme = ExtResource("2_p1qf1")
 text = "state:"
+
+[node name="TurnDisplay" type="Label" parent="."]
+unique_name_in_owner = true
+offset_right = 96.0
+offset_bottom = 12.0
 
 [connection signal="pressed" from="BottomBar/Action/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="BottomBar/BattleStatus/ContinueButton" to="." method="_on_continue_button_pressed"]

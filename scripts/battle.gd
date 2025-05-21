@@ -5,7 +5,7 @@ var battle_participants = []
 enum State {SELECTING_ACTION, SELECTING_ATTACK, ENEMY_ATTACK, ATTACKING_INFO, GAME_END}
 var state: State = State.SELECTING_ACTION
 var lastFocusedMoveIndex: int = 0
-
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Called once to seed the random number generator
@@ -23,14 +23,13 @@ func _update_state(new_state: State, label_text: String = ""):
 	var old_state = state
 	state = new_state
 	%StateDisplay.text = State.keys()[state]
-
+	%TurnDisplay.text = "trn: %s idx: %s" % [turn, turn_order_index]
 	if old_state == State.SELECTING_ACTION:
 		%PlayerPrompt.visible = false
 		%Action.visible = false
 	elif old_state == State.SELECTING_ATTACK:
 		%Moves.visible = false
 	elif old_state == State.ATTACKING_INFO:
-		%BattleStatus.visible = false
 		if %Enemy.hp <= 0:
 			%BattleStatus.text = "%s defeated %s" % [%Player.character_name, %Enemy.character_name]
 			_update_state(State.GAME_END)
@@ -39,7 +38,10 @@ func _update_state(new_state: State, label_text: String = ""):
 			%BattleStatus.text = "%s defeated %s" % [%Enemy.character_name, %Player.character_name]
 			_update_state(State.GAME_END)
 			return
-
+		# Don't move this. This is specific to when both the old state and new state are ATTACKING_INFO
+		elif state == State.ATTACKING_INFO:
+			await _wait_for_action("ui_accept")
+			%BattleStatus.visible = false
 	if state == State.SELECTING_ACTION:
 		%PlayerPrompt.visible = true
 		%PlayerPrompt.text = label_text
@@ -71,7 +73,10 @@ func _init_battle_participants():
 		enemy.is_player = false
 		battle_participants.append(enemy)
 	battle_participants.append(%Player)
-	battle_participants.sort_custom(func(a, b): return a.speed > b.speed)
+	battle_participants.sort_custom(func(a, b): 
+		if a.speed == b.speed:
+			return  randi() % 2 == 0
+		return a.speed > b.speed)
 
 func _init_moves():
 	for i in %Player.moves.size():
@@ -88,23 +93,28 @@ func _on_move_selected(index: int, target: BattleParticipant) -> void:
 	var message: String = ""
 	var attacker: BattleParticipant = battle_participants[turn_order_index]
 	var results = attacker.use_move(index, target)
-	var used_move_name = results[0].move_name
-	var damage = results[1]
-	if damage <= 0:
+	var used_move_name = results["move"].move_name
+	var damage = results["damage"]
+	var move_hit = results["move_hit"]
+	if not move_hit:
 		message = "%s missed %s!" % [attacker.character_name, used_move_name]
-	else:
+	elif damage > 0:
 		var effectiveness_multiplier: float = attacker.get_effectiveness_modifier(attacker.moves[index], target)
 		message = "%s used %s on %s for %d damage!" % [attacker.character_name, used_move_name, target.character_name, damage]
 		_update_state(State.ATTACKING_INFO, message)
-		await _wait_for_action("ui_accept")
+
 		if effectiveness_multiplier > 1.0:
 			message = "%s was super effective!" % used_move_name
 			_update_state(State.ATTACKING_INFO, message)
-			_wait_for_action("ui_accept")
 		elif effectiveness_multiplier < 1.0:
 			message = "%s was not very effective!" % used_move_name
 			_update_state(State.ATTACKING_INFO, message)
-			_wait_for_action("ui_accept")
+	# This should only be status effects for now
+	else:
+		var status_effect_string = String(MovesData.StatusEffect.find_key(target.status_effect)).to_lower()
+		message = "%s applied %s on %s!" % [attacker.character_name, status_effect_string, target.character_name]
+		_update_state(State.ATTACKING_INFO, message)
+		
 
 func _render_hp() -> void:
 	%EnemyPanel.text = "Enemy " + str(%Enemy.hp) + " / " + str(%Enemy.max_hp)
@@ -154,4 +164,3 @@ func _wait_for_action(action: String):
 		await get_tree().process_frame
 		if Input.is_action_just_pressed(action):
 			break
-	
