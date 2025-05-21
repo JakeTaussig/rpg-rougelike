@@ -121,14 +121,13 @@ func _on_move_selected(index: int, target: BattleParticipant) -> void:
 	elif damage > 0:
 		var effectiveness_multiplier: float = attacker.get_effectiveness_modifier(attacker.moves[index], target)
 		messages.append("%s used %s on %s for %d damage!" % [attacker.character_name, used_move_name, target.character_name, damage])
-		#_update_state(State.ATTACKING_INFO, message)
 
 		if effectiveness_multiplier > 1.0:
 			messages.append("%s was super effective!" % used_move_name)
-			#_update_state(State.ATTACKING_INFO, message)
+
 		elif effectiveness_multiplier < 1.0:
 			messages.append("%s was not very effective!" % used_move_name)
-			#_update_state(State.ATTACKING_INFO, message)
+
 	# This should only be status effects for now
 	else:
 		var status_effect_string = String(MovesData.StatusEffect.find_key(target.status_effect)).to_lower()
