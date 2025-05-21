@@ -56,7 +56,6 @@ func use_move(index: int, target: BattleParticipant) -> Dictionary:
 
 func _does_move_hit(accuracy: int) -> bool:
 	accuracy = clamp(accuracy, 0, 100)
-	
 	# Generates a number between 1 and 100
 	var roll = randi() % 100 + 1
 	return roll <= accuracy

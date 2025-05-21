@@ -1,16 +1,11 @@
 class_name Move extends Resource
 
 enum MoveCategory {ATK, SP_ATK, STATUS_EFFECT, STAT_MODIFIER}
-
-var move_name = "Bubblebeam"
-
-var type: MovesData.Type = MovesData.Type.HUMAN
-
-var category: MoveCategory = MoveCategory.ATK
-
-var status_effect: MovesData.StatusEffect = MovesData.StatusEffect.NONE
-
+var move_name: String = "Bubblebeam"
 var status_effect_chance: int = 100
+var type: MovesData.Type = MovesData.Type.HUMAN
+var category: MoveCategory = MoveCategory.ATK
+var status_effect: MovesData.StatusEffect = MovesData.StatusEffect.NONE
 
 # Accuracy
 var acc: int = 100:
@@ -62,5 +57,3 @@ func _to_string() -> String:
 		output += "\n%s: %s" % [property_name, get(property_name)]
 		
 	return output
-
-	

@@ -39,4 +39,3 @@ func _initialize_moves():
 	moves.append(Move.new("Bubblebeam", Type.WATER, Move.MoveCategory.SP_ATK, 100, 60, 20, false))
 	moves.append(Move.new("Heat Wave", Type.FIRE, Move.MoveCategory.STATUS_EFFECT, 75, 0, 10, false, StatusEffect.BURN, 100))
 	#moves.append(Move.new("Fire Punch", Type.FIRE, Move.MoveCategory.SP_ATK, 95, 75, 10, false))
-	
