@@ -18,7 +18,6 @@ texture = ExtResource("1_dn72j")
 
 [node name="PlayerPrompt" type="Label" parent="BottomBar"]
 unique_name_in_owner = true
-visible = false
 z_index = 1
 offset_top = 96.0
 offset_right = 144.0
@@ -32,7 +31,6 @@ autowrap_mode = 2
 
 [node name="Action" type="VBoxContainer" parent="BottomBar"]
 unique_name_in_owner = true
-visible = false
 z_index = 2
 offset_left = 144.0
 offset_top = 96.0
@@ -42,6 +40,7 @@ theme = ExtResource("2_p1qf1")
 theme_override_constants/separation = 0
 
 [node name="Attack" type="Button" parent="BottomBar/Action"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "   Attack"
 alignment = 0
@@ -53,7 +52,6 @@ alignment = 0
 
 [node name="BattleStatus" type="Label" parent="BottomBar"]
 unique_name_in_owner = true
-visible = false
 offset_top = 96.0
 offset_right = 256.0
 offset_bottom = 144.0
@@ -167,9 +165,10 @@ text = "Player"
 [node name="Player" parent="." instance=ExtResource("5_lpir7")]
 unique_name_in_owner = true
 position = Vector2(64, 72)
-max_hp = 200
-hp = 200
-type = 4
+max_hp = 400
+hp = 400
+speed = 20
+type = 5
 
 [node name="Enemies" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -180,9 +179,9 @@ position = Vector2(192, 32)
 script = ExtResource("6_6vh42")
 ai_type = 2
 character_name = "Pink Box"
-max_hp = 200
+max_hp = 400
 hp = 200
-type = 1
+type = 6
 
 [node name="StateDisplay" type="Label" parent="."]
 unique_name_in_owner = true
