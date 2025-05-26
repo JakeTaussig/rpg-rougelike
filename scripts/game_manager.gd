@@ -1,5 +1,5 @@
 extends Control
-@export var moves_list: MovesList = preload("res://moves/global_moves_list.tres")
+@export var moves_list: MovesList = preload("res://assets/moves/global_moves_list.tres")
 
 
 # Called when the node enters the scene tree for the first time.

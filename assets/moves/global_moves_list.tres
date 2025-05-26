@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="MovesList" load_steps=8 format=3 uid="uid://btnh7hoa1cll6"]
 
 [ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_ofag1"]
-[ext_resource type="Resource" uid="uid://c22tuotquomd3" path="res://moves/tackle.tres" id="2_bdaju"]
-[ext_resource type="Resource" uid="uid://bf2k5kr6nnyk4" path="res://moves/flamethrower.tres" id="3_4xer7"]
-[ext_resource type="Resource" uid="uid://p1i1a004ul1q" path="res://moves/bubblebeam.tres" id="4_ux0hn"]
-[ext_resource type="Resource" uid="uid://cup1blpmfdi8p" path="res://moves/heat_wave.tres" id="5_uk1h8"]
-[ext_resource type="Resource" uid="uid://cj401xdexfiwj" path="res://moves/fire_punch.tres" id="6_f500o"]
+[ext_resource type="Resource" uid="uid://c22tuotquomd3" path="res://assets/moves/tackle.tres" id="2_bdaju"]
+[ext_resource type="Resource" uid="uid://bf2k5kr6nnyk4" path="res://assets/moves/flamethrower.tres" id="3_4xer7"]
+[ext_resource type="Resource" uid="uid://p1i1a004ul1q" path="res://assets/moves/bubblebeam.tres" id="4_ux0hn"]
+[ext_resource type="Resource" uid="uid://cup1blpmfdi8p" path="res://assets/moves/heat_wave.tres" id="5_uk1h8"]
+[ext_resource type="Resource" uid="uid://cj401xdexfiwj" path="res://assets/moves/fire_punch.tres" id="6_f500o"]
 [ext_resource type="Script" uid="uid://btgl7ks1m3ei3" path="res://scripts/moves_list.gd" id="7_2u8do"]
 
 [resource]
