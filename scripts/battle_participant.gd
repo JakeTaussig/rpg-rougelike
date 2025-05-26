@@ -26,18 +26,14 @@ class_name BattleParticipant
 @export var luck: int = 10:
 	set(new_luck):
 		luck = max(1, new_luck)
-@export var type: MovesData.Type = MovesData.Type.HUMAN
+@export var type: MovesList.Type = MovesList.Type.HUMAN
 var is_player = true
 var moves: Array[Move] = []
-var status_effect = MovesData.StatusEffect.NONE
+var status_effect = MovesList.StatusEffect.NONE
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
-	
-func _init():
-	# DEBUG: for now each battle participant's moves are set to copy the global moves_list
-	for move in GameManager.moves_list:
+	for move in GameManager.moves_list.moves.slice(0, 4):
 		moves.append(move.copy())
 
 func use_move(index: int, target: BattleParticipant) -> Dictionary:
@@ -50,7 +46,7 @@ func use_move(index: int, target: BattleParticipant) -> Dictionary:
 			damage = max(1, _attack(move, target, 1))
 		elif move.category == Move.MoveCategory.SP_ATK:
 			damage = max(1, _attack(move, target, 0))
-		if move.status_effect != MovesData.StatusEffect.NONE:
+		if move.status_effect != MovesList.StatusEffect.NONE:
 			_roll_and_apply_status_effect(move, target)
 	return {"move": move, "damage": damage, "move_hit": move_hit}
 
@@ -80,7 +76,7 @@ func _attack(move: Move, target: BattleParticipant, is_physical: bool) -> int:
 	
 func _roll_and_apply_status_effect(move: Move, target: BattleParticipant):
 	# Only attempt to apply a status effect if one is not already applied
-	if target.status_effect == MovesData.StatusEffect.NONE:
+	if target.status_effect == MovesList.StatusEffect.NONE:
 		var status_applied = _does_move_hit(move.status_effect_chance)
 		if status_applied:
 			target.status_effect = move.status_effect
@@ -91,9 +87,9 @@ func get_move_effectiveness(move: Move,  defender: BattleParticipant) -> float:
 	return base_modifier * same_type_attack_bonus
 	
 func get_effectiveness_modifier(move: Move, defender: BattleParticipant) -> float:
-	var atk_idx = MovesData.TYPES[move.type]
-	var def_idx = MovesData.TYPES[defender.type]
-	var base_modifier = MovesData.TYPE_CHART[atk_idx][def_idx]
+	var atk_idx = MovesList.TYPES[move.type]
+	var def_idx = MovesList.TYPES[defender.type]
+	var base_modifier = MovesList.TYPE_CHART[atk_idx][def_idx]
 	return base_modifier
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

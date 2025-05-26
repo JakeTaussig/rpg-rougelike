@@ -135,7 +135,7 @@ func _on_move_selected(index: int, target: BattleParticipant) -> void:
 
 	# This should only be status effects for now
 	else:
-		var status_effect_string = String(MovesData.StatusEffect.find_key(target.status_effect)).to_lower()
+		var status_effect_string = String(MovesList.StatusEffect.find_key(target.status_effect)).to_lower()
 		_messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
 		
 	_update_state(State.ATTACKING_INFO, _messages)
@@ -167,7 +167,7 @@ func _display_pp_info(moveIndex: int) -> void:
 		%PPInfo.set_theme_type_variation("RedTextLabel")
 	else:
 		%PPInfo.set_theme_type_variation("NoBorderLabel")
-	%TypeInfo.text = MovesData.Type.keys()[move.type]
+	%TypeInfo.text = MovesList.Type.keys()[move.type]
 
 func _render_moves():
 	for i in %Player.moves.size():
