@@ -28,22 +28,24 @@ enum MoveCategory {ATK, SP_ATK, STATUS_EFFECT, STAT_MODIFIER}
 @export var status_effect_chance: int = 100
 
 # 0 = Normal, 1 = Priority
-var priority: bool = 0
+@export var priority: bool = 0
 
-func _init(_name: String, _type: MovesData.Type, _category:  MoveCategory, _acc: int, _bp: int, _pp: int, _priority: bool, _status_effect: MovesData.StatusEffect = MovesData.StatusEffect.NONE, _status_effect_chance: int = 100):
-	move_name = _name
-	type = _type
-	category = _category
-	acc = _acc
-	base_power = _bp
-	pp = _pp
-	max_pp = _pp
-	priority = _priority
-	status_effect = _status_effect
-	status_effect_chance = _status_effect_chance
-	
+
+# returns an identical copy of the current move
 func copy() -> Move:
-	return Move.new(move_name, type, category, acc, base_power, pp, priority, status_effect)
+	var new_move = Move.new()
+	var properties = get_property_list()
+
+	for property in properties:
+		# Skip built-in engine properties
+		if property.usage & PROPERTY_USAGE_SCRIPT_VARIABLE:
+			var property_name = property["name"]
+
+			# Skip if the property is read-only
+			if property.usage & PROPERTY_USAGE_STORAGE:
+				new_move.set(property_name, get(property_name))
+
+	return new_move
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
