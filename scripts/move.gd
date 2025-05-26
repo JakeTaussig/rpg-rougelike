@@ -1,30 +1,31 @@
 class_name Move extends Resource
 
 enum MoveCategory {ATK, SP_ATK, STATUS_EFFECT, STAT_MODIFIER}
-var move_name: String = "Bubblebeam"
-var status_effect_chance: int = 100
-var type: MovesData.Type = MovesData.Type.HUMAN
-var category: MoveCategory = MoveCategory.ATK
-var status_effect: MovesData.StatusEffect = MovesData.StatusEffect.NONE
+@export var move_name: String = "Bubblebeam"
+@export var category: MoveCategory = MoveCategory.ATK
+@export var type: MovesList.Type = MovesList.Type.HUMAN
 
-# Accuracy
-var acc: int = 100:
-	set(new_acc):
-		acc = max(0, new_acc)
-
-var base_power: int = 50:
+@export var base_power: int = 50:
 	set(new_base_power):
 		base_power = max(1, new_base_power)
 
+# Accuracy
+@export var acc: int = 100:
+	set(new_acc):
+		acc = max(0, new_acc)
+
 # Power Points
-var pp: int = 10:
+@export var pp: int = 10:
 	set(new_pp):
 		pp = max(0, new_pp)
 
 # Max Power Points
-var max_pp: int = 10:
+@export var max_pp: int = 10:
 	set(new_max_pp):
 		max_pp = max(1, new_max_pp)
+
+@export var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
+@export var status_effect_chance: int = 100
 
 # 0 = Normal, 1 = Priority
 var priority: bool = 0

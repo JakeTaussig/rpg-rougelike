@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://p1i1a004ul1q"]
+
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_d7fk5"]
+
+[resource]
+script = ExtResource("1_d7fk5")
+move_name = "Bubblebeam"
+category = 1
+type = 2
+base_power = 60
+acc = 100
+pp = 20
+max_pp = 20
+status_effect = 0
+status_effect_chance = 100
+priority = false
+metadata/_custom_type_script = "uid://dj7o2vdrnopw3"
