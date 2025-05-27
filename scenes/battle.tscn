@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=13 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
@@ -6,6 +6,12 @@
 [ext_resource type="StyleBox" uid="uid://dwb68ajbfeqp0" path="res://assets/styles/normal_sbf.tres" id="4_lpir7"]
 [ext_resource type="PackedScene" uid="uid://dspy5d5yn1fxj" path="res://scenes/battle_participant.tscn" id="5_lpir7"]
 [ext_resource type="Script" uid="uid://cstx4ogvno1si" path="res://scripts/enemy.gd" id="6_6vh42"]
+[ext_resource type="Script" uid="uid://brto6aw55bukl" path="res://scripts/states/AttackingInfoState.gd" id="7_v7i3o"]
+[ext_resource type="Script" uid="uid://buy2ylv1t0vt0" path="res://scripts/states/EnemyAttackState.gd" id="8_66ngm"]
+[ext_resource type="Script" uid="uid://bl3wtt7v3rtpm" path="res://scripts/states/SelectingActionState.gd" id="9_03edq"]
+[ext_resource type="Script" uid="uid://dxrkm475i6ls6" path="res://scripts/states/SelectingAttackState.gd" id="10_22uqi"]
+[ext_resource type="Script" uid="uid://cmikjgcwtvkyk" path="res://scripts/states/IncrementTurnState.gd" id="12_03edq"]
+[ext_resource type="Script" uid="uid://sdwupuxudrjb" path="res://scripts/states/GameEndState.gd" id="13_22uqi"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_a12nh")
@@ -18,6 +24,7 @@ texture = ExtResource("1_dn72j")
 
 [node name="PlayerPrompt" type="Label" parent="BottomBar"]
 unique_name_in_owner = true
+visible = false
 z_index = 1
 offset_top = 96.0
 offset_right = 144.0
@@ -31,6 +38,7 @@ autowrap_mode = 2
 
 [node name="Action" type="VBoxContainer" parent="BottomBar"]
 unique_name_in_owner = true
+visible = false
 z_index = 2
 offset_left = 144.0
 offset_top = 96.0
@@ -53,8 +61,8 @@ alignment = 0
 [node name="BattleStatus" type="Label" parent="BottomBar"]
 unique_name_in_owner = true
 offset_top = 96.0
-offset_right = 256.0
-offset_bottom = 144.0
+offset_right = 255.0
+offset_bottom = 143.0
 mouse_filter = 1
 theme = ExtResource("2_p1qf1")
 text = "Player Attacked Enemy"
@@ -196,9 +204,30 @@ unique_name_in_owner = true
 offset_right = 96.0
 offset_bottom = 12.0
 
-[connection signal="pressed" from="BottomBar/Action/Attack" to="." method="_on_attack_pressed"]
+[node name="BattleStateMachine" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="AttackingInfo" type="Node" parent="BattleStateMachine"]
+script = ExtResource("7_v7i3o")
+
+[node name="EnemyAttack" type="Node" parent="BattleStateMachine"]
+script = ExtResource("8_66ngm")
+
+[node name="SelectingAction" type="Node" parent="BattleStateMachine"]
+script = ExtResource("9_03edq")
+
+[node name="SelectingAttack" type="Node" parent="BattleStateMachine"]
+script = ExtResource("10_22uqi")
+
+[node name="IncrementTurn" type="Node" parent="BattleStateMachine"]
+script = ExtResource("12_03edq")
+
+[node name="GameEnd" type="Node" parent="BattleStateMachine"]
+script = ExtResource("13_22uqi")
+
+[connection signal="pressed" from="BottomBar/Action/Attack" to="BattleStateMachine/SelectingAction" method="_on_attack_pressed"]
 [connection signal="pressed" from="BottomBar/BattleStatus/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move1" to="." method="_on_move_pressed" binds= [0]]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move2" to="." method="_on_move_pressed" binds= [1]]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move3" to="." method="_on_move_pressed" binds= [2]]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move4" to="." method="_on_move_pressed" binds= [3]]
+[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move1" to="BattleStateMachine/SelectingAttack" method="_on_move_pressed" binds= [0]]
+[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move2" to="BattleStateMachine/SelectingAttack" method="_on_move_pressed" binds= [1]]
+[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move3" to="BattleStateMachine/SelectingAttack" method="_on_move_pressed" binds= [2]]
+[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move4" to="BattleStateMachine/SelectingAttack" method="_on_move_pressed" binds= [3]]
