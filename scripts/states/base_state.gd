@@ -1,7 +1,7 @@
 class_name BaseState
 extends Node
 
-var battle_system: Battle
+var battle: Battle
 
 func enter(_messages: Array = []):
 	pass

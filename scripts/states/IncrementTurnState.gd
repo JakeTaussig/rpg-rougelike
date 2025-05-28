@@ -3,36 +3,27 @@ extends BaseState
 var _initialized = false
 
 func enter(_messages: Array = []):
-	if check_battle_end():
-		battle_system.transition_state_to("GameEnd")
+	if _is_battle_over():
+
+		battle.transition_state_to(Battle.BattleState.GAME_END)
 		return
 
-	battle_system.turn_order_index += 1
-	if battle_system.turn_order_index == battle_system.battle_participants.size():
-		battle_system.turn_order_index = 0
-		battle_system.turn += 1
+	battle.turn_order_index = (battle.turn_order_index + 1) % battle.battle_participants.size()
+	if battle.turn_order_index == 0:
+		battle.turn += 1
 		_log_turn_info()
 
-	# print the turn number for the first turn
-	if !_initialized:
-		_initialized = true
-		_log_turn_info()
+	%TurnDisplay.text = "trn: %s idx: %s" % [battle.turn, battle.turn_order_index]
 
-	%TurnDisplay.text = "trn: %s idx: %s" % [battle_system.turn, battle_system.turn_order_index]
-
-	if battle_system.battle_participants[battle_system.turn_order_index].is_player:
-		battle_system.transition_state_to("SelectingAction")
+	if battle.battle_participants[battle.turn_order_index].is_player:
+		battle.transition_state_to(battle.BattleState.SELECTING_ACTION)
 	else:
-		battle_system.transition_state_to("EnemyAttack")
+		battle.transition_state_to(battle.BattleState.ENEMY_ATTACK)
 
-func check_battle_end():
-	if battle_system.enemy.hp <= 0:
-		return true
-	if %Player.hp <= 0:
-		return true
-	return false
+func _is_battle_over() -> bool:
+	return battle.enemy.hp <= 0 || battle.get_node("%Player").hp <= 0
 
 func _log_turn_info():
 	print("---------------------------")
-	print("Turn: %d" % (battle_system.turn + 1))
+	print("Turn: %d" % battle.turn)
 	print("---------------------------")

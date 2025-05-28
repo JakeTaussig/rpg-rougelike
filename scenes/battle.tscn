@@ -207,27 +207,27 @@ offset_bottom = 12.0
 [node name="BattleStateMachine" type="Node" parent="."]
 unique_name_in_owner = true
 
-[node name="AttackingInfo" type="Node" parent="BattleStateMachine"]
+[node name="ATTACKING_INFO" type="Node" parent="BattleStateMachine"]
 script = ExtResource("7_v7i3o")
 
-[node name="EnemyAttack" type="Node" parent="BattleStateMachine"]
+[node name="ENEMY_ATTACK" type="Node" parent="BattleStateMachine"]
 script = ExtResource("8_66ngm")
 
-[node name="SelectingAction" type="Node" parent="BattleStateMachine"]
+[node name="SELECTING_ACTION" type="Node" parent="BattleStateMachine"]
 script = ExtResource("9_03edq")
 
-[node name="SelectingAttack" type="Node" parent="BattleStateMachine"]
+[node name="SELECTING_ATTACK" type="Node" parent="BattleStateMachine"]
 script = ExtResource("10_22uqi")
 
-[node name="IncrementTurn" type="Node" parent="BattleStateMachine"]
+[node name="INCREMENT_TURN" type="Node" parent="BattleStateMachine"]
 script = ExtResource("12_03edq")
 
-[node name="GameEnd" type="Node" parent="BattleStateMachine"]
+[node name="GAME_END" type="Node" parent="BattleStateMachine"]
 script = ExtResource("13_22uqi")
 
-[connection signal="pressed" from="BottomBar/Action/Attack" to="BattleStateMachine/SelectingAction" method="_on_attack_pressed"]
+[connection signal="pressed" from="BottomBar/Action/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]
 [connection signal="pressed" from="BottomBar/BattleStatus/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move1" to="BattleStateMachine/SelectingAttack" method="_on_move_pressed" binds= [0]]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move2" to="BattleStateMachine/SelectingAttack" method="_on_move_pressed" binds= [1]]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move3" to="BattleStateMachine/SelectingAttack" method="_on_move_pressed" binds= [2]]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move4" to="BattleStateMachine/SelectingAttack" method="_on_move_pressed" binds= [3]]
+[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move1" to="BattleStateMachine/SELECTING_ATTACK" method="_on_move_pressed" binds= [0]]
+[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move2" to="BattleStateMachine/SELECTING_ATTACK" method="_on_move_pressed" binds= [1]]
+[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move3" to="BattleStateMachine/SELECTING_ATTACK" method="_on_move_pressed" binds= [2]]
+[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move4" to="BattleStateMachine/SELECTING_ATTACK" method="_on_move_pressed" binds= [3]]
