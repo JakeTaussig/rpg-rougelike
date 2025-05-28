@@ -9,7 +9,7 @@ var enemy: BattleParticipant
 var states: Dictionary = {}
 var current_state: BaseState
 
-enum BattleState {
+enum State {
 	ATTACKING_INFO,
 	INCREMENT_TURN,
 	SELECTING_ACTION,
@@ -25,9 +25,9 @@ func _ready() -> void:
 	randomize()
 	_init_states()
 	_init_battle_participants()
+	render_hp()
 
-	transition_state_to(BattleState.ATTACKING_INFO, [""]) # Start in AttackingInfo to render HP
-	transition_state_to(BattleState.INCREMENT_TURN)
+	transition_state_to(State.INCREMENT_TURN)
 
 func _init_states():
 	# Initialize all states
@@ -52,8 +52,8 @@ func _sort_participants_by_speed(a, b) -> bool:
 		return randf() < 0.5  # More readable than randi() % 2
 	return a.speed > b.speed
 
-func transition_state_to(state: BattleState, messages: Array = []):
-	var state_name = BattleState.keys()[state]
+func transition_state_to(state: State, messages: Array = []):
+	var state_name = State.keys()[state]
 	if not states.has(state_name):
 		push_error("Invalid state: " + state_name)
 		return
@@ -66,6 +66,10 @@ func transition_state_to(state: BattleState, messages: Array = []):
 
 	current_state = states[state_name]
 	current_state.enter(messages)
+
+func render_hp() -> void:
+	%EnemyPanel.text = "Enemy " + str(%Enemy.hp) + " / " + str(%Enemy.max_hp)
+	%PlayerPanel.text = "Player " + str(%Player.hp) + " / " + str(%Player.max_hp)
 
 func _on_continue_button_pressed() -> void:
 	current_state.handle_continue()

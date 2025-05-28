@@ -3,16 +3,12 @@ extends BaseState
 var last_focused_move_index: int = 0
 
 func _ready() -> void:
-	# initialize move names and connect PP info display
-	for i in %Player.moves.size():
-		%MovesMenu.get_child(i).text = %Player.moves[i].move_name
-		%MovesMenu.get_child(i).focus_entered.connect(func(): _display_pp_info(i))
-		%MovesMenu.get_child(i).mouse_entered.connect(%MovesMenu.get_child(i).grab_focus)
+	_init_move_buttons()
 
 func enter(messages: Array = []):
-	_render_moves()
 	%Moves.visible = true
 	%MovesMenu.get_child(last_focused_move_index).grab_focus()
+	_render_moves()
 
 func exit():
 	%Moves.visible = false
@@ -30,12 +26,19 @@ func _on_move_pressed(index: int) -> void:
 	if move.pp > 0:
 		# Updates state
 		battle.transition_state_to(
-			battle.BattleState.ATTACK,
+			battle.State.ATTACK,
 			[{
 				"attacker": %Player,
 				"move_index": index,
 				"target": battle.enemy
 			}])
+
+# initialize move names and connect PP info display
+func _init_move_buttons():
+	for i in %Player.moves.size():
+		%MovesMenu.get_child(i).text = %Player.moves[i].move_name
+		%MovesMenu.get_child(i).focus_entered.connect(func(): _display_pp_info(i))
+		%MovesMenu.get_child(i).mouse_entered.connect(%MovesMenu.get_child(i).grab_focus)
 
 # callback used when a move is focused
 # displays the PP and type of the move in $"Moves/MovesInfo"

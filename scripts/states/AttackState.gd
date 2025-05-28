@@ -6,6 +6,12 @@ var target: BattleParticipant
 var move_index: int
 
 func enter(params: Array = []):
+	# params[0] should be a dictionary in the form:
+	# {
+	#  "attacker": %Player,
+	#  "move_index": index,
+	#  "target": battle.enemy
+	# }
 	var attack_params = params[0] as Dictionary
 	attacker = attack_params.attacker
 	move_index = attack_params.move_index
@@ -17,7 +23,7 @@ func enter(params: Array = []):
 	var messages = _generate_attack_messages(attacker, target, used_move, results)
 
 	# Transition to AttackingInfoState to show results
-	battle.transition_state_to(battle.BattleState.ATTACKING_INFO, messages)
+	battle.transition_state_to(battle.State.ATTACKING_INFO, messages)
 
 func _generate_attack_messages(attacker, target, used_move, results) -> Array:
 	var messages = []
