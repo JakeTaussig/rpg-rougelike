@@ -29,7 +29,13 @@ func _on_move_pressed(index: int) -> void:
 	var move = %Player.moves[index]
 	if move.pp > 0:
 		# Updates state
-		battle.attack(index, battle.enemy)
+		battle.transition_state_to(
+			battle.BattleState.ATTACK,
+			[{
+				"attacker": %Player,
+				"move_index": index,
+				"target": battle.enemy
+			}])
 
 # callback used when a move is focused
 # displays the PP and type of the move in $"Moves/MovesInfo"

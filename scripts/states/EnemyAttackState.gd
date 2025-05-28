@@ -4,6 +4,12 @@ func enter(messages: Array = []):
 	var enemy = battle.get_current_attacker()
 	var enemyMoveIdx = enemy.select_move()
 	if enemyMoveIdx != -1:
-		battle.attack(enemyMoveIdx, %Player)
+		battle.transition_state_to(
+			battle.BattleState.ATTACK,
+			[{
+				"attacker": enemy,
+				"move_index": enemyMoveIdx,
+				"target": %Player
+			}])
 	else:
 		battle.transition_state_to(battle.BattleState.ATTACKING_INFO, ["%s can't attack" % enemy.character_name])
