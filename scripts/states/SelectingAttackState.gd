@@ -23,7 +23,7 @@ func _on_move_pressed(index: int) -> void:
 	if move.pp > 0:
 		# Updates state
 		battle.transition_state_to(
-			battle.State.ATTACK,
+			battle.STATE_ATTACK,
 			[{
 				"attacker": %Player,
 				"move_index": index,

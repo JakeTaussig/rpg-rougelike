@@ -23,7 +23,7 @@ func enter(params: Array = []):
 	var messages = _generate_attack_messages(attacker, target, used_move, results)
 
 	# Transition to AttackingInfoState to show results
-	battle.transition_state_to(battle.State.ATTACKING_INFO, messages)
+	battle.transition_state_to(battle.STATE_ATTACKING_INFO, messages)
 
 func _generate_attack_messages(attacker, target, used_move, results) -> Array:
 	var messages = []

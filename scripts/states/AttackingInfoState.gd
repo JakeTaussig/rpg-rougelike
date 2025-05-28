@@ -24,7 +24,7 @@ func handle_continue():
 	if message_index < messages.size():
 		_update_message()
 	else:
-		battle.transition_state_to(battle.State.INCREMENT_TURN)
+		battle.transition_state_to(battle.STATE_INCREMENT_TURN)
 
 func _update_message():
 	%BattleStatus.text = messages[message_index]
