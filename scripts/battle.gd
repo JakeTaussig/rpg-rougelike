@@ -4,7 +4,7 @@ var turn: int = 0
 var turn_order_index: int = -1
 
 var battle_participants = []
-var enemy: BattleParticipant
+var enemies: Array = []
 
 var states: Dictionary = {}
 var current_state: BaseState
@@ -39,10 +39,11 @@ func _init_states():
 func _init_battle_participants():
 	battle_participants.clear()
 	battle_participants.append(%Player)
+	enemies.clear()
 	for enemy_node in %Enemies.get_children():
 		enemy_node.is_player = false
 		battle_participants.append(enemy_node)
-		enemy = enemy_node
+		enemies.append(enemy_node)
 
 
 	battle_participants.sort_custom(_sort_participants_by_speed)
@@ -68,7 +69,10 @@ func transition_state_to(state: State, messages: Array = []):
 	current_state.enter(messages)
 
 func render_hp() -> void:
-	%EnemyPanel.text = "Enemy " + str(%Enemy.hp) + " / " + str(%Enemy.max_hp)
+	if enemies.size() > 0:
+		%EnemyPanel.text = "Enemy " + str(enemies[0].hp) + " / " + str(enemies[0].max_hp)
+	else:
+		%EnemyPanel.text = "Enemy ?"
 	%PlayerPanel.text = "Player " + str(%Player.hp) + " / " + str(%Player.max_hp)
 
 func _on_continue_button_pressed() -> void:

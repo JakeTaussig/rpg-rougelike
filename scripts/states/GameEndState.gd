@@ -2,7 +2,7 @@ extends AttackingInfoState
 
 func enter(_messages: Array = []):
 	var player = battle.get_node("%Player")
-	var enemy = battle.enemy
+	var enemy = battle.enemies[0]
 
 	var message = ""
 	if enemy.hp <= 0:

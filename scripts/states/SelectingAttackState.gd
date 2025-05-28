@@ -2,9 +2,6 @@ extends BaseState
 
 var last_focused_move_index: int = 0
 
-func _ready() -> void:
-	_init_move_buttons()
-
 func enter(messages: Array = []):
 	%Moves.visible = true
 	%MovesMenu.get_child(last_focused_move_index).grab_focus()
@@ -30,8 +27,12 @@ func _on_move_pressed(index: int) -> void:
 			[{
 				"attacker": %Player,
 				"move_index": index,
-				"target": battle.enemy
+				"target": battle.enemies[0]
 			}])
+
+
+func _ready() -> void:
+	_init_move_buttons()
 
 # initialize move names and connect PP info display
 func _init_move_buttons():
