@@ -1,21 +1,17 @@
 class_name AttackState
 extends BaseState
 
-var attacker: BattleParticipant
-var target: BattleParticipant
-var move_index: int
-
-# params[0] should be a dictionary in the form:
-# {
-#  "attacker": %Player,
-#  "move_index": index,
-#  "target": battle.enemy
-# }
 func enter(params: Array = []):
-	var attack_params = params[0] as Dictionary
-	attacker = attack_params.attacker
-	move_index = attack_params.move_index
-	target = attack_params.target
+	if params.size() != 1 or not params[0] is AttackCommand:
+		push_error("AttackState: Expected AttackCommand")
+		battle.transition_state_to(battle.STATE_ATTACKING_INFO, ["Invalid attack command"])
+		return
+
+	var command = params[0] as AttackCommand
+
+	var attacker: BattleParticipant = command.attacker
+	var target: BattleParticipant = command.target
+	var move_index: int = command.move_index
 
 	# Execute attack
 	var results = attacker.use_move(move_index, target)
@@ -47,3 +43,9 @@ func _generate_attack_messages(attacker, target, used_move, results) -> Array:
 		var status_effect_string = String(MovesList.StatusEffect.find_key(target.status_effect)).to_lower()
 		messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
 	return messages
+
+# Inner class. Used to pass data to `AttackState.enter`
+class AttackCommand:
+	var attacker: BattleParticipant
+	var target: BattleParticipant
+	var move_index: int

@@ -21,13 +21,13 @@ func _render_moves():
 func _on_move_pressed(index: int) -> void:
 	var move = %Player.moves[index]
 	if move.pp > 0:
+		var attackCommand = AttackState.AttackCommand.new()
+		attackCommand.attacker = %Player
+		attackCommand.move_index = index
+		attackCommand.target = battle.enemies[0]
 		battle.transition_state_to(
 			battle.STATE_ATTACK,
-			[{
-				"attacker": %Player,
-				"move_index": index,
-				"target": battle.enemies[0]
-			}])
+			[attackCommand])
 
 
 func _ready() -> void:
