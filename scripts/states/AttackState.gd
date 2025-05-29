@@ -5,13 +5,13 @@ var attacker: BattleParticipant
 var target: BattleParticipant
 var move_index: int
 
+# params[0] should be a dictionary in the form:
+# {
+#  "attacker": %Player,
+#  "move_index": index,
+#  "target": battle.enemy
+# }
 func enter(params: Array = []):
-	# params[0] should be a dictionary in the form:
-	# {
-	#  "attacker": %Player,
-	#  "move_index": index,
-	#  "target": battle.enemy
-	# }
 	var attack_params = params[0] as Dictionary
 	attacker = attack_params.attacker
 	move_index = attack_params.move_index

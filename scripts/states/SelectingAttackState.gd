@@ -21,7 +21,6 @@ func _render_moves():
 func _on_move_pressed(index: int) -> void:
 	var move = %Player.moves[index]
 	if move.pp > 0:
-		# Updates state
 		battle.transition_state_to(
 			battle.STATE_ATTACK,
 			[{
