@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://bf2k5kr6nnyk4"]
+
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_5olab"]
+
+[resource]
+script = ExtResource("1_5olab")
+move_name = "Flamethrower"
+category = 1
+type = 1
+base_power = 100
+acc = 100
+pp = 15
+max_pp = 15
+status_effect = 0
+status_effect_chance = 100
+priority = false
+metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

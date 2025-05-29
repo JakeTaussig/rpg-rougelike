@@ -1,13 +1,11 @@
 extends Control
-var moves_list: Array
+@export var moves_list: MovesList = preload("res://assets/moves/global_moves_list.tres")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 	
-func _init():
-	moves_list = MovesData.new().moves
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

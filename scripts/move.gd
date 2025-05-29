@@ -1,48 +1,50 @@
 class_name Move extends Resource
 
 enum MoveCategory {ATK, SP_ATK, STATUS_EFFECT, STAT_MODIFIER}
-var move_name: String = "Bubblebeam"
-var status_effect_chance: int = 100
-var type: MovesData.Type = MovesData.Type.HUMAN
-var category: MoveCategory = MoveCategory.ATK
-var status_effect: MovesData.StatusEffect = MovesData.StatusEffect.NONE
+@export var move_name: String = "Bubblebeam"
+@export var category: MoveCategory = MoveCategory.ATK
+@export var type: MovesList.Type = MovesList.Type.HUMAN
 
-# Accuracy
-var acc: int = 100:
-	set(new_acc):
-		acc = max(0, new_acc)
-
-var base_power: int = 50:
+@export var base_power: int = 50:
 	set(new_base_power):
 		base_power = max(1, new_base_power)
 
+# Accuracy
+@export var acc: int = 100:
+	set(new_acc):
+		acc = max(0, new_acc)
+
 # Power Points
-var pp: int = 10:
+@export var pp: int = 10:
 	set(new_pp):
 		pp = max(0, new_pp)
 
 # Max Power Points
-var max_pp: int = 10:
+@export var max_pp: int = 10:
 	set(new_max_pp):
 		max_pp = max(1, new_max_pp)
 
-# 0 = Normal, 1 = Priority
-var priority: bool = 0
+@export var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
+@export var status_effect_chance: int = 100
 
-func _init(_name: String, _type: MovesData.Type, _category:  MoveCategory, _acc: int, _bp: int, _pp: int, _priority: bool, _status_effect: MovesData.StatusEffect = MovesData.StatusEffect.NONE, _status_effect_chance: int = 100):
-	move_name = _name
-	type = _type
-	category = _category
-	acc = _acc
-	base_power = _bp
-	pp = _pp
-	max_pp = _pp
-	priority = _priority
-	status_effect = _status_effect
-	status_effect_chance = _status_effect_chance
-	
+# 0 = Normal, 1 = Priority
+@export var priority: bool = 0
+
+
+# returns an identical copy of the current move
 func copy() -> Move:
-	return Move.new(move_name, type, category, acc, base_power, pp, priority, status_effect)
+	var new_move = Move.new()
+	var properties = get_property_list()
+
+	for property in properties:
+		# Only copy custom, writable properties
+		var is_custom_property = property.usage & PROPERTY_USAGE_SCRIPT_VARIABLE
+		var is_writable_property = property.usage & PROPERTY_USAGE_STORAGE
+		if is_custom_property and is_writable_property:
+			var property_name = property["name"]
+			new_move.set(property_name, get(property_name))
+
+	return new_move
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
