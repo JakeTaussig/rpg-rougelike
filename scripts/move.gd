@@ -37,13 +37,12 @@ func copy() -> Move:
 	var properties = get_property_list()
 
 	for property in properties:
-		# Skip built-in engine properties
-		if property.usage & PROPERTY_USAGE_SCRIPT_VARIABLE:
+		# Only copy custom, writable properties
+		var is_custom_property = property.usage & PROPERTY_USAGE_SCRIPT_VARIABLE
+		var is_writable_property = property.usage & PROPERTY_USAGE_STORAGE
+		if is_custom_property and is_writable_property:
 			var property_name = property["name"]
-
-			# Skip if the property is read-only
-			if property.usage & PROPERTY_USAGE_STORAGE:
-				new_move.set(property_name, get(property_name))
+			new_move.set(property_name, get(property_name))
 
 	return new_move
 
