@@ -1,178 +1,76 @@
+class_name Battle
 extends Node2D
+
+const STATE_ATTACKING_INFO := "ATTACKING_INFO"
+const STATE_INCREMENT_TURN := "INCREMENT_TURN"
+const STATE_SELECTING_ACTION := "SELECTING_ACTION"
+const STATE_ENEMY_ATTACK := "ENEMY_ATTACK"
+const STATE_GAME_END := "GAME_END"
+const STATE_SELECTING_ATTACK := "SELECTING_ATTACK"
+const STATE_ATTACK := "ATTACK"
+
 var turn: int = 0
-var turn_order_index: int = 0
+var turn_order_index: int = -1
+
 var battle_participants = []
-enum State {SELECTING_ACTION, SELECTING_ATTACK, ENEMY_ATTACK, ATTACKING_INFO, INCREMENT_TURN, GAME_END}
-var state: State = State.SELECTING_ACTION
-var lastFocusedMoveIndex: int = 0
-var message_index: int = 0
-var messages: Array = []
-	
+var enemies: Array = []
+
+var current_state: BaseState
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Called once to seed the random number generator
 	randomize()
+	_init_states()
 	_init_battle_participants()
-	_init_moves()
-	_render_hp()
-	if battle_participants[turn_order_index].is_player:
-		_update_state(State.SELECTING_ACTION, ["What will %s do?" % %Player.character_name])
-		return
-	else:
-		_update_state(State.ENEMY_ATTACK)
-		return
+	render_hp()
+	transition_state_to(STATE_INCREMENT_TURN)
 
-# The label_text can be turned into an Array of strings if we end up needing to pass multiple messages.
-func _update_state(new_state: State, _messages: Array = []):
-	var old_state = state
-	state = new_state
-	%StateDisplay.text = State.keys()[state]
-	%TurnDisplay.text = "trn: %s idx: %s" % [turn, turn_order_index]
-	if old_state == State.SELECTING_ACTION:
-		%PlayerPrompt.visible = false
-		%Action.visible = false
-		
-	elif old_state == State.SELECTING_ATTACK:
-		%Moves.visible = false
-		
-	elif old_state == State.ATTACKING_INFO:
-		%BattleStatus.visible = false
-		%ContinueButton.release_focus()
-		messages = []
-		if %Enemy.hp <= 0:
-			%BattleStatus.text = "%s defeated %s" % [%Player.character_name, %Enemy.character_name]
-			_update_state(State.GAME_END)
-			return
-		elif %Player.hp <= 0:
-			%BattleStatus.text = "%s defeated %s" % [%Enemy.character_name, %Player.character_name]
-			_update_state(State.GAME_END)
-			return
-			
-	if state == State.SELECTING_ACTION:
-		%PlayerPrompt.visible = true
-		%PlayerPrompt.text = _messages[0]
-		%Action.visible = true
-		%Action.get_child(0).grab_focus()
-		
-	elif state == State.SELECTING_ATTACK:
-		_render_moves()
-		%Moves.visible = true
-		%MovesMenu.get_child(lastFocusedMoveIndex).grab_focus()
-		
-	elif state == State.ENEMY_ATTACK:
-		var enemy = battle_participants[turn_order_index]
-		var enemyMoveIdx = enemy.select_move()
-		if enemyMoveIdx != -1:
-			_on_move_selected(enemyMoveIdx, %Player)
-			return
-		else:
-			_update_state(State.ATTACKING_INFO, ["%s can't attack!" % enemy.character_name])
-			return
-			
-	elif state == State.ATTACKING_INFO:
-		_render_hp()
-		%BattleStatus.visible = true
-		%ContinueButton.grab_focus()
-		messages = _messages
-		message_index = 0
-		%BattleStatus.text = _messages[message_index]
-		
-	elif state == State.INCREMENT_TURN:
-		turn_order_index += 1
-		if turn_order_index == battle_participants.size():
-			turn_order_index = 0
-			turn += 1
-		if battle_participants[turn_order_index].is_player:
-			_update_state(State.SELECTING_ACTION, ["What will %s do?" % %Player.character_name])
-			return
-		else:
-			_update_state(State.ENEMY_ATTACK)
-			return
-			
-	elif state == State.GAME_END:
-		%BattleStatus.visible = true
-		%ContinueButton.grab_focus()
+func _init_states():
+	# Initialize all states
+	for child in %BattleStateMachine.get_children():
+		if child is BaseState:
+			child.battle = self
 
 func _init_battle_participants():
-	for enemy in %Enemies.get_children():
-		enemy.is_player = false
-		battle_participants.append(enemy)
+	battle_participants.clear()
 	battle_participants.append(%Player)
-	battle_participants.sort_custom(func(a, b): 
-		if a.speed == b.speed:
-			return  randi() % 2 == 0
-		return a.speed > b.speed)
+	enemies.clear()
+	for enemy_node in %Enemies.get_children():
+		enemy_node.is_player = false
+		battle_participants.append(enemy_node)
+		enemies.append(enemy_node)
 
-func _init_moves():
-	for i in %Player.moves.size():
-		%MovesMenu.get_child(i).text = %Player.moves[i].move_name
-		%MovesMenu.get_child(i).focus_entered.connect(func(): _display_pp_info(i))
-		%MovesMenu.get_child(i).mouse_entered.connect(%MovesMenu.get_child(i).grab_focus)
+	battle_participants.sort_custom(_sort_participants_by_speed)
 
-func _on_move_pressed(index: int) -> void:
-	var move = %Player.moves[index]
-	if move.pp > 0:
-		_on_move_selected(index, %Enemy)
-	
-func _on_move_selected(index: int, target: BattleParticipant) -> void:
-	var _messages = []
-	var attacker: BattleParticipant = battle_participants[turn_order_index]
-	var results = attacker.use_move(index, target)
-	var used_move_name = results["move"].move_name
-	var damage = results["damage"]
-	var move_hit = results["move_hit"]
-	if not move_hit:
-		_messages.append("%s missed %s!" % [attacker.character_name, used_move_name])
-	elif damage > 0:
-		var effectiveness_multiplier: float = attacker.get_effectiveness_modifier(attacker.moves[index], target)
-		_messages.append("%s used %s on %s for %d damage!" % [attacker.character_name, used_move_name, target.character_name, damage])
+func _sort_participants_by_speed(a, b) -> bool:
+	if a.speed == b.speed:
+		return randf() < 0.5  # More readable than randi() % 2
+	return a.speed > b.speed
 
-		if effectiveness_multiplier > 1.0:
-			_messages.append("%s was super effective!" % used_move_name)
+func transition_state_to(state_name: String, messages: Array = []):
+	if not %BattleStateMachine.has_node(state_name):
+		push_error("Invalid state: " + state_name)
+		return
 
-		elif effectiveness_multiplier < 1.0:
-			_messages.append("%s was not very effective!" % used_move_name)
+	if current_state:
+		current_state.exit()
 
-	# This should only be status effects for now
+	print("Entering state: ", state_name)
+	%StateDisplay.text = state_name
+
+	current_state = %BattleStateMachine.get_node(state_name)
+	current_state.enter(messages)
+
+func render_hp() -> void:
+	if enemies.size() > 0:
+		%EnemyPanel.text = "Enemy " + str(enemies[0].hp) + " / " + str(enemies[0].max_hp)
 	else:
-		var status_effect_string = String(MovesList.StatusEffect.find_key(target.status_effect)).to_lower()
-		_messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
-		
-	_update_state(State.ATTACKING_INFO, _messages)
-		
-func _render_hp() -> void:
-	%EnemyPanel.text = "Enemy " + str(%Enemy.hp) + " / " + str(%Enemy.max_hp)
+		%EnemyPanel.text = "Enemy ?"
 	%PlayerPanel.text = "Player " + str(%Player.hp) + " / " + str(%Player.max_hp)
 
 func _on_continue_button_pressed() -> void:
-	if state == State.ATTACKING_INFO:
-		message_index += 1
-		if message_index < messages.size():
-			%BattleStatus.text = messages[message_index]
-		else:
-			_update_state(State.INCREMENT_TURN)
-			return
-	elif state == State.GAME_END:
-		get_tree().quit()
+	current_state.handle_continue()
 
-func _on_attack_pressed() -> void:
-	if state == State.SELECTING_ACTION:
-		_update_state(State.SELECTING_ATTACK)
-
-func _display_pp_info(moveIndex: int) -> void:
-	lastFocusedMoveIndex = moveIndex
-	var move = %Player.moves[moveIndex]
-	%PPInfo.text = "%d / %d" % [move.pp, move.max_pp]
-	if move.pp <= 0:
-		%PPInfo.set_theme_type_variation("RedTextLabel")
-	else:
-		%PPInfo.set_theme_type_variation("NoBorderLabel")
-	%TypeInfo.text = MovesList.Type.keys()[move.type]
-
-func _render_moves():
-	for i in %Player.moves.size():
-		var move = %Player.moves[i]
-		if move.pp <= 0:
-			%MovesMenu.get_child(i).set_theme_type_variation("DisabledButton")
-		else:
-			%MovesMenu.get_child(i).set_theme_type_variation("Button")
+func get_current_attacker():
+	return battle_participants[turn_order_index]
