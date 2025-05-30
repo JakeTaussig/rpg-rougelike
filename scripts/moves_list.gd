@@ -4,8 +4,8 @@ class_name MovesList
 @export var moves: Array[Move]
 
 enum Type {HUMAN, FIRE, WATER, PLANT, PLASMA, DARK, LIGHT}
-				  		# HUMAN, FIRE, WATER,    PLANT,   DARK,   LIGHT
-enum StatusEffect {NONE, BLEED, BURN, WHIRLPOOL, POISON, CONSUME, BLIND}
+				  		# HUMAN, FIRE,  WATER,   PLANT,   PLASMA,   DARK,   LIGHT
+enum StatusEffect {NONE, BLEED, BURN, WHIRLPOOL, POISON, PARALYZE, CONSUME, BLIND}
 
 
 const TYPES = {

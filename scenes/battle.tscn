@@ -176,7 +176,7 @@ unique_name_in_owner = true
 position = Vector2(64, 72)
 max_hp = 400
 hp = 400
-speed = 20
+speed = 40
 type = 5
 
 [node name="Enemies" type="Node2D" parent="."]
@@ -189,7 +189,7 @@ script = ExtResource("6_6vh42")
 ai_type = 2
 character_name = "Pink Box"
 max_hp = 400
-hp = 200
+hp = 400
 type = 6
 
 [node name="StateDisplay" type="Label" parent="."]

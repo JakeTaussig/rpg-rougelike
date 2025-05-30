@@ -14,7 +14,7 @@ class_name BattleParticipant
 @export var sp_atk: int = 20:
 	set(new_sp_atk):
 		sp_atk = max(1, new_sp_atk)
-@export var def: int = 20:
+@export var def: int = 20: 
 	set(new_def):
 		def = max(1, new_def)
 @export var sp_def: int = 20:
@@ -29,7 +29,8 @@ class_name BattleParticipant
 @export var type: MovesList.Type = MovesList.Type.HUMAN
 var is_player = true
 var moves: Array[Move] = []
-var status_effect = MovesList.StatusEffect.NONE
+var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
+var status_effect_turn_counter: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,16 +40,34 @@ func _ready() -> void:
 func use_move(index: int, target: BattleParticipant) -> Dictionary:
 	var move = moves[index]
 	move.pp -= 1
-	var move_hit: bool = _does_move_hit(move.acc)
+	var move_hit: bool = 1
+	var status_applied: bool = 0
 	var damage = 0
+	if status_effect ==  MovesList.StatusEffect.WHIRLPOOL:
+		# Whirlpool has a 50% chance to damage the affected character each turn
+		move_hit = _does_move_hit(50)
+		if move_hit:
+			move = GameManager.get_move_by_name("Whirlpool")
+			damage = max(1, _attack(move, self, 1))
+			return {"move": move, "damage": damage, "move_hit": 1, "status_applied": 0}
+	
+	elif status_effect == MovesList.StatusEffect.PARALYZE:
+		# 33% chance for paralysis to activate
+		move_hit = _does_move_hit(33)
+		if move_hit:
+			move = GameManager.get_move_by_name("Paralyzed")
+			damage = 0
+			return {"move": move, "damage": damage, "move_hit": 1, "status_applied": 0}
+	move_hit = _does_move_hit(move.acc)
+	
 	if move_hit:
 		if move.category == Move.MoveCategory.ATK:
 			damage = max(1, _attack(move, target, 1))
 		elif move.category == Move.MoveCategory.SP_ATK:
 			damage = max(1, _attack(move, target, 0))
 		if move.status_effect != MovesList.StatusEffect.NONE:
-			_roll_and_apply_status_effect(move, target)
-	return {"move": move, "damage": damage, "move_hit": move_hit}
+			status_applied = _roll_and_apply_status_effect(move, target)
+	return {"move": move, "damage": damage, "move_hit": move_hit, "status_applied": status_applied}
 
 func _does_move_hit(accuracy: int) -> bool:
 	accuracy = clamp(accuracy, 0, 100)
@@ -74,12 +93,14 @@ func _attack(move: Move, target: BattleParticipant, is_physical: bool) -> int:
 	target.hp -= damage
 	return damage
 	
-func _roll_and_apply_status_effect(move: Move, target: BattleParticipant):
+func _roll_and_apply_status_effect(move: Move, target: BattleParticipant) -> bool:
 	# Only attempt to apply a status effect if one is not already applied
 	if target.status_effect == MovesList.StatusEffect.NONE:
 		var status_applied = _does_move_hit(move.status_effect_chance)
 		if status_applied:
 			target.status_effect = move.status_effect
+			return true
+	return false
 		
 func get_move_effectiveness(move: Move,  defender: BattleParticipant) -> float:
 	var same_type_attack_bonus: float = 1.5 if self.type == move.type else 1.0
@@ -92,6 +113,26 @@ func get_effectiveness_modifier(move: Move, defender: BattleParticipant) -> floa
 	var base_modifier = MovesList.TYPE_CHART[atk_idx][def_idx]
 	return base_modifier
 
+func enact_cripple_on_self():
+	pass
+	
+func enact_burn_on_self():
+	pass
+	
+#func enact_whirlpool_on_self():
+	#pass
+
+func enact_poison_on_self():
+	pass
+	
+func enact_paralyze_on_self():
+	pass
+	
+#func enact_consume_on_self():
+	#pass
+	
+func enact_blind_on_self():
+	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
