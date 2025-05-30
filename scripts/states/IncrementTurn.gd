@@ -20,7 +20,7 @@ func enter(_messages: Array = []):
 		battle.transition_state_to(battle.STATE_ENEMY_ATTACK)
 
 func _is_battle_over() -> bool:
-	return battle.enemies[0].hp <= 0 || battle.get_node("%Player").hp <= 0
+	return battle.enemies[0].monster.hp <= 0 || battle.get_node("%Player").monster.hp <= 0
 
 func _log_turn_info():
 	print("---------------------------")

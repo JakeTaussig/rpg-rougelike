@@ -6,7 +6,7 @@ func enter(messages: Array = []):
 	%Action.get_child(0).grab_focus()
 
 	if messages.size() == 0:
-		%PlayerPrompt.text = "What will %s do?" % %Player.character_name
+		%PlayerPrompt.text = "What will %s do?" % %Player.monster.character_name
 	else:
 		%PlayerPrompt.text = messages[0]
 

@@ -43,10 +43,10 @@ func _init_battle_participants():
 
 	battle_participants.sort_custom(_sort_participants_by_speed)
 
-func _sort_participants_by_speed(a, b) -> bool:
-	if a.speed == b.speed:
+func _sort_participants_by_speed(a: BattleParticipant, b: BattleParticipant) -> bool:
+	if a.monster.speed == b.monster.speed:
 		return randf() < 0.5  # More readable than randi() % 2
-	return a.speed > b.speed
+	return a.monster.speed > b.monster.speed
 
 func transition_state_to(state_name: String, messages: Array = []):
 	if not %BattleStateMachine.has_node(state_name):
@@ -64,10 +64,10 @@ func transition_state_to(state_name: String, messages: Array = []):
 
 func render_hp() -> void:
 	if enemies.size() > 0:
-		%EnemyPanel.text = "Enemy " + str(enemies[0].hp) + " / " + str(enemies[0].max_hp)
+		%EnemyPanel.text = enemies[0].monster.character_name + str(enemies[0].monster.hp) + " / " + str(enemies[0].monster.max_hp)
 	else:
 		%EnemyPanel.text = "Enemy ?"
-	%PlayerPanel.text = "Player " + str(%Player.hp) + " / " + str(%Player.max_hp)
+	%PlayerPanel.text = %Player.monster.character_name + str(%Player.monster.hp) + " / " + str(%Player.monster.max_hp)
 
 func _on_continue_button_pressed() -> void:
 	current_state.handle_continue()
