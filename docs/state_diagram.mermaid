@@ -1,0 +1,30 @@
+flowchart TD
+  Start
+  IncrementTurn[*State: IncrementTurn*]
+  SelectingAction[*State: SelectingAction*]
+  SelectingAttack[*State: SelectingAttack*]
+  Attack[*State: Attack*]
+  AttackingInfo[*State: Info*]
+  EnemyAttack[*State: EnemyAttack*]
+  GameEnd[*State: GameEnd*]
+  Meditate[*State: Meditate*]
+  style Meditate stroke:#33cc33,stroke-width:4,font-size:20px
+
+  Start --> IncrementTurn
+
+  IncrementTurn --> |Player Turn| SelectingAction
+  SelectingAction --> |Attack menu selected| SelectingAttack
+  SelectingAction --> |Meditate menu selected| Meditate
+  SelectingAttack --> |specific attack selected| Attack
+
+  Meditate --> |Meditation Target selected|AttackingInfo
+
+  IncrementTurn --> |Enemy Turn| EnemyAttack
+  EnemyAttack --> Attack
+
+  Attack --> AttackingInfo
+
+  IncrementTurn --> |Player or Enemy Dead| GameEnd
+
+  AttackingInfo --> |No more messages| IncrementTurn
+  AttackingInfo --> |More messages to display| AttackingInfo
