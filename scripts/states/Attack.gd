@@ -15,15 +15,15 @@ func enter(params: Array = []):
 
 	# Execute attack
 	var results = attacker.use_move(move_index, target)
-	var used_move = results["move"]
-	var messages = _generate_attack_messages(attacker, target, used_move, results)
+	var messages = _generate_attack_messages(attacker, target, results)
 
 	# Transition to AttackingInfoState to show results
 	battle.transition_state_to(battle.STATE_ATTACKING_INFO, messages)
 
-func _generate_attack_messages(attacker, target, used_move, results) -> Array:
+func _generate_attack_messages(attacker, target, results) -> Array:
 	var messages = []
-	var used_move_name = results["move"].move_name
+	var used_move = results["move"]
+	var used_move_name = used_move.move_name
 	var damage = results["damage"]
 	var move_hit = results["move_hit"]
 	if used_move_name == "Whirlpool":
