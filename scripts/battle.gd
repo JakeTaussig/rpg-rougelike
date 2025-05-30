@@ -7,6 +7,7 @@ const STATE_SELECTING_ACTION := "SELECTING_ACTION"
 const STATE_ENEMY_ATTACK := "ENEMY_ATTACK"
 const STATE_GAME_END := "GAME_END"
 const STATE_SELECTING_ATTACK := "SELECTING_ATTACK"
+const STATE_MEDITATE := "MEDITATE"
 const STATE_ATTACK := "ATTACK"
 
 var turn: int = 0
@@ -25,6 +26,9 @@ func _ready() -> void:
 	_init_battle_participants()
 	render_hp()
 	transition_state_to(STATE_INCREMENT_TURN)
+
+func _input(event: InputEvent) -> void:
+	current_state.handle_input(event)
 
 func _init_states():
 	# Initialize all states

@@ -9,5 +9,8 @@ func enter(_messages: Array = []):
 func exit():
 	pass
 
+func handle_input(event: InputEvent):
+	pass
+
 func handle_continue():
 	pass
