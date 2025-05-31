@@ -26,9 +26,8 @@ func _on_move_pressed(index: int) -> void:
 		attackCommand.move_index = index
 		attackCommand.target = battle.enemies[0]
 		battle.transition_state_to(
-			battle.STATE_ATTACK,
+			battle.STATE_ATTACK, battle.STATE_SELECTING_ATTACK,
 			[attackCommand])
-
 
 func _ready() -> void:
 	_init_move_buttons()

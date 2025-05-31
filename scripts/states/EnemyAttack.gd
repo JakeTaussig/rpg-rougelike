@@ -9,7 +9,7 @@ func enter(messages: Array = []):
 		attackCommand.move_index = enemyMoveIdx
 		attackCommand.target = %Player
 		battle.transition_state_to(
-			battle.STATE_ATTACK,
+			battle.STATE_ATTACK, battle.STATE_ENEMY_ATTACK,
 			[attackCommand])
 	else:
-		battle.transition_state_to(battle.STATE_ATTACKING_INFO, ["%s can't attack" % enemy.character_name])
+		battle.transition_state_to(battle.STATE_INFO, battle.STATE_ENEMY_ATTACK, ["%s can't attack" % enemy.character_name])

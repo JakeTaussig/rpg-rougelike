@@ -1,13 +1,15 @@
 class_name Battle
 extends Node2D
 
-const STATE_ATTACKING_INFO := "ATTACKING_INFO"
+const STATE_INFO := "INFO"
 const STATE_INCREMENT_TURN := "INCREMENT_TURN"
 const STATE_SELECTING_ACTION := "SELECTING_ACTION"
 const STATE_ENEMY_ATTACK := "ENEMY_ATTACK"
 const STATE_GAME_END := "GAME_END"
 const STATE_SELECTING_ATTACK := "SELECTING_ATTACK"
 const STATE_ATTACK := "ATTACK"
+const STATE_ENACT_STATUSES := "ENACT_STATUSES"
+const NONE := "NONE"
 
 var turn: int = 0
 var turn_order_index: int = -1
@@ -16,6 +18,7 @@ var battle_participants = []
 var enemies: Array = []
 
 var current_state: BaseState
+var previous_state
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,7 +27,7 @@ func _ready() -> void:
 	_init_states()
 	_init_battle_participants()
 	render_hp()
-	transition_state_to(STATE_INCREMENT_TURN)
+	transition_state_to(STATE_INCREMENT_TURN, NONE)
 
 func _init_states():
 	# Initialize all states
@@ -48,7 +51,7 @@ func _sort_participants_by_speed(a, b) -> bool:
 		return randf() < 0.5  # More readable than randi() % 2
 	return a.speed > b.speed
 
-func transition_state_to(state_name: String, messages: Array = []):
+func transition_state_to(state_name: String, prev_state, messages: Array = []):
 	if not %BattleStateMachine.has_node(state_name):
 		push_error("Invalid state: " + state_name)
 		return
@@ -59,6 +62,7 @@ func transition_state_to(state_name: String, messages: Array = []):
 	print("Entering state: ", state_name)
 	%StateDisplay.text = state_name
 
+	previous_state = prev_state
 	current_state = %BattleStateMachine.get_node(state_name)
 	current_state.enter(messages)
 

@@ -4,7 +4,7 @@ extends BaseState
 func enter(params: Array = []):
 	if params.size() != 1 or not params[0] is AttackCommand:
 		push_error("AttackState: Expected AttackCommand")
-		battle.transition_state_to(battle.STATE_ATTACKING_INFO, ["Invalid attack command"])
+		battle.transition_state_to(battle.STATE_INFO, battle.STATE_ATTACK, ["Invalid attack command"])
 		return
 
 	var command = params[0] as AttackCommand
@@ -15,18 +15,23 @@ func enter(params: Array = []):
 
 	# Execute attack
 	var results = attacker.use_move(move_index, target)
-	var used_move = attacker.moves[move_index]
-	var messages = _generate_attack_messages(attacker, target, used_move, results)
+	var messages = _generate_attack_messages(attacker, target, results)
 
 	# Transition to AttackingInfoState to show results
-	battle.transition_state_to(battle.STATE_ATTACKING_INFO, messages)
+	battle.transition_state_to(battle.STATE_INFO, battle.STATE_ATTACK, messages)
 
-func _generate_attack_messages(attacker, target, used_move, results) -> Array:
+func _generate_attack_messages(attacker, target, results) -> Array:
 	var messages = []
-	var used_move_name = results["move"].move_name
+	var used_move = results["move"]
+	var used_move_name = used_move.move_name
 	var damage = results["damage"]
 	var move_hit = results["move_hit"]
-	if not move_hit:
+	if used_move_name == "Whirlpool":
+		messages.append("%s got caught in the whirlpool and took %d damage!" % [attacker.character_name, damage])
+		return messages
+	elif used_move_name == "Paralyzed":
+		messages.append("%s is paralyzed and could not move!" % attacker.character_name)
+	elif not move_hit:
 		messages.append("%s missed %s!" % [attacker.character_name, used_move_name])
 	elif damage > 0:
 		var effectiveness_multiplier: float = attacker.get_effectiveness_modifier(used_move, target)
@@ -38,11 +43,16 @@ func _generate_attack_messages(attacker, target, used_move, results) -> Array:
 		elif effectiveness_multiplier < 1.0:
 			messages.append("%s was not very effective!" % used_move_name)
 
-	# This should only be status effects for now
-	else:
+	# TODO: Potentially add custom messages for each status effect type.
+	if results["status_applied"]:
+		# Different message if the move only applies status effect or if it also did damage. In this case we need to display the move name.
 		var status_effect_string = String(MovesList.StatusEffect.find_key(target.status_effect)).to_lower()
-		messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
+		if used_move.category == Move.MoveCategory.STATUS_EFFECT:
+			messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
+		else:
+			messages.append("%s was affllicted with %s!" % [target.character_name, status_effect_string])
 	return messages
+	# TODO: Right now, if you use a static effect only move and the target already has a status effect, no message is displayed. 
 
 # Inner class. Used to pass data to `AttackState.enter`
 class AttackCommand:
