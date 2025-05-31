@@ -30,7 +30,7 @@ func _generate_attack_messages(attacker, target, used_move, results) -> Array:
 		messages.append("%s missed %s!" % [attacker.character_name, used_move_name])
 	elif damage > 0:
 		var effectiveness_multiplier: float = attacker.get_effectiveness_modifier(used_move, target)
-		messages.append("%s used %s on %s for %d damage!" % [attacker.character_name, used_move_name, target.character_name, damage])
+		messages.append("%s used %s on %s for %d damage!" % [attacker.monster.character_name, used_move_name, target.monster.character_name, damage])
 
 		if effectiveness_multiplier > 1.0:
 			messages.append("%s was super effective!" % used_move_name)
@@ -41,7 +41,7 @@ func _generate_attack_messages(attacker, target, used_move, results) -> Array:
 	# This should only be status effects for now
 	else:
 		var status_effect_string = String(MovesList.StatusEffect.find_key(target.status_effect)).to_lower()
-		messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
+		messages.append("%s used %s and applied %s on %s!" % [attacker.monster.character_name, used_move_name, status_effect_string, target.monster.character_name])
 	return messages
 
 # Inner class. Used to pass data to `AttackState.enter`

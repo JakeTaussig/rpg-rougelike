@@ -1,40 +1,31 @@
-extends Node2D
+@tool
+extends Sprite2D
 class_name BattleParticipant
 
-@export var character_name: String = "Player"
-@export var max_hp: int = 100:
-	set(new_health):
-		max_hp = max(1, new_health)
-@export var hp: int = 100:
-	set(new_health):
-		hp = max(0, new_health)
-@export var atk: int = 20:
-	set(new_atk):
-		atk = max(1, new_atk)
-@export var sp_atk: int = 20:
-	set(new_sp_atk):
-		sp_atk = max(1, new_sp_atk)
-@export var def: int = 20:
-	set(new_def):
-		def = max(1, new_def)
-@export var sp_def: int = 20:
-	set(new_sp_def):
-		sp_def = max(1, new_sp_def)
-@export var speed: int = 30:
-	set(new_speed):
-		speed = max(1, new_speed)
-@export var luck: int = 10:
-	set(new_luck):
-		luck = max(1, new_luck)
-@export var type: MovesList.Type = MovesList.Type.HUMAN
-var is_player = true
+@export var monster: Monster = preload("res://assets/monsters/omenite.tres"):
+	set(new_monster):
+		monster = new_monster
+		_render_battler()
+
+var is_player = true:
+	set(_is_player):
+		is_player = _is_player
+		_render_battler()
+
 var moves: Array[Move] = []
 var status_effect = MovesList.StatusEffect.NONE
 
+func _render_battler():
+	texture = monster.texture
+	flip_h = is_player
+
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	for move in GameManager.moves_list.moves.slice(0, 4):
-		moves.append(move.copy())
+func _enter_tree() -> void:
+	monster = monster.duplicate()
+	_render_battler()
+	if not Engine.is_editor_hint():
+		for move in GameManager.moves_list.moves.slice(0, 4):
+			moves.append(move.copy())
 
 func use_move(index: int, target: BattleParticipant) -> Dictionary:
 	var move = moves[index]
@@ -57,21 +48,21 @@ func _does_move_hit(accuracy: int) -> bool:
 	return roll <= accuracy
 	
 func increment_health(value: int) -> void:
-	hp += value
+	monster.hp += value
 	
 func _attack(move: Move, target: BattleParticipant, is_physical: bool) -> int:
 	var power = move.base_power
 	var damage = 0
 	var effectiveness_modifier = get_move_effectiveness(move, target)
 	if is_physical:
-		power = power * atk
-		damage = power / target.def
+		power = power * monster.atk
+		damage = power / target.monster.def
 		damage *= effectiveness_modifier
 	else:
-		power = power * sp_atk
-		damage = power / target.sp_def
+		power = power * monster.sp_atk
+		damage = power / target.monster.sp_def
 		damage *= effectiveness_modifier
-	target.hp -= damage
+	target.monster.hp -= damage
 	return damage
 	
 func _roll_and_apply_status_effect(move: Move, target: BattleParticipant):
@@ -82,13 +73,13 @@ func _roll_and_apply_status_effect(move: Move, target: BattleParticipant):
 			target.status_effect = move.status_effect
 		
 func get_move_effectiveness(move: Move,  defender: BattleParticipant) -> float:
-	var same_type_attack_bonus: float = 1.5 if self.type == move.type else 1.0
+	var same_type_attack_bonus: float = 1.5 if self.monster.type == move.type else 1.0
 	var base_modifier = get_effectiveness_modifier(move, defender)
 	return base_modifier * same_type_attack_bonus
 	
 func get_effectiveness_modifier(move: Move, defender: BattleParticipant) -> float:
 	var atk_idx = MovesList.TYPES[move.type]
-	var def_idx = MovesList.TYPES[defender.type]
+	var def_idx = MovesList.TYPES[defender.monster.type]
 	var base_modifier = MovesList.TYPE_CHART[atk_idx][def_idx]
 	return base_modifier
 

@@ -1,12 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://dspy5d5yn1fxj"]
+[gd_scene load_steps=6 format=3 uid="uid://dspy5d5yn1fxj"]
 
 [ext_resource type="Script" uid="uid://d0ejnncl5rkg0" path="res://scripts/battle_participant.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://cyqywjpbta4p8" path="res://scripts/monster.gd" id="2_dmbjg"]
+[ext_resource type="Texture2D" uid="uid://cqah3pvvxjf3e" path="res://assets/sprites/characters/oddesque.png" id="3_07hmd"]
+[ext_resource type="Texture2D" uid="uid://ccw3gkgcfoqh0" path="res://assets/sprites/characters/omenite.png" id="4_07hmd"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3vyb7"]
-size = Vector2(24, 24)
+[sub_resource type="Resource" id="Resource_dmbjg"]
+script = ExtResource("2_dmbjg")
+character_name = "Omenite"
+texture = ExtResource("4_07hmd")
+max_hp = 100
+hp = 100
+atk = 20
+sp_atk = 20
+def = 20
+sp_def = 20
+speed = 30
+luck = 10
+type = 2
+metadata/_custom_type_script = "uid://cyqywjpbta4p8"
 
-[node name="BattleParticipant" type="Node2D"]
+[node name="BattleParticipant" type="Sprite2D"]
+texture = ExtResource("3_07hmd")
 script = ExtResource("1_3vyb7")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("PlaceholderTexture2D_3vyb7")
+resource = SubResource("Resource_dmbjg")
