@@ -31,6 +31,7 @@ var is_player = true
 var moves: Array[Move] = []
 var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
 var status_effect_turn_counter: int = 0
+var consume_benefactor: BattleParticipant = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -70,6 +71,8 @@ func use_move(index: int, target: BattleParticipant) -> Dictionary:
 	return {"move": move, "damage": damage, "move_hit": move_hit, "status_applied": status_applied}
 
 func _does_move_hit(accuracy: int) -> bool:
+	if status_effect == MovesList.StatusEffect.BLIND:
+		accuracy = accuracy * 0.67 
 	accuracy = clamp(accuracy, 0, 100)
 	# Generates a number between 1 and 100
 	var roll = randi() % 100 + 1
@@ -99,6 +102,8 @@ func _roll_and_apply_status_effect(move: Move, target: BattleParticipant) -> boo
 		var status_applied = _does_move_hit(move.status_effect_chance)
 		if status_applied:
 			target.status_effect = move.status_effect
+			if target.status_effect == MovesList.StatusEffect.CONSUME:
+				target.consume_benefactor = self
 			return true
 	return false
 		
@@ -112,27 +117,106 @@ func get_effectiveness_modifier(move: Move, defender: BattleParticipant) -> floa
 	var def_idx = MovesList.TYPES[defender.type]
 	var base_modifier = MovesList.TYPE_CHART[atk_idx][def_idx]
 	return base_modifier
+	
+func enact_status_effect() -> String:
+	match status_effect:
+		MovesList.StatusEffect.CRIPPLE:
+			return enact_cripple_on_self()
+		MovesList.StatusEffect.BURN:
+			return enact_burn_on_self()
+		MovesList.StatusEffect.POISON:
+			return enact_poison_on_self()
+		MovesList.StatusEffect.CONSUME:
+			return enact_consume_on_self()
+	return ""
+	
+func recover_from_status_effect() -> String:
+	match status_effect:
+		MovesList.StatusEffect.CRIPPLE:
+			return _recover_from_cripple()
+		MovesList.StatusEffect.BURN:
+			return _recover_from_burn()
+		MovesList.StatusEffect.WHIRLPOOL:
+			return _recover_from_whirlpool()
+		MovesList.StatusEffect.POISON:
+			return _recover_from_poison()
+		MovesList.StatusEffect.PARALYZE:
+			return _recover_from_paralyze()
+		MovesList.StatusEffect.CONSUME:
+			return _recover_from_consume()
+		MovesList.StatusEffect.BLIND:
+			return _recover_from_blind()
+	return ""
 
+# Only called on first turn of cripple
 func enact_cripple_on_self():
-	pass
+	if status_effect_turn_counter == 1:
+		atk *= 0.8
+		sp_atk *= 0.8
+		def *= 0.8
+		sp_def *= 0.8
+		speed *= 0.8
+		luck *= 0.8
+		# TODO: display this immediately upon getting crippled. 
+		return "%s was crippled, and all of there stats were lowered by 20%!"
+	return ""
+
+func _recover_from_cripple():
+	status_effect = MovesList.StatusEffect.NONE
+	status_effect_turn_counter = 0
+	atk *= 1.2
+	sp_atk *= 1.2
+	def *= 1.2
+	sp_def *= 1.2
+	speed *= 1.2
+	luck *= 1.2
+	return "%s recovered from cripple and their stats were restored!" % character_name
 	
 func enact_burn_on_self():
-	pass
+	if status_effect_turn_counter == 1:
+		atk *= 0.5
+	var hp_to_lose = max_hp * 0.04
+	hp -= hp_to_lose * 0.04
+	return "%s took %s damage from burn!" % [character_name, str(hp_to_lose)]
 	
-#func enact_whirlpool_on_self():
-	#pass
+func _recover_from_burn():
+	status_effect = MovesList.StatusEffect.NONE
+	status_effect_turn_counter = 0
+	atk *= 1.5
+	return "%s recovered from burn!" % character_name
+	
+func _recover_from_whirlpool():
+	status_effect = MovesList.StatusEffect.NONE
+	status_effect_turn_counter = 0
+	return "%s recovered from whirlpool!" % character_name
 
 func enact_poison_on_self():
-	pass
+	var hp_to_lose =- max_hp * 0.08
+	return "%s is poisoned and took %s damage!" % [character_name, hp_to_lose]
 	
-func enact_paralyze_on_self():
-	pass
+func _recover_from_poison():
+	status_effect = MovesList.StatusEffect.NONE
+	status_effect_turn_counter = 0
+	return "%s recovered from poison" % character_name
 	
-#func enact_consume_on_self():
-	#pass
+func _recover_from_paralyze():
+	status_effect = MovesList.StatusEffect.NONE
+	status_effect_turn_counter = 0
+	return "%s recovered from paralyze" % character_name
 	
-func enact_blind_on_self():
-	pass
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func enact_consume_on_self():
+	var hp_to_siphen = max_hp * 0.04
+	hp -= hp_to_siphen
+	consume_benefactor.hp += hp_to_siphen
+	return "%s consumed %s HP from %s!" % [consume_benefactor, str(hp_to_siphen), character_name]
+	
+func _recover_from_consume():
+	status_effect = MovesList.StatusEffect.NONE
+	status_effect_turn_counter = 0
+	consume_benefactor = null
+	return "%s recovered from consume!" % character_name
+	
+func _recover_from_blind():
+	status_effect = MovesList.StatusEffect.NONE
+	status_effect_turn_counter = 0
+	return "%s recovered from blind!" % character_name

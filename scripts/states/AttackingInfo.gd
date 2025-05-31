@@ -9,7 +9,6 @@ func enter(_messages: Array = []):
 	%BattleStatus.visible = true
 	%ContinueButton.visible = true
 	%ContinueButton.grab_focus()
-
 	messages = _messages
 	message_index = 0
 	_update_message()
@@ -18,13 +17,13 @@ func exit():
 	%BattleStatus.visible = false
 	%ContinueButton.visible = false
 
-
 func handle_continue():
 	message_index += 1
 	if message_index < messages.size():
 		_update_message()
 	else:
-		battle.transition_state_to(battle.STATE_INCREMENT_TURN)
+		battle.transition_state_to(battle.STATE_ENACT_STATUSES, battle.STATE_INFO)
+	# If last state == ENACT_STATUSES, transition to INCREMENT_TURN
 
 func _update_message():
 	%BattleStatus.text = messages[message_index]
