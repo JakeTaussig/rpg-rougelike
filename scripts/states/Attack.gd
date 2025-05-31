@@ -52,6 +52,7 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 		else:
 			messages.append("%s was affllicted with %s!" % [target.character_name, status_effect_string])
 	return messages
+	# TODO: Right now, if you use a static effect only move and the target already has a status effect, no message is displayed. 
 
 # Inner class. Used to pass data to `AttackState.enter`
 class AttackCommand:
