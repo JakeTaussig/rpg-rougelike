@@ -69,6 +69,9 @@ func render_hp() -> void:
 		%EnemyPanel.text = "Enemy ?"
 	%PlayerPanel.text = %Player.monster.character_name + str(%Player.monster.hp) + " / " + str(%Player.monster.max_hp)
 
+	%EnemyPanel.text += "\n %s" % MovesList.Type.keys()[enemies[0].monster.type]
+	%PlayerPanel.text += "\n %s" % MovesList.Type.keys()[$Player.monster.type]
+
 func _on_continue_button_pressed() -> void:
 	current_state.handle_continue()
 
