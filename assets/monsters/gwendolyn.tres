@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Monster" load_steps=3 format=3 uid="uid://dy0jqmgyr3mbo"]
+
+[ext_resource type="Script" uid="uid://cyqywjpbta4p8" path="res://scripts/monster.gd" id="1_8a87y"]
+[ext_resource type="Texture2D" uid="uid://bjv7ljlukk10" path="res://assets/sprites/characters/gwendolyn.png" id="2_8a87y"]
+
+[resource]
+script = ExtResource("1_8a87y")
+character_name = "Gwendolyn"
+texture = ExtResource("2_8a87y")
+max_hp = 30
+hp = 30
+atk = 35
+sp_atk = 100
+def = 30
+sp_def = 35
+speed = 80
+luck = 10
+type = 4
+metadata/_custom_type_script = "uid://cyqywjpbta4p8"
