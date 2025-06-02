@@ -39,6 +39,10 @@ func _ready() -> void:
 		moves.append(move.copy())
 
 func use_move(index: int, target: BattleParticipant) -> Dictionary:
+	# This is done here rather than in EnactStatuses.gd so that speed doesn't have an impact on how long status effects will last.
+	# This will need to be adjusted should the possiblity of using 2 moves on a single turn come into play. 
+	if status_effect != MovesList.StatusEffect.NONE:
+		status_effect_turn_counter += 1
 	var move = moves[index]
 	move.pp -= 1
 	var move_hit: bool = 1
@@ -208,7 +212,7 @@ func enact_consume_on_self():
 	var hp_to_siphen = max_hp * 0.04
 	hp -= hp_to_siphen
 	consume_benefactor.hp += hp_to_siphen
-	return "%s consumed %s HP from %s!" % [consume_benefactor, str(hp_to_siphen), character_name]
+	return "%s consumed %s HP from %s!" % [consume_benefactor.character_name, str(hp_to_siphen), character_name]
 	
 func _recover_from_consume():
 	status_effect = MovesList.StatusEffect.NONE

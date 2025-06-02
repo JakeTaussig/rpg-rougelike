@@ -5,7 +5,6 @@ func enter(messages: Array = []):
 	var message = ""
 	for participant in battle.battle_participants:
 		if participant.status_effect != GameManager.moves_list.StatusEffect.NONE:
-			participant.status_effect_turn_counter += 1
 			match participant.status_effect_turn_counter:
 				1: 
 					message = participant.enact_status_effect()

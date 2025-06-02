@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MovesList" load_steps=12 format=3 uid="uid://btnh7hoa1cll6"]
+[gd_resource type="Resource" script_class="MovesList" load_steps=13 format=3 uid="uid://btnh7hoa1cll6"]
 
 [ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_ofag1"]
 [ext_resource type="Resource" uid="uid://c22tuotquomd3" path="res://assets/moves/tackle.tres" id="2_bdaju"]
@@ -11,8 +11,9 @@
 [ext_resource type="Resource" uid="uid://8jcddcsnbyms" path="res://assets/moves/whirlpool.tres" id="7_qyrit"]
 [ext_resource type="Resource" uid="uid://en3lvxoqdpbg" path="res://assets/moves/electrocute.tres" id="9_xl5mf"]
 [ext_resource type="Resource" uid="uid://chacpi7ng0b4p" path="res://assets/moves/paralyzed.tres" id="10_lqm4p"]
+[ext_resource type="Resource" uid="uid://bjmuju8kjgv2l" path="res://assets/moves/vortex.tres" id="11_1l5jq"]
 
 [resource]
 script = ExtResource("7_2u8do")
-moves = Array[ExtResource("1_ofag1")]([ExtResource("4_ux0hn"), ExtResource("6_f500o"), ExtResource("9_xl5mf"), ExtResource("3_4xer7"), ExtResource("5_p5lyi"), ExtResource("2_bdaju"), ExtResource("5_uk1h8"), ExtResource("7_qyrit"), ExtResource("10_lqm4p")])
+moves = Array[ExtResource("1_ofag1")]([ExtResource("4_ux0hn"), ExtResource("6_f500o"), ExtResource("11_1l5jq"), ExtResource("9_xl5mf"), ExtResource("3_4xer7"), ExtResource("5_p5lyi"), ExtResource("2_bdaju"), ExtResource("5_uk1h8"), ExtResource("7_qyrit"), ExtResource("10_lqm4p")])
 metadata/_custom_type_script = "uid://btgl7ks1m3ei3"
