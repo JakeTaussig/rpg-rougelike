@@ -64,10 +64,10 @@ func transition_state_to(state_name: String, messages: Array = []):
 
 func render_hp() -> void:
 	if enemies.size() > 0:
-		%EnemyPanel.text = enemies[0].monster.character_name + str(enemies[0].monster.hp) + " / " + str(enemies[0].monster.max_hp)
+		%EnemyPanel.text = "%s %d / %d" % [enemies[0].monster.character_name, enemies[0].monster.hp, enemies[0].monster.max_hp]
 	else:
 		%EnemyPanel.text = "Enemy ?"
-	%PlayerPanel.text = %Player.monster.character_name + str(%Player.monster.hp) + " / " + str(%Player.monster.max_hp)
+	%PlayerPanel.text = "%s %d / %d" % [%Player.monster.character_name, %Player.monster.hp, %Player.monster.max_hp]
 
 	%EnemyPanel.text += "\n %s" % MovesList.Type.keys()[enemies[0].monster.type]
 	%PlayerPanel.text += "\n %s" % MovesList.Type.keys()[$Player.monster.type]
