@@ -17,4 +17,5 @@
   - each placeholder contains three tilemap layers (dark/mid/highlight)
     - each tilemap layer contains only tiles of its particular color
   - the tileset for each layer is as shown below:
-![link text](../../../docs/tileset.jpg)
+
+![link text](tileset.jpg)
