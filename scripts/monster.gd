@@ -1,7 +1,7 @@
 class_name Monster
 extends Resource
 
-@export var character_name: String = "Oddesque"
+@export var character_name: String = "Monster"
 @export var texture: CompressedTexture2D = preload("res://assets/sprites/characters/oddesque.png")
 
 @export var max_hp: int = 100:
@@ -28,5 +28,5 @@ extends Resource
 @export var luck: int = 10:
 	set(new_luck):
 		luck = max(1, new_luck)
-		
+
 @export var type: MovesList.Type
