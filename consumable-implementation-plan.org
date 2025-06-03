@@ -1,7 +1,7 @@
 * Consumable Implementation plan
 - [X] Create ~SELECTING_ITEM~ Node in ~%BattleStateMachine~ (~./scenes/battle.tscn~)
 - [X] Create ~STATE_SELECTING_ITEM~ const in ~./scripts/battle.gd~
-- [ ] Create ~%Items~ Node2D as a child of ~%BottomBar~ (~./scenes/battle.tscn~)
+- [X] Create ~%Items~ Node2D as a child of ~%BottomBar~ (~./scenes/battle.tscn~)
 - [X] Create "Items" action in ~%Action~ VBoxContainer
 - [ ] Create "Items" button handler in ~./scripts/states/SelectingAttack.gd~
 - [ ] Create ~./scripts/states/SelectingItem.gd~

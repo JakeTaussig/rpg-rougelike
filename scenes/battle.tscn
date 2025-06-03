@@ -95,8 +95,6 @@ offset_top = 96.0
 offset_right = 255.0
 offset_bottom = 143.0
 theme = ExtResource("2_p1qf1")
-theme_override_constants/h_separation = 0
-theme_override_constants/v_separation = 0
 columns = 2
 
 [node name="Move1" type="Button" parent="BottomBar/Moves/MovesMenu"]
@@ -153,6 +151,72 @@ offset_bottom = 47.0
 theme = ExtResource("2_p1qf1")
 theme_type_variation = &"NoBorderLabel"
 text = "TYPE: HUMAN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Items" type="Node2D" parent="BottomBar"]
+unique_name_in_owner = true
+
+[node name="ItemsMenu" type="GridContainer" parent="BottomBar/Items"]
+unique_name_in_owner = true
+offset_top = 96.0
+offset_right = 168.0
+offset_bottom = 144.0
+theme = ExtResource("2_p1qf1")
+columns = 2
+
+[node name="Item1" type="Button" parent="BottomBar/Items/ItemsMenu"]
+custom_minimum_size = Vector2(80, 24)
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+text = "Item 1"
+
+[node name="Item2" type="Button" parent="BottomBar/Items/ItemsMenu"]
+custom_minimum_size = Vector2(80, 24)
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+text = "Item 2"
+
+[node name="Item3" type="Button" parent="BottomBar/Items/ItemsMenu"]
+custom_minimum_size = Vector2(80, 24)
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+text = "Item 3"
+
+[node name="Item4" type="Button" parent="BottomBar/Items/ItemsMenu"]
+custom_minimum_size = Vector2(80, 24)
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+text = "Item 4"
+
+[node name="ItemInfo" type="Panel" parent="BottomBar/Items"]
+custom_minimum_size = Vector2(0, 24)
+offset_left = 160.0
+offset_top = 96.0
+offset_right = 255.0
+offset_bottom = 144.0
+theme = ExtResource("2_p1qf1")
+
+[node name="ItemQtyInfo" type="Label" parent="BottomBar/Items/ItemInfo"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 95.0
+offset_bottom = 24.0
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"NoBorderLabel"
+text = "1/15"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemTypeInfo" type="Label" parent="BottomBar/Items/ItemInfo"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 24.0
+offset_right = 95.0
+offset_bottom = 48.0
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"NoBorderLabel"
+text = "Heals 30 HP"
 horizontal_alignment = 1
 vertical_alignment = 1
 
