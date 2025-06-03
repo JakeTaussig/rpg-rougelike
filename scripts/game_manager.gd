@@ -11,5 +11,5 @@ func get_move_by_name(move_to_find: String):
 	for move in moves_list.moves:
 		if move.move_name == move_to_find:
 			return move
-	push_error("MOVE NOT FOUND")
+	push_error("MOVE NOT FOUND %s" % move_to_find)
 	return ""
