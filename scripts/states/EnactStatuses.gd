@@ -45,7 +45,4 @@ func enter(messages: Array = []):
 					if message != "":
 						messages.append(message)
 
-	if messages.size() > 0:
-		battle.transition_state_to(battle.STATE_INFO, messages)
-	else:
-		battle.transition_state_to(battle.STATE_INCREMENT_TURN)
+	battle.transition_state_to(battle.STATE_INFO, messages)

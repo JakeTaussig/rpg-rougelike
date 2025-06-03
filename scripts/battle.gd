@@ -18,7 +18,7 @@ var active_monsters = []
 var current_enemy: Monster
 
 var current_state: BaseState
-var previous_state
+var previous_state_name: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -57,11 +57,11 @@ func transition_state_to(state_name: String, messages: Array = []):
 
 	if current_state:
 		current_state.exit()
+		previous_state_name = current_state.name
 
 	print("Entering state: ", state_name)
 	%StateDisplay.text = state_name
 
-	previous_state = current_state
 	current_state = %BattleStateMachine.get_node(state_name)
 	current_state.enter(messages)
 
@@ -77,3 +77,9 @@ func render_hp() -> void:
 
 func _on_continue_button_pressed() -> void:
 	current_state.handle_continue()
+
+func is_battle_over() -> bool:
+	return %Enemy.selected_monster.hp <= 0 || %Player.selected_monster.hp <= 0
+
+func get_attacker():
+	return active_monsters[turn_order_index]
