@@ -1,12 +1,21 @@
 extends BaseState
 
+var statuses_enacted = false
+
 func enter(_messages: Array = []):
 	if _is_battle_over():
 		battle.transition_state_to(battle.STATE_GAME_END)
 		return
 
+	# enact statuses before updating the turn order
+	if battle.turn_order_index == battle.active_monsters.size() - 1 and not statuses_enacted:
+		statuses_enacted = true
+		battle.transition_state_to(battle.STATE_ENACT_STATUSES)
+		return
+
 	battle.turn_order_index = (battle.turn_order_index + 1) % battle.active_monsters.size()
 	if battle.turn_order_index == 0:
+		statuses_enacted = false
 		battle.turn += 1
 		_log_turn_info()
 

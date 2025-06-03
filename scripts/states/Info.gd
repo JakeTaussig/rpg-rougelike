@@ -11,9 +11,10 @@ func enter(_messages: Array = []):
 	%ContinueButton.grab_focus()
 	messages = _messages
 	message_index = 0
-	if messages.size() == 0:
-		handle_continue()
 	_update_message()
+	if messages.size() == 0:
+		print("\tno messages; skipping INFO state")
+		handle_continue()
 
 func exit():
 	%BattleStatus.visible = false
@@ -22,9 +23,7 @@ func exit():
 func handle_continue():
 	message_index += 1
 	if message_index < messages.size():
-		_update_message() 
-	elif battle.turn_order_index == battle.active_monsters.size() - 1 and battle.previous_state_name != battle.STATE_ENACT_STATUSES:
-		battle.transition_state_to(battle.STATE_ENACT_STATUSES)
+		_update_message()
 	else:
 		battle.transition_state_to(battle.STATE_INCREMENT_TURN)
 
