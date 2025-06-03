@@ -27,12 +27,12 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 	var damage = results["damage"]
 	var move_hit = results["move_hit"]
 	if used_move_name == "Whirlpool":
-		messages.append("%s got caught in the whirlpool and took %d damage!" % [attacker.character_name, damage])
+		messages.append("%s got caught in the whirlpool and took %d damage!" % [attacker.monster.character_name, damage])
 		return messages
 	elif used_move_name == "Paralyzed":
-		messages.append("%s is paralyzed and could not move!" % attacker.character_name)
+		messages.append("%s is paralyzed and could not move!" % attacker.monster.character_name)
 	elif not move_hit:
-		messages.append("%s missed %s!" % [attacker.character_name, used_move_name])
+		messages.append("%s missed %s!" % [attacker.monster.character_name, used_move_name])
 	elif damage > 0:
 		var effectiveness_multiplier: float = attacker.get_effectiveness_modifier(used_move, target)
 		messages.append("%s used %s on %s for %d damage!" % [attacker.monster.character_name, used_move_name, target.monster.character_name, damage])
