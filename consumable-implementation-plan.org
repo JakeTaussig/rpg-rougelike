@@ -15,6 +15,6 @@
 - [X] Create ~hp_restore~ variable (quantity) on the Consumable/Backpack
 - [X] give each battle participant an exported Consumable/Backpack
 - [X] update ~./scripts/states/SelectingItem.gd~ to dynamically populate ~%Items~
-- [ ] similar to ~Monster.enact_status_effect()~, create triggers for each consumable type in ~./scripts/backpack.gd~
-- [ ] Create "Heal PP" variable (quantity) on the Consumable/Backpack
+- [X] similar to ~Monster.enact_status_effect()~, create triggers for each consumable type in ~./scripts/backpack.gd~
 - [X] Update State diagram to include new ~SelectingItem~ state (~docs/state_diagram.mermaid~)
+- [ ] Create "Heal PP" variable (quantity) on the Consumable/Backpack
