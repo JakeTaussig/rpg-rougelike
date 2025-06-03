@@ -171,7 +171,7 @@ func enact_burn_on_self():
 		monster.atk *= 0.5
 		return "%s's attack was lowered by 50" % monster.character_name + "%!"
 	else:
-		var hp_to_lose = int(monster.max_hp * 0.04)
+		var hp_to_lose = int(monster.max_hp * 0.05)
 		monster.hp -= hp_to_lose
 		return "%s took %s damage from burn!" % [monster.character_name, str(hp_to_lose)]
 	
@@ -202,9 +202,11 @@ func _recover_from_paralyze():
 	return "%s recovered from paralyze" % monster.character_name
 	
 func enact_consume_on_self():
-	var hp_to_siphen = int(monster.max_hp * 0.04)
-	# Can only consume as much HP is missing. 
-	var max_hp_to_siphen = consume_benefactor.monster.max_hp - consume_benefactor.monster.hp
+	var hp_to_siphen = int(monster.max_hp * 0.05)
+	# Can only consume as much HP is missing/available. 
+	var benefactor_max_hp_to_siphen = consume_benefactor.monster.max_hp - consume_benefactor.monster.hp
+	var target_max_hp_to_siphen = monster.hp
+	var max_hp_to_siphen = min(benefactor_max_hp_to_siphen, target_max_hp_to_siphen)
 	if max_hp_to_siphen == 0:
 		return "%s cannot consume because they are at full HP!" % consume_benefactor.monster.character_name
 	elif max_hp_to_siphen < hp_to_siphen:
