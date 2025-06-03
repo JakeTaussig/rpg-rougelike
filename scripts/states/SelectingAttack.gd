@@ -20,6 +20,7 @@ func _render_moves():
 
 func _on_move_pressed(index: int) -> void:
 	var move = %Player.selected_monster.moves[index]
+	print("\tuser input:\t\tselect %s (idx %d)" % [move.move_name, index])
 	if move.pp > 0:
 		var attackCommand = AttackState.AttackCommand.new()
 		attackCommand.attacker = %Player.selected_monster
