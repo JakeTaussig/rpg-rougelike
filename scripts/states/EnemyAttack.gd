@@ -11,4 +11,4 @@ func enter(_messages: Array = []):
 		battle.transition_state_to(
 			battle.STATE_ATTACK, [attackCommand])
 	else:
-		battle.transition_state_to(battle.STATE_INFO, ["%s can't attack" % enemy.character_name])
+		battle.transition_state_to(battle.STATE_INFO, ["%s can't attack" % enemy.monster.character_name])

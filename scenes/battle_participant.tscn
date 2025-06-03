@@ -1,12 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://dspy5d5yn1fxj"]
 
 [ext_resource type="Script" uid="uid://d0ejnncl5rkg0" path="res://scripts/battle_participant.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://ccw3gkgcfoqh0" path="res://assets/sprites/characters/omenite.png" id="4_07hmd"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3vyb7"]
-size = Vector2(24, 24)
-
-[node name="BattleParticipant" type="Node2D"]
+[node name="BattleParticipant" type="Sprite2D"]
+texture = ExtResource("4_07hmd")
+flip_h = true
 script = ExtResource("1_3vyb7")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("PlaceholderTexture2D_3vyb7")

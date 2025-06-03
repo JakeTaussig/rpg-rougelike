@@ -1,7 +1,11 @@
+@tool
 class_name Enemy extends BattleParticipant
 
 enum AI_TYPE { RANDOM, AGGRESSIVE, HIGH_EV }
 @export var ai_type: AI_TYPE = AI_TYPE.HIGH_EV
+
+func _ready():
+	is_player = false
 
 # Only called by enemy
 func select_move() -> int:

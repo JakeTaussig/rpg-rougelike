@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=16 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cstx4ogvno1si" path="res://scripts/enemy.gd" id="6_6vh42"]
 [ext_resource type="Script" uid="uid://brto6aw55bukl" path="res://scripts/states/Info.gd" id="7_v7i3o"]
 [ext_resource type="Script" uid="uid://buy2ylv1t0vt0" path="res://scripts/states/EnemyAttack.gd" id="8_66ngm"]
+[ext_resource type="Resource" uid="uid://fyqnvw1yr5pb" path="res://assets/monsters/oddesque.tres" id="8_vceff"]
 [ext_resource type="Script" uid="uid://bl3wtt7v3rtpm" path="res://scripts/states/SelectingAction.gd" id="9_03edq"]
 [ext_resource type="Script" uid="uid://dxrkm475i6ls6" path="res://scripts/states/SelectingAttack.gd" id="10_22uqi"]
 [ext_resource type="Script" uid="uid://cmikjgcwtvkyk" path="res://scripts/states/IncrementTurn.gd" id="12_03edq"]
@@ -62,6 +63,7 @@ alignment = 0
 
 [node name="BattleStatus" type="Label" parent="BottomBar"]
 unique_name_in_owner = true
+visible = false
 offset_top = 96.0
 offset_right = 255.0
 offset_bottom = 143.0
@@ -175,10 +177,6 @@ text = "Player"
 [node name="Player" parent="." instance=ExtResource("5_lpir7")]
 unique_name_in_owner = true
 position = Vector2(64, 72)
-max_hp = 400
-hp = 400
-speed = 40
-type = 5
 
 [node name="Enemies" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -188,10 +186,7 @@ unique_name_in_owner = true
 position = Vector2(192, 32)
 script = ExtResource("6_6vh42")
 ai_type = 2
-character_name = "Pink Box"
-max_hp = 400
-hp = 400
-type = 6
+monster = ExtResource("8_vceff")
 
 [node name="StateDisplay" type="Label" parent="."]
 unique_name_in_owner = true
