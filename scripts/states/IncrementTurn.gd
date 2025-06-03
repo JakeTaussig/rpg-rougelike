@@ -2,7 +2,7 @@ extends BaseState
 
 func enter(_messages: Array = []):
 	if _is_battle_over():
-		battle.transition_state_to(battle.STATE_GAME_END, battle.STATE_INCREMENT_TURN)
+		battle.transition_state_to(battle.STATE_GAME_END)
 		return
 
 	battle.turn_order_index = (battle.turn_order_index + 1) % battle.battle_participants.size()
@@ -13,9 +13,9 @@ func enter(_messages: Array = []):
 	%TurnDisplay.text = "trn: %s idx: %s" % [battle.turn, battle.turn_order_index]
 
 	if battle.battle_participants[battle.turn_order_index].is_player:
-		battle.transition_state_to(battle.STATE_SELECTING_ACTION, battle.STATE_INCREMENT_TURN)
+		battle.transition_state_to(battle.STATE_SELECTING_ACTION)
 	else:
-		battle.transition_state_to(battle.STATE_ENEMY_ATTACK, battle.STATE_INCREMENT_TURN)
+		battle.transition_state_to(battle.STATE_ENEMY_ATTACK)
 
 func _is_battle_over() -> bool:
 	return battle.enemies[0].hp <= 0 || battle.get_node("%Player").hp <= 0

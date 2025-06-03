@@ -15,4 +15,4 @@ func exit():
 	%Action.visible = false
 
 func _on_attack_pressed() -> void:
-	battle.transition_state_to(battle.STATE_SELECTING_ATTACK, battle.STATE_SELECTING_ACTION)
+	battle.transition_state_to(battle.STATE_SELECTING_ATTACK)

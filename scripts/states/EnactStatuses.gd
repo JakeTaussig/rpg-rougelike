@@ -41,6 +41,6 @@ func enter(messages: Array = []):
 						messages.append(message)
 
 	if messages.size() > 0:
-		battle.transition_state_to(battle.STATE_INFO, battle.STATE_ENACT_STATUSES, messages)
+		battle.transition_state_to(battle.STATE_INFO, messages)
 	else:
-		battle.transition_state_to(battle.STATE_INCREMENT_TURN, battle.STATE_ENACT_STATUSES)
+		battle.transition_state_to(battle.STATE_INCREMENT_TURN)

@@ -4,7 +4,7 @@ extends BaseState
 func enter(params: Array = []):
 	if params.size() != 1 or not params[0] is AttackCommand:
 		push_error("AttackState: Expected AttackCommand")
-		battle.transition_state_to(battle.STATE_INFO, battle.STATE_ATTACK, ["Invalid attack command"])
+		battle.transition_state_to(battle.STATE_INFO, ["Invalid attack command"])
 		return
 
 	var command = params[0] as AttackCommand
@@ -18,7 +18,7 @@ func enter(params: Array = []):
 	var messages = _generate_attack_messages(attacker, target, results)
 
 	# Transition to AttackingInfoState to show results
-	battle.transition_state_to(battle.STATE_INFO, battle.STATE_ATTACK, messages)
+	battle.transition_state_to(battle.STATE_INFO, messages)
 
 func _generate_attack_messages(attacker, target, results) -> Array:
 	var messages = []

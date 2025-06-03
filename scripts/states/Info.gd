@@ -21,10 +21,10 @@ func handle_continue():
 	message_index += 1
 	if message_index < messages.size():
 		_update_message() 
-	elif battle.turn_order_index == battle.battle_participants.size() - 1 and battle.previous_state != battle.STATE_ENACT_STATUSES:
-		battle.transition_state_to(battle.STATE_ENACT_STATUSES, battle.STATE_INFO)
+	elif battle.turn_order_index == battle.battle_participants.size() - 1 and battle.previous_state != %BattleStateMachine.get_node(battle.STATE_ENACT_STATUSES):
+		battle.transition_state_to(battle.STATE_ENACT_STATUSES)
 	else:
-		battle.transition_state_to(battle.STATE_INCREMENT_TURN, battle.STATE_INFO)
+		battle.transition_state_to(battle.STATE_INCREMENT_TURN)
 
 func _update_message():
 	if messages.size() >= 1:

@@ -181,7 +181,7 @@ func enact_burn_on_self():
 		return "%s's attack was lowered by 50" % character_name + "%!"
 	else:
 		var hp_to_lose = int(max_hp * 0.04)
-		hp -= hp_to_lose * 0.04
+		hp -= hp_to_lose
 		return "%s took %s damage from burn!" % [character_name, str(hp_to_lose)]
 	
 func _recover_from_burn():
@@ -196,7 +196,8 @@ func _recover_from_whirlpool():
 	return "%s recovered from whirlpool!" % character_name
 
 func enact_poison_on_self():
-	var hp_to_lose =- max_hp * 0.08
+	var hp_to_lose = int(max_hp * 0.08)
+	hp -= hp_to_lose
 	return "%s is poisoned and took %s damage!" % [character_name, hp_to_lose]
 	
 func _recover_from_poison():

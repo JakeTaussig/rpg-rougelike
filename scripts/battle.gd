@@ -27,7 +27,7 @@ func _ready() -> void:
 	_init_states()
 	_init_battle_participants()
 	render_hp()
-	transition_state_to(STATE_INCREMENT_TURN, NONE)
+	transition_state_to(STATE_INCREMENT_TURN)
 
 func _init_states():
 	# Initialize all states
@@ -51,7 +51,7 @@ func _sort_participants_by_speed(a, b) -> bool:
 		return randf() < 0.5  # More readable than randi() % 2
 	return a.speed > b.speed
 
-func transition_state_to(state_name: String, prev_state, messages: Array = []):
+func transition_state_to(state_name: String, messages: Array = []):
 	if not %BattleStateMachine.has_node(state_name):
 		push_error("Invalid state: " + state_name)
 		return
@@ -62,7 +62,7 @@ func transition_state_to(state_name: String, prev_state, messages: Array = []):
 	print("Entering state: ", state_name)
 	%StateDisplay.text = state_name
 
-	previous_state = prev_state
+	previous_state = current_state
 	current_state = %BattleStateMachine.get_node(state_name)
 	current_state.enter(messages)
 
