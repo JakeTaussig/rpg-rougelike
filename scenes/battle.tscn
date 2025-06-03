@@ -233,6 +233,8 @@ script = ExtResource("13_6ni85")
 [node name="ENACT_STATUSES" type="Node" parent="BattleStateMachine"]
 script = ExtResource("14_6ni85")
 
+[node name="SELECTING_ITEM" type="Node" parent="BattleStateMachine"]
+
 [connection signal="pressed" from="BottomBar/Action/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]
 [connection signal="pressed" from="BottomBar/BattleStatus/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move1" to="BattleStateMachine/SELECTING_ATTACK" method="_on_move_pressed" binds= [0]]
