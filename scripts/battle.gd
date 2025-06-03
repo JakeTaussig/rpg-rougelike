@@ -79,5 +79,8 @@ func _on_continue_button_pressed() -> void:
 	print("\tuser input:\t\tcontinue button")
 	current_state.handle_continue()
 
+func is_battle_over() -> bool:
+	return %Enemy.selected_monster.hp <= 0 || %Player.selected_monster.hp <= 0
+
 func get_attacker():
 	return active_monsters[turn_order_index]
