@@ -16,3 +16,6 @@ func exit():
 
 func _on_attack_pressed() -> void:
 	battle.transition_state_to(battle.STATE_SELECTING_ATTACK)
+
+func _on_item_pressed() -> void:
+	battle.transition_state_to(battle.STATE_SELECTING_ITEM)

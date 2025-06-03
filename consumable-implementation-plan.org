@@ -3,7 +3,7 @@
 - [X] Create ~STATE_SELECTING_ITEM~ const in ~./scripts/battle.gd~
 - [X] Create ~%Items~ Node2D as a child of ~%BottomBar~ (~./scenes/battle.tscn~)
 - [X] Create "Items" action in ~%Action~ VBoxContainer
-- [ ] Create "Items" button handler in ~./scripts/states/SelectingAttack.gd~
+- [X] Create "Items" button handler in ~./scripts/states/SelectingAttack.gd~
 - [ ] Create ~./scripts/states/SelectingItem.gd~
   - enter:
     - show ~%Items~

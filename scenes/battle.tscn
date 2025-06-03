@@ -156,6 +156,7 @@ vertical_alignment = 1
 
 [node name="Items" type="Node2D" parent="BottomBar"]
 unique_name_in_owner = true
+visible = false
 
 [node name="ItemsMenu" type="GridContainer" parent="BottomBar/Items"]
 unique_name_in_owner = true
@@ -300,6 +301,7 @@ script = ExtResource("14_6ni85")
 [node name="SELECTING_ITEM" type="Node" parent="BattleStateMachine"]
 
 [connection signal="pressed" from="BottomBar/Action/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]
+[connection signal="pressed" from="BottomBar/Action/Item" to="BattleStateMachine/SELECTING_ACTION" method="_on_item_pressed"]
 [connection signal="pressed" from="BottomBar/BattleStatus/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move1" to="BattleStateMachine/SELECTING_ATTACK" method="_on_move_pressed" binds= [0]]
 [connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move2" to="BattleStateMachine/SELECTING_ATTACK" method="_on_move_pressed" binds= [1]]
