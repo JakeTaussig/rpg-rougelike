@@ -76,7 +76,6 @@ func render_hp() -> void:
 	%PlayerPanel.text += "\n %s" % MovesList.Type.keys()[$Player.selected_monster.type]
 
 func _on_continue_button_pressed() -> void:
-	print("\tuser input:\t\tcontinue button")
 	current_state.handle_continue()
 
 func is_battle_over() -> bool:

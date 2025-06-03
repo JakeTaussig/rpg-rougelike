@@ -29,8 +29,16 @@ func enter(_messages: Array = []):
 
 func _log_turn_info():
 	if (battle.turn_order_index == 0):
-		print("---------------------------")
-		print("Turn: %d" % battle.turn)
-		print("---------------------------")
+		print("\t---------------------------")
+		print("\tTurn: %d" % battle.turn)
+		print("\t---------------------------")
 
-	print("\tstarting \t\t%s's turn " % battle.get_attacker().character_name)
+	var attacker = battle.get_attacker()
+	print("\tstarting\t\t%s's turn " % attacker.character_name)
+
+	# log HP
+	var first_player = battle.active_monsters[0]
+	var second_player = battle.active_monsters[1]
+	print("\t\t\t\t\tHP:")
+	print("\t\t\t\t\t\t%s\t%d / %d" % [first_player.character_name, first_player.hp, first_player.max_hp])
+	print("\t\t\t\t\t\t%s\t%d / %d" % [second_player.character_name, second_player.hp, second_player.max_hp])
