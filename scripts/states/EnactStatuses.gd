@@ -3,40 +3,45 @@ var participants_statused: bool = false
 
 func enter(messages: Array = []):
 	var message = ""
-	for participant in battle.battle_participants:
-		if participant.status_effect != GameManager.moves_list.StatusEffect.NONE:
-			match participant.status_effect_turn_counter:
+	for monster in battle.active_monsters:
+		if monster.status_effect != GameManager.moves_list.StatusEffect.NONE:
+			match monster.status_effect_turn_counter:
+				0:
+					monster.status_effect_turn_counter += 1
+					message = monster.enact_status_effect()
+					if message != "":
+						messages.append(message)
 				1: 
-					message = participant.enact_status_effect()
+					message = monster.enact_status_effect()
 					if message != "":
 						messages.append(message)
 				2: 
-					message = participant.enact_status_effect()
+					message = monster.enact_status_effect()
 					if message != "":
 						messages.append(message)
 				3: 
 					if randi() % 4 == 0:
-						message = participant.recover_from_status_effect()
+						message = monster.recover_from_status_effect()
 					else:
-						message = participant.enact_status_effect()
+						message = monster.enact_status_effect()
 					if message != "":
 						messages.append(message)
 				4:
 					if randi() % 3 == 0:
-						message = participant.recover_from_status_effect()
+						message = monster.recover_from_status_effect()
 					else:
-						message = participant.enact_status_effect()
+						message = monster.enact_status_effect()
 					if message != "":
 						messages.append(message)
 				5: 
 					if randi() % 2 == 0:
-						message = participant.recover_from_status_effect()
+						message = monster.recover_from_status_effect()
 					else:
-						message = participant.enact_status_effect()
+						message = monster.enact_status_effect()
 					if message != "":
 						messages.append(message)
 				6:     
-					message = participant.recover_from_status_effect()
+					message = monster.recover_from_status_effect()
 					if message != "":
 						messages.append(message)
 

@@ -14,8 +14,8 @@ const NONE := "NONE"
 var turn: int = 0
 var turn_order_index: int = -1
 
-var battle_participants = []
-var enemies: Array = []
+var active_monsters = []
+var current_enemy: Monster
 
 var current_state: BaseState
 var previous_state
@@ -26,8 +26,6 @@ func _ready() -> void:
 	randomize()
 	_init_states()
 	_init_battle_participants()
-	render_hp()
-	transition_state_to(STATE_INCREMENT_TURN)
 
 func _init_states():
 	# Initialize all states
@@ -36,20 +34,21 @@ func _init_states():
 			child.battle = self
 
 func _init_battle_participants():
-	battle_participants.clear()
-	battle_participants.append(%Player)
-	enemies.clear()
-	for enemy_node in %Enemies.get_children():
-		enemy_node.is_player = false
-		battle_participants.append(enemy_node)
-		enemies.append(enemy_node)
+	active_monsters.clear()
+	active_monsters.append(%Player.selected_monster)
+	for monster in %Enemy.monsters:
+		# TODO: Later this will need to change. Only 2 Monsters should be in active_monsters at a time. 
+		current_enemy = monster
+		active_monsters.append(monster)
 
-	battle_participants.sort_custom(_sort_participants_by_speed)
+	active_monsters.sort_custom(_sort_participants_by_speed)
+	render_hp()
+	transition_state_to(STATE_INCREMENT_TURN)
 
-func _sort_participants_by_speed(a: BattleParticipant, b: BattleParticipant) -> bool:
-	if a.monster.speed == b.monster.speed:
+func _sort_participants_by_speed(a: Monster, b: Monster) -> bool:
+	if a.speed == b.speed:
 		return randf() < 0.5  # More readable than randi() % 2
-	return a.monster.speed > b.monster.speed
+	return a.speed > b.speed
 
 func transition_state_to(state_name: String, messages: Array = []):
 	if not %BattleStateMachine.has_node(state_name):
@@ -67,17 +66,14 @@ func transition_state_to(state_name: String, messages: Array = []):
 	current_state.enter(messages)
 
 func render_hp() -> void:
-	if enemies.size() > 0:
-		%EnemyPanel.text = "%s %d / %d" % [enemies[0].monster.character_name, enemies[0].monster.hp, enemies[0].monster.max_hp]
+	if current_enemy:
+		%EnemyPanel.text = "%s %d / %d" % [current_enemy.character_name, current_enemy.hp, current_enemy.max_hp]
 	else:
 		%EnemyPanel.text = "Enemy ?"
-	%PlayerPanel.text = "%s %d / %d" % [%Player.monster.character_name, %Player.monster.hp, %Player.monster.max_hp]
+	%PlayerPanel.text = "%s %d / %d" % [%Player.selected_monster.character_name, %Player.selected_monster.hp, %Player.selected_monster.max_hp]
 
-	%EnemyPanel.text += "\n %s" % MovesList.Type.keys()[enemies[0].monster.type]
-	%PlayerPanel.text += "\n %s" % MovesList.Type.keys()[$Player.monster.type]
+	%EnemyPanel.text += "\n %s" % MovesList.Type.keys()[%Enemy.selected_monster.type]
+	%PlayerPanel.text += "\n %s" % MovesList.Type.keys()[$Player.selected_monster.type]
 
 func _on_continue_button_pressed() -> void:
 	current_state.handle_continue()
-
-func get_current_attacker():
-	return battle_participants[turn_order_index]

@@ -9,8 +9,8 @@ func enter(params: Array = []):
 
 	var command = params[0] as AttackCommand
 
-	var attacker: BattleParticipant = command.attacker
-	var target: BattleParticipant = command.target
+	var attacker: Monster = command.attacker
+	var target: Monster = command.target
 	var move_index: int = command.move_index
 
 	# Execute attack
@@ -27,15 +27,15 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 	var damage = results["damage"]
 	var move_hit = results["move_hit"]
 	if used_move_name == "Whirlpool":
-		messages.append("%s got caught in the whirlpool and took %d damage!" % [attacker.monster.character_name, damage])
+		messages.append("%s got caught in the whirlpool and took %d damage!" % [attacker.character_name, damage])
 		return messages
 	elif used_move_name == "Paralyzed":
-		messages.append("%s is paralyzed and could not move!" % attacker.monster.character_name)
+		messages.append("%s is paralyzed and could not move!" % attacker.character_name)
 	elif not move_hit:
-		messages.append("%s missed %s!" % [attacker.monster.character_name, used_move_name])
+		messages.append("%s missed %s!" % [attacker.character_name, used_move_name])
 	elif damage > 0:
 		var effectiveness_multiplier: float = attacker.get_effectiveness_modifier(used_move, target)
-		messages.append("%s used %s on %s for %d damage!" % [attacker.monster.character_name, used_move_name, target.monster.character_name, damage])
+		messages.append("%s used %s on %s for %d damage!" % [attacker.character_name, used_move_name, target.character_name, damage])
 
 		if effectiveness_multiplier > 1.0:
 			messages.append("%s was super effective!" % used_move_name)
@@ -48,16 +48,16 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 		var target_status_effect_string = String(MovesList.StatusEffect.find_key(target.status_effect)).to_lower()
 		var attempted_status_effect_string = String(MovesList.StatusEffect.find_key(used_move.status_effect)).to_lower()
 		messages.append("%s used %s and attempted to apply %s on %s, but %s is already afflicted with %s!" % 
-		[attacker.monster.character_name, used_move_name, attempted_status_effect_string, target.monster.character_name, target.monster.character_name, target_status_effect_string])
+		[attacker.character_name, used_move_name, attempted_status_effect_string, target.character_name, target.character_name, target_status_effect_string])
 		
 	if results["status_applied"]:
 		var status_effect = target.status_effect
 		# Different message if the move only applies status effect or if it also did damage. In this case we need to display the move name.
 		var status_effect_string = String(MovesList.StatusEffect.find_key(status_effect)).to_lower()
 		if used_move.category == Move.MoveCategory.STATUS_EFFECT:
-			messages.append("%s used %s and applied %s on %s!" % [attacker.monster.character_name, used_move_name, status_effect_string, target.monster.character_name])
+			messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
 		else:
-			messages.append("%s was affllicted with %s!" % [target.monster.character_name, status_effect_string])
+			messages.append("%s was affllicted with %s!" % [target.character_name, status_effect_string])
 		# Burn and cripple need to be applied instantly since they affect the stats of the afflicted user.
 		match status_effect:
 			MovesList.StatusEffect.CRIPPLE:
@@ -65,11 +65,11 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 			MovesList.StatusEffect.BURN:
 				messages.append(target.enact_burn_on_self())
 			MovesList.StatusEffect.BLIND:
-				messages.append("%s's accuracy was lowered by 33" % target.monster.character_name + "%!")
+				messages.append("%s's accuracy was lowered by 33" % target.character_name + "%!")
 	return messages
 
 # Inner class. Used to pass data to `AttackState.enter`
 class AttackCommand:
-	var attacker: BattleParticipant
-	var target: BattleParticipant
+	var attacker: Monster
+	var target: Monster
 	var move_index: int
