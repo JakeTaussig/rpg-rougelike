@@ -15,6 +15,7 @@ flowchart TD
   SelectingAction --> |Attack menu selected| SelectingAttack
   SelectingAttack --> |specific attack selected| Attack
 
+
   IncrementTurn --> |Enemy Turn| EnemyAttack
   EnemyAttack --> Attack
 
@@ -22,12 +23,11 @@ flowchart TD
 
   IncrementTurn --> |Player or Enemy Dead| GameEnd
 
+  IncrementTurn --> |Statuses not enacted| EnactStatuses
+  linkStyle 8 stroke:#33cc33,stroke-width:4px
+
   Info --> |No more messages| IncrementTurn
   Info --> |More messages to display| Info
-  Info --> |End of Turn and Statuses not enacted|EnactStatuses
-  linkStyle 10 stroke:#33cc33,stroke-width:4px
 
-  EnactStatuses --> |More messages to display|Info
+  EnactStatuses --> Info
   linkStyle 11 stroke:#33cc33,stroke-width:4px
-  EnactStatuses --> |No more messages|IncrementTurn
-  linkStyle 12 stroke:#33cc33,stroke-width:4px
