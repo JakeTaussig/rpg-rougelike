@@ -1,7 +1,5 @@
 extends BaseState
 
-var _initialized = false
-
 func enter(_messages: Array = []):
 	if _is_battle_over():
 		battle.transition_state_to(battle.STATE_GAME_END)
