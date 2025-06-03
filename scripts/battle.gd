@@ -77,3 +77,6 @@ func render_hp() -> void:
 
 func _on_continue_button_pressed() -> void:
 	current_state.handle_continue()
+
+func get_attacker():
+	return active_monsters[turn_order_index]

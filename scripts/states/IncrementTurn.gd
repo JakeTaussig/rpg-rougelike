@@ -17,11 +17,11 @@ func enter(_messages: Array = []):
 	if battle.turn_order_index == 0:
 		statuses_enacted = false
 		battle.turn += 1
-		_log_turn_info()
+
+	_log_turn_info()
 
 	%TurnDisplay.text = "trn: %s idx: %s" % [battle.turn, battle.turn_order_index]
 
-	print(battle.turn_order_index)
 	if battle.active_monsters[battle.turn_order_index].is_player:
 		battle.transition_state_to(battle.STATE_SELECTING_ACTION)
 	else:
@@ -32,6 +32,9 @@ func _is_battle_over() -> bool:
 	return %Enemy.selected_monster.hp <= 0 || %Player.selected_monster.hp <= 0
 
 func _log_turn_info():
-	print("---------------------------")
-	print("Turn: %d" % battle.turn)
-	print("---------------------------")
+	if (battle.turn_order_index == 0):
+		print("---------------------------")
+		print("Turn: %d" % battle.turn)
+		print("---------------------------")
+
+	print("\tstarting \t\t%s's turn " % battle.get_attacker().character_name)
