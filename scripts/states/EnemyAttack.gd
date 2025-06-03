@@ -1,6 +1,6 @@
 extends BaseState
 
-func enter(messages: Array = []):
+func enter(_messages: Array = []):
 	var enemy = battle.get_current_attacker()
 	var enemyMoveIdx = enemy.select_move()
 	if enemyMoveIdx != -1:
@@ -9,7 +9,6 @@ func enter(messages: Array = []):
 		attackCommand.move_index = enemyMoveIdx
 		attackCommand.target = %Player
 		battle.transition_state_to(
-			battle.STATE_ATTACK,
-			[attackCommand])
+			battle.STATE_ATTACK, [attackCommand])
 	else:
-		battle.transition_state_to(battle.STATE_ATTACKING_INFO, ["%s can't attack" % enemy.character_name])
+		battle.transition_state_to(battle.STATE_INFO, ["%s can't attack" % enemy.character_name])

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://chacpi7ng0b4p"]
+
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_725fc"]
+
+[resource]
+script = ExtResource("1_725fc")
+move_name = "Paralyzed"
+category = 2
+type = 4
+base_power = 0
+acc = 100
+pp = 10
+max_pp = 10
+status_effect = 0
+status_effect_chance = 100
+priority = false
+metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

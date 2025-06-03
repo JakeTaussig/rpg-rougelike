@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=15 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
@@ -6,13 +6,14 @@
 [ext_resource type="StyleBox" uid="uid://dwb68ajbfeqp0" path="res://assets/styles/normal_sbf.tres" id="4_lpir7"]
 [ext_resource type="PackedScene" uid="uid://dspy5d5yn1fxj" path="res://scenes/battle_participant.tscn" id="5_lpir7"]
 [ext_resource type="Script" uid="uid://cstx4ogvno1si" path="res://scripts/enemy.gd" id="6_6vh42"]
-[ext_resource type="Script" uid="uid://brto6aw55bukl" path="res://scripts/states/AttackingInfo.gd" id="7_v7i3o"]
+[ext_resource type="Script" uid="uid://brto6aw55bukl" path="res://scripts/states/Info.gd" id="7_v7i3o"]
 [ext_resource type="Script" uid="uid://buy2ylv1t0vt0" path="res://scripts/states/EnemyAttack.gd" id="8_66ngm"]
 [ext_resource type="Script" uid="uid://bl3wtt7v3rtpm" path="res://scripts/states/SelectingAction.gd" id="9_03edq"]
 [ext_resource type="Script" uid="uid://dxrkm475i6ls6" path="res://scripts/states/SelectingAttack.gd" id="10_22uqi"]
 [ext_resource type="Script" uid="uid://cmikjgcwtvkyk" path="res://scripts/states/IncrementTurn.gd" id="12_03edq"]
 [ext_resource type="Script" uid="uid://bm0o2eovnfws7" path="res://scripts/states/Attack.gd" id="13_6ni85"]
 [ext_resource type="Script" uid="uid://sdwupuxudrjb" path="res://scripts/states/GameEnd.gd" id="13_22uqi"]
+[ext_resource type="Script" uid="uid://d0rdycr2tr5ll" path="res://scripts/states/EnactStatuses.gd" id="14_6ni85"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_a12nh")
@@ -176,7 +177,7 @@ unique_name_in_owner = true
 position = Vector2(64, 72)
 max_hp = 400
 hp = 400
-speed = 20
+speed = 40
 type = 5
 
 [node name="Enemies" type="Node2D" parent="."]
@@ -189,7 +190,7 @@ script = ExtResource("6_6vh42")
 ai_type = 2
 character_name = "Pink Box"
 max_hp = 400
-hp = 200
+hp = 400
 type = 6
 
 [node name="StateDisplay" type="Label" parent="."]
@@ -208,7 +209,7 @@ offset_bottom = 12.0
 [node name="BattleStateMachine" type="Node" parent="."]
 unique_name_in_owner = true
 
-[node name="ATTACKING_INFO" type="Node" parent="BattleStateMachine"]
+[node name="INFO" type="Node" parent="BattleStateMachine"]
 script = ExtResource("7_v7i3o")
 
 [node name="ENEMY_ATTACK" type="Node" parent="BattleStateMachine"]
@@ -228,6 +229,9 @@ script = ExtResource("13_22uqi")
 
 [node name="ATTACK" type="Node" parent="BattleStateMachine"]
 script = ExtResource("13_6ni85")
+
+[node name="ENACT_STATUSES" type="Node" parent="BattleStateMachine"]
+script = ExtResource("14_6ni85")
 
 [connection signal="pressed" from="BottomBar/Action/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]
 [connection signal="pressed" from="BottomBar/BattleStatus/ContinueButton" to="." method="_on_continue_button_pressed"]
