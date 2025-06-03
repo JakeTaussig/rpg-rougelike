@@ -76,7 +76,7 @@ func use_move(index: int, target: BattleParticipant) -> Dictionary:
 
 func _does_move_hit(accuracy: int) -> bool:
 	if status_effect == MovesList.StatusEffect.BLIND:
-		accuracy = accuracy * 0.67 
+		accuracy = accuracy * 0.67
 	accuracy = clamp(accuracy, 0, 100)
 	# Generates a number between 1 and 100
 	var roll = randi() % 100 + 1
@@ -154,15 +154,14 @@ func recover_from_status_effect() -> String:
 
 # Only called on first turn of cripple
 func enact_cripple_on_self():
-	if status_effect_turn_counter == 1:
+	if status_effect_turn_counter == 0:
 		atk *= 0.8
 		sp_atk *= 0.8
 		def *= 0.8
 		sp_def *= 0.8
 		speed *= 0.8
 		luck *= 0.8
-		# TODO: display this immediately upon getting crippled. 
-		return "%s was crippled, and all of there stats were lowered by 20%!"
+		return "All of %s's stats were lowered by 20" % character_name + "%!"
 	return ""
 
 func _recover_from_cripple():
@@ -177,11 +176,13 @@ func _recover_from_cripple():
 	return "%s recovered from cripple and their stats were restored!" % character_name
 	
 func enact_burn_on_self():
-	if status_effect_turn_counter == 1:
+	if status_effect_turn_counter == 0:
 		atk *= 0.5
-	var hp_to_lose = max_hp * 0.04
-	hp -= hp_to_lose * 0.04
-	return "%s took %s damage from burn!" % [character_name, str(hp_to_lose)]
+		return "%s's attack was lowered by 50" % character_name + "%!"
+	else:
+		var hp_to_lose = int(max_hp * 0.04)
+		hp -= hp_to_lose * 0.04
+		return "%s took %s damage from burn!" % [character_name, str(hp_to_lose)]
 	
 func _recover_from_burn():
 	status_effect = MovesList.StatusEffect.NONE

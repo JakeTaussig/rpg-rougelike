@@ -7,10 +7,6 @@ func _ready() -> void:
 	randomize()
 	pass
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-	
 func get_move_by_name(move_to_find: String):
 	for move in moves_list.moves:
 		if move.move_name == move_to_find:

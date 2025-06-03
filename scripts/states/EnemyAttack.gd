@@ -1,6 +1,6 @@
 extends BaseState
 
-func enter(messages: Array = []):
+func enter(_messages: Array = []):
 	var enemy = battle.get_current_attacker()
 	var enemyMoveIdx = enemy.select_move()
 	if enemyMoveIdx != -1:
