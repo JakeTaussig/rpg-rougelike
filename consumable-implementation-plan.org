@@ -4,11 +4,10 @@
 - [X] Create ~%Items~ Node2D as a child of ~%BottomBar~ (~./scenes/battle.tscn~)
 - [X] Create "Items" action in ~%Action~ VBoxContainer
 - [X] Create "Items" button handler in ~./scripts/states/SelectingAttack.gd~
-- [ ] Create ~./scripts/states/SelectingItem.gd~
+- [X] Create ~./scripts/states/SelectingItem.gd~
   - enter:
     - show ~%Items~
-    - dynamically populate ~%Items~ with the items the player has
-    - ~%Items~ needs to support scrolling
+    - render move names
   - exit:
     - hide ~%Items~
 - [ ] Create ~./scripts/backpack.gd~ script -- class_name ~Backpack~
