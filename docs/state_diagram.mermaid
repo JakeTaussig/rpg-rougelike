@@ -1,0 +1,32 @@
+
+flowchart TD
+  Start
+  IncrementTurn[*State: IncrementTurn*]
+  SelectingAction[*State: SelectingAction*]
+  SelectingAttack[*State: SelectingAttack*]
+  Attack[*State: Attack*]
+  Info[*State: Info*]
+  EnemyAttack[*State: EnemyAttack*]
+  GameEnd[*State: GameEnd*]
+  EnactStatuses[*State: EnactStatuses*]
+%%   style Meditate stroke:#33cc33,stroke-width:4,font-size:20px
+
+  Start --> IncrementTurn
+
+  IncrementTurn --> |Player Turn| SelectingAction
+  SelectingAction --> |Attack menu selected| SelectingAttack
+  SelectingAttack --> |specific attack selected| Attack
+
+  IncrementTurn --> |Enemy Turn| EnemyAttack
+  EnemyAttack --> Attack
+
+  Attack --> Info
+
+  IncrementTurn --> |Player or Enemy Dead| GameEnd
+
+  Info --> |No more messages| IncrementTurn
+  Info --> |More messages to display| Info
+  Info --> |End of Turn and Statuses not enacted|EnactStatuses
+
+  EnactStatuses --> |More messages to display|Info
+  EnactStatuses --> |No more messages|IncrementTurn
