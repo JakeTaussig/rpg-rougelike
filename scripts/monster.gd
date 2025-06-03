@@ -5,11 +5,12 @@ extends Resource
 @export var texture: CompressedTexture2D = preload("res://assets/sprites/characters/oddesque.png")
 
 @export var max_hp: int = 100:
-	set(new_health):
-		max_hp = max(1, new_health)
+	set(new_max_hp):
+		max_hp = max(1, new_max_hp)
+		hp = min(hp, max_hp) # Clamp down hp if max_hp is decreased. 
 @export var hp: int = 100:
-	set(new_health):
-		hp = max(0, new_health)
+	set(new_hp):
+		hp = clamp(new_hp, 0, max_hp) # hp can never exceed max_hp
 @export var atk: int = 20:
 	set(new_atk):
 		atk = max(1, new_atk)
