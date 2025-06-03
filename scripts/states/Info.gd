@@ -11,6 +11,8 @@ func enter(_messages: Array = []):
 	%ContinueButton.grab_focus()
 	messages = _messages
 	message_index = 0
+	if messages.size() == 0:
+		handle_continue()
 	_update_message()
 
 func exit():
