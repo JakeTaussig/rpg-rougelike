@@ -13,3 +13,4 @@ func exit():
 func _render_moves():
 	# placeholder implementation
 	%ItemsMenu.get_child(0).text = "HP Restore"
+	%ItemQtyInfo.text = "Qty: %d / 99" % %Player.backpack.hp_restore_qty
