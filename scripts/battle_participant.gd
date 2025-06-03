@@ -167,12 +167,12 @@ func enact_cripple_on_self():
 func _recover_from_cripple():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
-	atk *= 1.2
-	sp_atk *= 1.2
-	def *= 1.2
-	sp_def *= 1.2
-	speed *= 1.2
-	luck *= 1.2
+	atk *= 1.25
+	sp_atk *= 1.25
+	def *= 1.25
+	sp_def *= 1.25
+	speed *= 1.25
+	luck *= 1.25
 	return "%s recovered from cripple and their stats were restored!" % character_name
 	
 func enact_burn_on_self():
