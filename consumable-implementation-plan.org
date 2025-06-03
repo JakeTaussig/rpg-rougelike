@@ -1,0 +1,21 @@
+* Consumable Implementation plan
+- [ ] Create ~SelectingItem~ Node in ~%BattleStateMachine~ (~./scenes/battle.tscn~)
+- [ ] Create ~SELECTING_ITEM~ const in ~./scripts/states/battle.gd~
+- [ ] Create ~%Items~ Node2D as a child of ~%BottomBar~ (~./scenes/battle.tscn~)
+- [X] Create "Items" action in ~%Action~ VBoxContainer
+- [ ] Create "Items" button handler in ~./scripts/states/SelectingAttack.gd~
+- [ ] Create ~./scripts/states/SelectingItem.gd~
+  - enter:
+    - show ~%Items~
+    - dynamically populate ~%Items~ with the items the player has
+    - ~%Items~ needs to support scrolling
+  - exit:
+    - hide ~%Items~
+- [ ] Create ~./scripts/backpack.gd~ script -- class_name ~Backpack~
+  - this will represent the player's "backpack"
+- [ ] Create "Heal HP" variable (quantity) on the Consumable/Backpack
+- [ ] give each battle participant an exported Consumable/Backpack
+- [ ] update ~./scripts/states/SelectingItem.gd~ to dynamically populate ~%Items~
+- [ ] similar to ~Monster.enact_status_effect()~, create triggers for each consumable type in ~./scripts/backpack.gd~
+- [ ] Create "Heal PP" variable (quantity) on the Consumable/Backpack
+- [ ] Update State diagram to include new ~SelectingItem~ state (~docs/state_diagram.mermaid~)
