@@ -21,11 +21,11 @@ GameManager="*res://scenes/GameManager.tscn"
 
 [display]
 
-window/size/viewport_width=768
-window/size/viewport_height=432
+window/size/viewport_width=1024
+window/size/viewport_height=576
 window/size/always_on_top=true
 window/stretch/mode="viewport"
-window/stretch/scale=3.0
+window/stretch/scale=4.0
 window/stretch/scale_mode="integer"
 
 [gui]
