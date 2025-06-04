@@ -105,6 +105,11 @@ func _attack(move: Move, target: Monster, is_physical: bool) -> int:
 	return damage
 
 func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
+	var effect = move.status_effect
+	var target_type = target.type
+	var is_immune = _check_status_immunity(effect, target_type)
+	if is_immune:
+		return false
 	# Only attempt to apply a status effect if one is not already applied
 	if target.status_effect == MovesList.StatusEffect.NONE:
 		var status_applied = _does_move_hit(move.status_effect_chance)
@@ -113,6 +118,28 @@ func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
 			if target.status_effect == MovesList.StatusEffect.CONSUME:
 				target.consume_benefactor = self
 			return true
+	return false
+	
+func _check_status_immunity(effect: MovesList.StatusEffect, target_type: MovesList.Type):
+	match effect:
+		MovesList.StatusEffect.BURN:
+			if target_type == MovesList.Type.FIRE:
+				return true
+		MovesList.StatusEffect.WHIRLPOOL:
+			if target_type == MovesList.Type.WATER:
+				return true
+		MovesList.StatusEffect.POISON:
+			if target_type == MovesList.Type.PLANT:
+				return true
+		MovesList.StatusEffect.PARALYZE:
+			if target_type == MovesList.Type.PLASMA:
+				return true
+		MovesList.StatusEffect.CONSUME:
+			if target_type == MovesList.Type.DARK:
+				return true
+		MovesList.StatusEffect.BLIND:
+			if target_type == MovesList.Type.LIGHT:
+				return true
 	return false
 		
 func get_move_effectiveness(move: Move,  defender: Monster) -> float:

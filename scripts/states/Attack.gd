@@ -46,12 +46,16 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 		# if the damage killed someone we don't need to see any more messages
 		if battle.is_battle_over():
 			return messages
-	# This condition only triggers when a status effect only move hit, but a status effect is already applied to the target. 
+	# This condition only triggers when a status effect only move hit, but a status effect is already applied to the target. Or when a target is immune to the status effect.
 	elif not results.status_applied:
 		var target_status_effect_string = String(MovesList.StatusEffect.find_key(target.status_effect)).to_lower()
 		var attempted_status_effect_string = String(MovesList.StatusEffect.find_key(used_move.status_effect)).to_lower()
-		messages.append("%s used %s and attempted to apply %s on %s, but %s is already afflicted with %s!" % 
-		[attacker.character_name, used_move_name, attempted_status_effect_string, target.character_name, target.character_name, target_status_effect_string])
+		if target.status_effect == MovesList.StatusEffect.NONE:
+			messages.append("%s used %s and attempted to apply %s on %s, but %s is immune!" % 
+			[attacker.character_name, used_move_name, attempted_status_effect_string, target.character_name, target.character_name])
+		else:
+			messages.append("%s used %s and attempted to apply %s on %s, but %s is already afflicted with %s!" % 
+			[attacker.character_name, used_move_name, attempted_status_effect_string, target.character_name, target.character_name, target_status_effect_string])
 
 	if results.status_applied:
 		var status_effect = target.status_effect
