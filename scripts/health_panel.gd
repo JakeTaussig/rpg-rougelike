@@ -3,7 +3,6 @@ extends Label
 # value is in pixels -- this means the right edge of the label is at least 7
 # pixels away from the edge of the window
 const BUFFER: int = 7
-var _initialized: bool = false
 
 func _ready():
 	call_deferred("adjust_position")
