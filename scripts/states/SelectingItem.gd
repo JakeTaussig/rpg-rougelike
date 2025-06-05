@@ -5,6 +5,9 @@ var last_focused_item_index = 0
 func enter(messages: Array = []):
 	%Items.visible = true
 	_render_items()
+	call_deferred("_refocus")
+
+func _refocus():
 	%ItemsMenu.get_child(last_focused_item_index).grab_focus()
 
 func exit():
@@ -30,7 +33,8 @@ func _render_items():
 		if i < %ItemsMenu.get_children().size():
 			menu_button = %ItemsMenu.get_child(i)
 		else:
-			menu_button = %ItemsMenu.get_child(0).duplicate()
+			# duplicate the second menu button, because the first has focus signals connected to the back button
+			menu_button = %ItemsMenu.get_child(1).duplicate()
 			%ItemsMenu.add_child(menu_button)
 
 		menu_button.text = items[i].name
@@ -48,10 +52,8 @@ func _render_items():
 func _display_qty_info(item_index: int) -> void:
 	last_focused_item_index = item_index
 
-	# HP restore
-	if item_index == 0:
-		%ItemQtyInfo.text = "Qty: %d / 99" % items[0].qty
-		%ItemTypeInfo.text = items[0].description
+	%ItemQtyInfo.text = "%d / 99" % items[item_index].qty
+	%ItemTypeInfo.text = items[item_index].description
 
 func _on_item_pressed(item_index: int) -> void:
 	var item = items[item_index]
@@ -84,7 +86,7 @@ func _ready():
 		battle.transition_state_to(battle.STATE_INFO, ["%s's special attack increased from %d to %d" % [%Player.selected_monster.character_name, prior_sp_atk, current_sp_atk]])
 		)
 
-	var def_up = Item.create("Defense Up", 5, "Boosts defense by 10%", func():
+	var def_up = Item.create("Def. Up", 5, "Boosts def. by 10%", func():
 		const DEF_UP_FACTOR = 1.1
 		var prior_def = %Player.selected_monster.def
 		var current_def = int(DEF_UP_FACTOR * prior_def)
@@ -92,7 +94,7 @@ func _ready():
 		battle.transition_state_to(battle.STATE_INFO, ["%s's defense increased from %d to %d" % [%Player.selected_monster.character_name, prior_def, current_def]])
 		)
 
-	var sp_def_up = Item.create("Sp. Def Up", 5, "Boosts special defense by 10%", func():
+	var sp_def_up = Item.create("Sp. Def Up", 5, "Boosts special def. by 10%", func():
 		const SP_DEF_UP_FACTOR = 1.1
 		var prior_sp_def = %Player.selected_monster.sp_def
 		var current_sp_def = int(SP_DEF_UP_FACTOR * prior_sp_def)
