@@ -19,7 +19,7 @@ var active_monsters = []
 var current_enemy: Monster
 
 var current_state: BaseState
-var previous_state
+var previous_state_name: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -58,23 +58,36 @@ func transition_state_to(state_name: String, messages: Array = []):
 
 	if current_state:
 		current_state.exit()
+		previous_state_name = current_state.name
 
 	print("Entering state: ", state_name)
 	%StateDisplay.text = state_name
 
-	previous_state = current_state
 	current_state = %BattleStateMachine.get_node(state_name)
 	current_state.enter(messages)
 
 func render_hp() -> void:
+	var player_monster = %Player.selected_monster
 	if current_enemy:
 		%EnemyPanel.text = "%s %d / %d" % [current_enemy.character_name, current_enemy.hp, current_enemy.max_hp]
 	else:
 		%EnemyPanel.text = "Enemy ?"
-	%PlayerPanel.text = "%s %d / %d" % [%Player.selected_monster.character_name, %Player.selected_monster.hp, %Player.selected_monster.max_hp]
+	%PlayerPanel.text = "%s %d / %d" % [player_monster.character_name, player_monster.hp, player_monster.max_hp]
 
-	%EnemyPanel.text += "\n %s" % MovesList.Type.keys()[%Enemy.selected_monster.type]
-	%PlayerPanel.text += "\n %s" % MovesList.Type.keys()[$Player.selected_monster.type]
+	%EnemyPanel.text += "\n %s" % MovesList.Type.find_key(current_enemy.type)
+	%PlayerPanel.text += "\n %s" % MovesList.Type.find_key(player_monster.type)
+	
+	if not current_enemy.status_effect == MovesList.StatusEffect.NONE:
+		%EnemyPanel.text += "\t \t \t \t %s" % MovesList.StatusEffect.find_key(current_enemy.status_effect)
+		
+	if not player_monster.status_effect == MovesList.StatusEffect.NONE:
+		%PlayerPanel.text += "\t \t \t \t  %s" % MovesList.StatusEffect.find_key(player_monster.status_effect)
+
+func is_battle_over() -> bool:
+	return %Enemy.selected_monster.hp <= 0 || %Player.selected_monster.hp <= 0
+
+func get_attacker():
+	return active_monsters[turn_order_index]
 
 func _on_continue_button_pressed() -> void:
 	current_state.handle_continue()

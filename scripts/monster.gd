@@ -44,7 +44,7 @@ var is_player = true
 func increment_health(value: int) -> void:
 	hp += value
 
-func use_move(index: int, target: Monster) -> Dictionary:
+func use_move(index: int, target: Monster) -> AttackResults:
 	# This is done here rather than in EnactStatuses.gd so that speed doesn't have an impact on how long status effects will last.
 	# This will need to be adjusted should the possiblity of using 2 moves on a single turn come into play. 
 	if status_effect != MovesList.StatusEffect.NONE:
@@ -54,21 +54,22 @@ func use_move(index: int, target: Monster) -> Dictionary:
 	var move_hit: bool = 1
 	var status_applied: bool = 0
 	var damage = 0
-	if status_effect ==  MovesList.StatusEffect.WHIRLPOOL:
+	if status_effect == MovesList.StatusEffect.WHIRLPOOL:
 		# Whirlpool has a 50% chance to damage the affected character each turn
 		move_hit = _does_move_hit(50)
 		if move_hit:
 			move = GameManager.get_move_by_name("Whirlpool")
 			damage = max(1, _attack(move, self, 1))
-			return {"move": move, "damage": damage, "move_hit": 1, "status_applied": 0}
-	
+			return AttackResults.new(move, damage, move_hit, status_applied)
+
 	elif status_effect == MovesList.StatusEffect.PARALYZE:
 		# 33% chance for paralysis to activate
 		move_hit = _does_move_hit(33)
 		if move_hit:
 			move = GameManager.get_move_by_name("Paralyzed")
 			damage = 0
-			return {"move": move, "damage": damage, "move_hit": 1, "status_applied": 0}
+			return AttackResults.new(move, damage, move_hit, status_applied)
+
 	move_hit = _does_move_hit(move.acc)
 	
 	if move_hit:
@@ -78,7 +79,7 @@ func use_move(index: int, target: Monster) -> Dictionary:
 			damage = max(1, _attack(move, target, 0))
 		if move.status_effect != MovesList.StatusEffect.NONE:
 			status_applied = _roll_and_apply_status_effect(move, target)
-	return {"move": move, "damage": damage, "move_hit": move_hit, "status_applied": status_applied}
+	return AttackResults.new(move, damage, move_hit, status_applied)
 	
 func _does_move_hit(accuracy: int) -> bool:
 	if status_effect == MovesList.StatusEffect.BLIND:
@@ -104,6 +105,11 @@ func _attack(move: Move, target: Monster, is_physical: bool) -> int:
 	return damage
 
 func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
+	var effect = move.status_effect
+	var target_type = target.type
+	var is_immune = _check_status_immunity(effect, target_type)
+	if is_immune:
+		return false
 	# Only attempt to apply a status effect if one is not already applied
 	if target.status_effect == MovesList.StatusEffect.NONE:
 		var status_applied = _does_move_hit(move.status_effect_chance)
@@ -112,6 +118,28 @@ func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
 			if target.status_effect == MovesList.StatusEffect.CONSUME:
 				target.consume_benefactor = self
 			return true
+	return false
+	
+func _check_status_immunity(effect: MovesList.StatusEffect, target_type: MovesList.Type):
+	match effect:
+		MovesList.StatusEffect.BURN:
+			if target_type == MovesList.Type.FIRE:
+				return true
+		MovesList.StatusEffect.WHIRLPOOL:
+			if target_type == MovesList.Type.WATER:
+				return true
+		MovesList.StatusEffect.POISON:
+			if target_type == MovesList.Type.PLANT:
+				return true
+		MovesList.StatusEffect.PARALYZE:
+			if target_type == MovesList.Type.PLASMA:
+				return true
+		MovesList.StatusEffect.CONSUME:
+			if target_type == MovesList.Type.DARK:
+				return true
+		MovesList.StatusEffect.BLIND:
+			if target_type == MovesList.Type.LIGHT:
+				return true
 	return false
 		
 func get_move_effectiveness(move: Move,  defender: Monster) -> float:
@@ -236,3 +264,16 @@ func _recover_from_blind():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
 	return "%s recovered from blind!" % character_name
+
+# Inner class. Used for bundling move results
+class AttackResults:
+	var move: Move
+	var damage: int
+	var move_hit: bool
+	var status_applied: bool
+
+	func _init(_move: Move, _damage: int, _move_hit: bool, _status_applied: bool):
+		move = _move
+		damage = _damage
+		move_hit = _move_hit
+		status_applied = _status_applied
