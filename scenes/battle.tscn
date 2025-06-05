@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://cstx4ogvno1si" path="res://scripts/enemy.gd" id="6_6vh42"]
 [ext_resource type="Script" uid="uid://cyqywjpbta4p8" path="res://scripts/monster.gd" id="6_djc8l"]
 [ext_resource type="Texture2D" uid="uid://bjv7ljlukk10" path="res://assets/sprites/characters/gwendolyn.png" id="6_p0caf"]
-[ext_resource type="PackedScene" uid="uid://be02rxvki0pff" path="res://scenes/slider.tscn" id="6_saiin"]
+[ext_resource type="PackedScene" uid="uid://xobks4y00x7u" path="res://scenes/hp_slider.tscn" id="6_saiin"]
 [ext_resource type="Resource" uid="uid://dy0jqmgyr3mbo" path="res://assets/monsters/gwendolyn.tres" id="7_h4dll"]
 [ext_resource type="Script" uid="uid://brto6aw55bukl" path="res://scripts/states/Info.gd" id="7_v7i3o"]
 [ext_resource type="Script" uid="uid://buy2ylv1t0vt0" path="res://scripts/states/EnemyAttack.gd" id="8_66ngm"]
@@ -25,6 +25,7 @@
 script = ExtResource("1_a12nh")
 
 [node name="PokemonRpgScreenGrayscale" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(128, 72)
 texture = ExtResource("1_dn72j")
 
@@ -172,14 +173,16 @@ text = "Enemy"
 [node name="EnemyHPSlider" parent="HealthPanels/EnemyPanel" node_paths=PackedStringArray("participant") instance=ExtResource("6_saiin")]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 12
-anchor_left = 0.0
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -3.0
-offset_right = -32.0
-offset_bottom = 0.0
+offset_left = -84.0
+offset_top = -2.0
+offset_right = -4.0
+offset_bottom = 2.0
+grow_horizontal = 0
 grow_vertical = 0
 participant = NodePath("../../../Enemy")
 
@@ -198,15 +201,17 @@ text = "Player"
 [node name="PlayerHPSlider" parent="HealthPanels/PlayerPanel" node_paths=PackedStringArray("participant") instance=ExtResource("6_saiin")]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 10
-anchor_left = 0.0
-anchor_top = 0.0
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.0
-offset_top = 25.0
-offset_right = -32.0
-offset_bottom = 28.0
-grow_vertical = 1
+anchor_bottom = 1.0
+offset_left = -84.45816
+offset_top = -2.0
+offset_right = -4.0
+offset_bottom = 2.0
+grow_horizontal = 0
+grow_vertical = 0
 participant = NodePath("../../../Player")
 
 [node name="Player" parent="." instance=ExtResource("5_lpir7")]
