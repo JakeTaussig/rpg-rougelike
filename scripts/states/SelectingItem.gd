@@ -4,8 +4,8 @@ var last_focused_item_index = 0
 
 func enter(messages: Array = []):
 	%Items.visible = true
-	%ItemsMenu.get_child(last_focused_item_index).grab_focus()
 	_render_items()
+	%ItemsMenu.get_child(last_focused_item_index).grab_focus()
 
 func exit():
 	%Items.visible = false
@@ -23,15 +23,17 @@ func handle_input(event: InputEvent):
 
 func _render_items():
 	# placeholder implementation
-	%ItemsMenu.get_child(0).text = "HP Restore"
-	%ItemsMenu.get_child(0).focus_entered.connect(func(): _display_qty_info(0))
-	%ItemsMenu.get_child(0).mouse_entered.connect(%ItemsMenu.get_child(0).grab_focus)
-	%ItemsMenu.get_child(0).pressed.connect(func(): _on_item_pressed(0))
+	for item in items:
+		var menu_button = %ItemsMenu.get_child(0)
+		menu_button.text = items[0].name
+		menu_button.focus_entered.connect(func(): _display_qty_info(0))
+		menu_button.mouse_entered.connect(menu_button.grab_focus)
+		menu_button.pressed.connect(func(): _on_item_pressed(0))
 
-	if %Player.backpack.hp_restore_qty <= 0:
-		%MovesMenu.get_child(0).set_theme_type_variation("DisabledButton")
-	else:
-		%MovesMenu.get_child(0).set_theme_type_variation("Button")
+		if items[0].qty <= 0:
+			menu_button.set_theme_type_variation("DisabledButton")
+		else:
+			menu_button.set_theme_type_variation("Button")
 
 # callback used when a item is focused
 # displays the PP and type of the item in $"items/ItemsInfo"
@@ -40,10 +42,33 @@ func _display_qty_info(item_index: int) -> void:
 
 	# HP restore
 	if item_index == 0:
-		%ItemQtyInfo.text = "Qty: %d / 99" % %Player.backpack.hp_restore_qty
-		%ItemTypeInfo.text = "Heals 30 HP"
+		%ItemQtyInfo.text = "Qty: %d / 99" % items[0].qty
+		%ItemTypeInfo.text = items[0].description
 
 func _on_item_pressed(item_index: int) -> void:
-	if item_index == 0:
+	items[item_index].callback.call()
+
+var items: Array[Item] = []
+
+func _ready():
+	var hp_restore = Item.create("HP restore", %Player.backpack.hp_restore_qty, "Heals 30 HP", func():
 		if %Player.backpack.consume_hp_restore(%Player.selected_monster):
 			battle.transition_state_to(battle.STATE_INFO, ["%s restored 30 HP" % %Player.selected_monster.character_name])
+		)
+	items = [
+			hp_restore
+		]
+
+class Item:
+	var name: String
+	var qty: int
+	var description: String
+	var callback: Callable
+
+	static func create(_name: String, _qty: int, _description: String, _callback: Callable):
+		var output = Item.new()
+		output.name = _name
+		output.qty = _qty
+		output.description = _description
+		output.callback = _callback
+		return output
