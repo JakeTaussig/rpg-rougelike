@@ -68,11 +68,13 @@ theme = ExtResource("2_p1qf1")
 
 [node name="Attack" type="Button" parent="BottomBar/Action/ActionButtons"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 text = "   Attack"
 alignment = 0
 
 [node name="Item" type="Button" parent="BottomBar/Action/ActionButtons"]
+custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 text = "   Item"
 alignment = 0
@@ -308,11 +310,11 @@ text = "Enemy"
 
 [node name="PlayerPanel" type="Label" parent="HealthPanels"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(96, 0)
+custom_minimum_size = Vector2(96, 24)
 offset_left = 145.0
 offset_top = 56.0
 offset_right = 241.0
-offset_bottom = 88.0
+offset_bottom = 80.0
 size_flags_horizontal = 0
 theme = ExtResource("2_p1qf1")
 theme_override_styles/normal = ExtResource("4_lpir7")
