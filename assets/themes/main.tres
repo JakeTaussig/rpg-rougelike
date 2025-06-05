@@ -1,8 +1,9 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bb5xdt6d0xc8h"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bb5xdt6d0xc8h"]
 
 [ext_resource type="FontFile" uid="uid://c27kqqygdffnr" path="res://assets/fonts/LoRes 9 Minus OT Wide Regular.ttf" id="1_pgokm"]
 [ext_resource type="StyleBox" uid="uid://dv2ftdeiv2dr3" path="res://assets/styles/focus_sbf.tres" id="2_7mpy8"]
 [ext_resource type="StyleBox" uid="uid://dwb68ajbfeqp0" path="res://assets/styles/normal_sbf.tres" id="3_6fsoa"]
+[ext_resource type="StyleBox" uid="uid://dkyul4fv2185n" path="res://assets/styles/light_sbf.tres" id="4_6fsoa"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7mpy8"]
 
@@ -28,6 +29,8 @@ GrayTextLabel/colors/font_color = Color(0.352941, 0.411765, 0.533333, 1)
 Label/font_sizes/font_size = 9
 Label/fonts/font = ExtResource("1_pgokm")
 Label/styles/normal = ExtResource("3_6fsoa")
+LightUIPanel/base_type = &"Panel"
+LightUIPanel/styles/panel = ExtResource("4_6fsoa")
 NoBorderLabel/base_type = &"Label"
 NoBorderLabel/styles/normal = SubResource("StyleBoxEmpty_7mpy8")
 Panel/styles/panel = ExtResource("3_6fsoa")

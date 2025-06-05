@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://be02rxvki0pff"]
+
+[ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="1_24ij4"]
+[ext_resource type="Script" uid="uid://yal21vgfjdjg" path="res://scripts/hp_slider.gd" id="2_mhkcm"]
+
+[node name="PlayerExpSlider" type="HSplitContainer"]
+custom_minimum_size = Vector2(0, 3)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -1.5
+offset_bottom = 1.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_24ij4")
+dragging_enabled = false
+dragger_visibility = 2
+script = ExtResource("2_mhkcm")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_24ij4")
+theme_type_variation = &"LightUIPanel"
+
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_24ij4")

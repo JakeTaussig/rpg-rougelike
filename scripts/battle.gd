@@ -73,14 +73,17 @@ func render_hp() -> void:
 		%EnemyPanel.text = "Enemy ?"
 	%PlayerPanel.text = "%s %d / %d" % [player_monster.character_name, player_monster.hp, player_monster.max_hp]
 
-	%EnemyPanel.text += "\n %s" % MovesList.Type.find_key(current_enemy.type)
-	%PlayerPanel.text += "\n %s" % MovesList.Type.find_key(player_monster.type)
-	
+	%EnemyPanel.text += "\n%s" % MovesList.Type.keys()[%Enemy.selected_monster.type]
+	%PlayerPanel.text += "\n%s" % MovesList.Type.keys()[$Player.selected_monster.type]
+
 	if not current_enemy.status_effect == MovesList.StatusEffect.NONE:
 		%EnemyPanel.text += "\t \t \t \t %s" % MovesList.StatusEffect.find_key(current_enemy.status_effect)
-		
+
 	if not player_monster.status_effect == MovesList.StatusEffect.NONE:
 		%PlayerPanel.text += "\t \t \t \t  %s" % MovesList.StatusEffect.find_key(player_monster.status_effect)
+
+	%PlayerHPSlider.update_offset()
+	%EnemyHPSlider.update_offset()
 
 func _on_continue_button_pressed() -> void:
 	current_state.handle_continue()

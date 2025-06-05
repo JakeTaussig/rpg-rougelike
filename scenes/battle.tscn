@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_p1qf1"]
 [ext_resource type="StyleBox" uid="uid://dwb68ajbfeqp0" path="res://assets/styles/normal_sbf.tres" id="4_lpir7"]
-[ext_resource type="Script" uid="uid://yal21vgfjdjg" path="res://scripts/health_panel.gd" id="5_61i1y"]
 [ext_resource type="PackedScene" uid="uid://dspy5d5yn1fxj" path="res://scenes/battle_participant.tscn" id="5_lpir7"]
 [ext_resource type="Script" uid="uid://cstx4ogvno1si" path="res://scripts/enemy.gd" id="6_6vh42"]
 [ext_resource type="Script" uid="uid://cyqywjpbta4p8" path="res://scripts/monster.gd" id="6_djc8l"]
 [ext_resource type="Texture2D" uid="uid://bjv7ljlukk10" path="res://assets/sprites/characters/gwendolyn.png" id="6_p0caf"]
+[ext_resource type="PackedScene" uid="uid://be02rxvki0pff" path="res://scenes/slider.tscn" id="6_saiin"]
 [ext_resource type="Resource" uid="uid://dy0jqmgyr3mbo" path="res://assets/monsters/gwendolyn.tres" id="7_h4dll"]
 [ext_resource type="Script" uid="uid://brto6aw55bukl" path="res://scripts/states/Info.gd" id="7_v7i3o"]
 [ext_resource type="Script" uid="uid://buy2ylv1t0vt0" path="res://scripts/states/EnemyAttack.gd" id="8_66ngm"]
@@ -164,10 +164,24 @@ position = Vector2(-1, 0)
 unique_name_in_owner = true
 offset_left = 17.0
 offset_top = 12.0
-offset_right = 113.0
-offset_bottom = 36.0
+offset_right = 129.0
+offset_bottom = 40.0
 theme = ExtResource("2_p1qf1")
 text = "Enemy"
+
+[node name="EnemyHPSlider" parent="HealthPanels/EnemyPanel" node_paths=PackedStringArray("participant") instance=ExtResource("6_saiin")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -3.0
+offset_right = -32.0
+offset_bottom = 0.0
+grow_vertical = 0
+participant = NodePath("../../../Enemy")
 
 [node name="PlayerPanel" type="Label" parent="HealthPanels"]
 unique_name_in_owner = true
@@ -175,12 +189,25 @@ custom_minimum_size = Vector2(96, 0)
 offset_left = 145.0
 offset_top = 56.0
 offset_right = 241.0
-offset_bottom = 88.0
+offset_bottom = 84.0
 size_flags_horizontal = 0
 theme = ExtResource("2_p1qf1")
 theme_override_styles/normal = ExtResource("4_lpir7")
 text = "Player"
-script = ExtResource("5_61i1y")
+
+[node name="PlayerHPSlider" parent="HealthPanels/PlayerPanel" node_paths=PackedStringArray("participant") instance=ExtResource("6_saiin")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_top = 25.0
+offset_right = -32.0
+offset_bottom = 28.0
+grow_vertical = 1
+participant = NodePath("../../../Player")
 
 [node name="Player" parent="." instance=ExtResource("5_lpir7")]
 unique_name_in_owner = true
