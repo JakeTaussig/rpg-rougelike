@@ -78,3 +78,6 @@ func render_hp() -> void:
 
 func _on_continue_button_pressed() -> void:
 	current_state.handle_continue()
+
+func _input(event: InputEvent) -> void:
+	current_state.handle_input(event)
