@@ -1,8 +1,11 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bb5xdt6d0xc8h"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://bb5xdt6d0xc8h"]
 
 [ext_resource type="FontFile" uid="uid://c27kqqygdffnr" path="res://assets/fonts/LoRes 9 Minus OT Wide Regular.ttf" id="1_pgokm"]
 [ext_resource type="StyleBox" uid="uid://dv2ftdeiv2dr3" path="res://assets/styles/focus_sbf.tres" id="2_7mpy8"]
 [ext_resource type="StyleBox" uid="uid://dwb68ajbfeqp0" path="res://assets/styles/normal_sbf.tres" id="3_6fsoa"]
+[ext_resource type="StyleBox" uid="uid://85oflos3sgq2" path="res://assets/styles/scrollbar_unfocused_sbf.tres" id="4_3dcfp"]
+[ext_resource type="StyleBox" uid="uid://jb04x3reseor" path="res://assets/styles/scrollbar_focus_sbf.tres" id="5_keqi6"]
+[ext_resource type="StyleBox" uid="uid://dq5bgcynd5yxl" path="res://assets/styles/scrollbar_background_sbf.tres" id="6_keqi6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7mpy8"]
 
@@ -36,3 +39,8 @@ Panel/styles/panel = ExtResource("3_6fsoa")
 RedTextLabel/base_type = &"NoBorderLabel"
 RedTextLabel/colors/font_color = Color(0.635294, 0.14902, 0.2, 1)
 VBoxContainer/constants/separation = 4
+VScrollBar/styles/grabber = ExtResource("4_3dcfp")
+VScrollBar/styles/grabber_highlight = ExtResource("5_keqi6")
+VScrollBar/styles/grabber_pressed = ExtResource("5_keqi6")
+VScrollBar/styles/scroll = ExtResource("6_keqi6")
+VScrollBar/styles/scroll_focus = ExtResource("6_keqi6")
