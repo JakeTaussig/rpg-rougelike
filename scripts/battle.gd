@@ -66,14 +66,21 @@ func transition_state_to(state_name: String, messages: Array = []):
 	current_state.enter(messages)
 
 func render_hp() -> void:
+	var player_monster = %Player.selected_monster
 	if current_enemy:
 		%EnemyPanel.text = "%s %d / %d" % [current_enemy.character_name, current_enemy.hp, current_enemy.max_hp]
 	else:
 		%EnemyPanel.text = "Enemy ?"
-	%PlayerPanel.text = "%s %d / %d" % [%Player.selected_monster.character_name, %Player.selected_monster.hp, %Player.selected_monster.max_hp]
+	%PlayerPanel.text = "%s %d / %d" % [player_monster.character_name, player_monster.hp, player_monster.max_hp]
 
-	%EnemyPanel.text += "\n %s" % MovesList.Type.keys()[%Enemy.selected_monster.type]
-	%PlayerPanel.text += "\n %s" % MovesList.Type.keys()[$Player.selected_monster.type]
+	%EnemyPanel.text += "\n %s" % MovesList.Type.find_key(current_enemy.type)
+	%PlayerPanel.text += "\n %s" % MovesList.Type.find_key(player_monster.type)
+	
+	if not current_enemy.status_effect == MovesList.StatusEffect.NONE:
+		%EnemyPanel.text += "\t \t \t \t %s" % MovesList.StatusEffect.find_key(current_enemy.status_effect)
+		
+	if not player_monster.status_effect == MovesList.StatusEffect.NONE:
+		%PlayerPanel.text += "\t \t \t \t  %s" % MovesList.StatusEffect.find_key(player_monster.status_effect)
 
 func _on_continue_button_pressed() -> void:
 	current_state.handle_continue()
