@@ -3,7 +3,6 @@ extends Sprite2D
 class_name BattleParticipant
 
 @export var monsters: Array[Monster] = []
-@export var backpack: Backpack = Backpack.new()
 
 var selected_monster: Monster:
 	set(new_monster):

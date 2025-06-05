@@ -46,18 +46,22 @@ func _display_qty_info(item_index: int) -> void:
 		%ItemTypeInfo.text = items[0].description
 
 func _on_item_pressed(item_index: int) -> void:
-	items[item_index].callback.call()
+	var item = items[item_index]
+	if item.qty > 0:
+		item.callback.call()
+		item.qty -= 1
 
 var items: Array[Item] = []
 
 func _ready():
-	var hp_restore = Item.create("HP restore", %Player.backpack.hp_restore_qty, "Heals 30 HP", func():
-		if %Player.backpack.consume_hp_restore(%Player.selected_monster):
-			battle.transition_state_to(battle.STATE_INFO, ["%s restored 30 HP" % %Player.selected_monster.character_name])
+	var hp_restore = Item.create("HP restore", 5, "Heals 30 HP", func():
+		const HP_RESTORE_AMT = 30
+		%Player.selected_monster.hp += HP_RESTORE_AMT
+		battle.transition_state_to(battle.STATE_INFO, ["%s restored 30 HP" % %Player.selected_monster.character_name])
 		)
 	items = [
-			hp_restore
-		]
+		hp_restore
+	]
 
 class Item:
 	var name: String
