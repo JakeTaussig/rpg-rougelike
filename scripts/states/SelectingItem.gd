@@ -25,7 +25,14 @@ func _render_items():
 	# placeholder implementation
 	for i in items.size():
 		var item = items[i]
-		var menu_button = %ItemsMenu.get_child(i)
+
+		var menu_button
+		if i < %ItemsMenu.get_children().size():
+			menu_button = %ItemsMenu.get_child(i)
+		else:
+			menu_button = %ItemsMenu.get_child(0).duplicate()
+			%ItemsMenu.add_child(menu_button)
+
 		menu_button.text = items[i].name
 		menu_button.focus_entered.connect(func(): _display_qty_info(i))
 		menu_button.mouse_entered.connect(menu_button.grab_focus)
@@ -113,10 +120,10 @@ func _ready():
 		hp_restore,
 		attack_up,
 		sp_atk_up,
-		#def_up,
+		def_up,
 		sp_def_up,
-		#speed_up,
-		#luck_up
+		speed_up,
+		luck_up
 	]
 
 class Item:
