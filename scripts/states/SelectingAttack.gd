@@ -1,4 +1,5 @@
 extends BaseState
+class_name SelectingAttack
 
 var last_focused_move_index: int = 0
 

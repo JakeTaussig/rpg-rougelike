@@ -159,6 +159,19 @@ func _ready():
 			%Player.selected_monster.status_effect = MovesList.StatusEffect.NONE
 			battle.transition_state_to(battle.STATE_INFO, ["%s's vision was restored" % %Player.selected_monster.character_name])
 		)
+
+	var pp_restore = Item.create("PP Restore", 8, "Restores a move's PP by 5", func():
+		var all_moves_full_pp = true
+		for move: Move in %Player.selected_monster.moves:
+			if move.pp < move.max_pp:
+				all_moves_full_pp = false
+				break
+
+		if all_moves_full_pp:
+			return
+
+		battle.transition_state_to(battle.STATE_SELECTING_ATTACK_PP_RESTORE)
+		)
 	items = [
 		hp_restore,
 		attack_up,
@@ -173,7 +186,8 @@ func _ready():
 		poison_heal,
 		paralyze_heal,
 		consume_heal,
-		blind_heal
+		blind_heal,
+		pp_restore
 	]
 
 class Item:
