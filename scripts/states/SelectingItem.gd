@@ -118,6 +118,47 @@ func _ready():
 		battle.transition_state_to(battle.STATE_INFO, ["%s's luck increased from %d to %d" % [%Player.selected_monster.character_name, prior_luck, current_luck]])
 		)
 
+	var burn_heal = Item.create("Burn Heal", 8, "Heals player from BURN", func():
+		if %Player.selected_monster.status_effect == MovesList.StatusEffect.BURN:
+			%Player.selected_monster.status_effect = MovesList.StatusEffect.NONE
+			battle.transition_state_to(battle.STATE_INFO, ["%s healed their BURN" % %Player.selected_monster.character_name])
+		)
+
+	var cripple_heal = Item.create("Cripple Heal", 8, "Heals player from CRIPPLE", func():
+		if %Player.selected_monster.status_effect == MovesList.StatusEffect.CRIPPLE:
+			%Player.selected_monster.status_effect = MovesList.StatusEffect.NONE
+			battle.transition_state_to(battle.STATE_INFO, ["%s recovered from CRIPPLE" % %Player.selected_monster.character_name])
+		)
+
+	var whirlpool_heal = Item.create("Whirlpool Heal", 8, "Frees player from WHIRLPOOL", func():
+		if %Player.selected_monster.status_effect == MovesList.StatusEffect.WHIRLPOOL:
+			%Player.selected_monster.status_effect = MovesList.StatusEffect.NONE
+			battle.transition_state_to(battle.STATE_INFO, ["%s escaped the WHIRLPOOL" % %Player.selected_monster.character_name])
+		)
+
+	var poison_heal = Item.create("Antidote", 8, "Cures player from POISON", func():
+		if %Player.selected_monster.status_effect == MovesList.StatusEffect.POISON:
+			%Player.selected_monster.status_effect = MovesList.StatusEffect.NONE
+			battle.transition_state_to(battle.STATE_INFO, ["%s was cured of POISON" % %Player.selected_monster.character_name])
+		)
+
+	var paralyze_heal = Item.create("Paralyze Heal", 8, "Heals player from PARALYZE", func():
+		if %Player.selected_monster.status_effect == MovesList.StatusEffect.PARALYZE:
+			%Player.selected_monster.status_effect = MovesList.StatusEffect.NONE
+			battle.transition_state_to(battle.STATE_INFO, ["%s recovered from PARALYZE" % %Player.selected_monster.character_name])
+		)
+
+	var consume_heal = Item.create("Antibiotics", 8, "Frees player from CONSUME", func():
+		if %Player.selected_monster.status_effect == MovesList.StatusEffect.CONSUME:
+			%Player.selected_monster.status_effect = MovesList.StatusEffect.NONE
+			battle.transition_state_to(battle.STATE_INFO, ["%s regained their energy" % %Player.selected_monster.character_name])
+		)
+
+	var blind_heal = Item.create("Eye Drops", 8, "Cures player from BLIND", func():
+		if %Player.selected_monster.status_effect == MovesList.StatusEffect.BLIND:
+			%Player.selected_monster.status_effect = MovesList.StatusEffect.NONE
+			battle.transition_state_to(battle.STATE_INFO, ["%s's vision was restored" % %Player.selected_monster.character_name])
+		)
 	items = [
 		hp_restore,
 		attack_up,
@@ -125,7 +166,14 @@ func _ready():
 		def_up,
 		sp_def_up,
 		speed_up,
-		luck_up
+		luck_up,
+		burn_heal,
+		cripple_heal,
+		whirlpool_heal,
+		poison_heal,
+		paralyze_heal,
+		consume_heal,
+		blind_heal
 	]
 
 class Item:
