@@ -8,6 +8,10 @@ flowchart TD
   EnemyAttack[*State: EnemyAttack*]
   GameEnd[*State: GameEnd*]
   EnactStatuses[*State: EnactStatuses*]
+  SelectingItem[*State: SelectingItem*]
+  style SelectingItem stroke:#33cc33,stroke-width:4
+  SelectingAttackPPRestore[*State: SelectingAttackPPRestore*]
+  style SelectingAttackPPRestore stroke:#33cc33,stroke-width:4
 
   Start --> IncrementTurn
 
@@ -15,6 +19,15 @@ flowchart TD
   SelectingAction --> |Attack menu selected| SelectingAttack
   SelectingAttack --> |specific attack selected| Attack
 
+  SelectingAction --> |Item menu selected|SelectingItem
+  linkStyle 4 stroke:#33cc33,stroke-width:4px
+  SelectingItem --> |Specific consumable item selected|Info
+  linkStyle 5 stroke:#33cc33,stroke-width:4px
+  SelectingItem --> |PP Restore item selected|SelectingAttackPPRestore
+  linkStyle 6 stroke:#33cc33,stroke-width:4px
+
+  SelectingAttackPPRestore --> |specific attack selected|Info
+  linkStyle 7 stroke:#33cc33,stroke-width:4px
 
   IncrementTurn --> |Enemy Turn| EnemyAttack
   EnemyAttack --> Attack
@@ -24,10 +37,8 @@ flowchart TD
   IncrementTurn --> |Player or Enemy Dead| GameEnd
 
   IncrementTurn --> |Statuses not enacted| EnactStatuses
-  linkStyle 8 stroke:#33cc33,stroke-width:4px
 
   Info --> |No more messages| IncrementTurn
   Info --> |More messages to display| Info
 
   EnactStatuses --> Info
-  linkStyle 11 stroke:#33cc33,stroke-width:4px

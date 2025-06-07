@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=23 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_p1qf1"]
 [ext_resource type="StyleBox" uid="uid://dwb68ajbfeqp0" path="res://assets/styles/normal_sbf.tres" id="4_lpir7"]
-[ext_resource type="Script" uid="uid://yal21vgfjdjg" path="res://scripts/health_panel.gd" id="5_61i1y"]
+[ext_resource type="Script" uid="uid://mb41k8rtgn0q" path="res://scripts/back_button.gd" id="4_saiin"]
+[ext_resource type="Script" path="res://scripts/health_panel.gd" id="5_61i1y"]
 [ext_resource type="PackedScene" uid="uid://dspy5d5yn1fxj" path="res://scenes/battle_participant.tscn" id="5_lpir7"]
 [ext_resource type="Script" uid="uid://cstx4ogvno1si" path="res://scripts/enemy.gd" id="6_6vh42"]
 [ext_resource type="Script" uid="uid://cyqywjpbta4p8" path="res://scripts/monster.gd" id="6_djc8l"]
@@ -12,14 +13,15 @@
 [ext_resource type="Resource" uid="uid://dy0jqmgyr3mbo" path="res://assets/monsters/gwendolyn.tres" id="7_h4dll"]
 [ext_resource type="Script" uid="uid://brto6aw55bukl" path="res://scripts/states/Info.gd" id="7_v7i3o"]
 [ext_resource type="Script" uid="uid://buy2ylv1t0vt0" path="res://scripts/states/EnemyAttack.gd" id="8_66ngm"]
-[ext_resource type="Texture2D" uid="uid://cqah3pvvxjf3e" path="res://assets/sprites/characters/oddesque.png" id="8_p0caf"]
 [ext_resource type="Script" uid="uid://bl3wtt7v3rtpm" path="res://scripts/states/SelectingAction.gd" id="9_03edq"]
 [ext_resource type="Script" uid="uid://dxrkm475i6ls6" path="res://scripts/states/SelectingAttack.gd" id="10_22uqi"]
-[ext_resource type="Resource" uid="uid://fyqnvw1yr5pb" path="res://assets/monsters/oddesque.tres" id="10_h4dll"]
 [ext_resource type="Script" uid="uid://cmikjgcwtvkyk" path="res://scripts/states/IncrementTurn.gd" id="12_03edq"]
+[ext_resource type="Resource" uid="uid://ydoyf2k0u5xb" path="res://assets/monsters/omenite.tres" id="12_61i1y"]
 [ext_resource type="Script" uid="uid://bm0o2eovnfws7" path="res://scripts/states/Attack.gd" id="13_6ni85"]
 [ext_resource type="Script" uid="uid://sdwupuxudrjb" path="res://scripts/states/GameEnd.gd" id="13_22uqi"]
 [ext_resource type="Script" uid="uid://d0rdycr2tr5ll" path="res://scripts/states/EnactStatuses.gd" id="14_6ni85"]
+[ext_resource type="Script" uid="uid://m7sdis15lg1t" path="res://scripts/states/SelectingAttackPPRestore.gd" id="17_dd63g"]
+[ext_resource type="Script" uid="uid://flenaawlfq4g" path="res://scripts/states/SelectingItem.gd" id="20_61i1y"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_a12nh")
@@ -34,7 +36,7 @@ texture = ExtResource("1_dn72j")
 unique_name_in_owner = true
 visible = false
 z_index = 1
-offset_top = 96.0
+offset_top = 95.0
 offset_right = 144.0
 offset_bottom = 143.0
 mouse_filter = 1
@@ -44,24 +46,36 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Action" type="VBoxContainer" parent="BottomBar"]
+[node name="Action" type="Node2D" parent="BottomBar"]
 unique_name_in_owner = true
 visible = false
-z_index = 2
+
+[node name="Panel" type="Panel" parent="BottomBar/Action"]
 offset_left = 144.0
+offset_top = 95.0
+offset_right = 256.0
+offset_bottom = 144.0
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"FullBorderPanel"
+
+[node name="ActionButtons" type="VBoxContainer" parent="BottomBar/Action"]
+unique_name_in_owner = true
+z_index = 2
+offset_left = 145.0
 offset_top = 96.0
 offset_right = 255.0
 offset_bottom = 144.0
 theme = ExtResource("2_p1qf1")
-theme_override_constants/separation = 0
 
-[node name="Attack" type="Button" parent="BottomBar/Action"]
+[node name="Attack" type="Button" parent="BottomBar/Action/ActionButtons"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 text = "   Attack"
 alignment = 0
 
-[node name="Item" type="Button" parent="BottomBar/Action"]
+[node name="Item" type="Button" parent="BottomBar/Action/ActionButtons"]
+custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 text = "   Item"
 alignment = 0
@@ -90,25 +104,43 @@ text = "Continue"
 unique_name_in_owner = true
 visible = false
 
+[node name="BackButton" type="Button" parent="BottomBar/Moves"]
+custom_minimum_size = Vector2(0, 5)
+offset_top = 80.0
+offset_right = 32.0
+offset_bottom = 96.0
+focus_neighbor_bottom = NodePath("../MovesMenu/Move1")
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"BorderButton"
+text = "back"
+script = ExtResource("4_saiin")
+
+[node name="Panel" type="Panel" parent="BottomBar/Moves"]
+offset_top = 95.0
+offset_right = 160.0
+offset_bottom = 144.0
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"FullBorderPanel"
+
 [node name="MovesMenu" type="GridContainer" parent="BottomBar/Moves"]
 unique_name_in_owner = true
+offset_left = 1.0
 offset_top = 96.0
-offset_right = 255.0
-offset_bottom = 143.0
+offset_right = 256.0
+offset_bottom = 144.0
 theme = ExtResource("2_p1qf1")
-theme_override_constants/h_separation = 0
-theme_override_constants/v_separation = 0
 columns = 2
 
 [node name="Move1" type="Button" parent="BottomBar/Moves/MovesMenu"]
-custom_minimum_size = Vector2(80, 24)
+custom_minimum_size = Vector2(80, 23)
 layout_mode = 2
+focus_neighbor_top = NodePath("../../BackButton")
 theme = ExtResource("2_p1qf1")
 text = "   Move 1"
 alignment = 0
 
 [node name="Move2" type="Button" parent="BottomBar/Moves/MovesMenu"]
-custom_minimum_size = Vector2(80, 24)
+custom_minimum_size = Vector2(80, 23)
 layout_mode = 2
 text = "   Move 2"
 alignment = 0
@@ -127,9 +159,9 @@ text = "   Move 4
 alignment = 0
 
 [node name="MoveInfo" type="Panel" parent="BottomBar/Moves"]
-custom_minimum_size = Vector2(0, 24)
+custom_minimum_size = Vector2(0, 23)
 offset_left = 160.0
-offset_top = 96.0
+offset_top = 95.0
 offset_right = 255.0
 offset_bottom = 143.0
 theme = ExtResource("2_p1qf1")
@@ -157,25 +189,131 @@ text = "TYPE: HUMAN"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Items" type="Node2D" parent="BottomBar"]
+unique_name_in_owner = true
+visible = false
+
+[node name="BackButton2" type="Button" parent="BottomBar/Items"]
+offset_top = 80.0
+offset_right = 32.0
+offset_bottom = 96.0
+focus_neighbor_bottom = NodePath("../MarginContainer/ScrollContainer/ItemsMenu/Item1")
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"BorderButton"
+text = "back"
+script = ExtResource("4_saiin")
+
+[node name="Panel" type="Panel" parent="BottomBar/Items"]
+offset_top = 95.0
+offset_right = 168.0
+offset_bottom = 144.0
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"FullBorderPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="BottomBar/Items"]
+offset_left = 1.0
+offset_top = 95.0
+offset_right = 170.0
+offset_bottom = 144.0
+theme = ExtResource("2_p1qf1")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BottomBar/Items/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="ItemsMenu" type="GridContainer" parent="BottomBar/Items/MarginContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+columns = 2
+
+[node name="Item1" type="Button" parent="BottomBar/Items/MarginContainer/ScrollContainer/ItemsMenu"]
+custom_minimum_size = Vector2(80, 15)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../BackButton2")
+theme = ExtResource("2_p1qf1")
+text = "Item 1"
+alignment = 0
+
+[node name="Item2" type="Button" parent="BottomBar/Items/MarginContainer/ScrollContainer/ItemsMenu"]
+custom_minimum_size = Vector2(80, 15)
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+text = "Item 2"
+alignment = 0
+
+[node name="Item3" type="Button" parent="BottomBar/Items/MarginContainer/ScrollContainer/ItemsMenu"]
+custom_minimum_size = Vector2(80, 15)
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+text = "Item 3"
+alignment = 0
+
+[node name="Item4" type="Button" parent="BottomBar/Items/MarginContainer/ScrollContainer/ItemsMenu"]
+custom_minimum_size = Vector2(80, 15)
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+text = "Item 4"
+alignment = 0
+
+[node name="Item5" type="Button" parent="BottomBar/Items/MarginContainer/ScrollContainer/ItemsMenu"]
+custom_minimum_size = Vector2(80, 15)
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+text = "Item 4"
+alignment = 0
+
+[node name="ItemInfo" type="Panel" parent="BottomBar/Items"]
+custom_minimum_size = Vector2(0, 24)
+offset_left = 168.0
+offset_top = 95.0
+offset_right = 255.0
+offset_bottom = 143.0
+theme = ExtResource("2_p1qf1")
+
+[node name="ItemQtyInfo" type="Label" parent="BottomBar/Items/ItemInfo"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 87.0
+offset_bottom = 17.0
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"NoBorderLabel"
+text = "1/15"
+horizontal_alignment = 1
+
+[node name="ItemTypeInfo" type="Label" parent="BottomBar/Items/ItemInfo"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 16.0
+offset_right = 87.0
+offset_bottom = 48.0
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"NoBorderLabel"
+text = "Heals 30 HP overflow text"
+autowrap_mode = 2
+
 [node name="HealthPanels" type="Node2D" parent="."]
 position = Vector2(-1, 0)
 
 [node name="EnemyPanel" type="Label" parent="HealthPanels"]
 unique_name_in_owner = true
 offset_left = 17.0
-offset_top = 12.0
+offset_top = 16.0
 offset_right = 113.0
-offset_bottom = 36.0
+offset_bottom = 40.0
 theme = ExtResource("2_p1qf1")
 text = "Enemy"
 
 [node name="PlayerPanel" type="Label" parent="HealthPanels"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(96, 0)
+custom_minimum_size = Vector2(96, 24)
 offset_left = 145.0
 offset_top = 56.0
 offset_right = 241.0
-offset_bottom = 88.0
+offset_bottom = 80.0
 size_flags_horizontal = 0
 theme = ExtResource("2_p1qf1")
 theme_override_styles/normal = ExtResource("4_lpir7")
@@ -190,11 +328,11 @@ monsters = Array[ExtResource("6_djc8l")]([ExtResource("7_h4dll")])
 
 [node name="Enemy" parent="." instance=ExtResource("5_lpir7")]
 unique_name_in_owner = true
-position = Vector2(192, 32)
-texture = ExtResource("8_p0caf")
+position = Vector2(192, 36)
+flip_h = false
 script = ExtResource("6_6vh42")
 ai_type = 2
-monsters = Array[ExtResource("6_djc8l")]([ExtResource("10_h4dll")])
+monsters = Array[ExtResource("6_djc8l")]([ExtResource("12_61i1y")])
 
 [node name="StateDisplay" type="Label" parent="."]
 unique_name_in_owner = true
@@ -224,6 +362,9 @@ script = ExtResource("9_03edq")
 [node name="SELECTING_ATTACK" type="Node" parent="BattleStateMachine"]
 script = ExtResource("10_22uqi")
 
+[node name="SELECTING_ATTACK_PP_RESTORE" type="Node" parent="BattleStateMachine"]
+script = ExtResource("17_dd63g")
+
 [node name="INCREMENT_TURN" type="Node" parent="BattleStateMachine"]
 script = ExtResource("12_03edq")
 
@@ -236,9 +377,9 @@ script = ExtResource("13_6ni85")
 [node name="ENACT_STATUSES" type="Node" parent="BattleStateMachine"]
 script = ExtResource("14_6ni85")
 
-[connection signal="pressed" from="BottomBar/Action/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]
+[node name="SELECTING_ITEM" type="Node" parent="BattleStateMachine"]
+script = ExtResource("20_61i1y")
+
+[connection signal="pressed" from="BottomBar/Action/ActionButtons/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]
+[connection signal="pressed" from="BottomBar/Action/ActionButtons/Item" to="BattleStateMachine/SELECTING_ACTION" method="_on_item_pressed"]
 [connection signal="pressed" from="BottomBar/BattleStatus/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move1" to="BattleStateMachine/SELECTING_ATTACK" method="_on_move_pressed" binds= [0]]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move2" to="BattleStateMachine/SELECTING_ATTACK" method="_on_move_pressed" binds= [1]]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move3" to="BattleStateMachine/SELECTING_ATTACK" method="_on_move_pressed" binds= [2]]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move4" to="BattleStateMachine/SELECTING_ATTACK" method="_on_move_pressed" binds= [3]]
