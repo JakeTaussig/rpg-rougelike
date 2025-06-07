@@ -383,7 +383,3 @@ script = ExtResource("20_61i1y")
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Item" to="BattleStateMachine/SELECTING_ACTION" method="_on_item_pressed"]
 [connection signal="pressed" from="BottomBar/BattleStatus/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move1" to="BattleStateMachine/SELECTING_ATTACK" method="_on_move_pressed" binds= [0]]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move2" to="BattleStateMachine/SELECTING_ATTACK" method="_on_move_pressed" binds= [1]]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move3" to="BattleStateMachine/SELECTING_ATTACK" method="_on_move_pressed" binds= [2]]
-[connection signal="pressed" from="BottomBar/Moves/MovesMenu/Move4" to="BattleStateMachine/SELECTING_ATTACK" method="_on_move_pressed" binds= [3]]
