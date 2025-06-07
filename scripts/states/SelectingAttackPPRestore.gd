@@ -12,7 +12,6 @@ func _init_move_buttons():
 	for i in %Player.selected_monster.moves.size():
 		%MovesMenu.get_child(i).text = %Player.selected_monster.moves[i].move_name
 		%MovesMenu.get_child(i).focus_entered.connect(func(): _display_pp_info(i))
-		var button: Button = %MovesMenu.get_child(i)
 		%MovesMenu.get_child(i).pressed.connect(func(): _restore(i))
 
 		if %Player.selected_monster.moves[i].pp == %Player.selected_monster.moves[i].max_pp:

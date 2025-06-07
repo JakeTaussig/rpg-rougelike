@@ -12,5 +12,5 @@ func exit():
 func handle_continue():
 	pass
 
-func handle_input(event: InputEvent):
+func handle_input(_event: InputEvent):
 	pass

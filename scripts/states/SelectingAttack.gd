@@ -3,7 +3,7 @@ class_name SelectingAttack
 
 var last_focused_move_index: int = 0
 
-func enter(messages: Array = []):
+func enter(_messages: Array = []):
 	_init_move_buttons()
 	%Moves.visible = true
 	%MovesMenu.get_child(last_focused_move_index).grab_focus()

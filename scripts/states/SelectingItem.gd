@@ -2,7 +2,7 @@ extends BaseState
 
 var last_focused_item_index = 0
 
-func enter(messages: Array = []):
+func enter(_messages: Array = []):
 	%Items.visible = true
 	_render_items()
 	call_deferred("_refocus")
@@ -27,8 +27,6 @@ func handle_input(event: InputEvent):
 func _render_items():
 	# placeholder implementation
 	for i in items.size():
-		var item = items[i]
-
 		var menu_button
 		if i < %ItemsMenu.get_children().size():
 			menu_button = %ItemsMenu.get_child(i)
