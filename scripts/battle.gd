@@ -7,8 +7,10 @@ const STATE_SELECTING_ACTION := "SELECTING_ACTION"
 const STATE_ENEMY_ATTACK := "ENEMY_ATTACK"
 const STATE_GAME_END := "GAME_END"
 const STATE_SELECTING_ATTACK := "SELECTING_ATTACK"
+const STATE_SELECTING_ATTACK_PP_RESTORE := "SELECTING_ATTACK_PP_RESTORE"
 const STATE_ATTACK := "ATTACK"
 const STATE_ENACT_STATUSES := "ENACT_STATUSES"
+const STATE_SELECTING_ITEM := "SELECTING_ITEM"
 const NONE := "NONE"
 
 var turn: int = 0
@@ -73,8 +75,8 @@ func render_hp() -> void:
 		%EnemyPanel.text = "Enemy ?"
 	%PlayerPanel.text = "%s %d / %d" % [player_monster.character_name, player_monster.hp, player_monster.max_hp]
 
-	%EnemyPanel.text += "\n %s" % MovesList.Type.find_key(current_enemy.type)
-	%PlayerPanel.text += "\n %s" % MovesList.Type.find_key(player_monster.type)
+	%EnemyPanel.text += "\n%s" % MovesList.Type.find_key(current_enemy.type)
+	%PlayerPanel.text += "\n%s" % MovesList.Type.find_key(player_monster.type)
 	
 	if not current_enemy.status_effect == MovesList.StatusEffect.NONE:
 		%EnemyPanel.text += "\t \t \t \t %s" % MovesList.StatusEffect.find_key(current_enemy.status_effect)
@@ -82,11 +84,14 @@ func render_hp() -> void:
 	if not player_monster.status_effect == MovesList.StatusEffect.NONE:
 		%PlayerPanel.text += "\t \t \t \t  %s" % MovesList.StatusEffect.find_key(player_monster.status_effect)
 
-func _on_continue_button_pressed() -> void:
-	current_state.handle_continue()
-
 func is_battle_over() -> bool:
 	return %Enemy.selected_monster.hp <= 0 || %Player.selected_monster.hp <= 0
 
 func get_attacker():
 	return active_monsters[turn_order_index]
+
+func _on_continue_button_pressed() -> void:
+	current_state.handle_continue()
+
+func _input(event: InputEvent) -> void:
+	current_state.handle_input(event)

@@ -1,12 +1,28 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bb5xdt6d0xc8h"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://bb5xdt6d0xc8h"]
 
 [ext_resource type="FontFile" uid="uid://c27kqqygdffnr" path="res://assets/fonts/LoRes 9 Minus OT Wide Regular.ttf" id="1_pgokm"]
 [ext_resource type="StyleBox" uid="uid://dv2ftdeiv2dr3" path="res://assets/styles/focus_sbf.tres" id="2_7mpy8"]
 [ext_resource type="StyleBox" uid="uid://dwb68ajbfeqp0" path="res://assets/styles/normal_sbf.tres" id="3_6fsoa"]
+[ext_resource type="StyleBox" uid="uid://be4rabyrnnoh4" path="res://assets/styles/focus_button_sbf.tres" id="3_f4hnv"]
+[ext_resource type="StyleBox" uid="uid://b8rk3x7peadlc" path="res://assets/styles/normal_button_sbf.tres" id="3_hypv3"]
+[ext_resource type="StyleBox" uid="uid://85oflos3sgq2" path="res://assets/styles/scrollbar_unfocused_sbf.tres" id="4_3dcfp"]
+[ext_resource type="StyleBox" uid="uid://jb04x3reseor" path="res://assets/styles/scrollbar_focus_sbf.tres" id="5_keqi6"]
+[ext_resource type="StyleBox" uid="uid://c854nh0fccd54" path="res://assets/styles/border_color_sbf.tres" id="6_f4hnv"]
+[ext_resource type="StyleBox" uid="uid://dq5bgcynd5yxl" path="res://assets/styles/scrollbar_background_sbf.tres" id="6_keqi6"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7mpy8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjh1m"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [resource]
+BorderButton/base_type = &"Button"
+BorderButton/styles/focus = ExtResource("2_7mpy8")
+BorderButton/styles/hover = ExtResource("2_7mpy8")
+BorderButton/styles/hover_pressed = ExtResource("2_7mpy8")
+BorderButton/styles/normal = ExtResource("3_6fsoa")
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_focus_color = Color(0.172549, 0.909804, 0.960784, 1)
 Button/colors/font_hover_color = Color(0.172549, 0.909804, 0.960784, 1)
@@ -14,23 +30,35 @@ Button/colors/font_pressed_color = Color(0.172549, 0.909804, 0.960784, 1)
 Button/font_sizes/font_size = 9
 Button/fonts/font = ExtResource("1_pgokm")
 Button/styles/disabled = ExtResource("2_7mpy8")
-Button/styles/focus = ExtResource("2_7mpy8")
-Button/styles/hover = ExtResource("2_7mpy8")
-Button/styles/normal = ExtResource("3_6fsoa")
-Button/styles/pressed = ExtResource("2_7mpy8")
+Button/styles/focus = ExtResource("3_f4hnv")
+Button/styles/hover = ExtResource("3_f4hnv")
+Button/styles/normal = ExtResource("3_hypv3")
+Button/styles/pressed = ExtResource("3_f4hnv")
 DisabledButton/base_type = &"Button"
 DisabledButton/colors/font_color = Color(0.352941, 0.411765, 0.533333, 1)
 DisabledButton/colors/font_focus_color = Color(0.635294, 0.14902, 0.2, 1)
 DisabledButton/colors/font_hover_color = Color(0.635294, 0.14902, 0.2, 1)
 DisabledButton/colors/font_pressed_color = Color(0.635294, 0.14902, 0.2, 1)
+FullBorderPanel/base_type = &"Panel"
+FullBorderPanel/styles/panel = ExtResource("6_f4hnv")
 GrayTextLabel/base_type = &"NoBorderLabel"
 GrayTextLabel/colors/font_color = Color(0.352941, 0.411765, 0.533333, 1)
+GridContainer/constants/h_separation = 1
+GridContainer/constants/v_separation = 1
 Label/font_sizes/font_size = 9
 Label/fonts/font = ExtResource("1_pgokm")
 Label/styles/normal = ExtResource("3_6fsoa")
+MarginContainer/constants/margin_bottom = 1
+MarginContainer/constants/margin_top = 1
 NoBorderLabel/base_type = &"Label"
-NoBorderLabel/styles/normal = SubResource("StyleBoxEmpty_7mpy8")
+NoBorderLabel/constants/line_spacing = 6
+NoBorderLabel/styles/normal = SubResource("StyleBoxFlat_fjh1m")
 Panel/styles/panel = ExtResource("3_6fsoa")
 RedTextLabel/base_type = &"NoBorderLabel"
 RedTextLabel/colors/font_color = Color(0.635294, 0.14902, 0.2, 1)
-VBoxContainer/constants/separation = 4
+VBoxContainer/constants/separation = 1
+VScrollBar/styles/grabber = ExtResource("4_3dcfp")
+VScrollBar/styles/grabber_highlight = ExtResource("5_keqi6")
+VScrollBar/styles/grabber_pressed = ExtResource("5_keqi6")
+VScrollBar/styles/scroll = ExtResource("6_keqi6")
+VScrollBar/styles/scroll_focus = ExtResource("6_keqi6")
