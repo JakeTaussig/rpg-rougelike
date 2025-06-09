@@ -118,19 +118,19 @@ func _ready():
 		battle.transition_state_to(battle.STATE_INFO, ["%s's luck increased from %d to %d" % [%Player.selected_monster.character_name, prior_luck, current_luck]])
 		)
 
-	var burn_heal = Item.create("Burn Heal", 8, "Heals player from BURN", func():
+	var burn_heal = Item.create("Aloe Vera", 8, "Heals player from BURN", func():
 		if %Player.selected_monster.status_effect == MovesList.StatusEffect.BURN:
 			%Player.selected_monster.status_effect = MovesList.StatusEffect.NONE
 			battle.transition_state_to(battle.STATE_INFO, ["%s healed their BURN" % %Player.selected_monster.character_name])
 		)
 
-	var cripple_heal = Item.create("Cripple Heal", 8, "Heals player from CRIPPLE", func():
+	var cripple_heal = Item.create("Pain Meds", 8, "Heals player from CRIPPLE", func():
 		if %Player.selected_monster.status_effect == MovesList.StatusEffect.CRIPPLE:
 			%Player.selected_monster.status_effect = MovesList.StatusEffect.NONE
 			battle.transition_state_to(battle.STATE_INFO, ["%s recovered from CRIPPLE" % %Player.selected_monster.character_name])
 		)
 
-	var whirlpool_heal = Item.create("Whirlpool Heal", 8, "Frees player from WHIRLPOOL", func():
+	var whirlpool_heal = Item.create("Lifeguard", 8, "Save plyr. from WHIRLPOOL", func():
 		if %Player.selected_monster.status_effect == MovesList.StatusEffect.WHIRLPOOL:
 			%Player.selected_monster.status_effect = MovesList.StatusEffect.NONE
 			battle.transition_state_to(battle.STATE_INFO, ["%s escaped the WHIRLPOOL" % %Player.selected_monster.character_name])
@@ -160,7 +160,7 @@ func _ready():
 			battle.transition_state_to(battle.STATE_INFO, ["%s's vision was restored" % %Player.selected_monster.character_name])
 		)
 
-	var pp_restore = Item.create("PP Restore", 8, "Restores a move's PP by 5", func():
+	var pp_restore = Item.create("PP Restore", 8, "Restore a move's PP", func():
 		var all_moves_full_pp = true
 		for move: Move in %Player.selected_monster.moves:
 			if move.pp < move.max_pp:

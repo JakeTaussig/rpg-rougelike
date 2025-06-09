@@ -39,6 +39,8 @@ func _display_pp_info(move_index: int) -> void:
 
 	var min_updated_pp = min(move.max_pp, move.pp + 3)
 	var max_updated_pp = min(move.max_pp, move.pp + 5)
+	var min_added_pp = min_updated_pp - move.pp
+	var max_added_pp = max_updated_pp - move.pp
 
 	if move.pp == move.max_pp:
 		%PPInfo.text = "%d / %d" % [move.pp, move.max_pp]
@@ -46,14 +48,15 @@ func _display_pp_info(move_index: int) -> void:
 		%PPInfo.set_theme_type_variation("GrayTextLabel")
 		%TypeInfo.set_theme_type_variation("GrayTextLabel")
 		return
-	elif min_updated_pp == max_updated_pp:
+	elif min_added_pp == max_added_pp:
 		%PPInfo.text = "%d --> %d" % [move.pp, min_updated_pp]
+		%TypeInfo.text = "Restore %d PP" % [min_added_pp]
 	else:
 		%PPInfo.text = "%d -->  %d - %d" % [move.pp, min_updated_pp, max_updated_pp]
+		%TypeInfo.text = "Restore %d-%d PP" % [min_added_pp, max_added_pp]
 
 	%PPInfo.set_theme_type_variation("NoBorderLabel")
 	%TypeInfo.set_theme_type_variation("NoBorderLabel")
-	%TypeInfo.text = "Restore\nup to 5 PP"
 
 func _on_move_pressed(index: int) -> void:
 	var move = %Player.selected_monster.moves[index]
