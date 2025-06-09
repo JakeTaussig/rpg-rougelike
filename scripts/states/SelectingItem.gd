@@ -6,6 +6,8 @@ func enter(_messages: Array = []):
 	%Items.visible = true
 	_render_items()
 	call_deferred("_refocus")
+	if _messages.size() != 0 && _messages[0] == "replenish":
+		items[last_focused_item_index].qty += 1
 
 func _refocus():
 	%ItemsMenu.get_child(last_focused_item_index).grab_focus()

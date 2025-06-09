@@ -61,3 +61,7 @@ func _on_move_pressed(index: int) -> void:
 	if move.pp < move.max_pp:
 		battle.transition_state_to(
 			battle.STATE_INFO, [])
+
+func handle_input(event: InputEvent):
+	if event.is_action_pressed("ui_cancel"):
+		battle.transition_state_to(battle.STATE_SELECTING_ITEM, ["replenish"])
