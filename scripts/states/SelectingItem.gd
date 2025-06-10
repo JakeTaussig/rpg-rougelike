@@ -10,6 +10,14 @@ func enter(_messages: Array = []):
 		%Player.items[last_focused_item_index].qty += 1
 
 func _refocus():
+	var child_count = %ItemsMenu.get_child_count()
+	if last_focused_item_index >= child_count:
+		last_focused_item_index = child_count - 1
+
+	if last_focused_item_index <= -1:
+		%Items.get_node("BackButton").grab_focus()
+		return
+
 	%ItemsMenu.get_child(last_focused_item_index).grab_focus()
 
 func exit():
