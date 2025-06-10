@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=24 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://d0rdycr2tr5ll" path="res://scripts/states/EnactStatuses.gd" id="14_6ni85"]
 [ext_resource type="Script" uid="uid://m7sdis15lg1t" path="res://scripts/states/SelectingAttackPPRestore.gd" id="17_dd63g"]
 [ext_resource type="Script" uid="uid://flenaawlfq4g" path="res://scripts/states/SelectingItem.gd" id="20_61i1y"]
+[ext_resource type="PackedScene" uid="uid://capm3p3n50hky" path="res://scenes/ui_manager.tscn" id="23_fpf3k"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_a12nh")
@@ -46,11 +47,14 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Action" type="Node2D" parent="BottomBar"]
+[node name="Action" type="Control" parent="BottomBar"]
 unique_name_in_owner = true
 visible = false
+layout_mode = 3
+anchors_preset = 0
 
 [node name="Panel" type="Panel" parent="BottomBar/Action"]
+layout_mode = 0
 offset_left = 144.0
 offset_top = 95.0
 offset_right = 256.0
@@ -61,6 +65,7 @@ theme_type_variation = &"FullBorderPanel"
 [node name="ActionButtons" type="VBoxContainer" parent="BottomBar/Action"]
 unique_name_in_owner = true
 z_index = 2
+layout_mode = 0
 offset_left = 145.0
 offset_top = 96.0
 offset_right = 255.0
@@ -83,7 +88,7 @@ alignment = 0
 [node name="BattleStatus" type="Label" parent="BottomBar"]
 unique_name_in_owner = true
 visible = false
-offset_top = 96.0
+offset_top = 95.0
 offset_right = 255.0
 offset_bottom = 143.0
 mouse_filter = 1
@@ -96,16 +101,19 @@ unique_name_in_owner = true
 z_index = -1
 layout_mode = 0
 offset_right = 255.0
-offset_bottom = 47.0
+offset_bottom = 48.0
 theme = ExtResource("2_p1qf1")
 text = "Continue"
 
-[node name="Moves" type="Node2D" parent="BottomBar"]
+[node name="Moves" type="Control" parent="BottomBar"]
 unique_name_in_owner = true
 visible = false
+layout_mode = 3
+anchors_preset = 0
 
 [node name="BackButton" type="Button" parent="BottomBar/Moves"]
 custom_minimum_size = Vector2(0, 5)
+layout_mode = 0
 offset_top = 80.0
 offset_right = 32.0
 offset_bottom = 96.0
@@ -116,6 +124,7 @@ text = "back"
 script = ExtResource("4_saiin")
 
 [node name="Panel" type="Panel" parent="BottomBar/Moves"]
+layout_mode = 0
 offset_top = 95.0
 offset_right = 160.0
 offset_bottom = 144.0
@@ -124,6 +133,7 @@ theme_type_variation = &"FullBorderPanel"
 
 [node name="MovesMenu" type="GridContainer" parent="BottomBar/Moves"]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 1.0
 offset_top = 96.0
 offset_right = 256.0
@@ -160,6 +170,7 @@ alignment = 0
 
 [node name="MoveInfo" type="Panel" parent="BottomBar/Moves"]
 custom_minimum_size = Vector2(0, 23)
+layout_mode = 0
 offset_left = 160.0
 offset_top = 95.0
 offset_right = 255.0
@@ -189,11 +200,14 @@ text = "TYPE: HUMAN"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Items" type="Node2D" parent="BottomBar"]
+[node name="Items" type="Control" parent="BottomBar"]
 unique_name_in_owner = true
 visible = false
+layout_mode = 3
+anchors_preset = 0
 
 [node name="BackButton2" type="Button" parent="BottomBar/Items"]
+layout_mode = 0
 offset_top = 80.0
 offset_right = 32.0
 offset_bottom = 96.0
@@ -204,6 +218,7 @@ text = "back"
 script = ExtResource("4_saiin")
 
 [node name="Panel" type="Panel" parent="BottomBar/Items"]
+layout_mode = 0
 offset_top = 95.0
 offset_right = 168.0
 offset_bottom = 144.0
@@ -211,6 +226,7 @@ theme = ExtResource("2_p1qf1")
 theme_type_variation = &"FullBorderPanel"
 
 [node name="MarginContainer" type="MarginContainer" parent="BottomBar/Items"]
+layout_mode = 0
 offset_left = 1.0
 offset_top = 95.0
 offset_right = 170.0
@@ -268,6 +284,7 @@ alignment = 0
 
 [node name="ItemInfo" type="Panel" parent="BottomBar/Items"]
 custom_minimum_size = Vector2(0, 24)
+layout_mode = 0
 offset_left = 168.0
 offset_top = 95.0
 offset_right = 255.0
@@ -329,7 +346,6 @@ monsters = Array[ExtResource("6_djc8l")]([ExtResource("7_h4dll")])
 [node name="Enemy" parent="." instance=ExtResource("5_lpir7")]
 unique_name_in_owner = true
 position = Vector2(192, 36)
-flip_h = false
 script = ExtResource("6_6vh42")
 ai_type = 2
 monsters = Array[ExtResource("6_djc8l")]([ExtResource("12_61i1y")])
@@ -379,6 +395,9 @@ script = ExtResource("14_6ni85")
 
 [node name="SELECTING_ITEM" type="Node" parent="BattleStateMachine"]
 script = ExtResource("20_61i1y")
+
+[node name="UiManager" parent="." instance=ExtResource("23_fpf3k")]
+unique_name_in_owner = true
 
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Item" to="BattleStateMachine/SELECTING_ACTION" method="_on_item_pressed"]

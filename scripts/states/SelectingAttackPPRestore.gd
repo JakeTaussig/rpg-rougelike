@@ -1,24 +1,26 @@
 extends SelectingAttack
 
 func _render_moves():
+	var move_buttons = battle.ui_manager.get_move_buttons()
+	for i in %Player.selected_monster.moves.size():
+		var move = %Player.selected_monster.moves[i]
+		var enabled = move.pp < move.max_pp
+		battle.ui_manager.set_button_style_enabled(move_buttons[i], enabled)
+
+func _init_move_buttons():
+	var move_buttons = battle.ui_manager.get_move_buttons()
+	for i in %Player.selected_monster.moves.size():
+		move_buttons[i].text = %Player.selected_monster.moves[i].move_name
+		move_buttons[i].focus_entered.connect(func(): _display_pp_info(i))
+		move_buttons[i].mouse_entered.connect(move_buttons[i].grab_focus)
+		move_buttons[i].pressed.connect(func(): _restore(i))
+
 	for i in %Player.selected_monster.moves.size():
 		var move = %Player.selected_monster.moves[i]
 		if move.pp == move.max_pp:
-			%MovesMenu.get_child(i).set_theme_type_variation("DisabledButton")
+			move_buttons[i].set_theme_type_variation("DisabledButton")
 		else:
-			%MovesMenu.get_child(i).set_theme_type_variation("Button")
-
-func _init_move_buttons():
-	for i in %Player.selected_monster.moves.size():
-		%MovesMenu.get_child(i).text = %Player.selected_monster.moves[i].move_name
-		%MovesMenu.get_child(i).focus_entered.connect(func(): _display_pp_info(i))
-		%MovesMenu.get_child(i).pressed.connect(func(): _restore(i))
-
-		if %Player.selected_monster.moves[i].pp == %Player.selected_monster.moves[i].max_pp:
-			%MovesMenu.get_child(i).set_theme_type_variation("DisabledButton")
-		else:
-			%MovesMenu.get_child(i).set_theme_type_variation("Button")
-		%MovesMenu.get_child(i).mouse_entered.connect(%MovesMenu.get_child(i).grab_focus)
+			move_buttons[i].set_theme_type_variation("Button")
 
 func _restore(i: int):
 	var move = %Player.selected_monster.moves[i]
@@ -43,27 +45,22 @@ func _display_pp_info(move_index: int) -> void:
 	var max_added_pp = max_updated_pp - move.pp
 
 	if move.pp == move.max_pp:
-		%PPInfo.text = "%d / %d" % [move.pp, move.max_pp]
-		%TypeInfo.text = "PP Already full"
-		%PPInfo.set_theme_type_variation("GrayTextLabel")
-		%TypeInfo.set_theme_type_variation("GrayTextLabel")
+		battle.ui_manager.set_pp_info("%d / %d" % [move.pp, move.max_pp], true)
+		battle.ui_manager.set_type_info("PP Already full", true)
 		return
 	elif min_added_pp == max_added_pp:
-		%PPInfo.text = "%d --> %d" % [move.pp, min_updated_pp]
-		%TypeInfo.text = "Restore %d PP" % [min_added_pp]
+		battle.ui_manager.set_pp_info("%d --> %d" % [move.pp, min_updated_pp], false)
+		battle.ui_manager.set_type_info("Restore %d PP" % [min_added_pp], false)
 	else:
-		%PPInfo.text = "%d -->  %d - %d" % [move.pp, min_updated_pp, max_updated_pp]
-		%TypeInfo.text = "Restore %d-%d PP" % [min_added_pp, max_added_pp]
+		battle.ui_manager.set_pp_info("%d -->  %d - %d" % [move.pp, min_updated_pp, max_updated_pp], false)
+		battle.ui_manager.set_type_info("Restore %d-%d PP" % [min_added_pp, max_added_pp] % [min_added_pp], false)
 
-	%PPInfo.set_theme_type_variation("NoBorderLabel")
-	%TypeInfo.set_theme_type_variation("NoBorderLabel")
 
 func _on_move_pressed(index: int) -> void:
 	var move = %Player.selected_monster.moves[index]
 	print("\tuser input:\t\tselect %s (idx %d)" % [move.move_name, index])
 	if move.pp < move.max_pp:
-		battle.transition_state_to(
-			battle.STATE_INFO, [])
+		battle.transition_state_to(battle.STATE_INFO, [])
 
 func handle_input(event: InputEvent):
 	if event.is_action_pressed("ui_cancel"):

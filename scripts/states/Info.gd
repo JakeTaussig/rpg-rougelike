@@ -5,10 +5,9 @@ var messages: Array = []
 var message_index: int = 0
 
 func enter(_messages: Array = []):
-	battle.render_hp()
-	%BattleStatus.visible = true
-	%ContinueButton.visible = true
-	%ContinueButton.grab_focus()
+	battle.ui_manager.render_hp(%Player.selected_monster, %Enemy.selected_monster)
+	battle.ui_manager.show_info_panel(true)
+	battle.ui_manager.focus_continue_button()
 	messages = _messages
 	message_index = 0
 	_update_message()
@@ -17,8 +16,7 @@ func enter(_messages: Array = []):
 		handle_continue()
 
 func exit():
-	%BattleStatus.visible = false
-	%ContinueButton.visible = false
+	battle.ui_manager.show_info_panel(false)
 
 func handle_continue():
 	message_index += 1
@@ -29,9 +27,9 @@ func handle_continue():
 
 func _update_message():
 	if messages.size() >= 1:
-		%BattleStatus.text = messages[message_index]
+		battle.ui_manager.set_info_text(messages[message_index])
 		print("\tmessage:\t\t%s" % messages[message_index])
 		_update_state_display()
 
 func _update_state_display():
-	%StateDisplay.text = "%s [%d / %d]" % [name, message_index+1, messages.size()]
+	battle.ui_manager.set_state_display("%s [%d / %d]" % [name, message_index+1, messages.size()])
