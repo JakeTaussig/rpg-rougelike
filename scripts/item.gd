@@ -40,7 +40,9 @@ func consume(selected_monster, battle):
 		return
 	qty -= 1
 
-	_callback.call(selected_monster, battle)
+	var output = _callback.call(selected_monster, battle)
+	if output:
+		qty += 1
 
 func _handle_hp_restore(selected_monster, battle):
 	const HP_RESTORE_AMT = 30
@@ -93,36 +95,55 @@ func _handle_burn_heal(selected_monster, battle):
 	if selected_monster.status_effect == MovesList.StatusEffect.BURN:
 		selected_monster.recover_from_status_effect()
 		battle.transition_state_to(battle.STATE_INFO, ["%s healed their BURN" % selected_monster.character_name])
+	else:
+		return true # return the item to the player
 
 func _handle_cripple_heal(selected_monster, battle):
 	if selected_monster.status_effect == MovesList.StatusEffect.CRIPPLE:
 		selected_monster.recover_from_status_effect()
 		battle.transition_state_to(battle.STATE_INFO, ["%s recovered from CRIPPLE" % selected_monster.character_name])
+	else:
+		return true # return the item to the player
 
 func _handle_whirlpool_heal(selected_monster, battle):
 	if selected_monster.status_effect == MovesList.StatusEffect.WHIRLPOOL:
 		selected_monster.recover_from_status_effect()
 		battle.transition_state_to(battle.STATE_INFO, ["%s escaped the WHIRLPOOL" % selected_monster.character_name])
+	else:
+		return true # return the item to the player
+
 
 func _handle_poison_heal(selected_monster, battle):
 	if selected_monster.status_effect == MovesList.StatusEffect.POISON:
 		selected_monster.recover_from_status_effect()
 		battle.transition_state_to(battle.STATE_INFO, ["%s was cured of POISON" % selected_monster.character_name])
+	else:
+		return true # return the item to the player
+
 
 func _handle_paralyze_heal(selected_monster, battle):
 	if selected_monster.status_effect == MovesList.StatusEffect.PARALYZE:
 		selected_monster.recover_from_status_effect()
 		battle.transition_state_to(battle.STATE_INFO, ["%s recovered from PARALYZE" % selected_monster.character_name])
+	else:
+		return true # return the item to the player
+
 
 func _handle_consume_heal(selected_monster, battle):
 	if selected_monster.status_effect == MovesList.StatusEffect.CONSUME:
 		selected_monster.recover_from_status_effect()
 		battle.transition_state_to(battle.STATE_INFO, ["%s regained their energy" % selected_monster.character_name])
+	else:
+		return true # return the item to the player
+
 
 func _handle_blind_heal(selected_monster, battle):
 	if selected_monster.status_effect == MovesList.StatusEffect.BLIND:
 		selected_monster.recover_from_status_effect()
 		battle.transition_state_to(battle.STATE_INFO, ["%s's vision was restored" % selected_monster.character_name])
+	else:
+		return true # return the item to the player
+
 
 func _handle_pp_restore(selected_monster, battle):
 	var all_moves_full_pp = true
@@ -132,6 +153,7 @@ func _handle_pp_restore(selected_monster, battle):
 			break
 
 	if all_moves_full_pp:
-		return
+		return true # return the item to the player
+
 
 	battle.transition_state_to(battle.STATE_SELECTING_ATTACK_PP_RESTORE)
