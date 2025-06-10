@@ -22,12 +22,16 @@ var current_enemy: Monster
 var current_state: BaseState
 var previous_state_name: String
 
+@onready
+var ui_manager: UIManager = %UiManager
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Called once to seed the random number generator
 	randomize()
 	_init_states()
 	_init_battle_participants()
+	ui_manager = %UiManager
 
 func _init_states():
 	# Initialize all states
@@ -44,7 +48,7 @@ func _init_battle_participants():
 		active_monsters.append(monster)
 
 	active_monsters.sort_custom(_sort_participants_by_speed)
-	render_hp()
+	ui_manager.render_hp(%Player.selected_monster, current_enemy)
 	transition_state_to(STATE_INCREMENT_TURN)
 
 func _sort_participants_by_speed(a: Monster, b: Monster) -> bool:
@@ -62,27 +66,10 @@ func transition_state_to(state_name: String, messages: Array = []):
 		previous_state_name = current_state.name
 
 	print("Entering state: ", state_name)
-	%StateDisplay.text = state_name
+	ui_manager.set_state_display(state_name)
 
 	current_state = %BattleStateMachine.get_node(state_name)
 	current_state.enter(messages)
-
-func render_hp() -> void:
-	var player_monster = %Player.selected_monster
-	if current_enemy:
-		%EnemyPanel.text = "%s %d / %d" % [current_enemy.character_name, current_enemy.hp, current_enemy.max_hp]
-	else:
-		%EnemyPanel.text = "Enemy ?"
-	%PlayerPanel.text = "%s %d / %d" % [player_monster.character_name, player_monster.hp, player_monster.max_hp]
-
-	%EnemyPanel.text += "\n%s" % MovesList.Type.find_key(current_enemy.type)
-	%PlayerPanel.text += "\n%s" % MovesList.Type.find_key(player_monster.type)
-	
-	if not current_enemy.status_effect == MovesList.StatusEffect.NONE:
-		%EnemyPanel.text += "\t \t \t \t %s" % MovesList.StatusEffect.find_key(current_enemy.status_effect)
-		
-	if not player_monster.status_effect == MovesList.StatusEffect.NONE:
-		%PlayerPanel.text += "\t \t \t \t  %s" % MovesList.StatusEffect.find_key(player_monster.status_effect)
 
 func is_battle_over() -> bool:
 	return %Enemy.selected_monster.hp <= 0 || %Player.selected_monster.hp <= 0
