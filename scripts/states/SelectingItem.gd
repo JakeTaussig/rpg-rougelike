@@ -4,7 +4,7 @@ var last_focused_item_index = 0
 
 func enter(_messages: Array = []):
 	%Items.visible = true
-	_render_items()
+	call_deferred("_render_items")
 	call_deferred("_refocus")
 	if _messages.size() != 0 && _messages[0] == "replenish":
 		%Player.items[last_focused_item_index].qty += 1
@@ -37,8 +37,8 @@ func handle_input(event: InputEvent):
 func _render_items():
 	# Clear existing items first (except the first one which has focus signals)
 	var child_count = %ItemsMenu.get_child_count()
-	while child_count > 0:
-		var second_child = %ItemsMenu.get_child(0)
+	while child_count > 1:
+		var second_child = %ItemsMenu.get_child(1)
 		second_child.free()
 		child_count = %ItemsMenu.get_child_count()
 
@@ -47,12 +47,13 @@ func _render_items():
 		if %Player.items[i].qty <= 0:
 			continue  # Skip items with qty <= 0
 
-		var menu_button
+		var menu_button: Button
 		if visible_item_index < %ItemsMenu.get_child_count():
 			menu_button = %ItemsMenu.get_child(visible_item_index)
 		else:
 			# duplicate the second menu button, because the first has focus signals connected to the back button
-			menu_button = %ItemsMenu.get_child(0).duplicate()
+			menu_button = %ItemsMenu.get_children()[0].duplicate()
+			menu_button.focus_neighbor_top = NodePath("")
 			%ItemsMenu.add_child(menu_button)
 
 		menu_button.text = %Player.items[i].name
