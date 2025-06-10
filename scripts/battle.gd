@@ -22,8 +22,7 @@ var current_enemy: Monster
 var current_state: BaseState
 var previous_state_name: String
 
-@onready
-var ui_manager: UIManager = %UiManager
+@onready var ui_manager: UIManager = %UiManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,7 +30,6 @@ func _ready() -> void:
 	randomize()
 	_init_states()
 	_init_battle_participants()
-	ui_manager = %UiManager
 
 func _init_states():
 	# Initialize all states
