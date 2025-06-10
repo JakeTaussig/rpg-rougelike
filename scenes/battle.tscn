@@ -88,7 +88,7 @@ alignment = 0
 [node name="BattleStatus" type="Label" parent="BottomBar"]
 unique_name_in_owner = true
 visible = false
-offset_top = 96.0
+offset_top = 95.0
 offset_right = 255.0
 offset_bottom = 143.0
 mouse_filter = 1
@@ -101,7 +101,7 @@ unique_name_in_owner = true
 z_index = -1
 layout_mode = 0
 offset_right = 255.0
-offset_bottom = 47.0
+offset_bottom = 48.0
 theme = ExtResource("2_p1qf1")
 text = "Continue"
 
