@@ -18,7 +18,7 @@ func enter(_messages: Array = []):
 
 	_log_turn_info()
 
-	%TurnDisplay.text = "trn: %s idx: %s" % [battle.turn, battle.turn_order_index]
+	battle.ui_manager.set_turn_display("trn: %s idx: %s" % [battle.turn, battle.turn_order_index])
 
 	if battle.active_monsters[battle.turn_order_index].is_player:
 		battle.transition_state_to(battle.STATE_SELECTING_ACTION)
