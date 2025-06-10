@@ -16,6 +16,8 @@ const NONE := "NONE"
 var turn: int = 0
 var turn_order_index: int = -1
 
+var battle_participants = []
+
 var active_monsters = []
 var current_enemy: Monster
 
@@ -38,11 +40,10 @@ func _init_states():
 func _init_battle_participants():
 	active_monsters.clear()
 	active_monsters.append(%Player.selected_monster)
-	for monster in %Enemy.monsters:
-		# TODO: Later this will need to change. Only 2 Monsters should be in active_monsters at a time. 
-		current_enemy = monster
-		active_monsters.append(monster)
-
+	battle_participants.append(%Player)
+	battle_participants.append(%Enemy)
+	current_enemy = %Enemy.monsters[0]
+	active_monsters.append(current_enemy)
 	active_monsters.sort_custom(_sort_participants_by_speed)
 	render_hp()
 	transition_state_to(STATE_INCREMENT_TURN)
@@ -85,7 +86,7 @@ func render_hp() -> void:
 		%PlayerPanel.text += "\t \t \t \t  %s" % MovesList.StatusEffect.find_key(player_monster.status_effect)
 
 func is_battle_over() -> bool:
-	return %Enemy.selected_monster.hp <= 0 || %Player.selected_monster.hp <= 0
+	return (%Enemy.selected_monster.hp <= 0 && %Enemy.monsters.size() == 1) || (%Player.selected_monster.hp <= 0 && %Player.monsters.size() == 1)
 
 func get_attacker():
 	return active_monsters[turn_order_index]

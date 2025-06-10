@@ -3,10 +3,8 @@ extends BaseState
 var statuses_enacted = false
 
 func enter(_messages: Array = []):
-	if battle.is_battle_over():
-		battle.transition_state_to(battle.STATE_GAME_END)
-		return
-
+	# Checks if the current selected_monster is dead and if the battle is over
+	_check_battle_status()
 	# enact statuses before updating the turn order
 	if battle.turn_order_index == battle.active_monsters.size() - 1 and not statuses_enacted:
 		statuses_enacted = true
@@ -26,6 +24,17 @@ func enter(_messages: Array = []):
 		battle.transition_state_to(battle.STATE_SELECTING_ACTION)
 	else:
 		battle.transition_state_to(battle.STATE_ENEMY_ATTACK)
+		
+func _check_battle_status() -> void:
+	for battler in battle.battle_participants:
+		if battler.is_defeated():
+			#TODO: either change GAME_END to BATTLE_OVER state, or do something else to transition to next battle if the player wins here.
+			battle.transition_state_to(battle.STATE_GAME_END)
+		elif battler.selected_monster.hp <= 0:
+			var index := battle.active_monsters.find(battler.selected_monster)
+			battler.monsters.remove_at(0)
+			battler.selected_monster = battler.monsters[0]
+			battle.active_monsters[index] = battler.selected_monster
 
 func _log_turn_info():
 	if (battle.turn_order_index == 0):
