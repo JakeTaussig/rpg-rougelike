@@ -1,5 +1,4 @@
 extends InfoState
-
 var player_victorious = true
 
 func enter(_messages: Array = []):
@@ -23,8 +22,4 @@ func handle_continue():
 	if not player_victorious:
 		get_tree().quit()
 	else:
-		# TODO: Need to remove current enemy and add new ones to the new battle?
-		var battle_scene = preload("res://scenes/battle.tscn")
-		var new_battle = battle_scene.instantiate()
-		get_tree().current_scene.add_child(new_battle)
-		battle.transition_state_to(battle.STATE_INCREMENT_TURN)
+		battle.emit_signal("battle_ended", player_victorious)

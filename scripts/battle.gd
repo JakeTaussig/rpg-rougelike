@@ -24,6 +24,8 @@ var current_enemy: Monster
 var current_state: BaseState
 var previous_state_name: String
 
+signal battle_ended(victory: bool)
+
 @onready var ui_manager: UIManager = %UiManager
 
 # Called when the node enters the scene tree for the first time.
