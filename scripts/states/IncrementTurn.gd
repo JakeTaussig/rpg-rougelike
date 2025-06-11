@@ -4,7 +4,9 @@ var statuses_enacted = false
 
 func enter(_messages: Array = []):
 	# Checks if the current selected_monster is dead and if the battle is over
-	_check_battle_status()
+	var is_battle_over = _check_battle_status()
+	if is_battle_over:
+		return
 	# enact statuses before updating the turn order
 	if battle.turn_order_index == battle.active_monsters.size() - 1 and not statuses_enacted:
 		statuses_enacted = true
@@ -17,7 +19,6 @@ func enter(_messages: Array = []):
 		battle.turn += 1
 
 	_log_turn_info()
-
 	battle.ui_manager.set_turn_display("trn: %s idx: %s" % [battle.turn, battle.turn_order_index])
 
 	if battle.active_monsters[battle.turn_order_index].is_player:
@@ -25,16 +26,22 @@ func enter(_messages: Array = []):
 	else:
 		battle.transition_state_to(battle.STATE_ENEMY_ATTACK)
 		
-func _check_battle_status() -> void:
+func _check_battle_status() -> bool:
 	for battler in battle.battle_participants:
 		if battler.is_defeated():
 			#TODO: either change GAME_END to BATTLE_OVER state, or do something else to transition to next battle if the player wins here.
 			battle.transition_state_to(battle.STATE_GAME_END)
+			return true
+		# Unless the player ever has more than one monster, this will always be the enemy
 		elif battler.selected_monster.hp <= 0:
 			var index := battle.active_monsters.find(battler.selected_monster)
 			battler.monsters.remove_at(0)
 			battler.selected_monster = battler.monsters[0]
 			battle.active_monsters[index] = battler.selected_monster
+			%UiManager.render_hp(battle.battle_participants[0].selected_monster, battle.battle_participants[1].selected_monster)
+			var messages = ["Player defeated %s!" % battle.battle_participants[1].selected_monster.character_name]
+			battle.transition_state_to(battle.STATE_INFO, messages)
+	return false
 
 func _log_turn_info():
 	if (battle.turn_order_index == 0):

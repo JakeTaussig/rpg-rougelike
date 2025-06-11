@@ -1,4 +1,4 @@
-class_name AttackingInfoState
+class_name InfoState
 extends BaseState
 
 var messages: Array = []
@@ -22,8 +22,9 @@ func handle_continue():
 	message_index += 1
 	if message_index < messages.size():
 		_update_message()
-	else:
+	elif battle.previous_state_name != 'INCREMENT_TURN':
 		battle.transition_state_to(battle.STATE_INCREMENT_TURN)
+	return
 
 func _update_message():
 	if messages.size() >= 1:
