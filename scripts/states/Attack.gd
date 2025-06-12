@@ -17,6 +17,10 @@ func enter(params: Array = []):
 	var results: Monster.AttackResults = attacker.use_move(move_index, target)
 	var messages = _generate_attack_messages(attacker, target, results)
 
+	if results.move.shader_material:
+		var backdrop: Sprite2D = %Backdrop
+		backdrop.material = results.move.shader_material
+
 	# Transition to AttackingInfoState to show results
 	battle.transition_state_to(battle.STATE_INFO, messages)
 

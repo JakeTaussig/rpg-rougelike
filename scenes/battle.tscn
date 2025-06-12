@@ -26,7 +26,8 @@
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_a12nh")
 
-[node name="PokemonRpgScreenGrayscale" type="Sprite2D" parent="."]
+[node name="Backdrop" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(128, 72)
 texture = ExtResource("1_dn72j")
 
@@ -322,14 +323,15 @@ script = ExtResource("5_61i1y")
 
 [node name="Player" parent="." instance=ExtResource("5_lpir7")]
 unique_name_in_owner = true
+texture_filter = 1
 position = Vector2(64, 72)
 texture = ExtResource("6_p0caf")
 monsters = Array[ExtResource("6_djc8l")]([ExtResource("7_h4dll")])
 
 [node name="Enemy" parent="." instance=ExtResource("5_lpir7")]
 unique_name_in_owner = true
+texture_filter = 1
 position = Vector2(192, 36)
-flip_h = false
 script = ExtResource("6_6vh42")
 ai_type = 2
 monsters = Array[ExtResource("6_djc8l")]([ExtResource("12_61i1y")])
