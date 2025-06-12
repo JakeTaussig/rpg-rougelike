@@ -8,7 +8,13 @@ class_name Item
 @export var callback_name: String:
 	set(_name):
 		callback_name = _name
-		_callback = Callable(self, _name)
+		if _name == "":
+			_callback = Callable()
+		elif has_method(_name):
+			_callback = Callable(self, _name)
+		else:
+			push_error("Callback method '%s' not found in Item" % _name)
+			_callback = Callable()
 var _callback: Callable
 
 static func create(_name: String, _qty: int, _description: String, _callback_name: String):
@@ -38,6 +44,11 @@ func consume(selected_monster, battle):
 	if qty <= 0:
 		push_error("cannot consume item %s with <= 0 qty" % name)
 		return
+
+	if not _callback:
+		push_error("cannot consume item with invalid callback_name %s" % callback_name)
+		return
+
 	qty -= 1
 
 	var output = _callback.call(selected_monster, battle)
