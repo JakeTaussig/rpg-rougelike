@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dgm8yqhmlxkae"]
+
+[ext_resource type="Shader" uid="uid://yohroafjih6a" path="res://assets/shaders/pattern.gdshader" id="1_sucbl"]
+[ext_resource type="Texture2D" uid="uid://b7kujefrccru0" path="res://assets/sprites/bw_tile_large_test.png" id="2_eacfu"]
+
+[resource]
+shader = ExtResource("1_sucbl")
+shader_parameter/input_texture = ExtResource("2_eacfu")
+shader_parameter/white_color = Color(0.635294, 0.14902, 0.2, 1)
+shader_parameter/black_color = Color(0.968627, 0.462745, 0.133333, 1)
+shader_parameter/x_offset2 = 0.0
+shader_parameter/y_offset2 = 12.0
+shader_parameter/white_color2 = Color(0, 0, 0, 1)
+shader_parameter/black_color2 = Color(0.894118, 0.231373, 0.266667, 1)
+shader_parameter/white_color_enabled2 = false
+shader_parameter/black_color_enabled2 = true
+shader_parameter/double_scale = true
+shader_parameter/moves = PackedInt32Array(3, 3, 1, 4)
+shader_parameter/move_count = 4
+shader_parameter/ampl = -64.0
+shader_parameter/period = 6.0
+shader_parameter/y_scroll_factor = 6.0

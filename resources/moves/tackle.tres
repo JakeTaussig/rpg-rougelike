@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://c22tuotquomd3"]
+[gd_resource type="Resource" script_class="Move" load_steps=3 format=3 uid="uid://c22tuotquomd3"]
 
 [ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_5u6y8"]
+[ext_resource type="Material" uid="uid://0am6ph2um3md" path="res://assets/shaders/pattern/ tackle.tres" id="2_gpabo"]
 
 [resource]
 script = ExtResource("1_5u6y8")
@@ -14,4 +15,5 @@ max_pp = 30
 status_effect = 0
 status_effect_chance = 100
 priority = false
+shader_material = ExtResource("2_gpabo")
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

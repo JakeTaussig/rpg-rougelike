@@ -17,6 +17,9 @@ func enter(_messages: Array = []):
 		handle_continue()
 
 func exit():
+	var backdrop: Sprite2D = %Backdrop
+	backdrop.material = null
+
 	%BattleStatus.visible = false
 	%ContinueButton.visible = false
 
