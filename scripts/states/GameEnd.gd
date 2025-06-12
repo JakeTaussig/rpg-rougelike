@@ -3,7 +3,6 @@ extends AttackingInfoState
 func enter(_messages: Array = []):
 	var player = %Player
 	var enemy = %Enemy
-
 	var message = ""
 	if enemy.selected_monster.hp <= 0:
 		message = "%s defeated %s!" % [player.selected_monster.character_name, enemy.selected_monster.character_name]

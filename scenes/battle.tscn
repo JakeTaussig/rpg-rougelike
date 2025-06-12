@@ -80,19 +80,21 @@ layout_mode = 2
 text = "   Item"
 alignment = 0
 
-[node name="BattleStatus" type="Label" parent="BottomBar"]
+[node name="BattleStatus" type="RichTextLabel" parent="BottomBar"]
 unique_name_in_owner = true
 visible = false
 offset_top = 96.0
-offset_right = 255.0
-offset_bottom = 143.0
+offset_right = 256.0
+offset_bottom = 144.0
 mouse_filter = 1
 theme = ExtResource("2_p1qf1")
+bbcode_enabled = true
 text = "Player Attacked Enemy"
 autowrap_mode = 2
 
 [node name="ContinueButton" type="Button" parent="BottomBar/BattleStatus"]
 unique_name_in_owner = true
+visible = false
 z_index = -1
 layout_mode = 0
 offset_right = 255.0
@@ -329,7 +331,6 @@ monsters = Array[ExtResource("6_djc8l")]([ExtResource("7_h4dll")])
 [node name="Enemy" parent="." instance=ExtResource("5_lpir7")]
 unique_name_in_owner = true
 position = Vector2(192, 36)
-flip_h = false
 script = ExtResource("6_6vh42")
 ai_type = 2
 monsters = Array[ExtResource("6_djc8l")]([ExtResource("12_61i1y")])
