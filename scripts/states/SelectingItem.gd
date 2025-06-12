@@ -19,8 +19,7 @@ func _refocus():
 		last_focused_item_index = child_count - 1
 
 	if last_focused_item_index <= -1:
-		# TODO
-		%Items.get_node("BackButton").grab_focus()
+		battle.ui_manager.focus_items_back_button()
 		return
 
 	battle.ui_manager.get_item_buttons()[last_focused_item_index].grab_focus()
@@ -41,29 +40,21 @@ func handle_input(event: InputEvent):
 
 func _render_items():
 	# Clear existing items first (except the first one which has focus signals)
-	var child_count = %ItemsMenu.get_child_count()
-	while child_count > 1:
-		var second_child = %ItemsMenu.get_child(1)
-		second_child.free()
-		child_count = %ItemsMenu.get_child_count()
+	while battle.ui_manager.get_item_buttons().size() > 1:
+		battle.ui_manager.get_item_buttons()[1].free()
 
-	var visible_item_index = 0
-	var menu_buttons = battle.ui_manager.get_item_buttons()
 	for i in %Player.items.size():
-		var menu_button
-		if i < menu_buttons.size():
-			menu_button = menu_buttons[i]
-		else:
-			# duplicate the second menu button, because the first has focus signals connected to the back button
-			menu_button = menu_buttons[1].duplicate()
-			menu_button.focus_neighbor_top = NodePath("")
-			%ItemsMenu.add_child(menu_button)
+		var item_button = battle.ui_manager.get_item_buttons()[0]
+		if i != 0:
+			item_button = item_button.duplicate()
+			item_button.focus_neighbor_top = NodePath("")
+			battle.ui_manager.add_item_button(item_button)
 
-		menu_button.text = %Player.items[i].name
-		menu_button.focus_entered.connect(func(): _display_qty_info(i))
-		menu_button.mouse_entered.connect(menu_button.grab_focus)
-		menu_button.pressed.connect(func(): _on_item_pressed(i))
-		menu_button.set_theme_type_variation("Button")
+		item_button.text = %Player.items[i].name
+		item_button.focus_entered.connect(func(): _display_qty_info(i))
+		item_button.mouse_entered.connect(item_button.grab_focus)
+		item_button.pressed.connect(func(): _on_item_pressed(i))
+		item_button.set_theme_type_variation("Button")
 
 # callback used when a item is focused
 # displays the PP and type of the item in $"items/ItemsInfo"
