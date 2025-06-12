@@ -7,8 +7,8 @@
 script = ExtResource("1_8a87y")
 character_name = "Gwendolyn"
 texture = ExtResource("2_8a87y")
-max_hp = 30
-hp = 30
+max_hp = 300
+hp = 300
 atk = 35
 sp_atk = 100
 def = 30
