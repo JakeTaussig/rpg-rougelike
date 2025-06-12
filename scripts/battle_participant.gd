@@ -37,6 +37,8 @@ func _enter_tree() -> void:
 		call_deferred("_init_items")
 
 func _init_items() -> void:
-	# TODO: dummy implementation
+	# TODO: dummy implementation -- give each participant 5 of each item
 	for item in GameManager.items_list.items:
-		items.append(item.copy())
+		var player_item = item.copy()
+		player_item.qty = 5
+		items.append(player_item)
