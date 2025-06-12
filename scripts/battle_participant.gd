@@ -8,6 +8,8 @@ class_name BattleParticipant
 		if len(monsters) > 0:
 			selected_monster = monsters[0]
 
+@export var items: Array[Item] = []
+
 var selected_monster: Monster:
 	set(new_monster):
 		selected_monster = new_monster
@@ -28,6 +30,15 @@ func _render_battler():
 func _enter_tree() -> void:
 	selected_monster = monsters[0]
 	if not Engine.is_editor_hint():
-		# TODO: Make it so you can select moves in the editor for Monsters, and make it so they can be randomly selected. 
+		# TODO: Make it so you can select moves in the editor for Monsters, and make it so they can be randomly selected.
 		for move in GameManager.moves_list.moves.slice(0, 4):
 			selected_monster.moves.append(move.copy())
+
+		call_deferred("_init_items")
+
+func _init_items() -> void:
+	# TODO: dummy implementation -- give each participant 5 of each item
+	for item in GameManager.items_list.items:
+		var player_item = item.copy()
+		player_item.qty = 5
+		items.append(player_item)
