@@ -27,7 +27,6 @@ func enter(_messages: Array = []):
 	else:
 		battle.transition_state_to(battle.STATE_ENEMY_ATTACK)
 
-#
 func _check_battle_status() -> bool:
 	for battler in battle.battle_participants:
 		if battler.is_defeated():

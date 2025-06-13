@@ -1,7 +1,6 @@
 class_name BaseState
 extends Node
 
-# TODO: Put a new battle here when the battle is won
 var battle: Battle
 
 func enter(_messages: Array = []):

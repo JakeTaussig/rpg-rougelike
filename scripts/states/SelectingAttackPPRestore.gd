@@ -36,7 +36,6 @@ func _restore(i: int):
 	battle.transition_state_to(battle.STATE_INFO, ["%s meditated." % GameManager.player.selected_monster.character_name, ".....", ".......", ".....", "Restored PP of %s from %d to %d." % [GameManager.player.selected_monster.moves[i].move_name, initial_pp, restored_pp]])
 
 func _display_pp_info(move_index: int) -> void:
-	#last_focused_move_index = move_index
 	var move = GameManager.player.selected_monster.moves[move_index]
 
 	var min_updated_pp = min(move.max_pp, move.pp + 3)
@@ -54,7 +53,6 @@ func _display_pp_info(move_index: int) -> void:
 	else:
 		battle.ui_manager.set_pp_info("%d -->  %d - %d" % [move.pp, min_updated_pp, max_updated_pp], false)
 		battle.ui_manager.set_type_info("Restore %d-%d PP" % [min_added_pp, max_added_pp] % [min_added_pp], false)
-
 
 func _on_move_pressed(index: int) -> void:
 	var move = GameManager.player.selected_monster.moves[index]
