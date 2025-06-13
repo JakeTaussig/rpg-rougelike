@@ -22,7 +22,7 @@ func handle_continue():
 	message_index += 1
 	if message_index < messages.size():
 		_update_message()
-	elif battle.previous_state_name != 'INCREMENT_TURN':
+	elif battle.previous_state_name != 'INCREMENT_TURN' and battle.previous_state_name != "BATTLE_OVER":
 		battle.transition_state_to(battle.STATE_INCREMENT_TURN)
 	return
 

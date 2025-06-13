@@ -13,34 +13,45 @@ const STATE_ENACT_STATUSES := "ENACT_STATUSES"
 const STATE_SELECTING_ITEM := "SELECTING_ITEM"
 const NONE := "NONE"
 
-var turn: int = 0
-var turn_order_index: int = -1
+var turn = 0
+var turn_order_index:= -1
 
 var battle_participants = []
 var player: BattleParticipant
+var enemy: BattleParticipant
 
 var active_monsters = []
 
 var current_state: BaseState
 var previous_state_name: String
 
+var setup_done := false
+
 signal battle_ended(victory: bool)
 
 @onready var ui_manager: UIManager = %UiManager
 
-func setup(enemy: BattleParticipant):
+func _ready() -> void:
+	_init_states()
+	call_deferred("_start_battle")
+
+func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 	# assigns as reference
-	player = GameManager.player
+	player = _player
+	enemy = _enemy
 	battle_participants = [player, enemy]
 	active_monsters = [player.selected_monster, enemy.selected_monster]
 	active_monsters.sort_custom(_sort_participants_by_speed)
-	
-func _ready() -> void:
-	_init_states()
-	player._render_battler()
-	ui_manager.render_hp(player.selected_monster, GameManager.enemy.selected_monster)
-	transition_state_to(STATE_INCREMENT_TURN)
+	setup_done = true
+	print("Assigned player:", _player.name, _player.selected_monster.character_name)
+	print("Assigned enemy:", enemy.name, enemy.selected_monster.character_name)
 
+func _start_battle():
+	player._render_battler()
+	enemy._render_battler()
+	ui_manager.render_hp(player.selected_monster, enemy.selected_monster)
+	transition_state_to(STATE_INCREMENT_TURN)
+	
 func _init_states():
 	# Initialize all states
 	for child in %BattleStateMachine.get_children():
@@ -69,7 +80,7 @@ func transition_state_to(state_name: String, messages: Array = []):
 	current_state.enter(messages)
 
 func is_battle_over() -> bool:
-	return (GameManager.enemy.selected_monster.hp <= 0 && GameManager.enemy.monsters.size() == 1) || (player.selected_monster.hp <= 0 && player.monsters.size() == 1)
+	return (enemy.selected_monster.hp <= 0 && enemy.monsters.size() == 1) || (player.selected_monster.hp <= 0 && player.monsters.size() == 1)
 
 func get_attacker():
 	return active_monsters[turn_order_index]
@@ -78,4 +89,5 @@ func _on_continue_button_pressed() -> void:
 	current_state.handle_continue()
 
 func _input(event: InputEvent) -> void:
-	current_state.handle_input(event)
+	if current_state:
+		current_state.handle_input(event)

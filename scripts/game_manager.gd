@@ -1,9 +1,10 @@
 extends Control
+
 @export var moves_list: MovesList = preload("res://assets/moves/global_moves_list.tres")
+@onready var screen_fade = $ScreenFade
+
 var floor_events = []
 var current_battle: Battle
-
-
 
 var player: BattleParticipant
 var enemy: BattleParticipant
@@ -16,7 +17,8 @@ func start_game():
 	# Called once to seed the random number generator
 	randomize()
 	player = %Player
-	enemy = %Enemy
+	player.setup_player()
+	enemy = _create_new_enemy()
 	_generate_floor_events()
 	_start_next_event()
 
@@ -40,8 +42,7 @@ func _start_next_event():
 
 func _run_battle():
 	current_battle = floor_events.pop_front()
-
-	current_battle.setup(enemy)
+	current_battle.setup(player, enemy)
 	add_child(current_battle)
 	current_battle.connect("battle_ended", Callable(self, "_on_battle_ended"))
 
@@ -52,24 +53,37 @@ func _on_battle_ended(victory: bool):
 	_transition_events()
 
 func _transition_events():
-	await get_tree().create_timer(1.0).timeout
+	await screen_fade.fade_out()
 	current_battle.queue_free()
 	# Eventually, we'll need a way of doing this procedurally.
-	_create_new_enemy()
+	enemy = _create_new_enemy()
+	await get_tree().process_frame # Ensure new enemy exists and is valid
 	_start_next_event()
+	
+	await screen_fade.fade_in()
 	
 func get_move_by_name(move_to_find: String):
 	for move in moves_list.moves:
 		if move.move_name == move_to_find:
 			return move
 			
-func _create_new_enemy() -> void:
+func _create_new_enemy() -> BattleParticipant:
 	var monsters = load_monsters_from_folder()
-	var new_enemy_node = battle_participant_scene.instantiate()
-	new_enemy_node.set_script(preload("res://scripts/enemy.gd"))
+	var new_enemy = battle_participant_scene.instantiate()
+	new_enemy.set_script(preload("res://scripts/enemy.gd"))
 	# 2nd param = AI types 0 = RANDOM, 1 = AGGRESSIVE, 2 = HIGH_EV
-	new_enemy_node.setup(monsters, 0)
-	enemy = new_enemy_node
+	new_enemy.setup_enemy(monsters, 0)
+	
+	# Replace old enemy node in the scene
+	if enemy:
+		var old_enemy = get_node("Enemy")
+		var parent = old_enemy.get_parent()
+		parent.remove_child(old_enemy)
+		old_enemy.queue_free()
+	
+	self.add_child(new_enemy)
+	new_enemy.name = "Enemy"
+	return new_enemy
 	
 func load_monsters_from_folder(path: String = "res://assets/monsters") -> Array[Monster]:
 	var monsters: Array[Monster] = []
@@ -85,7 +99,7 @@ func load_monsters_from_folder(path: String = "res://assets/monsters") -> Array[
 			var monster_path = path + "/" + file_name
 			var monster_resource = load(monster_path)
 			if monster_resource is Monster:
-				monsters.append(monster_resource)
+				monsters.append(monster_resource.duplicate(true))
 		file_name = dir.get_next()
 	dir.list_dir_end()
 	return monsters

@@ -31,14 +31,15 @@ func enter(_messages: Array = []):
 func _check_battle_status() -> bool:
 	for battler in battle.battle_participants:
 		if battler.is_defeated():
-			battle.transition_state_to(battle.STATE_BATTLE_OVER)
+			await battle.transition_state_to(battle.STATE_BATTLE_OVER)
 			return true
 		# Unless the player ever has more than one monster, this will always be the enemy
 		elif battler.selected_monster.hp <= 0:
+			print(battler.selected_monster.hp)
 			var index := battle.active_monsters.find(battler.selected_monster)
 			var messages = ["%s defeated %s!" % [GameManager.player.selected_monster.character_name, battler.selected_monster.character_name]]
 			battler.monsters.remove_at(0)
-			battle.transition_state_to(battle.STATE_INFO, messages)
+			await battle.transition_state_to(battle.STATE_INFO, messages)
 			# I'm open to a fix for this, but otherwise the preceeding message doesn't show
 			await %ContinueButton.pressed
 			battler.selected_monster = battler.monsters[0]

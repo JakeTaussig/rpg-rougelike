@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Monster" load_steps=4 format=3 uid="uid://dfhkrnwx5w24c"]
+
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_codod"]
+[ext_resource type="Script" uid="uid://cyqywjpbta4p8" path="res://scripts/monster.gd" id="2_5c4d6"]
+[ext_resource type="Texture2D" uid="uid://dfm1501w04law" path="res://assets/sprites/characters/ghosty.png" id="3_codod"]
+
+[resource]
+script = ExtResource("2_5c4d6")
+character_name = "Ghosty"
+texture = ExtResource("3_codod")
+max_hp = 150
+hp = 150
+atk = 30
+sp_atk = 50
+def = 30
+sp_def = 50
+speed = 40
+luck = 20
+type = 5
+moves = Array[ExtResource("1_codod")]([])
+metadata/_custom_type_script = "uid://cyqywjpbta4p8"

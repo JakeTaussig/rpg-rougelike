@@ -2,12 +2,21 @@
 extends Sprite2D
 class_name BattleParticipant
 
+func _init():
+	z_index = 1
+
 @export var monsters: Array[Monster] = []:
 	set(_monsters):
 		monsters = _monsters
 		if len(monsters) > 0:
 			selected_monster = monsters[0]
-
+			
+func setup_player():
+	for i in monsters.size():
+		monsters[i] = monsters[i].duplicate(true)
+	if monsters.size() > 0:
+		selected_monster = monsters[0]
+		
 var selected_monster: Monster:
 	set(new_monster):
 		selected_monster = new_monster
@@ -28,8 +37,9 @@ func _enter_tree() -> void:
 	if not Engine.is_editor_hint():
 		# TODO: Make it so you can select moves in the editor for Monsters, and make it so they can be randomly selected. 
 		for monster in monsters:
-			for move in GameManager.moves_list.moves.slice(0, 4):
-				monster.moves.append(move.copy())
+			if monster.moves.is_empty():
+				for move in GameManager.moves_list.moves.slice(0, 4):
+					monster.moves.append(move.copy())
 			
 func is_defeated() -> bool:
 	return selected_monster.hp <= 0 && monsters.size() == 1
