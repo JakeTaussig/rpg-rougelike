@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://sprm75sfi512"]
+
+[ext_resource type="Script" uid="uid://dgesf7qieq0cw" path="res://scripts/item.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+name = "Antidote"
+qty = 0
+description = "Cures player from POISON"
+callback_name = "_handle_poison_heal"

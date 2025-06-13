@@ -2,6 +2,8 @@
 extends Sprite2D
 class_name BattleParticipant
 
+@export var items: Array[Item] = []
+
 func _init():
 	z_index = 1
 
@@ -16,7 +18,7 @@ func setup_player():
 		monsters[i] = monsters[i].duplicate(true)
 	if monsters.size() > 0:
 		selected_monster = monsters[0]
-		
+
 var selected_monster: Monster:
 	set(new_monster):
 		selected_monster = new_monster
@@ -40,6 +42,15 @@ func _enter_tree() -> void:
 			if monster.moves.is_empty():
 				for move in GameManager.moves_list.moves.slice(0, 4):
 					monster.moves.append(move.copy())
+
+		call_deferred("_init_items")
+
+func _init_items() -> void:
+	# TODO: dummy implementation -- give each participant 5 of each item
+	for item in GameManager.items_list.items:
+		var player_item = item.copy()
+		player_item.qty = 5
+		items.append(player_item)
 			
 func is_defeated() -> bool:
 	return selected_monster.hp <= 0 && monsters.size() == 1

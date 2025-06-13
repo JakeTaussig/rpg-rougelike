@@ -1,6 +1,7 @@
 extends Control
+@export var moves_list: MovesList = preload("res://resources/moves/global_moves_list.tres")
+@export var items_list: ItemsList = preload("res://resources/items/global_items_list.tres")
 
-@export var moves_list: MovesList = preload("res://assets/moves/global_moves_list.tres")
 @onready var screen_fade = $ScreenFade
 
 var floor_events = []

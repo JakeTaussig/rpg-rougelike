@@ -87,11 +87,17 @@ func show_moves_menu(visible: bool):
 func show_items_menu(visible: bool):
 	items_menu.visible = visible
 
+func focus_items_back_button():
+	%Items.get_node("BackButton").grab_focus()
+
 func get_move_buttons() -> Array[Node]:
 	return moves_menu.get_node("MovesMenu").get_children()
 
 func get_item_buttons() -> Array[Node]:
 	return %ItemsMenu.get_children()
+
+func add_item_button(button: Button):
+	%ItemsMenu.add_child(button)
 
 func get_action_buttons() -> Array[Node]:
 	return %ActionButtons.get_children()

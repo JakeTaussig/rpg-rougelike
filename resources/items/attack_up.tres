@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://ck74tcufdjt5u"]
+
+[ext_resource type="Script" uid="uid://dgesf7qieq0cw" path="res://scripts/item.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+name = "Attack Up"
+qty = 0
+description = "Boosts attack by 10%"
+callback_name = "_handle_attack_up"
