@@ -1,7 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6yl1b308b5b8"]
+[gd_scene load_steps=3 format=3 uid="uid://cngw2ls1edyyl"]
 
 [ext_resource type="Script" uid="uid://ivhhdq4gu7hg" path="res://scripts/status_emitter.gd" id="1_emgkk"]
+[ext_resource type="Material" uid="uid://cylohngiemf5m" path="res://assets/shaders/outline-material.tres" id="1_yps74"]
 
 [node name="StatusEmitter" type="CPUParticles2D"]
+material = ExtResource("1_yps74")
 script = ExtResource("1_emgkk")
-status = 1
