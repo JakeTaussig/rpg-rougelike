@@ -13,18 +13,19 @@ class_name BattleParticipant
 var selected_monster: Monster:
 	set(new_monster):
 		selected_monster = new_monster
-		_render_battler()
+		render_battler()
 
 var is_player = true:
 	set(_is_player):
 		is_player = _is_player
 		selected_monster.is_player = _is_player
-		_render_battler()
+		render_battler()
 
 # TODO: Move sprite stuff to monster.gd
-func _render_battler():
+func render_battler():
 	texture = selected_monster.texture
 	flip_h = is_player
+	$StatusEmitter.status_effect = selected_monster.status_effect
 
 # Called when the node enters the scene tree for the first time.
 func _enter_tree() -> void:
