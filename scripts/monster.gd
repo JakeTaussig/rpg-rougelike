@@ -35,7 +35,10 @@ extends Resource
 		var crit_chance_mult = luck / 10
 		crit_chance = max(0.02, crit_chance_mult * 0.02)
 		
-var crit_chance = 0.02
+var crit_chance = 0.02:
+	# crit_chance caps at 30% by default
+	set(new_crit_chance):
+		crit_chance = min(0.3, new_crit_chance)
 		
 @export var type: MovesList.Type
 @export var moves: Array[Move] = []
