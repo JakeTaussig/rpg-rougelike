@@ -18,9 +18,16 @@ uniform bool double_scale = false;
 // Transformation properties
 uniform int moves[10];
 uniform int move_count = 0;
+
+uniform bool x_scroll_enabled = false;
 uniform float ampl = 32.0;
 uniform float period = 8.0;
+
+uniform bool y_scroll_enabled = false;
 uniform float y_scroll_factor = 30.0;
+
+uniform bool y_scroll_enabled2 = false;
+uniform float y_scroll_factor2 = 30.0;
 
 vec2 scale_uv(vec2 uv, float x, float y) {
     uv -= 0.5;
@@ -31,7 +38,7 @@ vec2 scale_uv(vec2 uv, float x, float y) {
 vec2 apply_transformations(vec2 uv) {
     for (int i = 10; i >= 0; i--) {
         if (i >= move_count) continue;
-        
+
         switch (moves[i]) {
             case 0: // Mirror X
                 uv.x = 2.0 * abs(uv.x - 0.5);
@@ -41,11 +48,11 @@ vec2 apply_transformations(vec2 uv) {
                 break;
             case 2: // Double X
                 uv.x = uv.x * 2.0;
-				if (uv.x > 1.0) { uv.x -= 1.0;}
+        if (uv.x > 1.0) { uv.x -= 1.0;}
                 break;
             case 3: // Double Y
                 uv.y = uv.y * 2.0;
-				if (uv.y > 1.0) { uv.y -= 1.0;}
+        if (uv.y > 1.0) { uv.y -= 1.0;}
                 break;
             case 4: // Tile
                 uv = fract(uv);
@@ -64,40 +71,54 @@ vec4 get_layer_color(vec4 tex_sample, vec4 white, vec4 black, bool white_enabled
 
 void fragment() {
     // Base UV with vertical scrolling
-    vec2 uv_base = UV - vec2(0.0, TIME / y_scroll_factor);
-    
+    vec2 uv_base = UV - vec2(0.0, (TIME * y_scroll_factor * float(y_scroll_enabled)) / 100.0);
+
     // Calculate second layer animation
+    vec2 pixel_offset2 =  vec2(
+    x_offset2 / float(textureSize(input_texture, 0).x),
+    y_offset2 / float(textureSize(input_texture, 0).x))
+  ;
+
     float fract_time = fract(TIME / period);
-    vec2 pixel_offset2 = vec2(2.0 * ampl * fract_time, 0.0) + vec2(x_offset2, y_offset2);
-    
+  if (x_scroll_enabled) {
+    pixel_offset2 += vec2(2.0 * ampl * fract_time, 0.0);
+  }
+
+  if (y_scroll_enabled2) {
+    pixel_offset2 += vec2(0.0, 2.0 * y_scroll_factor2 * fract_time);
+  }
+
+
     // Precompute scale factors
     float scaleX = 16.0;
     float scaleY = 18.0;
-	
-	if (double_scale) {
-		scaleX /= 2.0;
-		scaleY /= 2.0;
-	}
-    
+
+  if (double_scale) {
+    scaleX /= 2.0;
+    scaleY /= 2.0;
+  }
+
+  if (textureSize(input_texture, 1)[0] >= 32) {scaleX /= 2.0; scaleY /= 2.0;}
+
     for (int i = 10; i >= 0; i--) {
         if (i >= move_count) continue;
         if (moves[i] == 2) scaleX /= 2.0;
         else if (moves[i] == 3) scaleY /= 2.0;
-		else if (moves[i] == 0) scaleX /= 2.0;
+    else if (moves[i] == 0) scaleX /= 2.0;
         else if (moves[i] == 1) scaleY /= 2.0;
     }
-    
+
     // Apply transformations to both layers
     vec2 uv1 = apply_transformations(scale_uv(uv_base, scaleX, scaleY));
-    vec2 uv2 = apply_transformations(scale_uv(uv_base + pixel_offset2 * TEXTURE_PIXEL_SIZE, scaleX, scaleY));
-    
+    vec2 uv2 = apply_transformations(scale_uv(uv_base, scaleX, scaleY) + (pixel_offset2));
+
     // Sample and colorize layers
     vec4 tex1 = texture(input_texture, uv1);
     vec4 tex2 = texture(input_texture, uv2);
-    
+
     vec4 col1 = get_layer_color(tex1, white_color, black_color, true, true);
     vec4 col2 = get_layer_color(tex2, white_color2, black_color2, white_color_enabled2, black_color_enabled2);
-    
+
     // Blend layers
     COLOR = mix(col1, col2, col2.a);
 }

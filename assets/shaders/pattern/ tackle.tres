@@ -1,109 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://0am6ph2um3md"]
 
+[ext_resource type="Shader" uid="uid://yohroafjih6a" path="res://assets/shaders/pattern.gdshader" id="1_f426h"]
 [ext_resource type="Texture2D" uid="uid://c0cjc157bjqeb" path="res://assets/sprites/bw_tile_mediuml_test.png" id="2_83ipd"]
 
-[sub_resource type="Shader" id="Shader_u3m52"]
-code = "shader_type canvas_item;
-
-// Input texture (black/white)
-uniform sampler2D input_texture: filter_nearest;
-uniform vec4 white_color : source_color;
-uniform vec4 black_color : source_color;
-// Second layer properties
-uniform float x_offset2 = 0.0;
-uniform float y_offset2 = 8.0;
-uniform vec4 white_color2 : source_color;     // New: White color for layer 2
-uniform vec4 black_color2 : source_color;     // New: Black color for layer 2
-uniform bool white_color_enabled2 = true;
-uniform bool black_color_enabled2 = true;
-// Sequence of moves (0-4)
-uniform int moves[10];
-// Number of active moves in the sequence
-uniform int move_count = 0;
-// Tiling scale factor
-uniform float scaleX = 1.0;
-uniform float scaleY = 1.0;
-
-uniform float ampl = 32.0;
-uniform float period = 8.0;
-
-uniform float y_scroll_factor = 30.0;
-
-vec2 scale(vec2 uv, float x, float y) {
-	mat2 scale_mat = mat2(vec2(x, 0.0), vec2(0.0, y));
-	uv -= 0.5;
-	uv = uv * scale_mat;
-	uv += 0.5;
-	return uv;
-}
-
-void fragment() {
-	vec2 uv_base = UV - vec2(0.0, TIME/y_scroll_factor);
-
-	float fract_time = fract(TIME/period);
-	vec2 pixel_offset2 = vec2(2.0 * ampl * fract_time, 0.0);
-	if (fract_time > 0.5) {
-		pixel_offset2 = vec2(2.0 * ampl * (1.0 - fract_time), 0.0);
-	}
-	
-	pixel_offset2 += vec2(x_offset2, y_offset2);
-	
-    // Layer 1 transformations
-    vec2 uv1 = scale(uv_base, scaleX, scaleY);
-    for (int i = 10; i >=0; i--) {
-        if (i >= move_count) continue;
-        int move = moves[i];
-        uv1 = fract(uv1);
-        if (move == 0) { // Mirror X
-            uv1.x = abs(uv1.x - 0.5) * 2.0;
-        } else if (move == 1) { // Mirror Y
-            uv1.y = abs(uv1.y - 0.5) * 2.0;
-        } else if (move == 2) { // Double X
-            uv1.x = fract(uv1.x * 2.0);
-        } else if (move == 3) { // Double Y
-            uv1.y = fract(uv1.y * 2.0);
-        }
-    }
-    
-    // Layer 2 transformations (with pixel offset)
-    vec2 uv2 = scale(uv_base + pixel_offset2 * TEXTURE_PIXEL_SIZE, scaleX, scaleY);
-    for (int i = 10; i >=0; i--) {
-        if (i >= move_count) continue;
-        int move = moves[i];
-        uv2 = fract(uv2);
-        if (move == 0) { // Mirror X
-            uv2.x = abs(uv2.x - 0.5) * 2.0;
-        } else if (move == 1) { // Mirror Y
-            uv2.y = abs(uv2.y - 0.5) * 2.0;
-        } else if (move == 2) { // Double X
-            uv2.x = fract(uv2.x * 2.0);
-        } else if (move == 3) { // Double Y
-            uv2.y = fract(uv2.y * 2.0);
-        }
-    }
-    
-    // Sample both layers
-    vec4 tex1 = texture(input_texture, uv1);
-    vec4 tex2 = texture(input_texture, uv2);
-    
-    // Determine colors for each layer
-    vec4 col1 = (tex1.rgb == vec3(0.0)) ? black_color : white_color;
-    vec4 col2 = (tex2.rgb == vec3(0.0)) ? black_color2 : white_color2;
-    
-	if (col2 == black_color2 && !black_color_enabled2){
-		col2.a = 0.0;
-	}
-
-	if (col2 == white_color2 && !white_color_enabled2){
-		col2.a = 0.0;
-	}		
-	
-    // Blend layers (layer2 over layer1)
-    COLOR = mix(col1, col2, col2.a);
-}"
-
 [resource]
-shader = SubResource("Shader_u3m52")
+shader = ExtResource("1_f426h")
 shader_parameter/input_texture = ExtResource("2_83ipd")
 shader_parameter/white_color = Color(0.14902, 0.168627, 0.266667, 1)
 shader_parameter/black_color = Color(0.0941176, 0.0784314, 0.145098, 1)
@@ -113,10 +14,13 @@ shader_parameter/white_color2 = Color(0, 0, 0, 1)
 shader_parameter/black_color2 = Color(0.227451, 0.266667, 0.4, 1)
 shader_parameter/white_color_enabled2 = false
 shader_parameter/black_color_enabled2 = true
-shader_parameter/moves = PackedInt32Array(1, 2, 0, 0)
+shader_parameter/double_scale = false
+shader_parameter/moves = PackedInt32Array(1, 2, 0, 4)
 shader_parameter/move_count = 4
-shader_parameter/scaleX = 2.0
-shader_parameter/scaleY = 9.0
+shader_parameter/x_scroll_enabled = true
 shader_parameter/ampl = 16.0
-shader_parameter/period = 4.0
-shader_parameter/y_scroll_factor = 25.0
+shader_parameter/period = 300.0
+shader_parameter/y_scroll_enabled = true
+shader_parameter/y_scroll_factor = 6.0
+shader_parameter/y_scroll_enabled2 = false
+shader_parameter/y_scroll_factor2 = 30.0
