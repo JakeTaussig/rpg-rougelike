@@ -1,4 +1,3 @@
-@tool
 extends CPUParticles2D
 
 @export var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE:
@@ -56,6 +55,9 @@ func _render_status():
 			emitting = false
 
 	shader_material.set_shader_parameter("color", outline_color)
+	shader_material.set_shader_parameter("width", 1.0)
+	shader_material.set_shader_parameter("add_margins", true)
+	shader_material.set_shader_parameter("inside", false)
 
 	var parent = get_parent()
 	if not parent.material:
