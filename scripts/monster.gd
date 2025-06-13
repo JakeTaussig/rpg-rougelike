@@ -31,9 +31,13 @@ extends Resource
 @export var luck: int = 10:
 	set(new_luck):
 		luck = max(1, new_luck)
-
+		@warning_ignore("integer_division")
+		var crit_chance_mult = luck / 10
+		crit_chance = max(0.02, crit_chance_mult * 0.02)
+		
+var crit_chance = 0.02
+		
 @export var type: MovesList.Type
-
 @export var moves: Array[Move] = []
 
 var is_alive = true
@@ -55,55 +59,67 @@ func use_move(index: int, target: Monster) -> AttackResults:
 	var move_hit: bool = 1
 	var status_applied: bool = 0
 	var damage = 0
+	var is_critical := false
 	if status_effect == MovesList.StatusEffect.WHIRLPOOL:
 		# Whirlpool has a 50% chance to damage the affected character each turn
-		move_hit = _does_move_hit(50)
+		move_hit = _does_move_hit_or_crit(50)
 		if move_hit:
 			move = GameManager.get_move_by_name("Whirlpool")
-			damage = max(1, _attack(move, self, 1))
-			return AttackResults.new(move, damage, move_hit, status_applied)
+			var results = _attack(move, self, 1)
+			return AttackResults.new(move, max(1, results["damage"]), move_hit, status_applied, results["is_critical"])
 
 	elif status_effect == MovesList.StatusEffect.PARALYZE:
 		# 33% chance for paralysis to activate
-		move_hit = _does_move_hit(33)
+		move_hit = _does_move_hit_or_crit(33)
 		if move_hit:
 			move = GameManager.get_move_by_name("Paralyzed")
 			damage = 0
-			return AttackResults.new(move, damage, move_hit, status_applied)
+			return AttackResults.new(move, damage, move_hit, status_applied, false)
 
-	move_hit = _does_move_hit(move.acc)
+	move_hit = _does_move_hit_or_crit(move.acc)
 	
 	if move_hit:
+
 		if move.category == Move.MoveCategory.ATK:
-			damage = max(1, _attack(move, target, 1))
+			var results = _attack(move, target, 1)
+			damage = max(1, results["damage"])
+			is_critical = results["is_critical"]
 		elif move.category == Move.MoveCategory.SP_ATK:
-			damage = max(1, _attack(move, target, 0))
+			var results = _attack(move, target, 0)
+			damage = max(1, results["damage"])
+			is_critical = results["is_critical"]
 		if move.status_effect != MovesList.StatusEffect.NONE:
 			status_applied = _roll_and_apply_status_effect(move, target)
-	return AttackResults.new(move, damage, move_hit, status_applied)
+	return AttackResults.new(move, damage, move_hit, status_applied, is_critical)
 	
-func _does_move_hit(accuracy: int) -> bool:
+func _does_move_hit_or_crit(accuracy: int) -> bool:
 	if status_effect == MovesList.StatusEffect.BLIND:
+		@warning_ignore("narrowing_conversion")
 		accuracy = accuracy * 0.67
 	accuracy = clamp(accuracy, 0, 100)
 	# Generates a number between 1 and 100
 	var roll = randi() % 100 + 1
 	return roll <= accuracy
 	
-func _attack(move: Move, target: Monster, is_physical: bool) -> int:
+func _attack(move: Move, target: Monster, is_physical: bool) -> Dictionary:
 	var power = move.base_power
 	var damage = 0
 	var effectiveness_modifier = get_move_effectiveness(move, target)
+	var is_critical = _does_move_hit_or_crit(crit_chance * 100)
 	if is_physical:
 		power = power * atk
+		@warning_ignore("integer_division")
 		damage = power / target.def
 		damage *= effectiveness_modifier
 	else:
 		power = power * sp_atk
+		@warning_ignore("integer_division")
 		damage = power / target.sp_def
 		damage *= effectiveness_modifier
+	if is_critical:
+		damage *= 2
 	target.hp -= damage
-	return damage
+	return {"damage": damage, "is_critical": is_critical}
 
 func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
 	var effect = move.status_effect
@@ -113,7 +129,7 @@ func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
 		return false
 	# Only attempt to apply a status effect if one is not already applied
 	if target.status_effect == MovesList.StatusEffect.NONE:
-		var status_applied = _does_move_hit(move.status_effect_chance)
+		var status_applied = _does_move_hit_or_crit(move.status_effect_chance)
 		if status_applied:
 			target.status_effect = move.status_effect
 			if target.status_effect == MovesList.StatusEffect.CONSUME:
@@ -188,11 +204,17 @@ func recover_from_status_effect() -> String:
 # Only called on first turn of cripple
 func enact_cripple_on_self():
 	if status_effect_turn_counter == 0:
+		@warning_ignore("narrowing_conversion")
 		atk *= 0.8
+		@warning_ignore("narrowing_conversion")
 		sp_atk *= 0.8
+		@warning_ignore("narrowing_conversion")
 		def *= 0.8
+		@warning_ignore("narrowing_conversion")
 		sp_def *= 0.8
+		@warning_ignore("narrowing_conversion")
 		speed *= 0.8
+		@warning_ignore("narrowing_conversion")
 		luck *= 0.8
 		return "All of %s's stats were lowered by 20" % character_name + "%!"
 	return ""
@@ -200,16 +222,23 @@ func enact_cripple_on_self():
 func _recover_from_cripple():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
+	@warning_ignore("narrowing_conversion")
 	atk *= 1.25
+	@warning_ignore("narrowing_conversion")
 	sp_atk *= 1.25
+	@warning_ignore("narrowing_conversion")
 	def *= 1.25
+	@warning_ignore("narrowing_conversion")
 	sp_def *= 1.25
+	@warning_ignore("narrowing_conversion")
 	speed *= 1.25
+	@warning_ignore("narrowing_conversion")
 	luck *= 1.25
 	return "%s recovered from cripple and their stats were restored!" % character_name
 	
 func enact_burn_on_self():
 	if status_effect_turn_counter == 0:
+		@warning_ignore("narrowing_conversion")
 		atk *= 0.5
 		return "%s's attack was lowered by 50" % character_name + "%!"
 	else:
@@ -220,6 +249,7 @@ func enact_burn_on_self():
 func _recover_from_burn():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
+	@warning_ignore("narrowing_conversion")
 	atk *= 1.5
 	return "%s recovered from burn!" % character_name
 	
@@ -272,9 +302,11 @@ class AttackResults:
 	var damage: int
 	var move_hit: bool
 	var status_applied: bool
+	var is_critical: bool
 
-	func _init(_move: Move, _damage: int, _move_hit: bool, _status_applied: bool):
+	func _init(_move: Move, _damage: int, _move_hit: bool, _status_applied: bool, _is_critical: bool):
 		move = _move
 		damage = _damage
 		move_hit = _move_hit
 		status_applied = _status_applied
+		is_critical = _is_critical
