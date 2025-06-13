@@ -34,8 +34,9 @@ extends Resource
 
 @export var type: MovesList.Type
 
+@export var moves: Array[Move] = []
+
 var is_alive = true
-var moves: Array[Move] = []
 var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
 var status_effect_turn_counter: int = 0
 var consume_benefactor: Monster = null

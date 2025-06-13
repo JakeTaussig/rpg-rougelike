@@ -23,21 +23,21 @@ func handle_input(event: InputEvent):
 		battle.transition_state_to(battle.STATE_SELECTING_ACTION)
 
 func _on_move_pressed(index: int) -> void:
-	var move = %Player.selected_monster.moves[index]
+	var move = GameManager.player.selected_monster.moves[index]
 	print("\tuser input:\t\tselect %s (idx %d)" % [move.move_name, index])
 	if move.pp > 0:
 		var attackCommand = AttackState.AttackCommand.new()
-		attackCommand.attacker = %Player.selected_monster
+		attackCommand.attacker = GameManager.player.selected_monster
 		attackCommand.move_index = index
-		attackCommand.target = %Enemy.selected_monster
+		attackCommand.target = GameManager.enemy.selected_monster
 		battle.transition_state_to(
 			battle.STATE_ATTACK, [attackCommand])
 
 # initialize move names and connect PP info display
 func _init_move_buttons():
 	var move_buttons = battle.ui_manager.get_move_buttons()
-	for i in %Player.selected_monster.moves.size():
-		var move = %Player.selected_monster.moves[i]
+	for i in GameManager.player.selected_monster.moves.size():
+		var move = GameManager.player.selected_monster.moves[i]
 
 		move_buttons[i].text = move.move_name
 		move_buttons[i].focus_entered.connect(func(): _display_pp_info(i))
@@ -54,7 +54,7 @@ func _init_move_buttons():
 func _display_pp_info(move_index: int) -> void:
 	last_focused_move_index = move_index
 
-	var move = %Player.selected_monster.moves[move_index]
+	var move = GameManager.player.selected_monster.moves[move_index]
 
 	var text = "%d / %d" % [move.pp, move.max_pp]
 	var disabled: bool = move.pp <= 0

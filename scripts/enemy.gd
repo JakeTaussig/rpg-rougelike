@@ -4,6 +4,11 @@ class_name Enemy extends BattleParticipant
 enum AI_TYPE { RANDOM, AGGRESSIVE, HIGH_EV }
 @export var ai_type: AI_TYPE = AI_TYPE.HIGH_EV
 
+func setup(_monsters: Array[Monster], _ai_type_index: int) -> void:
+	monsters = _monsters
+	var ai_types = AI_TYPE.values()
+	ai_type = ai_types[_ai_type_index]
+
 func _ready():
 	is_player = false
 

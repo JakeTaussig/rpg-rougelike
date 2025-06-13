@@ -64,7 +64,7 @@ func _on_item_pressed(item_index: int) -> void:
 var items: Array[Item] = []
 
 func _ready():
-	var selected_monster = %Player.selected_monster
+	var selected_monster = GameManager.player.selected_monster
 
 	var hp_restore = Item.create("HP restore", 5, "Heals 30 HP", func():
 		const HP_RESTORE_AMT = 30
