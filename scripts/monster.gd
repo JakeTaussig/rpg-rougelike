@@ -31,14 +31,17 @@ extends Resource
 @export var luck: int = 10:
 	set(new_luck):
 		luck = max(1, new_luck)
-		var crit_chance_mult = float(luck) / 10
-		crit_chance = max(0.02, crit_chance_mult * 0.02)
+		crit_chance = crit_chance
 
-var crit_chance = 0.02:
+@export var crit_chance = 0.02:
 	# crit_chance caps at 30% by default
 	set(new_crit_chance):
-		crit_chance = min(0.3, new_crit_chance)
-		
+		crit_chance = new_crit_chance
+
+		var crit_chance_mult = float(luck) / 10
+		crit_chance = max(crit_chance, crit_chance_mult * 0.02)
+		crit_chance = min(0.3, crit_chance)
+
 var crit_factor: float = 2.0;
 
 @export var type: MovesList.Type
