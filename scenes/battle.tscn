@@ -1,24 +1,18 @@
-[gd_scene load_steps=24 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=18 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_p1qf1"]
 [ext_resource type="StyleBox" uid="uid://dwb68ajbfeqp0" path="res://assets/styles/normal_sbf.tres" id="4_lpir7"]
 [ext_resource type="Script" uid="uid://mb41k8rtgn0q" path="res://scripts/back_button.gd" id="4_saiin"]
-[ext_resource type="Script" path="res://scripts/health_panel.gd" id="5_61i1y"]
-[ext_resource type="PackedScene" uid="uid://dspy5d5yn1fxj" path="res://scenes/battle_participant.tscn" id="5_lpir7"]
-[ext_resource type="Script" uid="uid://cstx4ogvno1si" path="res://scripts/enemy.gd" id="6_6vh42"]
-[ext_resource type="Script" uid="uid://cyqywjpbta4p8" path="res://scripts/monster.gd" id="6_djc8l"]
-[ext_resource type="Texture2D" uid="uid://bjv7ljlukk10" path="res://assets/sprites/characters/gwendolyn.png" id="6_p0caf"]
-[ext_resource type="Resource" uid="uid://dy0jqmgyr3mbo" path="res://assets/monsters/gwendolyn.tres" id="7_h4dll"]
+[ext_resource type="Script" uid="uid://yal21vgfjdjg" path="res://scripts/health_panel.gd" id="5_61i1y"]
 [ext_resource type="Script" uid="uid://brto6aw55bukl" path="res://scripts/states/Info.gd" id="7_v7i3o"]
 [ext_resource type="Script" uid="uid://buy2ylv1t0vt0" path="res://scripts/states/EnemyAttack.gd" id="8_66ngm"]
 [ext_resource type="Script" uid="uid://bl3wtt7v3rtpm" path="res://scripts/states/SelectingAction.gd" id="9_03edq"]
 [ext_resource type="Script" uid="uid://dxrkm475i6ls6" path="res://scripts/states/SelectingAttack.gd" id="10_22uqi"]
 [ext_resource type="Script" uid="uid://cmikjgcwtvkyk" path="res://scripts/states/IncrementTurn.gd" id="12_03edq"]
-[ext_resource type="Resource" uid="uid://ydoyf2k0u5xb" path="res://assets/monsters/omenite.tres" id="12_61i1y"]
 [ext_resource type="Script" uid="uid://bm0o2eovnfws7" path="res://scripts/states/Attack.gd" id="13_6ni85"]
-[ext_resource type="Script" uid="uid://sdwupuxudrjb" path="res://scripts/states/GameEnd.gd" id="13_22uqi"]
+[ext_resource type="Script" uid="uid://sdwupuxudrjb" path="res://scripts/states/BattleOver.gd" id="13_22uqi"]
 [ext_resource type="Script" uid="uid://d0rdycr2tr5ll" path="res://scripts/states/EnactStatuses.gd" id="14_6ni85"]
 [ext_resource type="Script" uid="uid://m7sdis15lg1t" path="res://scripts/states/SelectingAttackPPRestore.gd" id="17_dd63g"]
 [ext_resource type="Script" uid="uid://flenaawlfq4g" path="res://scripts/states/SelectingItem.gd" id="20_61i1y"]
@@ -337,19 +331,6 @@ theme_override_styles/normal = ExtResource("4_lpir7")
 text = "Player"
 script = ExtResource("5_61i1y")
 
-[node name="Player" parent="." instance=ExtResource("5_lpir7")]
-unique_name_in_owner = true
-position = Vector2(64, 72)
-texture = ExtResource("6_p0caf")
-monsters = Array[ExtResource("6_djc8l")]([ExtResource("7_h4dll")])
-
-[node name="Enemy" parent="." instance=ExtResource("5_lpir7")]
-unique_name_in_owner = true
-position = Vector2(192, 36)
-script = ExtResource("6_6vh42")
-ai_type = 2
-monsters = Array[ExtResource("6_djc8l")]([ExtResource("12_61i1y")])
-
 [node name="StateDisplay" type="Label" parent="."]
 unique_name_in_owner = true
 offset_left = 96.0
@@ -384,7 +365,7 @@ script = ExtResource("17_dd63g")
 [node name="INCREMENT_TURN" type="Node" parent="BattleStateMachine"]
 script = ExtResource("12_03edq")
 
-[node name="GAME_END" type="Node" parent="BattleStateMachine"]
+[node name="BATTLE_OVER" type="Node" parent="BattleStateMachine"]
 script = ExtResource("13_22uqi")
 
 [node name="ATTACK" type="Node" parent="BattleStateMachine"]

@@ -43,7 +43,7 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 		elif effectiveness_multiplier < 1.0:
 			messages.append("%s was not very effective!" % used_move_name)
 
-		# if the damage killed someone we don't need to see any more messages
+		# if the damage killed someone we don't need to see any more messages (We might need to to send out the enemies next monster
 		if battle.is_battle_over():
 			return messages
 	# This condition only triggers when a status effect only move hit, but a status effect is already applied to the target. Or when a target is immune to the status effect.

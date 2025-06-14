@@ -5,7 +5,7 @@ const STATE_INFO := "INFO"
 const STATE_INCREMENT_TURN := "INCREMENT_TURN"
 const STATE_SELECTING_ACTION := "SELECTING_ACTION"
 const STATE_ENEMY_ATTACK := "ENEMY_ATTACK"
-const STATE_GAME_END := "GAME_END"
+const STATE_BATTLE_OVER := "BATTLE_OVER"
 const STATE_SELECTING_ATTACK := "SELECTING_ATTACK"
 const STATE_SELECTING_ATTACK_PP_RESTORE := "SELECTING_ATTACK_PP_RESTORE"
 const STATE_ATTACK := "ATTACK"
@@ -13,42 +13,52 @@ const STATE_ENACT_STATUSES := "ENACT_STATUSES"
 const STATE_SELECTING_ITEM := "SELECTING_ITEM"
 const NONE := "NONE"
 
-var turn: int = 0
-var turn_order_index: int = -1
+var turn = 0
+var turn_order_index:= -1
+
+var battle_participants = []
+var player: BattleParticipant
+var enemy: BattleParticipant
 
 var active_monsters = []
-var current_enemy: Monster
 
 var current_state: BaseState
 var previous_state_name: String
 
+var setup_done := false
+
+signal battle_ended(victory: bool)
+
 @onready var ui_manager: UIManager = %UiManager
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Called once to seed the random number generator
-	randomize()
 	_init_states()
-	_init_battle_participants()
+	call_deferred("_start_battle")
 
+func setup(_player: BattleParticipant, _enemy: BattleParticipant):
+	# assigns as reference
+	player = _player
+	enemy = _enemy
+	battle_participants = [player, enemy]
+	active_monsters = [player.selected_monster, enemy.selected_monster]
+	active_monsters.sort_custom(_sort_participants_by_speed)
+	setup_done = true
+	print("Assigned player:", _player.name, _player.selected_monster.character_name)
+	print("Assigned enemy:", enemy.name, enemy.selected_monster.character_name)
+
+func _start_battle():
+	player._render_battler()
+	enemy._render_battler()
+	ui_manager.render_hp(player.selected_monster, enemy.selected_monster)
+	transition_state_to(STATE_INCREMENT_TURN)
+	
 func _init_states():
 	# Initialize all states
 	for child in %BattleStateMachine.get_children():
 		if child is BaseState:
 			child.battle = self
 
-func _init_battle_participants():
-	active_monsters.clear()
-	active_monsters.append(%Player.selected_monster)
-	for monster in %Enemy.monsters:
-		# TODO: Later this will need to change. Only 2 Monsters should be in active_monsters at a time. 
-		current_enemy = monster
-		active_monsters.append(monster)
-
-	active_monsters.sort_custom(_sort_participants_by_speed)
-	ui_manager.render_hp(%Player.selected_monster, current_enemy)
-	transition_state_to(STATE_INCREMENT_TURN)
-
+# TODO: This may need to be called whenever a new monster enters the battle. 
 func _sort_participants_by_speed(a: Monster, b: Monster) -> bool:
 	if a.speed == b.speed:
 		return randf() < 0.5  # More readable than randi() % 2
@@ -70,7 +80,7 @@ func transition_state_to(state_name: String, messages: Array = []):
 	current_state.enter(messages)
 
 func is_battle_over() -> bool:
-	return %Enemy.selected_monster.hp <= 0 || %Player.selected_monster.hp <= 0
+	return (enemy.selected_monster.hp <= 0 && enemy.monsters.size() == 1) || (player.selected_monster.hp <= 0 && player.monsters.size() == 1)
 
 func get_attacker():
 	return active_monsters[turn_order_index]
@@ -79,4 +89,5 @@ func _on_continue_button_pressed() -> void:
 	current_state.handle_continue()
 
 func _input(event: InputEvent) -> void:
-	current_state.handle_input(event)
+	if current_state:
+		current_state.handle_input(event)

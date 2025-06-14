@@ -9,7 +9,7 @@ func enter(messages: Array = []):
 		button.mouse_entered.connect(button.grab_focus)
 
 	if messages.size() == 0:
-		battle.ui_manager.set_player_prompt("What will %s do?" % %Player.selected_monster.character_name)
+		battle.ui_manager.set_player_prompt("What will %s do?" % GameManager.player.selected_monster.character_name)
 	else:
 		battle.ui_manager.set_player_prompt(messages[0])
 
