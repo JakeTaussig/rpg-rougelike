@@ -9,7 +9,7 @@ class_name BattleParticipant
 		monsters = _monsters
 		if len(monsters) > 0:
 			selected_monster = monsters[0]
-
+      
 		_setup_monsters()
 
 func _setup_monsters():
