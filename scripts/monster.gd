@@ -31,10 +31,9 @@ extends Resource
 @export var luck: int = 10:
 	set(new_luck):
 		luck = max(1, new_luck)
-		@warning_ignore("integer_division")
-		var crit_chance_mult = luck / 10
+		var crit_chance_mult = float(luck) / 10
 		crit_chance = max(0.02, crit_chance_mult * 0.02)
-		
+
 var crit_chance = 0.02:
 	# crit_chance caps at 30% by default
 	set(new_crit_chance):
@@ -97,8 +96,7 @@ func use_move(index: int, target: Monster) -> AttackResults:
 	
 func _does_move_hit_or_crit(accuracy: int) -> bool:
 	if status_effect == MovesList.StatusEffect.BLIND:
-		@warning_ignore("narrowing_conversion")
-		accuracy = accuracy * 0.67
+		accuracy = int(float(accuracy) * 0.5)
 	accuracy = clamp(accuracy, 0, 100)
 	# Generates a number between 1 and 100
 	var roll = randi() % 100 + 1
@@ -111,13 +109,11 @@ func _attack(move: Move, target: Monster, is_physical: bool) -> Dictionary:
 	var is_critical = _does_move_hit_or_crit(crit_chance * 100)
 	if is_physical:
 		power = power * atk
-		@warning_ignore("integer_division")
-		damage = power / target.def
+		damage = float(power) / target.def
 		damage *= effectiveness_modifier
 	else:
 		power = power * sp_atk
-		@warning_ignore("integer_division")
-		damage = power / target.sp_def
+		damage = float(power) / target.sp_def
 		damage *= effectiveness_modifier
 	if is_critical:
 		damage *= 2
@@ -207,42 +203,29 @@ func recover_from_status_effect() -> String:
 # Only called on first turn of cripple
 func enact_cripple_on_self():
 	if status_effect_turn_counter == 0:
-		@warning_ignore("narrowing_conversion")
-		atk *= 0.8
-		@warning_ignore("narrowing_conversion")
-		sp_atk *= 0.8
-		@warning_ignore("narrowing_conversion")
-		def *= 0.8
-		@warning_ignore("narrowing_conversion")
-		sp_def *= 0.8
-		@warning_ignore("narrowing_conversion")
-		speed *= 0.8
-		@warning_ignore("narrowing_conversion")
-		luck *= 0.8
+		atk = int(float(atk) * 0.8)
+		sp_atk = int(float(sp_atk) * 0.8)
+		def = int(float(def) * 0.8)
+		sp_def = int(float(sp_def) * 0.8)
+		speed = int(float(speed) * 0.8)
+		luck = int(float(luck) * 0.8)
 		return "All of %s's stats were lowered by 20" % character_name + "%!"
 	return ""
 
 func _recover_from_cripple():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
-	@warning_ignore("narrowing_conversion")
-	atk *= 1.25
-	@warning_ignore("narrowing_conversion")
-	sp_atk *= 1.25
-	@warning_ignore("narrowing_conversion")
-	def *= 1.25
-	@warning_ignore("narrowing_conversion")
-	sp_def *= 1.25
-	@warning_ignore("narrowing_conversion")
-	speed *= 1.25
-	@warning_ignore("narrowing_conversion")
-	luck *= 1.25
+	atk = int(float(atk) * 1.25)
+	sp_atk = int(float(sp_atk) * 1.25)
+	def = int(float(def) * 1.25)
+	sp_def = int(float(sp_def) * 1.25)
+	speed = int(float(speed) * 1.25)
+	luck = int(float(luck) * 1.25)
 	return "%s recovered from cripple and their stats were restored!" % character_name
-	
+
 func enact_burn_on_self():
 	if status_effect_turn_counter == 0:
-		@warning_ignore("narrowing_conversion")
-		atk *= 0.5
+		atk = int(float(atk) * 0.5)
 		return "%s's attack was lowered by 50" % character_name + "%!"
 	else:
 		var hp_to_lose = int(max_hp * 0.04)
@@ -252,8 +235,8 @@ func enact_burn_on_self():
 func _recover_from_burn():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
-	@warning_ignore("narrowing_conversion")
-	atk *= 1.5
+	atk = int(float(atk) * 1.5)
+
 	return "%s recovered from burn!" % character_name
 	
 func _recover_from_whirlpool():
