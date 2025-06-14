@@ -39,6 +39,8 @@ var crit_chance = 0.02:
 	set(new_crit_chance):
 		crit_chance = min(0.3, new_crit_chance)
 		
+var crit_factor: float = 2.0;
+
 @export var type: MovesList.Type
 @export var moves: Array[Move] = []
 
@@ -64,7 +66,8 @@ func use_move(index: int, target: Monster) -> AttackResults:
 	var is_critical := false
 	if status_effect == MovesList.StatusEffect.WHIRLPOOL:
 		# Whirlpool has a 50% chance to damage the affected character each turn
-		move_hit = _does_move_hit_or_crit(50)
+		var whirlpool_activation_chance = 50
+		move_hit = _does_move_hit_or_crit(whirlpool_activation_chance)
 		if move_hit:
 			move = GameManager.get_move_by_name("Whirlpool")
 			var results = _attack(move, self, 1)
@@ -72,7 +75,8 @@ func use_move(index: int, target: Monster) -> AttackResults:
 
 	elif status_effect == MovesList.StatusEffect.PARALYZE:
 		# 33% chance for paralysis to activate
-		move_hit = _does_move_hit_or_crit(33)
+		var paralyze_activation_chance = 33
+		move_hit = _does_move_hit_or_crit(paralyze_activation_chance)
 		if move_hit:
 			move = GameManager.get_move_by_name("Paralyzed")
 			damage = 0
@@ -102,7 +106,7 @@ func _does_move_hit_or_crit(accuracy: int) -> bool:
 	var roll = randi() % 100 + 1
 	return roll <= accuracy
 	
-func _attack(move: Move, target: Monster, is_physical: bool) -> Dictionary:
+func _attack(move: Move, target: Monster, is_physical: bool) -> AttackResults:
 	var power = move.base_power
 	var damage = 0
 	var effectiveness_modifier = get_move_effectiveness(move, target)
@@ -116,9 +120,13 @@ func _attack(move: Move, target: Monster, is_physical: bool) -> Dictionary:
 		damage = float(power) / target.sp_def
 		damage *= effectiveness_modifier
 	if is_critical:
-		damage *= 2
-	target.hp -= damage
-	return {"damage": damage, "is_critical": is_critical}
+		damage *= crit_factor
+
+	var int_damage = int(damage)
+
+	target.hp -= int_damage
+
+	return AttackResults.new(move, int_damage, true, false, is_critical)
 
 func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
 	var effect = move.status_effect
