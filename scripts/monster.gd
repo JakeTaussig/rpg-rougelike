@@ -43,6 +43,8 @@ var crit_chance = 0.02:
 @export var type: MovesList.Type
 @export var moves: Array[Move] = []
 
+@export var moves: Array[Move] = []
+
 var is_alive = true
 var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
 var status_effect_turn_counter: int = 0

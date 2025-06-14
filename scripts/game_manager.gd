@@ -18,7 +18,6 @@ func start_game():
 	# Called once to seed the random number generator
 	randomize()
 	player = %Player
-	player.setup_player()
 	enemy = _create_new_enemy()
 	_generate_floor_events()
 	_start_next_event()
