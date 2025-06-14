@@ -4,16 +4,15 @@ class_name BattleParticipant
 
 @export var items: Array[Item] = []
 
-func _init():
-	z_index = 1
-
 @export var monsters: Array[Monster] = []:
 	set(_monsters):
 		monsters = _monsters
 		if len(monsters) > 0:
 			selected_monster = monsters[0]
-			
-func setup_player():
+
+		_setup_monsters()
+
+func _setup_monsters():
 	for i in monsters.size():
 		monsters[i] = monsters[i].duplicate(true)
 	if monsters.size() > 0:

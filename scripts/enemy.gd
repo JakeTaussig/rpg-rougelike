@@ -3,15 +3,13 @@ class_name Enemy extends BattleParticipant
 
 enum AI_TYPE { RANDOM, AGGRESSIVE, HIGH_EV }
 @export var ai_type: AI_TYPE = AI_TYPE.HIGH_EV
+var ai_types = AI_TYPE.values()
 
 func setup_enemy(_monsters: Array[Monster], _ai_type_index: int):
 	monsters = _monsters
-	var ai_types = AI_TYPE.values()
+
 	ai_type = ai_types[_ai_type_index]
-	for i in monsters.size():
-		monsters[i] = monsters[i].duplicate(true)
-	if monsters.size() > 0:
-		selected_monster = monsters[0]
+
 	position = Vector2(192, 36)
 
 func _ready():
