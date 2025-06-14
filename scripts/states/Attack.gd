@@ -61,23 +61,26 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 			messages.append("%s used %s and attempted to apply %s on %s, but %s is already afflicted with %s!" % 
 			[attacker.character_name, used_move_name, attempted_status_effect_string, target.character_name, target.character_name, target_status_effect_string])
 
+
+	if not target.is_alive:
+		return messages
+
 	if results.status_applied:
-		if target.is_alive:
-			var status_effect = target.status_effect
-			# Different message if the move only applies status effect or if it also did damage. In this case we need to display the move name.
-			var status_effect_string = String(MovesList.StatusEffect.find_key(status_effect)).to_lower()
-			if used_move.category == Move.MoveCategory.STATUS_EFFECT:
-				messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
-			else:
-				messages.append("%s was afflicted with %s!" % [target.character_name, status_effect_string])
-			# Burn and cripple need to be applied instantly since they affect the stats of the afflicted user.
-			match status_effect:
-				MovesList.StatusEffect.CRIPPLE:
-					messages.append(target.enact_cripple_on_self())
-				MovesList.StatusEffect.BURN:
-					messages.append(target.enact_burn_on_self())
-				MovesList.StatusEffect.BLIND:
-					messages.append("%s's accuracy was lowered by 33" % target.character_name + "%!")
+		var status_effect = target.status_effect
+		# Different message if the move only applies status effect or if it also did damage. In this case we need to display the move name.
+		var status_effect_string = String(MovesList.StatusEffect.find_key(status_effect)).to_lower()
+		if used_move.category == Move.MoveCategory.STATUS_EFFECT:
+			messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
+		else:
+			messages.append("%s was afflicted with %s!" % [target.character_name, status_effect_string])
+		# Burn and cripple need to be applied instantly since they affect the stats of the afflicted user.
+		match status_effect:
+			MovesList.StatusEffect.CRIPPLE:
+				messages.append(target.enact_cripple_on_self())
+			MovesList.StatusEffect.BURN:
+				messages.append(target.enact_burn_on_self())
+			MovesList.StatusEffect.BLIND:
+				messages.append("%s's accuracy was lowered by 33" % target.character_name + "%!")
 	return messages
 
 # Inner class. Used to pass data to `AttackState.enter`
