@@ -47,10 +47,10 @@ func render_hp(player_monster, enemy_monster):
 	player_health_panel.text += "\n%s" % set_bbcode_color(MovesList.Type.find_key(player_monster.type), MovesList.type_to_color(player_monster.type))
 
 	if not enemy_monster.status_effect == MovesList.StatusEffect.NONE:
-		enemy_health_panel.text += "\t \t \t \t %s" % MovesList.StatusEffect.find_key(enemy_monster.status_effect)
+		enemy_health_panel.text += "    %s" % set_bbcode_color(MovesList.StatusEffect.find_key(enemy_monster.status_effect), MovesList.status_effect_to_color(enemy_monster.status_effect))
 
 	if not player_monster.status_effect == MovesList.StatusEffect.NONE:
-		player_health_panel.text += "\t \t \t \t  %s" % MovesList.StatusEffect.find_key(player_monster.status_effect)
+		player_health_panel.text += "     %s" % MovesList.StatusEffect.find_key(player_monster.status_effect)
 
 	call_deferred("_adjust_player_health_panel_position")
 
