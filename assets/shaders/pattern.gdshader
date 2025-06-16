@@ -1,131 +1,134 @@
 shader_type canvas_item;
 
-// Base layer colors
-uniform sampler2D input_texture: filter_nearest;
-uniform vec4 bottom_layer_white_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
-uniform vec4 bottom_layer_black_color : source_color= vec4(0.0, 0.0, 0.0, 1.0);
+// ====== Layer Colors ======
+uniform sampler2D input_texture : filter_nearest;
 
-// Second layer properties
-uniform vec4 top_layer_white_color : source_color = vec4(0.8, 0.0, 0.0, 1.0);
-uniform vec4 top_layer_black_color : source_color = vec4(0.0, 0.8, 0.0, 1.0);
+// Bottom Layer Colors
+uniform vec4 bottom_layer_white : source_color = vec4(1.0);
+uniform vec4 bottom_layer_black : source_color = vec4(0.0, 0.0, 0.0, 1.0);
 
-uniform bool top_layer_white_color_enabled = false;
-uniform bool top_layer_black_color_enabled = true;
+// Top Layer Colors & Settings
+uniform vec4 top_layer_white : source_color = vec4(0.8, 0.0, 0.0, 1.0);
+uniform vec4 top_layer_black : source_color = vec4(0.0, 0.8, 0.0, 1.0);
+uniform bool top_white_enabled = false;
+uniform bool top_black_enabled = true;
 
+// ====== Layer Positioning ======
 uniform float top_layer_x_offset = 0.0;
 uniform float top_layer_y_offset = 8.0;
 
-// Transformation properties
-uniform int transformations[6];
+// ====== Transformations ======
+const int MAX_TRANSFORMS = 6;
+uniform int transformations[MAX_TRANSFORMS];
 uniform int transformation_count = 0;
 
-// Scroll Properties
+// Transformation Types
+const int TRANS_NONE      = 0;
+const int TRANS_MIRROR_X  = 1;
+const int TRANS_MIRROR_Y  = 2;
+const int TRANS_DOUBLE_X  = 3;
+const int TRANS_DOUBLE_Y  = 4;
+const int TRANS_TILE      = 5;
+
+// ====== Animation & Scrolling ======
 uniform float time_scale = 100.0;
 
-uniform bool top_layer_y_scroll_enabled = false;
-uniform float top_layer_y_scroll_factor = 10.0;
+uniform bool top_scroll_x_enabled = false;
+uniform float top_scroll_x_factor = 10.0;
 
-uniform bool top_layer_x_scroll_enabled = false;
-uniform float top_layer_x_scroll_factor = 10.0;
+uniform bool top_scroll_y_enabled = false;
+uniform float top_scroll_y_factor = 10.0;
 
-// Global Properties
 uniform bool global_scroll_enabled = false;
 uniform float global_scroll_factor = 10.0;
 
+// ====== Global Settings ======
 uniform bool global_double_scale = false;
 
-vec2 scale_uv(vec2 uv, float x, float y) {
+// ====== Helper Functions ======
+vec2 scale_uv(vec2 uv, float scale_x, float scale_y) {
     uv -= 0.5;
-    uv *= mat2(vec2(x, 0.0), vec2(0.0, y));
+    uv *= mat2(vec2(scale_x, 0.0), vec2(0.0, scale_y));
     return uv + 0.5;
 }
 
-vec2 apply_transformations(vec2 uv) {
-    for (int i = 6; i >= 0; i--) {
-        if (i >= transformation_count) continue;
+vec2 apply_transformation(vec2 uv, int type) {
+    switch (type) {
+        case TRANS_MIRROR_X:  return vec2(2.0 * abs(uv.x - 0.5), uv.y);
+        case TRANS_MIRROR_Y:  return vec2(uv.x, 2.0 * abs(uv.y - 0.5));
+        case TRANS_DOUBLE_X:  return vec2(fract(uv.x * 2.0), uv.y);
+        case TRANS_DOUBLE_Y:  return vec2(uv.x, fract(uv.y * 2.0));
+        case TRANS_TILE:      return fract(uv);
+        default:              return uv;
+    }
+}
 
-        switch (transformations[i]) {
-      case 0: // null
-        break;
-            case 1: // Mirror X
-                uv.x = 2.0 * abs(uv.x - 0.5);
-                break;
-            case 2: // Mirror Y
-                uv.y = 2.0 * abs(uv.y - 0.5);
-                break;
-            case 3: // Double X
-                uv.x = uv.x * 2.0;
-        if (uv.x > 1.0) { uv.x -= 1.0;}
-                break;
-            case 4: // Double Y
-                uv.y = uv.y * 2.0;
-        if (uv.y > 1.0) { uv.y -= 1.0;}
-                break;
-            case 5: // Tile
-                uv = fract(uv);
-                break;
-        }
+vec2 apply_transformations(vec2 uv) {
+    // Apply transformations in reverse order
+    for (int i = MAX_TRANSFORMS - 1; i >= 0; i--) {
+        if (i >= transformation_count) continue;
+        uv = apply_transformation(uv, transformations[i]);
     }
     return uv;
 }
 
-vec4 get_layer_color(vec4 tex_sample, vec4 white, vec4 black, bool white_enabled, bool black_enabled) {
-    bool is_white = tex_sample.r > 0.5;
+vec4 get_layer_color(vec4 sample, vec4 white, vec4 black, bool use_white, bool use_black) {
+    bool is_white = sample.r > 0.5;
     vec4 color = is_white ? white : black;
-    color.a *= float((is_white && white_enabled) || (!is_white && black_enabled));
+    color.a *= float((is_white && use_white) || (!is_white && use_black));
     return color;
 }
 
+// ====== Main Shader ======
 void fragment() {
-    // Base UV with vertical scrolling
-    vec2 uv_base = UV - vec2(0.0, (TIME * global_scroll_factor * float(global_scroll_enabled)) / time_scale);
-
-    // Calculate second layer animation
-    vec2 pixel_offset2 =  vec2(
-    top_layer_x_offset / float(textureSize(input_texture, 0).x),
-    top_layer_y_offset / float(textureSize(input_texture, 0).x))
-  ;
-
-    float fract_time = fract(TIME / time_scale);
-   if (top_layer_x_scroll_enabled) {
-      pixel_offset2 += vec2(2.0 * top_layer_x_scroll_factor * fract_time, 0.0);
+    // Base UV with global scrolling
+    vec2 base_uv = UV;
+    if (global_scroll_enabled) {
+        base_uv.y -= TIME * global_scroll_factor / time_scale;
     }
 
-  if (top_layer_y_scroll_enabled) {
-    pixel_offset2 += vec2(0.0, 2.0 * top_layer_y_scroll_factor * fract_time);
-  }
+    // Calculate top layer offset
+    vec2 texel_size = 1.0 / vec2(textureSize(input_texture, 0));
+    vec2 top_offset = vec2(top_layer_x_offset, top_layer_y_offset) * texel_size;
 
-
-    // Precompute scale factors
-    float scaleX = 16.0;
-    float scaleY = 18.0;
-
-  if (global_double_scale) {
-    scaleX /= 2.0;
-    scaleY /= 2.0;
-  }
-
-  if (textureSize(input_texture, 1)[0] >= 32) {scaleX /= 2.0; scaleY /= 2.0;}
-
-    for (int i = 10; i >= 0; i--) {
-        if (i >= transformation_count) continue;
-        if (transformations[i] == 3) scaleX /= 2.0;
-        else if (transformations[i] == 4) scaleY /= 2.0;
-      else if (transformations[i] == 1) scaleX /= 2.0;
-        else if (transformations[i] == 2) scaleY /= 2.0;
+    // Apply scrolling effects to top layer
+    if (top_scroll_x_enabled || top_scroll_y_enabled) {
+        float scroll_time = fract(TIME / time_scale);
+        top_offset.x += 2.0 * top_scroll_x_factor * scroll_time * float(top_scroll_x_enabled) / 2.0;
+        top_offset.y += 2.0 * top_scroll_y_factor * scroll_time * float(top_scroll_y_enabled);
+    }
+	
+    // Calculate base scaling factors
+    vec2 scale_factors = vec2(16.0, 18.0);
+    
+    // Apply global scaling options
+    if (global_double_scale) {
+        scale_factors /= 2.0;
+    }
+    if (textureSize(input_texture, 0).x >= 32) {
+        scale_factors /= 2.0;
     }
 
-    // Apply transformations to both layers
-    vec2 uv1 = apply_transformations(scale_uv(uv_base, scaleX, scaleY));
-    vec2 uv2 = apply_transformations(scale_uv(uv_base, scaleX, scaleY) + (pixel_offset2));
+    // Apply transformation-dependent scaling
+    for (int i = 0; i < MAX_TRANSFORMS; i++) {
+        if (i >= transformation_count) break;
+        
+        int transform = transformations[i];
+        if (transform == TRANS_DOUBLE_X || transform == TRANS_MIRROR_X) scale_factors.x /= 2.0;
+        if (transform == TRANS_DOUBLE_Y || transform == TRANS_MIRROR_Y) scale_factors.y /= 2.0;
+    }
+
+    // Prepare UVs for both layers
+    vec2 bottom_uv = apply_transformations(scale_uv(base_uv, scale_factors.x, scale_factors.y));
+    vec2 top_uv = apply_transformations(scale_uv(base_uv, scale_factors.x, scale_factors.y) + top_offset);
 
     // Sample and colorize layers
-    vec4 tex1 = texture(input_texture, uv1);
-    vec4 tex2 = texture(input_texture, uv2);
-
-    vec4 col1 = get_layer_color(tex1, bottom_layer_white_color, bottom_layer_black_color, true, true);
-    vec4 col2 = get_layer_color(tex2, top_layer_white_color, top_layer_black_color, top_layer_white_color_enabled, top_layer_black_color_enabled);
+    vec4 bottom_sample = texture(input_texture, bottom_uv);
+    vec4 top_sample = texture(input_texture, top_uv);
+    
+    vec4 bottom_color = get_layer_color(bottom_sample, bottom_layer_white, bottom_layer_black, true, true);
+    vec4 top_color = get_layer_color(top_sample, top_layer_white, top_layer_black, top_white_enabled, top_black_enabled);
 
     // Blend layers
-    COLOR = mix(col1, col2, col2.a);
+    COLOR = mix(bottom_color, top_color, top_color.a);
 }
