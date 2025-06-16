@@ -1,26 +1,26 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dgm8yqhmlxkae"]
 
 [ext_resource type="Shader" uid="uid://yohroafjih6a" path="res://assets/shaders/pattern.gdshader" id="1_sucbl"]
-[ext_resource type="Texture2D" uid="uid://b7kujefrccru0" path="res://assets/sprites/bw_tile_large_test.png" id="2_eacfu"]
+[ext_resource type="Texture2D" uid="uid://b7kujefrccru0" path="res://assets/sprites/tiles/bw_tile_large.png" id="2_sucbl"]
 
 [resource]
 shader = ExtResource("1_sucbl")
-shader_parameter/input_texture = ExtResource("2_eacfu")
-shader_parameter/white_color = Color(0.635294, 0.14902, 0.2, 1)
-shader_parameter/black_color = Color(0.968627, 0.462745, 0.133333, 1)
-shader_parameter/x_offset2 = 0.0
-shader_parameter/y_offset2 = 12.0
-shader_parameter/white_color2 = Color(0, 0, 0, 1)
-shader_parameter/black_color2 = Color(0.894118, 0.231373, 0.266667, 1)
-shader_parameter/white_color_enabled2 = false
-shader_parameter/black_color_enabled2 = true
-shader_parameter/double_scale = true
-shader_parameter/moves = PackedInt32Array(3, 3, 1, 4)
-shader_parameter/move_count = 4
-shader_parameter/x_scroll_enabled = true
-shader_parameter/ampl = -64.0
-shader_parameter/period = 300.0
-shader_parameter/y_scroll_enabled = true
-shader_parameter/y_scroll_factor = 9.0
-shader_parameter/y_scroll_enabled2 = false
-shader_parameter/y_scroll_factor2 = 30.0
+shader_parameter/input_texture = ExtResource("2_sucbl")
+shader_parameter/bottom_layer_white_color = Color(0.635294, 0.14902, 0.2, 1)
+shader_parameter/bottom_layer_black_color = Color(0.968627, 0.462745, 0.133333, 1)
+shader_parameter/top_layer_white_color = Color(0.8, 0, 0, 1)
+shader_parameter/top_layer_black_color = Color(0.894118, 0.231373, 0.266667, 1)
+shader_parameter/top_layer_white_color_enabled = false
+shader_parameter/top_layer_black_color_enabled = true
+shader_parameter/top_layer_x_offset = 0.0
+shader_parameter/top_layer_y_offset = 12.0
+shader_parameter/transformations = PackedInt32Array(3, 2, 5, 0, 0, 0)
+shader_parameter/transformation_count = 4
+shader_parameter/time_scale = 100.0
+shader_parameter/top_layer_y_scroll_enabled = true
+shader_parameter/top_layer_y_scroll_factor = 10.0
+shader_parameter/top_layer_x_scroll_enabled = true
+shader_parameter/top_layer_x_scroll_factor = -20.0
+shader_parameter/global_scroll_enabled = true
+shader_parameter/global_scroll_factor = 10.0
+shader_parameter/global_double_scale = true
