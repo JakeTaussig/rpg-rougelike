@@ -45,8 +45,8 @@ vec2 apply_transformations(vec2 uv) {
         if (i >= transformation_count) continue;
 
         switch (transformations[i]) {
-			case 0: // null
-				break;
+      case 0: // null
+        break;
             case 1: // Mirror X
                 uv.x = 2.0 * abs(uv.x - 0.5);
                 break;
@@ -87,9 +87,9 @@ void fragment() {
   ;
 
     float fract_time = fract(TIME / time_scale);
- 	 if (top_layer_x_scroll_enabled) {
-	    pixel_offset2 += vec2(2.0 * top_layer_x_scroll_factor * fract_time, 0.0);
-	  }
+   if (top_layer_x_scroll_enabled) {
+      pixel_offset2 += vec2(2.0 * top_layer_x_scroll_factor * fract_time, 0.0);
+    }
 
   if (top_layer_y_scroll_enabled) {
     pixel_offset2 += vec2(0.0, 2.0 * top_layer_y_scroll_factor * fract_time);
@@ -111,7 +111,7 @@ void fragment() {
         if (i >= transformation_count) continue;
         if (transformations[i] == 3) scaleX /= 2.0;
         else if (transformations[i] == 4) scaleY /= 2.0;
-  	 	else if (transformations[i] == 1) scaleX /= 2.0;
+      else if (transformations[i] == 1) scaleX /= 2.0;
         else if (transformations[i] == 2) scaleY /= 2.0;
     }
 
