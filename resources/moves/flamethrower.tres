@@ -15,5 +15,5 @@ max_pp = 15
 status_effect = 2
 status_effect_chance = 10
 priority = false
-shader_material = ExtResource("2_eb6sa")
+backdrop = ExtResource("2_eb6sa")
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

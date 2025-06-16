@@ -30,7 +30,7 @@ enum MoveCategory {ATK, SP_ATK, STATUS_EFFECT, STAT_MODIFIER}
 # 0 = Normal, 1 = Priority
 @export var priority: bool = 0
 
-@export var shader_material: ShaderMaterial
+@export var backdrop: ShaderMaterial
 
 # returns an identical copy of the current move
 func copy() -> Move:
