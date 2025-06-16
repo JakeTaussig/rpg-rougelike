@@ -34,7 +34,7 @@ const TYPE_CHART = [
 static func type_to_color(type: Type) -> Color:
 	match type:
 		Type.HUMAN:
-			return Color(1.0, 0.0, 0.267, 1.0)
+			return Color(0.996, 0.906, 0.38, 1.0)
 		Type.FIRE:
 			return Color(0.894, 0.231, 0.267, 1.0)
 		Type.WATER:
@@ -53,7 +53,7 @@ static func type_to_color(type: Type) -> Color:
 static func status_effect_to_color(status_effect: StatusEffect) -> Color:
 	match status_effect:
 		MovesList.StatusEffect.CRIPPLE:
-			return Color(1.0, 0.0, 0.267, 1.0)
+			return Color(0.996, 0.906, 0.38, 1.0)
 		MovesList.StatusEffect.BURN:
 			return Color(0.894, 0.231, 0.267, 1.0)
 		MovesList.StatusEffect.WHIRLPOOL:
