@@ -43,6 +43,9 @@ func _run():
 				elif prop == "category":
 					var prop_name = Move.MoveCategory.keys()[value]
 					values.append(prop_name)
+				elif prop == "status_effect":
+					var status_effect_name = MovesList.StatusEffect.keys()[value]
+					values.append(status_effect_name)
 				else:
 					values.append(str(value))
 			csv_lines.append(_make_csv_line(values))
