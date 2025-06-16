@@ -9,7 +9,7 @@ class_name BattleParticipant
 		monsters = _monsters
 		if len(monsters) > 0:
 			selected_monster = monsters[0]
-      
+	  
 		_setup_monsters()
 
 func _setup_monsters():
@@ -50,6 +50,18 @@ func _init_items() -> void:
 		var player_item = item.copy()
 		player_item.qty = 5
 		items.append(player_item)
-			
+
 func is_defeated() -> bool:
-	return selected_monster.hp <= 0 && monsters.size() == 1
+	for monster in monsters:
+		if monster.hp > 0:
+			return false
+	return true
+
+func swap_dead_monster():
+	if selected_monster.hp <= 0:
+		monsters.remove_at(0)
+		if monsters.size() == 0:
+			return
+		selected_monster = monsters[0]
+		# TODO: potentially refactor so we only need the one is_player on battle_participant instead of both the monster and participant. 
+		selected_monster.is_player = false

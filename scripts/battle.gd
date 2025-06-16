@@ -40,11 +40,17 @@ func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 	player = _player
 	enemy = _enemy
 	battle_participants = [player, enemy]
-	active_monsters = [player.selected_monster, enemy.selected_monster]
-	active_monsters.sort_custom(_sort_participants_by_speed)
+	update_active_monsters()
 	setup_done = true
 	print("Assigned player:", _player.name, _player.selected_monster.character_name)
 	print("Assigned enemy:", enemy.name, enemy.selected_monster.character_name)
+
+func update_active_monsters():
+	active_monsters = [player.selected_monster, enemy.selected_monster]
+	active_monsters.sort_custom(_sort_participants_by_speed)
+
+func render_hp():
+	ui_manager.render_hp(player.selected_monster, enemy.selected_monster)
 
 func _start_battle():
 	player._render_battler()
@@ -80,7 +86,7 @@ func transition_state_to(state_name: String, messages: Array = []):
 	current_state.enter(messages)
 
 func is_battle_over() -> bool:
-	return (enemy.selected_monster.hp <= 0 && enemy.monsters.size() == 1) || (player.selected_monster.hp <= 0 && player.monsters.size() == 1)
+	return enemy.is_defeated() || player.is_defeated()
 
 func get_attacker():
 	return active_monsters[turn_order_index]
