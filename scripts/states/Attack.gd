@@ -18,7 +18,7 @@ func enter(params: Array = []):
 	var messages = _generate_attack_messages(attacker, target, results)
 
 	if results.move.backdrop:
-		%Backdrop.material = results.move.backdrop
+		battle.ui_manager.set_backdrop_material(results.move.backdrop)
 
 	# Transition to AttackingInfoState to show results
 	battle.transition_state_to(battle.STATE_INFO, messages)

@@ -18,8 +18,6 @@ func _setup_monsters():
 	if monsters.size() > 0:
 		selected_monster = monsters[0]
 
-@export var items: Array[Item] = []
-
 var selected_monster: Monster:
 	set(new_monster):
 		selected_monster = new_monster

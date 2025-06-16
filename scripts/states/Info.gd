@@ -16,10 +16,7 @@ func enter(_messages: Array = []):
 		handle_continue()
 
 func exit():
-	# TODO: use UI Manager
-	%BattleStatus.visible = false
-	%ContinueButton.visible = false
-
+	battle.ui_manager.clear_backdrop_material()
 	battle.ui_manager.show_info_panel(false)
 
 func handle_continue():

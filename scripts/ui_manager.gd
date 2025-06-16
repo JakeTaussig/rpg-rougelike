@@ -2,6 +2,7 @@ class_name UIManager
 extends Node
 
 # UI References
+var backdrop: Sprite2D
 var player_panel: Label
 var enemy_panel: Label
 var state_display: Label
@@ -20,6 +21,7 @@ func _ready():
 
 func _init_references():
 	# Initialize references
+	backdrop = %Backdrop
 	player_panel = %PlayerPanel
 	enemy_panel = %EnemyPanel
 	state_display = %StateDisplay
@@ -32,6 +34,12 @@ func _init_references():
 	player_prompt = %PlayerPrompt
 
 	initialized = true
+
+func set_backdrop_material(material: ShaderMaterial):
+	backdrop.material = material
+
+func clear_backdrop_material():
+	backdrop.material = null
 
 func render_hp(player_monster, enemy_monster):
 	if !initialized:
