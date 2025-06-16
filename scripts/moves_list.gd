@@ -48,7 +48,7 @@ static func type_to_color(type: Type) -> Color:
 		Type.LIGHT:
 			return Color(0.545, 0.608, 0.706, 1.0)
 
-	return Color(0, 1.0, 0.0, 1.0)
+	return Color(1.0, 1.0, 1.0, 1.0)
 
 static func status_effect_to_color(status_effect: StatusEffect) -> Color:
 	match status_effect:
@@ -67,4 +67,4 @@ static func status_effect_to_color(status_effect: StatusEffect) -> Color:
 		MovesList.StatusEffect.BLIND:
 			return Color(0.545, 0.608, 0.706, 1.0)
 
-	return Color(0, 1.0, 0.0, 1.0)
+	return Color(1.0, 1.0, 1.0, 1.0)
