@@ -1,15 +1,15 @@
-move_name,category,type,base_power,acc,pp,max_pp,status_effect,status_effect_chance
-Vortex,ATK,DARK,0,100,10,10,6,100
-"Heat Wave",ATK,FIRE,0,75,10,10,2,100
-Paralyzed,ATK,FIRE,0,100,10,10,0,100
-"Fire Punch",SP_ATK,FIRE,0,100,10,10,0,100
-Toxic,SP_ATK,HUMAN,0,100,10,10,4,100
-Illuminate,SP_ATK,HUMAN,0,100,10,10,7,100
-Flamethrower,SP_ATK,HUMAN,0,100,15,15,2,10
-Whirlpool,STATUS_EFFECT,LIGHT,35,100,1000000,1000000,0,100
-Bubblebeam,STATUS_EFFECT,PLANT,40,100,20,20,0,100
-Tackle,STATUS_EFFECT,PLASMA,50,90,30,30,0,100
-Handicap,STATUS_EFFECT,PLASMA,60,100,10,10,1,100
-Tsunami,STATUS_EFFECT,PLASMA,75,90,10,10,3,15
-Electrocute,STATUS_EFFECT,WATER,90,100,10,10,5,100
-Lightning,STATUS_EFFECT,WATER,100,100,13,13,5,10
+move_name   , category     , type  , base_power, acc, pp     , max_pp , status_effect, status_effect_chance
+Vortex      , ATK          , DARK  ,          0, 100,      10,      10,             6,                  100
+"Heat Wave" , ATK          , FIRE  ,          0,  75,      10,      10,             2,                  100
+Paralyzed   , ATK          , FIRE  ,          0, 100,      10,      10,             0,                  100
+"Fire Punch", SP_ATK       , FIRE  ,          0, 100,      10,      10,             0,                  100
+Toxic       , SP_ATK       , HUMAN ,          0, 100,      10,      10,             4,                  100
+Illuminate  , SP_ATK       , HUMAN ,          0, 100,      10,      10,             7,                  100
+Flamethrower, SP_ATK       , HUMAN ,          0, 100,      15,      15,             2,                   10
+Whirlpool   , STATUS_EFFECT, LIGHT ,         35, 100, 1000000, 1000000,             0,                  100
+Bubblebeam  , STATUS_EFFECT, PLANT ,         40, 100,      20,      20,             0,                  100
+Tackle      , STATUS_EFFECT, PLASMA,         50,  90,      30,      30,             0,                  100
+Handicap    , STATUS_EFFECT, PLASMA,         60, 100,      10,      10,             1,                  100
+Tsunami     , STATUS_EFFECT, PLASMA,         75,  90,      10,      10,             3,                   15
+Electrocute , STATUS_EFFECT, WATER ,         90, 100,      10,      10,             5,                  100
+Lightning   , STATUS_EFFECT, WATER ,        100, 100,      13,      13,             5,                   10
