@@ -1,0 +1,5 @@
+character_name,max_hp,hp,atk,sp_atk,def,sp_def,speed,luck,crit_chance,type
+Ghosty,150,150,30,50,30,50,40,20,0.02,DARK
+Oddesque,45,45,50,75,55,65,30,10,0.02,PLANT
+Gwendolyn,300,300,35,100,30,35,80,10,0.02,PLASMA
+Omenite,300,300,40,90,100,55,35,10,0.02,WATER
