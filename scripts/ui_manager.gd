@@ -57,7 +57,7 @@ func render_hp(player_monster, enemy_monster):
 func _adjust_player_health_panel_position():
 	player_health_panel.adjust_position()
 
-func set_bbcode_color(input_string: String, color: Color):
+static func set_bbcode_color(input_string: String, color: Color):
 	return "[color=%s]%s[/color]" % [color.to_html(), input_string]
 
 func show_info_panel(visible: bool):

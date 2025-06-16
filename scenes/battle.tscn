@@ -310,6 +310,7 @@ position = Vector2(-1, 0)
 
 [node name="EnemyHealthLabel" type="RichTextLabel" parent="HealthPanels"]
 unique_name_in_owner = true
+texture_filter = 1
 offset_left = 17.0
 offset_top = 16.0
 offset_right = 114.0
@@ -324,6 +325,7 @@ autowrap_mode = 0
 
 [node name="PlayerHealthLabel" type="RichTextLabel" parent="HealthPanels"]
 unique_name_in_owner = true
+texture_filter = 1
 custom_minimum_size = Vector2(96, 24)
 offset_left = 145.0
 offset_top = 56.0
