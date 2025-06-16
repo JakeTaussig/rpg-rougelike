@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ccw3gkgcfoqh0" path="res://assets/sprites/characters/omenite.png" id="4_07hmd"]
 
 [node name="BattleParticipant" type="Sprite2D"]
+z_index = 1
 texture = ExtResource("4_07hmd")
 flip_h = true
 script = ExtResource("1_3vyb7")
