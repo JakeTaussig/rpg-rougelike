@@ -1,8 +1,8 @@
-[gd_resource type="Theme" load_steps=11 format=3 uid="uid://bb5xdt6d0xc8h"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://bb5xdt6d0xc8h"]
 
 [ext_resource type="FontFile" uid="uid://c27kqqygdffnr" path="res://assets/fonts/LoRes 9 Minus OT Wide Regular.ttf" id="1_pgokm"]
 [ext_resource type="StyleBox" uid="uid://dv2ftdeiv2dr3" path="res://assets/styles/focus_sbf.tres" id="2_7mpy8"]
-[ext_resource type="StyleBox" uid="uid://dwb68ajbfeqp0" path="res://assets/styles/normal_sbf.tres" id="3_6fsoa"]
+[ext_resource type="StyleBox" uid="uid://dlv23d40rqvlb" path="res://assets/styles/normal_sbf_rich_text_label.tres" id="2_upbfd"]
 [ext_resource type="StyleBox" uid="uid://be4rabyrnnoh4" path="res://assets/styles/focus_button_sbf.tres" id="3_f4hnv"]
 [ext_resource type="StyleBox" uid="uid://b8rk3x7peadlc" path="res://assets/styles/normal_button_sbf.tres" id="3_hypv3"]
 [ext_resource type="StyleBox" uid="uid://85oflos3sgq2" path="res://assets/styles/scrollbar_unfocused_sbf.tres" id="4_3dcfp"]
@@ -17,12 +17,24 @@ content_margin_right = 1.0
 content_margin_bottom = 1.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_upbfd"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 2.0
+content_margin_bottom = 3.0
+bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0705882, 0.305882, 0.537255, 1)
+
 [resource]
 BorderButton/base_type = &"Button"
 BorderButton/styles/focus = ExtResource("2_7mpy8")
 BorderButton/styles/hover = ExtResource("2_7mpy8")
 BorderButton/styles/hover_pressed = ExtResource("2_7mpy8")
-BorderButton/styles/normal = ExtResource("3_6fsoa")
+BorderButton/styles/normal = ExtResource("2_upbfd")
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_focus_color = Color(0.172549, 0.909804, 0.960784, 1)
 Button/colors/font_hover_color = Color(0.172549, 0.909804, 0.960784, 1)
@@ -47,15 +59,18 @@ GridContainer/constants/h_separation = 1
 GridContainer/constants/v_separation = 1
 Label/font_sizes/font_size = 9
 Label/fonts/font = ExtResource("1_pgokm")
-Label/styles/normal = ExtResource("3_6fsoa")
+Label/styles/normal = ExtResource("2_upbfd")
 MarginContainer/constants/margin_bottom = 1
 MarginContainer/constants/margin_top = 1
 NoBorderLabel/base_type = &"Label"
 NoBorderLabel/constants/line_spacing = 6
 NoBorderLabel/styles/normal = SubResource("StyleBoxFlat_fjh1m")
-Panel/styles/panel = ExtResource("3_6fsoa")
+Panel/styles/panel = ExtResource("2_upbfd")
 RedTextLabel/base_type = &"NoBorderLabel"
 RedTextLabel/colors/font_color = Color(0.635294, 0.14902, 0.2, 1)
+RichTextLabel/font_sizes/normal_font_size = 9
+RichTextLabel/fonts/normal_font = ExtResource("1_pgokm")
+RichTextLabel/styles/normal = SubResource("StyleBoxFlat_upbfd")
 VBoxContainer/constants/separation = 1
 VScrollBar/styles/grabber = ExtResource("4_3dcfp")
 VScrollBar/styles/grabber_highlight = ExtResource("5_keqi6")

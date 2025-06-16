@@ -2,8 +2,8 @@ class_name UIManager
 extends Node
 
 # UI References
-var player_panel: Label
-var enemy_panel: Label
+var player_health_panel: RichTextLabel
+var enemy_health_panel: RichTextLabel
 var state_display: Label
 var battle_status: Label
 var continue_button: Button
@@ -20,8 +20,8 @@ func _ready():
 
 func _init_references():
 	# Initialize references
-	player_panel = %PlayerPanel
-	enemy_panel = %EnemyPanel
+	player_health_panel = %PlayerHealthLabel
+	enemy_health_panel = %EnemyHealthLabel
 	state_display = %StateDisplay
 	battle_status = %BattleStatus
 	continue_button = %ContinueButton
@@ -38,19 +38,27 @@ func render_hp(player_monster, enemy_monster):
 		_init_references()
 
 	if enemy_monster:
-		enemy_panel.text = "%s %d / %d" % [enemy_monster.character_name, enemy_monster.hp, enemy_monster.max_hp]
+		enemy_health_panel.text = "%s %d / %d" % [enemy_monster.character_name, enemy_monster.hp, enemy_monster.max_hp]
 	else:
-		enemy_panel.text = "Enemy ?"
-	player_panel.text = "%s %d / %d" % [player_monster.character_name, player_monster.hp, player_monster.max_hp]
+		enemy_health_panel.text = "Enemy ?"
+	player_health_panel.text = "%s %d / %d" % [player_monster.character_name, player_monster.hp, player_monster.max_hp]
 
-	enemy_panel.text += "\n%s" % MovesList.Type.find_key(enemy_monster.type)
-	player_panel.text += "\n%s" % MovesList.Type.find_key(player_monster.type)
+	enemy_health_panel.text += "\n%s" % set_bbcode_color(MovesList.Type.find_key(enemy_monster.type), MovesList.type_to_color(enemy_monster.type))
+	player_health_panel.text += "\n%s" % set_bbcode_color(MovesList.Type.find_key(player_monster.type), MovesList.type_to_color(player_monster.type))
 
 	if not enemy_monster.status_effect == MovesList.StatusEffect.NONE:
-		enemy_panel.text += "\t \t \t \t %s" % MovesList.StatusEffect.find_key(enemy_monster.status_effect)
+		enemy_health_panel.text += "\t \t \t \t %s" % MovesList.StatusEffect.find_key(enemy_monster.status_effect)
 
 	if not player_monster.status_effect == MovesList.StatusEffect.NONE:
-		player_panel.text += "\t \t \t \t  %s" % MovesList.StatusEffect.find_key(player_monster.status_effect)
+		player_health_panel.text += "\t \t \t \t  %s" % MovesList.StatusEffect.find_key(player_monster.status_effect)
+
+	call_deferred("_adjust_player_health_panel_position")
+
+func _adjust_player_health_panel_position():
+	player_health_panel.adjust_position()
+
+func set_bbcode_color(input_string: String, color: Color):
+	return "[color=%s]%s[/color]" % [color.to_html(), input_string]
 
 func show_info_panel(visible: bool):
 	battle_status.visible = visible
