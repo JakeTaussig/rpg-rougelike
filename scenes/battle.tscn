@@ -1,12 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=17 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_p1qf1"]
 [ext_resource type="Script" uid="uid://mb41k8rtgn0q" path="res://scripts/back_button.gd" id="4_saiin"]
 [ext_resource type="Script" uid="uid://yal21vgfjdjg" path="res://scripts/health_panel.gd" id="5_61i1y"]
-[ext_resource type="StyleBox" uid="uid://biow57dl4dwgl" path="res://assets/styles/hp_bar_background_sbf.tres" id="6_djc8l"]
-[ext_resource type="StyleBox" uid="uid://bg1kpjok5bcns" path="res://assets/styles/hp_foreground_green_sbf.tres" id="7_h4dll"]
 [ext_resource type="Script" uid="uid://brto6aw55bukl" path="res://scripts/states/Info.gd" id="7_v7i3o"]
 [ext_resource type="Script" uid="uid://buy2ylv1t0vt0" path="res://scripts/states/EnemyAttack.gd" id="8_66ngm"]
 [ext_resource type="Script" uid="uid://bl3wtt7v3rtpm" path="res://scripts/states/SelectingAction.gd" id="9_03edq"]
@@ -337,8 +335,7 @@ offset_left = 148.0
 offset_top = 70.0
 offset_right = 208.0
 offset_bottom = 78.0
-theme_override_styles/background = ExtResource("6_djc8l")
-theme_override_styles/fill = ExtResource("7_h4dll")
+theme = ExtResource("2_p1qf1")
 value = 49.0
 show_percentage = false
 
@@ -351,8 +348,7 @@ offset_left = 20.0
 offset_top = 30.0
 offset_right = 80.0
 offset_bottom = 38.0
-theme_override_styles/background = ExtResource("6_djc8l")
-theme_override_styles/fill = ExtResource("7_h4dll")
+theme = ExtResource("2_p1qf1")
 show_percentage = false
 
 [node name="EnemyHealthLabel" type="RichTextLabel" parent="HealthPanels/EnemyHealth"]
