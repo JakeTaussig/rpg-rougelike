@@ -50,6 +50,6 @@ func _init_items() -> void:
 		var player_item = item.copy()
 		player_item.qty = 5
 		items.append(player_item)
-			
+
 func is_defeated() -> bool:
 	return selected_monster.hp <= 0 && monsters.size() == 1
