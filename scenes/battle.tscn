@@ -1,21 +1,28 @@
-[gd_scene load_steps=17 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=20 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_p1qf1"]
 [ext_resource type="Script" uid="uid://mb41k8rtgn0q" path="res://scripts/back_button.gd" id="4_saiin"]
-[ext_resource type="Script" uid="uid://yal21vgfjdjg" path="res://scripts/health_panel.gd" id="5_61i1y"]
+[ext_resource type="FontFile" uid="uid://cojxk2d53xt6o" path="res://assets/fonts/LoRes 12 OT Regular.ttf" id="6_61i1y"]
+[ext_resource type="StyleBox" uid="uid://biow57dl4dwgl" path="res://assets/styles/hp_bar_background_sbf.tres" id="6_djc8l"]
+[ext_resource type="StyleBox" uid="uid://bg1kpjok5bcns" path="res://assets/styles/hp_foreground_green_sbf.tres" id="7_h4dll"]
 [ext_resource type="Script" uid="uid://brto6aw55bukl" path="res://scripts/states/Info.gd" id="7_v7i3o"]
 [ext_resource type="Script" uid="uid://buy2ylv1t0vt0" path="res://scripts/states/EnemyAttack.gd" id="8_66ngm"]
 [ext_resource type="Script" uid="uid://bl3wtt7v3rtpm" path="res://scripts/states/SelectingAction.gd" id="9_03edq"]
 [ext_resource type="Script" uid="uid://dxrkm475i6ls6" path="res://scripts/states/SelectingAttack.gd" id="10_22uqi"]
 [ext_resource type="Script" uid="uid://cmikjgcwtvkyk" path="res://scripts/states/IncrementTurn.gd" id="12_03edq"]
 [ext_resource type="Script" uid="uid://bm0o2eovnfws7" path="res://scripts/states/Attack.gd" id="13_6ni85"]
-[ext_resource type="Script" uid="uid://sdwupuxudrjb" path="res://scripts/states/BattleOver.gd" id="13_22uqi"]
+[ext_resource type="Script" path="res://scripts/states/BattleOver.gd" id="13_22uqi"]
 [ext_resource type="Script" uid="uid://d0rdycr2tr5ll" path="res://scripts/states/EnactStatuses.gd" id="14_6ni85"]
 [ext_resource type="Script" uid="uid://m7sdis15lg1t" path="res://scripts/states/SelectingAttackPPRestore.gd" id="17_dd63g"]
 [ext_resource type="Script" uid="uid://flenaawlfq4g" path="res://scripts/states/SelectingItem.gd" id="20_61i1y"]
 [ext_resource type="PackedScene" uid="uid://capm3p3n50hky" path="res://scenes/ui_manager.tscn" id="23_fpf3k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_saiin"]
+content_margin_left = 3.0
+bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+border_color = Color(0.0705882, 0.305882, 0.537255, 1)
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_a12nh")
@@ -309,34 +316,129 @@ autowrap_mode = 2
 [node name="HealthPanels" type="Node2D" parent="."]
 position = Vector2(-1, 0)
 
-[node name="PlayerHealth" type="Node2D" parent="HealthPanels"]
+[node name="PlayerHealthPanel" type="Control" parent="HealthPanels"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 145.0
+offset_top = 54.0
+offset_right = 145.0
+offset_bottom = 54.0
 
-[node name="PlayerHealthLabel" type="RichTextLabel" parent="HealthPanels/PlayerHealth"]
+[node name="TopPlayerHealthBackdrop" type="Panel" parent="HealthPanels/PlayerHealthPanel"]
+z_index = 1
+z_as_relative = false
+custom_minimum_size = Vector2(108, 25)
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 26.0
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"FullBorderPanel"
+
+[node name="BottomPlayerHealthBackdrop" type="Panel" parent="HealthPanels/PlayerHealthPanel"]
+unique_name_in_owner = true
+z_index = 1
+z_as_relative = false
+custom_minimum_size = Vector2(60, 26)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 51.0
+offset_top = 16.0
+offset_right = 112.0
+offset_bottom = 42.0
+grow_horizontal = 0
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"FullBorderPanel"
+
+[node name="LabelContainer" type="HFlowContainer" parent="HealthPanels/PlayerHealthPanel"]
+z_index = 1
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 111.0
+offset_bottom = 48.0
+theme = ExtResource("2_p1qf1")
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+
+[node name="PlayerNameLabel" type="RichTextLabel" parent="HealthPanels/PlayerHealthPanel/LabelContainer"]
 unique_name_in_owner = true
 texture_filter = 1
-custom_minimum_size = Vector2(96, 24)
-offset_left = 145.0
-offset_top = 56.0
-offset_right = 242.0
-offset_bottom = 81.0
+custom_minimum_size = Vector2(63, 15)
+layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 8
 theme = ExtResource("2_p1qf1")
+theme_type_variation = &"HealthPanelLabel"
 bbcode_enabled = true
 text = "Player"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
-script = ExtResource("5_61i1y")
 
-[node name="PlayerHPBar" type="ProgressBar" parent="HealthPanels/PlayerHealth"]
+[node name="PlayerTypeLabel" type="RichTextLabel" parent="HealthPanels/PlayerHealthPanel/LabelContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(46, 15)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_type_variation = &"HealthPanelLabel"
+bbcode_enabled = true
+text = "PLASMA"
+scroll_active = false
+
+[node name="PlayerStaticHPLabel" type="RichTextLabel" parent="HealthPanels/PlayerHealthPanel/LabelContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(23, 8)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_type_variation = &"HealthPanelLabel"
+theme_override_fonts/normal_font = ExtResource("6_61i1y")
+theme_override_font_sizes/normal_font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_saiin")
+bbcode_enabled = true
+text = "HP:"
+scroll_active = false
+
+[node name="PlayerHPBar" type="ProgressBar" parent="HealthPanels/PlayerHealthPanel/LabelContainer"]
 unique_name_in_owner = true
 z_index = 2
-offset_left = 148.0
-offset_top = 70.0
-offset_right = 208.0
-offset_bottom = 78.0
-theme = ExtResource("2_p1qf1")
+custom_minimum_size = Vector2(86, 8)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_styles/background = ExtResource("6_djc8l")
+theme_override_styles/fill = ExtResource("7_h4dll")
+value = 100.0
 show_percentage = false
+
+[node name="PlayerStatusPanel" type="Panel" parent="HealthPanels/PlayerHealthPanel/LabelContainer"]
+custom_minimum_size = Vector2(23, 15)
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"EmptyPanel"
+
+[node name="PlayerStatusLabel" type="RichTextLabel" parent="HealthPanels/PlayerHealthPanel/LabelContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(26, 15)
+layout_mode = 2
+theme_type_variation = &"HealthPanelLabel"
+bbcode_enabled = true
+text = "PSN"
+
+[node name="PlayerHPNumber" type="RichTextLabel" parent="HealthPanels/PlayerHealthPanel/LabelContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(59, 15)
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"HealthPanelLabel"
+text = "345/400"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="EnemyHealth" type="Node2D" parent="HealthPanels"]
 
