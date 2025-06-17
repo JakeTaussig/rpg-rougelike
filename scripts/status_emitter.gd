@@ -48,11 +48,13 @@ func _render_status():
 
 	var outline_color = MovesList.status_effect_to_color(status_effect)
 
+	# set outline for particles
 	shader_material.set_shader_parameter("color", outline_color)
 	shader_material.set_shader_parameter("width", 1.0)
 	shader_material.set_shader_parameter("add_margins", true)
 	shader_material.set_shader_parameter("inside", false)
 
+	# set outline for monster
 	var parent = get_parent()
 	if not parent.material:
 		parent.material = load("res://assets/shaders/outline-material.tres").duplicate()
