@@ -48,9 +48,8 @@ func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 func update_active_monsters():
 	active_monsters = [player.selected_monster, enemy.selected_monster]
 	active_monsters.sort_custom(_sort_participants_by_speed)
-
-func render_hp():
-	ui_manager.render_hp(player.selected_monster, enemy.selected_monster)
+	if ui_manager:
+		ui_manager.render_hp(player.selected_monster, enemy.selected_monster)
 
 func _start_battle():
 	player._render_battler()

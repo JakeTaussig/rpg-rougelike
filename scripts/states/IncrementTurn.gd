@@ -27,8 +27,7 @@ func enter(_messages: Array = []):
 		battle.turn += 1
 		battle.enemy.swap_dead_monster()
 		battle.update_active_monsters()
-		battle.render_hp()
-		
+
 	_log_turn_info()
 	battle.ui_manager.set_turn_display("trn: %s idx: %s" % [battle.turn, battle.turn_order_index])
 
