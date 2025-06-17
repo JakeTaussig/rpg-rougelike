@@ -10,7 +10,7 @@ func setup_enemy(_monsters: Array[Monster], _ai_type_index: int):
 	for monster in monsters:
 		monster.is_player = false
 	ai_type = ai_types[_ai_type_index]
-	position = Vector2(192, 44)
+	position = Vector2(192, 40)
 
 func _ready():
 	is_player = false
