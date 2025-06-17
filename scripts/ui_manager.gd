@@ -3,7 +3,8 @@ extends Node
 
 # UI References
 var backdrop: Sprite2D
-var enemy_health_panel: RichTextLabel
+var player_health_panel: HealthPanel
+var enemy_health_panel: HealthPanel
 var player_hp_bar: ProgressBar
 var enemy_hp_bar: ProgressBar
 var state_display: Label
@@ -23,7 +24,8 @@ func _ready():
 func _init_references():
 	# Initialize references
 	backdrop = %Backdrop
-	enemy_health_panel = %EnemyHealthLabel
+	enemy_health_panel = %EnemyHealthPanel
+	player_health_panel = %PlayerHealthPanel
 	player_hp_bar = %PlayerHPBar
 	enemy_hp_bar = %EnemyHPBar
 	state_display = %StateDisplay
@@ -47,66 +49,8 @@ func render_hp(player_monster, enemy_monster):
 	if !initialized:
 		_init_references()
 
-	if enemy_monster:
-		enemy_health_panel.text = "%s" % enemy_monster.character_name
-		enemy_hp_bar.max_value = enemy_monster.max_hp
-		enemy_hp_bar.value = enemy_monster.hp
-		set_hp_bar_color(enemy_hp_bar)
-	else:
-		enemy_health_panel.text = "Enemy ?"
-	%PlayerNameLabel.text = "%s" % player_monster.character_name
-	player_hp_bar.max_value = player_monster.max_hp
-	player_hp_bar.value = player_monster.hp
-	set_hp_bar_color(player_hp_bar)
-
-	%PlayerHPNumber.text = "%d / %d" % [player_monster.hp, player_monster.max_hp]
-
-	enemy_health_panel.text += "\t%s" % set_bbcode_color(MovesList.Type.find_key(enemy_monster.type), MovesList.type_to_color(enemy_monster.type))
-	%PlayerTypeLabel.text = "%s" % set_bbcode_color(MovesList.Type.find_key(player_monster.type), MovesList.type_to_color(player_monster.type))
-	
-	if not enemy_monster.status_effect == MovesList.StatusEffect.NONE:
-		enemy_health_panel.text += "\n\t\t\t\t\t  %s" % set_bbcode_color(type_abbreviation(enemy_monster.status_effect), MovesList.status_effect_to_color(enemy_monster.status_effect))
-
-	if not player_monster.status_effect == MovesList.StatusEffect.NONE:
-		%PlayerStatusLabel.theme_type_variation = "HealthPanelLabel"
-		%PlayerStatusLabel.text = "%s" % set_bbcode_color(type_abbreviation(player_monster.status_effect), MovesList.status_effect_to_color(player_monster.status_effect))
-		%BottomPlayerHealthBackdrop.size.x = 88.0
-		%BottomPlayerHealthBackdrop.position.x = 24.0
-	else:
-		%PlayerStatusLabel.theme_type_variation = "InvisibleLabel"
-		%BottomPlayerHealthBackdrop.size.x = 61.0
-		%BottomPlayerHealthBackdrop.position.x = 51.0
-
-func set_hp_bar_color(hp_bar):
-	if hp_bar.value / hp_bar.max_value > 0.5:
-		hp_bar.add_theme_stylebox_override("fill", load("res://assets/styles/hp_foreground_green_sbf.tres"))
-	elif hp_bar.value / hp_bar.max_value > 0.25:
-		hp_bar.add_theme_stylebox_override("fill", load("res://assets/styles/hp_foreground_yellow_sbf.tres"))
-	else:
-		hp_bar.add_theme_stylebox_override("fill", load("res://assets/styles/hp_foreground_red_sbf.tres"))
-
-
-static func set_bbcode_color(input_string: String, color: Color):
-	return "[color=%s]%s[/color]" % [color.to_html(), input_string]
-	
-func type_abbreviation(effect) -> String:
-	match effect:
-		MovesList.StatusEffect.CRIPPLE:
-			return "CRP"
-		MovesList.StatusEffect.BURN:
-			return "BRN"
-		MovesList.StatusEffect.WHIRLPOOL:
-			return "WRL"
-		MovesList.StatusEffect.POISON:
-			return "PSN"
-		MovesList.StatusEffect.PARALYZE:
-			return "PAR"
-		MovesList.StatusEffect.CONSUME:
-			return "CSM"
-		MovesList.StatusEffect.BLIND:
-			return "BLD"
-	printerr("Failed to match type abbreviation")
-	return ""
+	enemy_health_panel.render_hp(enemy_monster)
+	player_health_panel.render_hp(player_monster)
 
 func show_info_panel(visible: bool):
 	battle_status.visible = visible

@@ -1,0 +1,139 @@
+[gd_scene load_steps=7 format=3 uid="uid://bs4b2pu5fsx6o"]
+
+[ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="1_5pall"]
+[ext_resource type="Script" uid="uid://b2bvfyo8022af" path="res://scripts/health_panel.gd" id="1_07ma7"]
+[ext_resource type="FontFile" uid="uid://cojxk2d53xt6o" path="res://assets/fonts/LoRes 12 OT Regular.ttf" id="2_07ma7"]
+[ext_resource type="StyleBox" uid="uid://biow57dl4dwgl" path="res://assets/styles/hp_bar_background_sbf.tres" id="3_twfsv"]
+[ext_resource type="StyleBox" uid="uid://copt7xkvufmol" path="res://assets/styles/hp_foreground_yellow_sbf.tres" id="5_d0kh3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_saiin"]
+content_margin_left = 3.0
+bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+border_color = Color(0.0705882, 0.305882, 0.537255, 1)
+
+[node name="HealthPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 145.0
+offset_top = 54.0
+offset_right = 145.0
+offset_bottom = 54.0
+script = ExtResource("1_07ma7")
+
+[node name="TopHealthBackdrop" type="Panel" parent="."]
+z_index = 1
+z_as_relative = false
+custom_minimum_size = Vector2(108, 25)
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 26.0
+theme = ExtResource("1_5pall")
+theme_type_variation = &"FullBorderPanel"
+
+[node name="BottomHealthBackdrop" type="Panel" parent="."]
+unique_name_in_owner = true
+z_index = 1
+z_as_relative = false
+custom_minimum_size = Vector2(28, 26)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 51.0
+offset_top = 16.0
+offset_right = 112.0
+offset_bottom = 42.0
+grow_horizontal = 0
+theme = ExtResource("1_5pall")
+theme_type_variation = &"FullBorderPanel"
+
+[node name="LabelContainer" type="HFlowContainer" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 111.0
+offset_bottom = 41.0
+theme = ExtResource("1_5pall")
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+alignment = 2
+
+[node name="NameLabel" type="RichTextLabel" parent="LabelContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(63, 15)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme = ExtResource("1_5pall")
+theme_type_variation = &"HealthPanelLabel"
+bbcode_enabled = true
+text = "Player"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="TypeLabel" type="RichTextLabel" parent="LabelContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(46, 15)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_type_variation = &"HealthPanelLabel"
+bbcode_enabled = true
+text = "PLASMA"
+scroll_active = false
+
+[node name="StaticHPLabel" type="RichTextLabel" parent="LabelContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(23, 8)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_type_variation = &"HealthPanelLabel"
+theme_override_fonts/normal_font = ExtResource("2_07ma7")
+theme_override_font_sizes/normal_font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_saiin")
+bbcode_enabled = true
+text = "HP:"
+scroll_active = false
+
+[node name="HPBar" type="ProgressBar" parent="LabelContainer"]
+unique_name_in_owner = true
+z_index = 2
+custom_minimum_size = Vector2(86, 8)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_styles/background = ExtResource("3_twfsv")
+theme_override_styles/fill = ExtResource("5_d0kh3")
+value = 100.0
+show_percentage = false
+
+[node name="InvisiblePlaceholder" type="Panel" parent="LabelContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(23, 15)
+layout_mode = 2
+theme = ExtResource("1_5pall")
+theme_type_variation = &"EmptyPanel"
+
+[node name="StatusLabel" type="RichTextLabel" parent="LabelContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(26, 15)
+layout_mode = 2
+theme_type_variation = &"HealthPanelLabel"
+bbcode_enabled = true
+text = "PSN"
+
+[node name="HPNumber" type="RichTextLabel" parent="LabelContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(59, 15)
+layout_mode = 2
+theme = ExtResource("1_5pall")
+theme_type_variation = &"HealthPanelLabel"
+text = "345/400"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
