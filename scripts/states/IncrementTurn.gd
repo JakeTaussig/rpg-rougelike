@@ -43,11 +43,21 @@ func _check_for_dead_monsters() -> String:
 
 	for battler in battle.battle_participants:
 		if battler.selected_monster.hp <= 0:
-			message = "%s defeated %s!" % [GameManager.player.selected_monster.character_name, battler.selected_monster.character_name]
 			dead_monster = true
+			# Find the other participant (the one who did the defeating)
+			var victor = null
+			for participant in battle.battle_participants:
+				if participant != battler:
+					victor = participant
+					break
+
+			if victor:
+				message = "%s defeated %s!" % [victor.selected_monster.character_name, battler.selected_monster.character_name]
+			else:
+				# Fallback in case something went wrong finding participants
+				message = "%s was defeated!" % battler.selected_monster.character_name
 
 	return message
-		
 
 func _log_turn_info():
 	if (battle.turn_order_index == 0):
