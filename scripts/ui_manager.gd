@@ -52,6 +52,11 @@ func render_hp(player_monster, enemy_monster):
 	enemy_health_panel.render_hp(enemy_monster)
 	player_health_panel.render_hp(player_monster)
 
+
+func render_battlers():
+	GameManager.player.render_battler()
+	GameManager.enemy.render_battler()
+
 func show_info_panel(visible: bool):
 	battle_status.visible = visible
 	continue_button.visible = visible
