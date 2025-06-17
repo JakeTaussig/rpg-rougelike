@@ -18,18 +18,12 @@ func render_hp(monster: Monster):
 	%TypeLabel.text = "%s" % _set_bbcode_color(MovesList.Type.find_key(monster.type), MovesList.type_to_color(monster.type))
 
 	if not monster.status_effect == MovesList.StatusEffect.NONE:
-		%StatusLabel.theme_type_variation = "HealthPanelLabel"
+		%StatusLabel.visible = true
 		%StatusLabel.text = "%s" % _set_bbcode_color(MovesList.type_abbreviation(monster.status_effect), MovesList.status_effect_to_color(monster.status_effect))
-		%BottomHealthBackdrop.size.x = 88.0
-		%BottomHealthBackdrop.position.x = 24.0
 		if !show_hp_numbers:
 			%BottomHealthBackdrop.visible = true
-			%BottomHealthBackdrop.size.x = 28.0
-			%BottomHealthBackdrop.position.x = 84.0
 	else:
-		%StatusLabel.theme_type_variation = "InvisibleLabel"
-		%BottomHealthBackdrop.size.x = 61.0
-		%BottomHealthBackdrop.position.x = 51.0
+		%StatusLabel.visible = false
 		if !show_hp_numbers:
 			%BottomHealthBackdrop.visible = false
 
