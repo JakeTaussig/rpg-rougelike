@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://dxrkm475i6ls6" path="res://scripts/states/SelectingAttack.gd" id="10_22uqi"]
 [ext_resource type="Script" uid="uid://cmikjgcwtvkyk" path="res://scripts/states/IncrementTurn.gd" id="12_03edq"]
 [ext_resource type="Script" uid="uid://bm0o2eovnfws7" path="res://scripts/states/Attack.gd" id="13_6ni85"]
-[ext_resource type="Script" path="res://scripts/states/BattleOver.gd" id="13_22uqi"]
+[ext_resource type="Script" uid="uid://sdwupuxudrjb" path="res://scripts/states/BattleOver.gd" id="13_22uqi"]
 [ext_resource type="Script" uid="uid://d0rdycr2tr5ll" path="res://scripts/states/EnactStatuses.gd" id="14_6ni85"]
 [ext_resource type="Script" uid="uid://m7sdis15lg1t" path="res://scripts/states/SelectingAttackPPRestore.gd" id="17_dd63g"]
 [ext_resource type="Script" uid="uid://flenaawlfq4g" path="res://scripts/states/SelectingItem.gd" id="20_61i1y"]
@@ -422,4 +422,3 @@ unique_name_in_owner = true
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Item" to="BattleStateMachine/SELECTING_ACTION" method="_on_item_pressed"]
 [connection signal="pressed" from="BottomBar/BattleStatus/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="value_changed" from="HealthPanels/PlayerHealth/PlayerHPBar" to="UiManager" method="set_hp_bar_color"]

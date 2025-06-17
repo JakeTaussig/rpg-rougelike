@@ -53,11 +53,13 @@ func render_hp(player_monster, enemy_monster):
 		enemy_health_panel.text = "%s" % enemy_monster.character_name
 		enemy_hp_bar.max_value = enemy_monster.max_hp
 		enemy_hp_bar.value = enemy_monster.hp
+		set_hp_bar_color(enemy_hp_bar)
 	else:
 		enemy_health_panel.text = "Enemy ?"
 	player_health_panel.text = "%s" % player_monster.character_name
 	player_hp_bar.max_value = player_monster.max_hp
 	player_hp_bar.value = player_monster.hp
+	set_hp_bar_color(player_hp_bar)
 
 	enemy_health_panel.text += "\t%s" % set_bbcode_color(MovesList.Type.find_key(enemy_monster.type), MovesList.type_to_color(enemy_monster.type))
 	player_health_panel.text += "\t%s" % set_bbcode_color(MovesList.Type.find_key(player_monster.type), MovesList.type_to_color(player_monster.type))
@@ -70,11 +72,10 @@ func render_hp(player_monster, enemy_monster):
 	
 	call_deferred("_adjust_player_health_panel_position")
 
-func set_hp_bar_color(value: float):
-	var hp_bar: ProgressBar = player_hp_bar
-	if value / hp_bar.max_value > 0.5:
+func set_hp_bar_color(hp_bar):
+	if hp_bar.value / hp_bar.max_value > 0.5:
 		hp_bar.add_theme_stylebox_override("fill", load("res://assets/styles/hp_foreground_green_sbf.tres"))
-	elif value / hp_bar.max_value > 0.25:
+	elif hp_bar.value / hp_bar.max_value > 0.25:
 		hp_bar.add_theme_stylebox_override("fill", load("res://assets/styles/hp_foreground_yellow_sbf.tres"))
 	else:
 		hp_bar.add_theme_stylebox_override("fill", load("res://assets/styles/hp_foreground_red_sbf.tres"))
