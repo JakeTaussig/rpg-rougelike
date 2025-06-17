@@ -5,23 +5,19 @@
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_p1qf1"]
 [ext_resource type="Script" uid="uid://mb41k8rtgn0q" path="res://scripts/back_button.gd" id="4_saiin"]
 [ext_resource type="Script" uid="uid://yal21vgfjdjg" path="res://scripts/health_panel.gd" id="5_61i1y"]
+[ext_resource type="StyleBox" uid="uid://biow57dl4dwgl" path="res://assets/styles/hp_bar_background_sbf.tres" id="6_djc8l"]
+[ext_resource type="StyleBox" uid="uid://bg1kpjok5bcns" path="res://assets/styles/hp_foreground_green_sbf.tres" id="7_h4dll"]
 [ext_resource type="Script" uid="uid://brto6aw55bukl" path="res://scripts/states/Info.gd" id="7_v7i3o"]
 [ext_resource type="Script" uid="uid://buy2ylv1t0vt0" path="res://scripts/states/EnemyAttack.gd" id="8_66ngm"]
 [ext_resource type="Script" uid="uid://bl3wtt7v3rtpm" path="res://scripts/states/SelectingAction.gd" id="9_03edq"]
 [ext_resource type="Script" uid="uid://dxrkm475i6ls6" path="res://scripts/states/SelectingAttack.gd" id="10_22uqi"]
 [ext_resource type="Script" uid="uid://cmikjgcwtvkyk" path="res://scripts/states/IncrementTurn.gd" id="12_03edq"]
 [ext_resource type="Script" uid="uid://bm0o2eovnfws7" path="res://scripts/states/Attack.gd" id="13_6ni85"]
-[ext_resource type="Script" uid="uid://sdwupuxudrjb" path="res://scripts/states/BattleOver.gd" id="13_22uqi"]
+[ext_resource type="Script" path="res://scripts/states/BattleOver.gd" id="13_22uqi"]
 [ext_resource type="Script" uid="uid://d0rdycr2tr5ll" path="res://scripts/states/EnactStatuses.gd" id="14_6ni85"]
 [ext_resource type="Script" uid="uid://m7sdis15lg1t" path="res://scripts/states/SelectingAttackPPRestore.gd" id="17_dd63g"]
 [ext_resource type="Script" uid="uid://flenaawlfq4g" path="res://scripts/states/SelectingItem.gd" id="20_61i1y"]
 [ext_resource type="PackedScene" uid="uid://capm3p3n50hky" path="res://scenes/ui_manager.tscn" id="23_fpf3k"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekamt"]
-bg_color = Color(0.227451, 0.266667, 0.4, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_djc8l"]
-bg_color = Color(0.243137, 0.537255, 0.282353, 1)
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_a12nh")
@@ -341,8 +337,9 @@ offset_left = 148.0
 offset_top = 70.0
 offset_right = 208.0
 offset_bottom = 78.0
-theme_override_styles/background = SubResource("StyleBoxFlat_ekamt")
-theme_override_styles/fill = SubResource("StyleBoxFlat_djc8l")
+theme_override_styles/background = ExtResource("6_djc8l")
+theme_override_styles/fill = ExtResource("7_h4dll")
+value = 49.0
 show_percentage = false
 
 [node name="EnemyHealth" type="Node2D" parent="HealthPanels"]
@@ -354,8 +351,8 @@ offset_left = 20.0
 offset_top = 30.0
 offset_right = 80.0
 offset_bottom = 38.0
-theme_override_styles/background = SubResource("StyleBoxFlat_ekamt")
-theme_override_styles/fill = SubResource("StyleBoxFlat_djc8l")
+theme_override_styles/background = ExtResource("6_djc8l")
+theme_override_styles/fill = ExtResource("7_h4dll")
 show_percentage = false
 
 [node name="EnemyHealthLabel" type="RichTextLabel" parent="HealthPanels/EnemyHealth"]
@@ -425,3 +422,4 @@ unique_name_in_owner = true
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Item" to="BattleStateMachine/SELECTING_ACTION" method="_on_item_pressed"]
 [connection signal="pressed" from="BottomBar/BattleStatus/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="value_changed" from="HealthPanels/PlayerHealth/PlayerHPBar" to="UiManager" method="set_hp_bar_color"]

@@ -66,6 +66,15 @@ func render_hp(player_monster, enemy_monster):
 	
 	call_deferred("_adjust_player_health_panel_position")
 
+func set_hp_bar_color(value: float):
+	var hp_bar: ProgressBar = %PlayerHPBar
+	if value / hp_bar.max_value > 0.5:
+		hp_bar.add_theme_stylebox_override("fill", load("res://assets/styles/hp_foreground_green_sbf.tres"))
+	elif value / hp_bar.max_value > 0.25:
+		hp_bar.add_theme_stylebox_override("fill", load("res://assets/styles/hp_foreground_yellow_sbf.tres"))
+	else:
+		hp_bar.add_theme_stylebox_override("fill", load("res://assets/styles/hp_foreground_red_sbf.tres"))
+
 func _adjust_player_health_panel_position():
 	player_health_panel.adjust_position()
 
