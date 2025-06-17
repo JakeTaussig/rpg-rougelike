@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://rt3404armgwk"
-path="res://.godot/imported/fire_dog.png-9e123cc7b446f7f4275aa7241005594a.ctex"
+path="res://.godot/imported/wolferno.png-954afd6204b4ca5ae2a056304c23cebf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/characters/fire_dog.png"
-dest_files=["res://.godot/imported/fire_dog.png-9e123cc7b446f7f4275aa7241005594a.ctex"]
+source_file="res://assets/sprites/characters/wolferno.png"
+dest_files=["res://.godot/imported/wolferno.png-954afd6204b4ca5ae2a056304c23cebf.ctex"]
 
 [params]
 
