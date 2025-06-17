@@ -29,7 +29,7 @@ var is_player = true:
 		selected_monster.is_player = _is_player
 		render_battler()
 
-func _render_battler():
+func render_battler():
 	texture = selected_monster.texture
 	flip_h = is_player
 	$StatusEmitter.status_effect = selected_monster.status_effect

@@ -67,8 +67,8 @@ func render_hp(player_monster, enemy_monster):
 	call_deferred("_adjust_player_health_panel_position")
 
 func render_battlers():
-	GameManager.player._render_battler()
-	GameManager.enemy._render_battler()
+	GameManager.player.render_battler()
+	GameManager.enemy.render_battler()
 
 func _adjust_player_health_panel_position():
 	player_health_panel.adjust_position()
