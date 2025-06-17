@@ -63,5 +63,3 @@ func swap_dead_monster():
 		if monsters.size() == 0:
 			return
 		selected_monster = monsters[0]
-		# TODO: potentially refactor so we only need the one is_player on battle_participant instead of both the monster and participant. 
-		selected_monster.is_player = false

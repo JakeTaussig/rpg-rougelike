@@ -22,7 +22,9 @@ func enter(_messages: Array = []):
 
 	battle.turn_order_index = (battle.turn_order_index + 1) % battle.active_monsters.size()
 	if battle.turn_order_index == 0 || dead_monster:
-		dead_monster = false
+		if dead_monster:
+			dead_monster = false
+			battle.turn_order_index = 0
 		statuses_enacted = false
 		battle.turn += 1
 		battle.enemy.swap_dead_monster()
