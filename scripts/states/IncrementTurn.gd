@@ -7,6 +7,7 @@ func enter(_messages: Array = []):
 	if not dead_monster:
 		var message = _check_for_dead_monsters()
 		if message != "":
+			dead_monster = true
 			battle.transition_state_to(battle.STATE_INFO, [message])
 			return
 	# Checks if the current selected_monster is dead and if the battle is over
@@ -22,11 +23,12 @@ func enter(_messages: Array = []):
 
 	battle.turn_order_index = (battle.turn_order_index + 1) % battle.active_monsters.size()
 	if battle.turn_order_index == 0 || dead_monster:
-		if dead_monster:
-			battle.turn_order_index = 0
 		statuses_enacted = false
 		battle.turn += 1
-		_swap_dead_monsters()
+		if dead_monster:
+			battle.turn_order_index = 0
+			_swap_dead_monsters()
+			dead_monster = false
 		battle.update_active_monsters()
 
 	_log_turn_info()
@@ -42,13 +44,10 @@ func _check_for_dead_monsters() -> String:
 	var enemy = GameManager.enemy
 	var message = ""
 	if enemy.selected_monster.hp <= 0 and player.selected_monster.hp <= 0:
-		dead_monster = true
 		message = "%s and %s wiped each other out!" % [enemy.selected_monster.character_name, player.selected_monster.character_name]
 	elif enemy.selected_monster.hp <= 0:
-		dead_monster = true
 		message = "%s defeated %s!" % [player.selected_monster.character_name, enemy.selected_monster.character_name]
 	elif player.selected_monster.hp <= 0:
-		dead_monster = true
 		message = "%s defeated %s!" % [enemy.selected_monster.character_name, player.selected_monster.character_name]
 
 	return message
@@ -60,8 +59,6 @@ func _swap_dead_monsters():
 		enemy.swap_dead_monster()
 	if player.selected_monster.hp <= 0:
 		player.swap_dead_monster()
-
-	dead_monster = false
 
 func _log_turn_info():
 	if (battle.turn_order_index == 0):
