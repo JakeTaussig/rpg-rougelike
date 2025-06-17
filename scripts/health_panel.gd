@@ -18,14 +18,12 @@ func render_hp(monster: Monster):
 	%TypeLabel.text = "%s" % _set_bbcode_color(MovesList.Type.find_key(monster.type), MovesList.type_to_color(monster.type))
 
 	if not monster.status_effect == MovesList.StatusEffect.NONE:
-		%StatusLabel.visible = true
+		%StatusLabelPanel.visible = true
 		%StatusLabel.text = "%s" % _set_bbcode_color(MovesList.type_abbreviation(monster.status_effect), MovesList.status_effect_to_color(monster.status_effect))
-		if !show_hp_numbers:
-			%BottomHealthBackdrop.visible = true
+
 	else:
-		%StatusLabel.visible = false
-		if !show_hp_numbers:
-			%BottomHealthBackdrop.visible = false
+		%StatusLabelPanel.visible = false
+
 
 func _set_hp_bar_color():
 	var hp_bar: ProgressBar = %HPBar

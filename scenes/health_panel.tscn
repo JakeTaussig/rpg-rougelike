@@ -1,20 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bs4b2pu5fsx6o"]
+[gd_scene load_steps=7 format=3 uid="uid://bs4b2pu5fsx6o"]
 
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="1_5pall"]
 [ext_resource type="Script" uid="uid://b2bvfyo8022af" path="res://scripts/health_panel.gd" id="1_07ma7"]
-[ext_resource type="FontFile" uid="uid://cojxk2d53xt6o" path="res://assets/fonts/LoRes 12 OT Regular.ttf" id="2_07ma7"]
 [ext_resource type="StyleBox" uid="uid://biow57dl4dwgl" path="res://assets/styles/hp_bar_background_sbf.tres" id="3_twfsv"]
 [ext_resource type="StyleBox" uid="uid://copt7xkvufmol" path="res://assets/styles/hp_foreground_yellow_sbf.tres" id="5_d0kh3"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_saiin"]
-content_margin_left = 3.0
-bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.0705882, 0.305882, 0.537255, 1)
-expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0kh3"]
 content_margin_left = 2.0
@@ -50,8 +39,18 @@ script = ExtResource("1_07ma7")
 [node name="TopHealthBackdrop" type="Panel" parent="."]
 z_index = 1
 z_as_relative = false
-custom_minimum_size = Vector2(112, 24)
 layout_mode = 0
+offset_right = 112.0
+offset_bottom = 16.0
+theme = ExtResource("1_5pall")
+theme_type_variation = &"FullBorderPanel"
+
+[node name="MiddleHealthBackdrop" type="Panel" parent="."]
+z_index = 1
+z_as_relative = false
+layout_mode = 0
+offset_left = 26.0
+offset_top = 15.0
 offset_right = 112.0
 offset_bottom = 24.0
 theme = ExtResource("1_5pall")
@@ -97,6 +96,7 @@ text = "Player"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+horizontal_alignment = 1
 
 [node name="TypeLabel" type="RichTextLabel" parent="LabelContainer"]
 unique_name_in_owner = true
@@ -110,19 +110,36 @@ text = "PLASMA"
 scroll_active = false
 horizontal_alignment = 1
 
-[node name="StaticHPLabel" type="RichTextLabel" parent="LabelContainer"]
+[node name="Placeholder" type="Panel" parent="LabelContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(27, 8)
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_5pall")
+theme_type_variation = &"EmptyPanel"
+
+[node name="StatusLabelPanel" type="Panel" parent="LabelContainer/Placeholder"]
+unique_name_in_owner = true
+z_index = 1
+z_as_relative = false
+layout_mode = 0
+offset_right = 26.0
+offset_bottom = 14.0
+
+[node name="StatusLabel" type="RichTextLabel" parent="LabelContainer/Placeholder/StatusLabelPanel"]
+unique_name_in_owner = true
+z_index = 1
+texture_filter = 1
+custom_minimum_size = Vector2(26, 15)
+layout_mode = 0
+offset_right = 26.0
+offset_bottom = 15.0
+theme = ExtResource("1_5pall")
 theme_type_variation = &"HealthPanelLabel"
-theme_override_fonts/normal_font = ExtResource("2_07ma7")
-theme_override_font_sizes/normal_font_size = 6
-theme_override_styles/normal = SubResource("StyleBoxFlat_saiin")
+theme_override_styles/normal = SubResource("StyleBoxFlat_d0kh3")
 bbcode_enabled = true
-text = "HP:"
-scroll_active = false
+text = "PSN"
+horizontal_alignment = 1
 
 [node name="HPBar" type="ProgressBar" parent="LabelContainer"]
 unique_name_in_owner = true
@@ -142,18 +159,6 @@ custom_minimum_size = Vector2(23, 15)
 layout_mode = 2
 theme = ExtResource("1_5pall")
 theme_type_variation = &"EmptyPanel"
-
-[node name="StatusLabel" type="RichTextLabel" parent="LabelContainer"]
-unique_name_in_owner = true
-texture_filter = 1
-custom_minimum_size = Vector2(26, 15)
-layout_mode = 2
-theme = ExtResource("1_5pall")
-theme_type_variation = &"HealthPanelLabel"
-theme_override_styles/normal = SubResource("StyleBoxFlat_d0kh3")
-bbcode_enabled = true
-text = "PSN"
-horizontal_alignment = 1
 
 [node name="HPNumber" type="RichTextLabel" parent="LabelContainer"]
 unique_name_in_owner = true
