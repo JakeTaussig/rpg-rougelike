@@ -1,11 +1,11 @@
-class_name AttackingInfoState
+class_name InfoState
 extends BaseState
 
 var messages: Array = []
 var message_index: int = 0
 
 func enter(_messages: Array = []):
-	battle.ui_manager.render_hp(%Player.selected_monster, %Enemy.selected_monster)
+	battle.ui_manager.render_hp(GameManager.player.selected_monster, GameManager.enemy.selected_monster)
 	%Player.render_battler()
 	%Enemy.render_battler()
 	battle.ui_manager.show_info_panel(true)
@@ -18,14 +18,16 @@ func enter(_messages: Array = []):
 		handle_continue()
 
 func exit():
+	battle.ui_manager.clear_backdrop_material()
 	battle.ui_manager.show_info_panel(false)
 
 func handle_continue():
 	message_index += 1
 	if message_index < messages.size():
 		_update_message()
-	else:
+	elif battle.previous_state_name != 'INCREMENT_TURN' and battle.previous_state_name != "BATTLE_OVER":
 		battle.transition_state_to(battle.STATE_INCREMENT_TURN)
+	return
 
 func _update_message():
 	if messages.size() >= 1:

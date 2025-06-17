@@ -43,14 +43,14 @@ func _render_items():
 	while battle.ui_manager.get_item_buttons().size() > 1:
 		battle.ui_manager.get_item_buttons()[1].free()
 
-	for i in %Player.items.size():
+	for i in GameManager.player.items.size():
 		var item_button = battle.ui_manager.get_item_buttons()[0]
 		if i != 0:
 			item_button = item_button.duplicate()
 			item_button.focus_neighbor_top = NodePath("")
 			battle.ui_manager.add_item_button(item_button)
 
-		item_button.text = %Player.items[i].name
+		item_button.text = GameManager.player.items[i].name
 		item_button.focus_entered.connect(func(): _display_qty_info(i))
 		item_button.mouse_entered.connect(item_button.grab_focus)
 		item_button.pressed.connect(func(): _on_item_pressed(i))
@@ -61,9 +61,9 @@ func _render_items():
 func _display_qty_info(item_index: int) -> void:
 	last_focused_item_index = item_index
 
-	battle.ui_manager.set_item_qty_info("%d / 99" % %Player.items[item_index].qty)
-	battle.ui_manager.set_item_type_info(%Player.items[item_index].description)
+	battle.ui_manager.set_item_qty_info("%d / 99" % GameManager.player.items[item_index].qty)
+	battle.ui_manager.set_item_type_info(GameManager.player.items[item_index].description)
 
 func _on_item_pressed(item_index: int) -> void:
-	var item = %Player.items[item_index]
-	item.consume(%Player.selected_monster, battle)
+	var item = GameManager.player.items[item_index]
+	item.consume(GameManager.player.selected_monster, battle)

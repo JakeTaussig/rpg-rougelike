@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl1ssyiwb3i75"]
+
+[ext_resource type="Material" uid="uid://4i788ud3lh8q" path="res://assets/shaders/pattern/razor_leaf.tres" id="1_s0sph"]
+[ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="1_xlgkm"]
+
+[node name="PatternTest" type="Node2D"]
+
+[node name="Panel" type="Panel" parent="."]
+material = ExtResource("1_s0sph")
+custom_minimum_size = Vector2(255, 143)
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_xlgkm")
