@@ -56,8 +56,14 @@ vec2 apply_transformation(vec2 uv, int type) {
     switch (type) {
         case TRANS_MIRROR_X:  return vec2(2.0 * abs(uv.x - 0.5), uv.y);
         case TRANS_MIRROR_Y:  return vec2(uv.x, 2.0 * abs(uv.y - 0.5));
-        case TRANS_DOUBLE_X:  return vec2(fract(uv.x * 2.0), uv.y);
-        case TRANS_DOUBLE_Y:  return vec2(uv.x, fract(uv.y * 2.0));
+        case TRANS_DOUBLE_X:
+        	float new_x = uv.x * 2.0;
+			if (new_x > 1.0) { new_x -= 1.0;}
+        	return vec2(new_x, uv.y);
+        case TRANS_DOUBLE_Y:
+        	float new_y = uv.y * 2.0;
+        	if (new_y > 1.0) { new_y -= 1.0;}
+        	return vec2(uv.x, new_y);
         case TRANS_TILE:      return fract(uv);
         default:              return uv;
     }
@@ -114,8 +120,8 @@ void fragment() {
         if (i >= transformation_count) break;
         
         int transform = transformations[i];
-        if (transform == TRANS_DOUBLE_X || transform == TRANS_MIRROR_X) scale_factors.x /= 2.0;
-        if (transform == TRANS_DOUBLE_Y || transform == TRANS_MIRROR_Y) scale_factors.y /= 2.0;
+        if (transform == TRANS_MIRROR_X || transform == TRANS_DOUBLE_X) scale_factors.x /= 2.0;
+        if (transform == TRANS_MIRROR_Y || transform == TRANS_DOUBLE_Y) scale_factors.y /= 2.0;
     }
 
     // Prepare UVs for both layers
