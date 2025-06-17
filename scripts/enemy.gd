@@ -8,7 +8,7 @@ var ai_types = AI_TYPE.values()
 func setup_enemy(_monsters: Array[Monster], _ai_type_index: int):
 	monsters = _monsters
 	ai_type = ai_types[_ai_type_index]
-	position = Vector2(192, 36)
+	position = Vector2(192, 44)
 
 func _ready():
 	is_player = false

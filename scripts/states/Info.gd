@@ -6,8 +6,7 @@ var message_index: int = 0
 
 func enter(_messages: Array = []):
 	battle.ui_manager.render_hp(GameManager.player.selected_monster, GameManager.enemy.selected_monster)
-	%Player.render_battler()
-	%Enemy.render_battler()
+	battle.ui_manager.render_battlers()
 	battle.ui_manager.show_info_panel(true)
 	battle.ui_manager.focus_continue_button()
 	messages = _messages
