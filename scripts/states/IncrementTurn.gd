@@ -39,23 +39,18 @@ func enter(_messages: Array = []):
 		battle.transition_state_to(battle.STATE_ENEMY_ATTACK)
 
 func _check_for_dead_monsters() -> String:
+	var player = GameManager.player
+	var enemy = GameManager.enemy
 	var message = ""
-
-	for battler in battle.battle_participants:
-		if battler.selected_monster.hp <= 0:
-			dead_monster = true
-			# Find the other participant (the one who did the defeating)
-			var victor = null
-			for participant in battle.battle_participants:
-				if participant != battler:
-					victor = participant
-					break
-
-			if victor:
-				message = "%s defeated %s!" % [victor.selected_monster.character_name, battler.selected_monster.character_name]
-			else:
-				# Fallback in case something went wrong finding participants
-				message = "%s was defeated!" % battler.selected_monster.character_name
+	if enemy.selected_monster.hp <= 0 and player.selected_monster.hp <= 0:
+		dead_monster = true
+		message = "%s and %s wiped each other out!" % [enemy.selected_monster.character_name, player.selected_monster.character_name]
+	elif enemy.selected_monster.hp <= 0:
+		dead_monster = true
+		message = "%s defeated %s!" % [player.selected_monster.character_name, enemy.selected_monster.character_name]
+	elif player.selected_monster.hp <= 0:
+		dead_monster = true
+		message = "%s defeated %s!" % [enemy.selected_monster.character_name, player.selected_monster.character_name]
 
 	return message
 
