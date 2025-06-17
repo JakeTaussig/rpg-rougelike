@@ -1,27 +1,21 @@
-[gd_scene load_steps=19 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=17 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_p1qf1"]
 [ext_resource type="Script" uid="uid://mb41k8rtgn0q" path="res://scripts/back_button.gd" id="4_saiin"]
-[ext_resource type="Script" uid="uid://yal21vgfjdjg" path="res://scripts/health_panel.gd" id="5_61i1y"]
+[ext_resource type="PackedScene" uid="uid://bs4b2pu5fsx6o" path="res://scenes/health_panel.tscn" id="5_ekamt"]
 [ext_resource type="Script" uid="uid://brto6aw55bukl" path="res://scripts/states/Info.gd" id="7_v7i3o"]
 [ext_resource type="Script" uid="uid://buy2ylv1t0vt0" path="res://scripts/states/EnemyAttack.gd" id="8_66ngm"]
 [ext_resource type="Script" uid="uid://bl3wtt7v3rtpm" path="res://scripts/states/SelectingAction.gd" id="9_03edq"]
 [ext_resource type="Script" uid="uid://dxrkm475i6ls6" path="res://scripts/states/SelectingAttack.gd" id="10_22uqi"]
 [ext_resource type="Script" uid="uid://cmikjgcwtvkyk" path="res://scripts/states/IncrementTurn.gd" id="12_03edq"]
 [ext_resource type="Script" uid="uid://bm0o2eovnfws7" path="res://scripts/states/Attack.gd" id="13_6ni85"]
-[ext_resource type="Script" uid="uid://sdwupuxudrjb" path="res://scripts/states/BattleOver.gd" id="13_22uqi"]
+[ext_resource type="Script" path="res://scripts/states/BattleOver.gd" id="13_22uqi"]
 [ext_resource type="Script" uid="uid://d0rdycr2tr5ll" path="res://scripts/states/EnactStatuses.gd" id="14_6ni85"]
 [ext_resource type="Script" uid="uid://m7sdis15lg1t" path="res://scripts/states/SelectingAttackPPRestore.gd" id="17_dd63g"]
 [ext_resource type="Script" uid="uid://flenaawlfq4g" path="res://scripts/states/SelectingItem.gd" id="20_61i1y"]
 [ext_resource type="PackedScene" uid="uid://capm3p3n50hky" path="res://scenes/ui_manager.tscn" id="23_fpf3k"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekamt"]
-bg_color = Color(0.227451, 0.266667, 0.4, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_djc8l"]
-bg_color = Color(0.243137, 0.537255, 0.282353, 1)
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_a12nh")
@@ -317,63 +311,20 @@ autowrap_mode = 2
 [node name="HealthPanels" type="Node2D" parent="."]
 position = Vector2(-1, 0)
 
-[node name="PlayerHealth" type="Node2D" parent="HealthPanels"]
-
-[node name="PlayerHealthLabel" type="RichTextLabel" parent="HealthPanels/PlayerHealth"]
+[node name="PlayerHealthPanel" parent="HealthPanels" instance=ExtResource("5_ekamt")]
 unique_name_in_owner = true
-texture_filter = 1
-custom_minimum_size = Vector2(96, 24)
 offset_left = 145.0
-offset_top = 71.0
-offset_right = 242.0
-offset_bottom = 96.0
-size_flags_horizontal = 3
-theme = ExtResource("2_p1qf1")
-bbcode_enabled = true
-text = "Player"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-script = ExtResource("5_61i1y")
+offset_top = 55.0
+offset_right = 145.0
+offset_bottom = 55.0
 
-[node name="PlayerHPBar" type="ProgressBar" parent="HealthPanels/PlayerHealth"]
+[node name="EnemyHealthPanel" parent="HealthPanels" instance=ExtResource("5_ekamt")]
 unique_name_in_owner = true
-z_index = 2
-offset_left = 148.0
-offset_top = 85.0
-offset_right = 208.0
-offset_bottom = 93.0
-theme_override_styles/background = SubResource("StyleBoxFlat_ekamt")
-theme_override_styles/fill = SubResource("StyleBoxFlat_djc8l")
-show_percentage = false
-
-[node name="EnemyHealth" type="Node2D" parent="HealthPanels"]
-
-[node name="EnemyHPBar" type="ProgressBar" parent="HealthPanels/EnemyHealth"]
-unique_name_in_owner = true
-z_index = 2
-offset_left = 20.0
-offset_top = 30.0
-offset_right = 80.0
-offset_bottom = 38.0
-theme_override_styles/background = SubResource("StyleBoxFlat_ekamt")
-theme_override_styles/fill = SubResource("StyleBoxFlat_djc8l")
-show_percentage = false
-
-[node name="EnemyHealthLabel" type="RichTextLabel" parent="HealthPanels/EnemyHealth"]
-unique_name_in_owner = true
-texture_filter = 1
 offset_left = 17.0
 offset_top = 16.0
-offset_right = 114.0
-offset_bottom = 41.0
-size_flags_horizontal = 3
-theme = ExtResource("2_p1qf1")
-bbcode_enabled = true
-text = "Enemy"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
+offset_right = 17.0
+offset_bottom = 16.0
+show_hp_numbers = false
 
 [node name="StateDisplay" type="Label" parent="."]
 unique_name_in_owner = true

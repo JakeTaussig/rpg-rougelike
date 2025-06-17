@@ -68,3 +68,22 @@ static func status_effect_to_color(status_effect: StatusEffect) -> Color:
 			return Color(0.545, 0.608, 0.706, 1.0)
 
 	return Color(1.0, 1.0, 1.0, 0.0)
+
+static func type_abbreviation(effect) -> String:
+	match effect:
+		MovesList.StatusEffect.CRIPPLE:
+			return "CRP"
+		MovesList.StatusEffect.BURN:
+			return "BRN"
+		MovesList.StatusEffect.WHIRLPOOL:
+			return "WRL"
+		MovesList.StatusEffect.POISON:
+			return "PSN"
+		MovesList.StatusEffect.PARALYZE:
+			return "PAR"
+		MovesList.StatusEffect.CONSUME:
+			return "CSM"
+		MovesList.StatusEffect.BLIND:
+			return "BLD"
+	printerr("Failed to match type abbreviation")
+	return ""
