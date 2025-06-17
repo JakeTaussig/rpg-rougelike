@@ -23,11 +23,10 @@ func enter(_messages: Array = []):
 	battle.turn_order_index = (battle.turn_order_index + 1) % battle.active_monsters.size()
 	if battle.turn_order_index == 0 || dead_monster:
 		if dead_monster:
-			dead_monster = false
 			battle.turn_order_index = 0
 		statuses_enacted = false
 		battle.turn += 1
-		battle.enemy.swap_dead_monster()
+		_swap_dead_monsters()
 		battle.update_active_monsters()
 
 	_log_turn_info()
@@ -53,6 +52,16 @@ func _check_for_dead_monsters() -> String:
 		message = "%s defeated %s!" % [enemy.selected_monster.character_name, player.selected_monster.character_name]
 
 	return message
+
+func _swap_dead_monsters():
+	var player = GameManager.player
+	var enemy = GameManager.enemy
+	if enemy.selected_monster.hp <= 0:
+		enemy.swap_dead_monster()
+	if player.selected_monster.hp <= 0:
+		player.swap_dead_monster()
+
+	dead_monster = false
 
 func _log_turn_info():
 	if (battle.turn_order_index == 0):
