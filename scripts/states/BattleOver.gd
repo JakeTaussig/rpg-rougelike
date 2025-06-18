@@ -9,20 +9,29 @@ func enter(_messages: Array = []):
 	var enemy = GameManager.enemy
 	_messages = []
 	if enemy.selected_monster.hp <= 0 and player.selected_monster.hp <= 0:
-		_messages.append("%s and %s wiped each other out!" % [enemy.selected_monster.character_name, player.selected_monster.character_name])
 		_player_victorious = false
+		_messages.append("You lost the Battle. Proceeding...")
 	elif enemy.selected_monster.hp <= 0:
-		_messages.append("%s defeated %s!" % [player.selected_monster.character_name, enemy.selected_monster.character_name])
 		_messages.append("You won the Battle! Proceeding...")
 		_player_victorious = true
 	elif player.selected_monster.hp <= 0:
-		_messages.append("%s defeated %s!" % [enemy.selected_monster.character_name, player.selected_monster.character_name])
+		_messages.append("You lost the Battle. Proceeding...")
 		_player_victorious = false
+
+	if _player_victorious:
+		if player.selected_monster.status_effect != MovesList.StatusEffect.NONE:
+			var message = player.selected_monster.recover_from_status_effect()
+			_messages.push_front(message)
 
 	super.enter(_messages)
 
 
 func handle_continue():
+	message_index += 1
+	if message_index < messages.size():
+		_update_message()
+		return
+
 	# Guard against duplicate transition
 	if _has_finished:
 		return

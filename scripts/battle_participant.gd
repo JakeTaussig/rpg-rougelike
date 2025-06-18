@@ -59,4 +59,15 @@ func _init_items() -> void:
 
 
 func is_defeated() -> bool:
-	return selected_monster.hp <= 0 && monsters.size() == 1
+	for monster in monsters:
+		if monster.hp > 0:
+			return false
+	return true
+
+
+func swap_dead_monster():
+	if selected_monster.hp <= 0:
+		monsters.remove_at(0)
+		if monsters.size() == 0:
+			return
+		selected_monster = monsters[0]

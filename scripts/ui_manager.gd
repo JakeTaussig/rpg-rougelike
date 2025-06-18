@@ -5,8 +5,6 @@ extends Node
 var backdrop: Sprite2D
 var player_health_panel: HealthPanel
 var enemy_health_panel: HealthPanel
-var player_hp_bar: ProgressBar
-var enemy_hp_bar: ProgressBar
 var state_display: Label
 var battle_status: Label
 var continue_button: Button
@@ -28,8 +26,6 @@ func _init_references():
 	backdrop = %Backdrop
 	enemy_health_panel = %EnemyHealthPanel
 	player_health_panel = %PlayerHealthPanel
-	player_hp_bar = %PlayerHPBar
-	enemy_hp_bar = %EnemyHPBar
 	state_display = %StateDisplay
 	battle_status = %BattleStatus
 	continue_button = %ContinueButton
@@ -61,6 +57,7 @@ func render_hp(player_monster, enemy_monster):
 func render_battlers():
 	GameManager.player.render_battler()
 	GameManager.enemy.render_battler()
+
 
 func show_info_panel(visible: bool):
 	battle_status.visible = visible

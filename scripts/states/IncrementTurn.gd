@@ -1,13 +1,21 @@
 extends BaseState
 
 var statuses_enacted = false
+var dead_monster = false
 
 
 func enter(_messages: Array = []):
+	if not dead_monster:
+		var message = _check_for_dead_monsters()
+		if message != "":
+			dead_monster = true
+			battle.transition_state_to(battle.STATE_INFO, [message])
+			return
 	# Checks if the current selected_monster is dead and if the battle is over
-	var is_battle_over = await _check_battle_status()
-	if is_battle_over:
+	if battle.is_battle_over():
+		battle.transition_state_to(battle.STATE_BATTLE_OVER)
 		return
+
 	# enact statuses before updating the turn order
 	if battle.turn_order_index == battle.active_monsters.size() - 1 and not statuses_enacted:
 		statuses_enacted = true
@@ -15,43 +23,45 @@ func enter(_messages: Array = []):
 		return
 
 	battle.turn_order_index = (battle.turn_order_index + 1) % battle.active_monsters.size()
-	if battle.turn_order_index == 0:
+	if battle.turn_order_index == 0 || dead_monster:
 		statuses_enacted = false
 		battle.turn += 1
+		if dead_monster:
+			battle.turn_order_index = 0
+			_swap_dead_monsters()
+			dead_monster = false
+		battle.update_active_monsters()
 
 	_log_turn_info()
 	battle.ui_manager.set_turn_display("trn: %s idx: %s" % [battle.turn, battle.turn_order_index])
 
-	# TODO: This is why the await %ContinueButton.pressed is needed. because it doesn't return and gets sent to the state here.
 	if battle.active_monsters[battle.turn_order_index].is_player:
 		battle.transition_state_to(battle.STATE_SELECTING_ACTION)
 	else:
 		battle.transition_state_to(battle.STATE_ENEMY_ATTACK)
 
 
-func _check_battle_status() -> bool:
-	for battler in battle.battle_participants:
-		if battler.is_defeated():
-			await battle.transition_state_to(battle.STATE_BATTLE_OVER)
-			return true
-		# Unless the player ever has more than one monster, this will always be the enemy
-		elif battler.selected_monster.hp <= 0:
-			print(battler.selected_monster.hp)
-			var index := battle.active_monsters.find(battler.selected_monster)
-			var messages = ["%s defeated %s!" % [GameManager.player.selected_monster.character_name, battler.selected_monster.character_name]]
-			battler.monsters.remove_at(0)
-			await battle.transition_state_to(battle.STATE_INFO, messages)
-			# I'm open to a fix for this, but otherwise the preceeding message doesn't show
-			await %ContinueButton.pressed
-			battler.selected_monster = battler.monsters[0]
-			# TODO: potentially refactor so we only need the one is_player on battle_participant instead of both the monster and participant.
-			battler.selected_monster.is_player = false
-			battle.active_monsters[index] = battler.selected_monster
-			%UiManager.render_hp(battle.battle_participants[0].selected_monster, battle.battle_participants[1].selected_monster)
-			# Will flip over to 0
-			battle.turn_order_index = 1
-			battle.active_monsters.sort_custom(battle._sort_participants_by_speed)
-	return false
+func _check_for_dead_monsters() -> String:
+	var player = GameManager.player
+	var enemy = GameManager.enemy
+	var message = ""
+	if enemy.selected_monster.hp <= 0 and player.selected_monster.hp <= 0:
+		message = "%s and %s wiped each other out!" % [enemy.selected_monster.character_name, player.selected_monster.character_name]
+	elif enemy.selected_monster.hp <= 0:
+		message = "%s defeated %s!" % [player.selected_monster.character_name, enemy.selected_monster.character_name]
+	elif player.selected_monster.hp <= 0:
+		message = "%s defeated %s!" % [enemy.selected_monster.character_name, player.selected_monster.character_name]
+
+	return message
+
+
+func _swap_dead_monsters():
+	var player = GameManager.player
+	var enemy = GameManager.enemy
+	if enemy.selected_monster.hp <= 0:
+		enemy.swap_dead_monster()
+	if player.selected_monster.hp <= 0:
+		player.swap_dead_monster()
 
 
 func _log_turn_info():
