@@ -1,7 +1,9 @@
 extends Button
 
+
 func _ready():
 	mouse_entered.connect(grab_focus)
+
 
 func _pressed():
 	var cancel_event = InputEventAction.new()

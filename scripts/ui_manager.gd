@@ -18,8 +18,10 @@ var player_prompt: Label
 
 var initialized = false
 
+
 func _ready():
 	call_deferred("_init_references")
+
 
 func _init_references():
 	# Initialize references
@@ -39,11 +41,14 @@ func _init_references():
 
 	initialized = true
 
+
 func set_backdrop_material(material: ShaderMaterial):
 	backdrop.material = material
 
+
 func clear_backdrop_material():
 	backdrop.material = null
+
 
 func render_hp(player_monster, enemy_monster):
 	if !initialized:
@@ -61,57 +66,74 @@ func show_info_panel(visible: bool):
 	battle_status.visible = visible
 	continue_button.visible = visible
 
+
 func set_info_text(text: String):
 	battle_status.text = text
+
 
 func focus_continue_button():
 	continue_button.grab_focus()
 
+
 func focus_action_button():
 	%ActionButtons.get_child(0).grab_focus()
+
 
 func set_state_display(text: String):
 	if state_display:
 		state_display.text = text
 
+
 func set_turn_display(text: String):
 	turn_display.text = text
+
 
 func show_action_menu(visible: bool):
 	action_menu.visible = visible
 
+
 func set_player_prompt(text: String):
 	player_prompt.text = text
+
 
 func show_player_prompt(visible: bool):
 	player_prompt.visible = visible
 
+
 func show_moves_menu(visible: bool):
 	moves_menu.visible = visible
+
 
 func show_items_menu(visible: bool):
 	items_menu.visible = visible
 
+
 func focus_items_back_button():
 	%Items.get_node("BackButton").grab_focus()
+
 
 func get_move_buttons() -> Array[Node]:
 	return moves_menu.get_node("MovesMenu").get_children()
 
+
 func get_item_buttons() -> Array[Node]:
 	return %ItemsMenu.get_children()
+
 
 func add_item_button(button: Button):
 	%ItemsMenu.add_child(button)
 
+
 func get_action_buttons() -> Array[Node]:
 	return %ActionButtons.get_children()
+
 
 func set_button_style_enabled(button: Button, enabled: bool):
 	if enabled:
 		button.set_theme_type_variation("DisabledButton")
 	else:
 		button.set_theme_type_variation("Button")
+
 
 func set_pp_info(text: String, disabled: bool):
 	moves_menu.get_node("MoveInfo/PPInfo").text = text
@@ -120,6 +142,7 @@ func set_pp_info(text: String, disabled: bool):
 	else:
 		moves_menu.get_node("MoveInfo/PPInfo").set_theme_type_variation("NoBorderLabel")
 
+
 func set_type_info(text: String, disabled: bool):
 	moves_menu.get_node("MoveInfo/TypeInfo").text = text
 	if disabled:
@@ -127,8 +150,10 @@ func set_type_info(text: String, disabled: bool):
 	else:
 		moves_menu.get_node("MoveInfo/TypeInfo").set_theme_type_variation("NoBorderLabel")
 
+
 func set_item_qty_info(text: String):
 	items_menu.get_node("ItemInfo/ItemQtyInfo").text = text
+
 
 func set_item_type_info(text: String):
 	items_menu.get_node("ItemInfo/ItemTypeInfo").text = text
