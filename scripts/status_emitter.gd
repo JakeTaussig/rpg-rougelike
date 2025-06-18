@@ -5,8 +5,10 @@ extends CPUParticles2D
 		status_effect = _status
 		_render_status()
 
+
 func _init():
 	set_material(material.duplicate())
+
 
 func _render_status():
 	var shader_material: ShaderMaterial = material

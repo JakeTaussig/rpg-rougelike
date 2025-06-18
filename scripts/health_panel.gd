@@ -4,6 +4,7 @@ extends RichTextLabel
 # pixels away from the edge of the window
 const BUFFER: int = 6
 
+
 func adjust_position():
 	var viewport_width: int = ProjectSettings.get_setting("display/window/size/viewport_width")
 	var viewport_scale: int = ProjectSettings.get_setting("display/window/stretch/scale")

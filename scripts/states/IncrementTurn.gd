@@ -2,6 +2,7 @@ extends BaseState
 
 var statuses_enacted = false
 
+
 func enter(_messages: Array = []):
 	# Checks if the current selected_monster is dead and if the battle is over
 	var is_battle_over = await _check_battle_status()
@@ -27,6 +28,7 @@ func enter(_messages: Array = []):
 	else:
 		battle.transition_state_to(battle.STATE_ENEMY_ATTACK)
 
+
 func _check_battle_status() -> bool:
 	for battler in battle.battle_participants:
 		if battler.is_defeated():
@@ -42,7 +44,7 @@ func _check_battle_status() -> bool:
 			# I'm open to a fix for this, but otherwise the preceeding message doesn't show
 			await %ContinueButton.pressed
 			battler.selected_monster = battler.monsters[0]
-			# TODO: potentially refactor so we only need the one is_player on battle_participant instead of both the monster and participant. 
+			# TODO: potentially refactor so we only need the one is_player on battle_participant instead of both the monster and participant.
 			battler.selected_monster.is_player = false
 			battle.active_monsters[index] = battler.selected_monster
 			%UiManager.render_hp(battle.battle_participants[0].selected_monster, battle.battle_participants[1].selected_monster)
@@ -51,8 +53,9 @@ func _check_battle_status() -> bool:
 			battle.active_monsters.sort_custom(battle._sort_participants_by_speed)
 	return false
 
+
 func _log_turn_info():
-	if (battle.turn_order_index == 0):
+	if battle.turn_order_index == 0:
 		print("\t---------------------------")
 		print("\tTurn: %d" % battle.turn)
 		print("\t---------------------------")

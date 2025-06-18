@@ -7,10 +7,10 @@ extends Resource
 @export var max_hp: int = 100:
 	set(new_max_hp):
 		max_hp = max(1, new_max_hp)
-		hp = min(hp, max_hp) # Clamp down hp if max_hp is decreased. 
+		hp = min(hp, max_hp)  # Clamp down hp if max_hp is decreased.
 @export var hp: int = 100:
 	set(new_hp):
-		hp = clamp(new_hp, 0, max_hp) # hp can never exceed max_hp
+		hp = clamp(new_hp, 0, max_hp)  # hp can never exceed max_hp
 		if new_hp <= 0:
 			is_alive = false
 @export var atk: int = 20:
@@ -38,7 +38,7 @@ extends Resource
 		var crit_chance_mult = float(luck) / 10
 		crit_chance = max(crit_chance, crit_chance_mult * 0.02)
 
-var crit_factor: float = 2.0;
+var crit_factor: float = 2.0
 
 @export var type: MovesList.Type
 @export var moves: Array[Move] = []
@@ -49,12 +49,14 @@ var status_effect_turn_counter: int = 0
 var consume_benefactor: Monster = null
 var is_player = true
 
+
 func increment_health(value: int) -> void:
 	hp += value
 
+
 func use_move(index: int, target: Monster) -> AttackResults:
 	# This is done here rather than in EnactStatuses.gd so that speed doesn't have an impact on how long status effects will last.
-	# This will need to be adjusted should the possiblity of using 2 moves on a single turn come into play. 
+	# This will need to be adjusted should the possiblity of using 2 moves on a single turn come into play.
 	if status_effect != MovesList.StatusEffect.NONE:
 		status_effect_turn_counter += 1
 	var move = moves[index]
@@ -82,9 +84,8 @@ func use_move(index: int, target: Monster) -> AttackResults:
 			return AttackResults.new(move, damage, move_hit, status_applied, false)
 
 	move_hit = _does_move_hit_or_crit(move.acc)
-	
-	if move_hit:
 
+	if move_hit:
 		if move.category == Move.MoveCategory.ATK:
 			var results = _attack(move, target, 1)
 			damage = max(1, results["damage"])
@@ -96,7 +97,8 @@ func use_move(index: int, target: Monster) -> AttackResults:
 		if move.status_effect != MovesList.StatusEffect.NONE:
 			status_applied = _roll_and_apply_status_effect(move, target)
 	return AttackResults.new(move, damage, move_hit, status_applied, is_critical)
-	
+
+
 func _does_move_hit_or_crit(accuracy: int) -> bool:
 	if status_effect == MovesList.StatusEffect.BLIND:
 		accuracy = int(float(accuracy) * 0.5)
@@ -104,7 +106,8 @@ func _does_move_hit_or_crit(accuracy: int) -> bool:
 	# Generates a number between 1 and 100
 	var roll = randi() % 100 + 1
 	return roll <= accuracy
-	
+
+
 func _attack(move: Move, target: Monster, is_physical: bool) -> AttackResults:
 	var power = move.base_power
 	var damage = 0
@@ -127,6 +130,7 @@ func _attack(move: Move, target: Monster, is_physical: bool) -> AttackResults:
 
 	return AttackResults.new(move, int_damage, true, false, is_critical)
 
+
 func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
 	var effect = move.status_effect
 	var target_type = target.type
@@ -142,7 +146,8 @@ func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
 				target.consume_benefactor = self
 			return true
 	return false
-	
+
+
 func _check_status_immunity(effect: MovesList.StatusEffect, target_type: MovesList.Type):
 	match effect:
 		MovesList.StatusEffect.BURN:
@@ -164,18 +169,21 @@ func _check_status_immunity(effect: MovesList.StatusEffect, target_type: MovesLi
 			if target_type == MovesList.Type.LIGHT:
 				return true
 	return false
-		
-func get_move_effectiveness(move: Move,  defender: Monster) -> float:
+
+
+func get_move_effectiveness(move: Move, defender: Monster) -> float:
 	var same_type_attack_bonus: float = 1.5 if self.type == move.type else 1.0
 	var base_modifier = get_effectiveness_modifier(move, defender)
 	return base_modifier * same_type_attack_bonus
-	
+
+
 func get_effectiveness_modifier(move: Move, defender: Monster) -> float:
 	var atk_idx = MovesList.TYPES[move.type]
 	var def_idx = MovesList.TYPES[defender.type]
 	var base_modifier = MovesList.TYPE_CHART[atk_idx][def_idx]
 	return base_modifier
-	
+
+
 func enact_status_effect() -> String:
 	match status_effect:
 		MovesList.StatusEffect.CRIPPLE:
@@ -187,7 +195,8 @@ func enact_status_effect() -> String:
 		MovesList.StatusEffect.CONSUME:
 			return enact_consume_on_self()
 	return ""
-	
+
+
 func recover_from_status_effect() -> String:
 	match status_effect:
 		MovesList.StatusEffect.CRIPPLE:
@@ -206,6 +215,7 @@ func recover_from_status_effect() -> String:
 			return _recover_from_blind()
 	return ""
 
+
 # Only called on first turn of cripple
 func enact_cripple_on_self():
 	if status_effect_turn_counter == 0:
@@ -218,6 +228,7 @@ func enact_cripple_on_self():
 		return "All of %s's stats were lowered by 20" % character_name + "%!"
 	return ""
 
+
 func _recover_from_cripple():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
@@ -229,6 +240,7 @@ func _recover_from_cripple():
 	luck = int(float(luck) * 1.25)
 	return "%s recovered from cripple and their stats were restored!" % character_name
 
+
 func enact_burn_on_self():
 	if status_effect_turn_counter == 0:
 		atk = int(float(atk) * 0.5)
@@ -237,38 +249,44 @@ func enact_burn_on_self():
 		var hp_to_lose = int(max_hp * 0.04)
 		hp -= hp_to_lose
 		return "%s took %s damage from burn!" % [character_name, str(hp_to_lose)]
-	
+
+
 func _recover_from_burn():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
 	atk = int(float(atk) * 1.5)
 
 	return "%s recovered from burn!" % character_name
-	
+
+
 func _recover_from_whirlpool():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
 	return "%s recovered from whirlpool!" % character_name
 
+
 func enact_poison_on_self():
 	var hp_to_lose = int(max_hp * 0.08)
 	hp -= hp_to_lose
 	return "%s is poisoned and took %s damage!" % [character_name, hp_to_lose]
-	
+
+
 func _recover_from_poison():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
 	return "%s recovered from poison" % character_name
-	
+
+
 func _recover_from_paralyze():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
 	return "%s recovered from paralyze" % character_name
-	
+
+
 func enact_consume_on_self():
 	if consume_benefactor.is_alive:
 		var hp_to_siphen = int(max_hp * 0.04)
-		# Can only consume as much HP is missing. 
+		# Can only consume as much HP is missing.
 		var max_hp_to_siphen = consume_benefactor.max_hp - consume_benefactor.hp
 		if max_hp_to_siphen == 0:
 			return "%s cannot consume because they are at full HP!" % consume_benefactor.character_name
@@ -277,21 +295,24 @@ func enact_consume_on_self():
 		hp -= hp_to_siphen
 		consume_benefactor.hp += hp_to_siphen
 		return "%s consumed %s HP from %s!" % [consume_benefactor.character_name, str(hp_to_siphen), character_name]
-	else: 
+	else:
 		var message = "%s died and %s was freed from their consume!" % [consume_benefactor.character_name, character_name]
 		_recover_from_consume()
 		return message
-	
+
+
 func _recover_from_consume():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
 	consume_benefactor = null
 	return "%s recovered from consume!" % character_name
-	
+
+
 func _recover_from_blind():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
 	return "%s recovered from blind!" % character_name
+
 
 # Inner class. Used for bundling move results
 class AttackResults:
