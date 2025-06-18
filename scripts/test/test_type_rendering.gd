@@ -5,13 +5,13 @@ func _init():
 	for type in MovesList.Type.values():
 		var key = MovesList.Type.find_key(type)
 
-		var text = "%s" % UIManager.set_bbcode_color(key, MovesList.type_to_color(type).to_html())
+		var text = "%s" % HealthPanel.set_bbcode_color(key, MovesList.type_to_color(type).to_html())
 		_create_label(text, (type + 1) * 15, 0)
 
 	for StatusEffect in MovesList.StatusEffect.values():
 		var key = MovesList.StatusEffect.find_key(StatusEffect)
 
-		var text = "%s" % UIManager.set_bbcode_color(key, MovesList.status_effect_to_color(StatusEffect).to_html())
+		var text = "%s" % HealthPanel.set_bbcode_color(key, MovesList.status_effect_to_color(StatusEffect).to_html())
 		_create_label(text, StatusEffect * 15, 96)
 
 

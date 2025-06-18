@@ -1,14 +1,32 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://bb5xdt6d0xc8h"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://bb5xdt6d0xc8h"]
 
 [ext_resource type="StyleBox" uid="uid://dv2ftdeiv2dr3" path="res://assets/styles/focus_sbf.tres" id="2_7mpy8"]
-[ext_resource type="StyleBox" path="res://assets/styles/normal_sbf_rich_text_label.tres" id="2_upbfd"]
+[ext_resource type="StyleBox" uid="uid://dlv23d40rqvlb" path="res://assets/styles/normal_sbf_rich_text_label.tres" id="2_upbfd"]
 [ext_resource type="StyleBox" uid="uid://be4rabyrnnoh4" path="res://assets/styles/focus_button_sbf.tres" id="3_f4hnv"]
 [ext_resource type="StyleBox" uid="uid://b8rk3x7peadlc" path="res://assets/styles/normal_button_sbf.tres" id="3_hypv3"]
 [ext_resource type="StyleBox" uid="uid://85oflos3sgq2" path="res://assets/styles/scrollbar_unfocused_sbf.tres" id="4_3dcfp"]
 [ext_resource type="StyleBox" uid="uid://jb04x3reseor" path="res://assets/styles/scrollbar_focus_sbf.tres" id="5_keqi6"]
 [ext_resource type="StyleBox" uid="uid://c854nh0fccd54" path="res://assets/styles/border_color_sbf.tres" id="6_f4hnv"]
 [ext_resource type="StyleBox" uid="uid://dq5bgcynd5yxl" path="res://assets/styles/scrollbar_background_sbf.tres" id="6_keqi6"]
+[ext_resource type="StyleBox" uid="uid://biow57dl4dwgl" path="res://assets/styles/hp_bar_background_sbf.tres" id="7_ewgrn"]
 [ext_resource type="FontFile" uid="uid://hk526fxfu4wa" path="res://assets/fonts/LoRes 9 OT Wide Regular.ttf" id="7_upbfd"]
+[ext_resource type="StyleBox" uid="uid://bg1kpjok5bcns" path="res://assets/styles/hp_foreground_green_sbf.tres" id="8_vv0yi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fjh1m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewgrn"]
+content_margin_left = 2.0
+content_margin_top = 3.0
+content_margin_right = 1.0
+content_margin_bottom = 2.0
+bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0705882, 0.305882, 0.537255, 1)
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjh1m"]
 content_margin_left = 3.0
@@ -51,12 +69,17 @@ DisabledButton/colors/font_color = Color(0.352941, 0.411765, 0.533333, 1)
 DisabledButton/colors/font_focus_color = Color(0.635294, 0.14902, 0.2, 1)
 DisabledButton/colors/font_hover_color = Color(0.635294, 0.14902, 0.2, 1)
 DisabledButton/colors/font_pressed_color = Color(0.635294, 0.14902, 0.2, 1)
+EmptyPanel/base_type = &"Panel"
+EmptyPanel/styles/panel = SubResource("StyleBoxEmpty_fjh1m")
 FullBorderPanel/base_type = &"Panel"
 FullBorderPanel/styles/panel = ExtResource("6_f4hnv")
 GrayTextLabel/base_type = &"NoBorderLabel"
 GrayTextLabel/colors/font_color = Color(0.352941, 0.411765, 0.533333, 1)
 GridContainer/constants/h_separation = 1
 GridContainer/constants/v_separation = 1
+HealthPanelLabel/base_type = &"RichTextLabel"
+HealthPanelLabel/fonts/normal_font = ExtResource("7_upbfd")
+HealthPanelLabel/styles/normal = SubResource("StyleBoxFlat_ewgrn")
 Label/font_sizes/font_size = 9
 Label/fonts/font = ExtResource("7_upbfd")
 Label/styles/normal = ExtResource("2_upbfd")
@@ -66,6 +89,8 @@ NoBorderLabel/base_type = &"Label"
 NoBorderLabel/constants/line_spacing = 6
 NoBorderLabel/styles/normal = SubResource("StyleBoxFlat_fjh1m")
 Panel/styles/panel = ExtResource("2_upbfd")
+ProgressBar/styles/background = ExtResource("7_ewgrn")
+ProgressBar/styles/fill = ExtResource("8_vv0yi")
 RedTextLabel/base_type = &"NoBorderLabel"
 RedTextLabel/colors/font_color = Color(0.635294, 0.14902, 0.2, 1)
 RichTextLabel/font_sizes/normal_font_size = 9
