@@ -11,7 +11,7 @@ func enter(_messages: Array = []):
 	# (i.e. the player didn't choose a move and went back)
 	# give them their item back
 	if _messages.size() != 0 && _messages[0] == "replenish":
-		%Player.items[last_focused_item_index].qty += 1
+		battle.player.items[last_focused_item_index].qty += 1
 
 func _refocus():
 	var child_count = %ItemsMenu.get_child_count()
