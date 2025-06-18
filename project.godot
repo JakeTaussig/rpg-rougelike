@@ -8,6 +8,10 @@
 
 config_version=5
 
+[GDScript_Formatter]
+
+format_on_save=true
+
 [application]
 
 config/name="Roguelike RPG"
@@ -27,6 +31,10 @@ window/size/always_on_top=true
 window/stretch/mode="viewport"
 window/stretch/scale=3.0
 window/stretch/scale_mode="integer"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdscript_formatter/plugin.cfg")
 
 [gui]
 

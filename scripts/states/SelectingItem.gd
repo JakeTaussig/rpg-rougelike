@@ -2,6 +2,7 @@ extends BaseState
 
 var last_focused_item_index = 0
 
+
 func enter(_messages: Array = []):
 	battle.ui_manager.show_items_menu(true)
 	call_deferred("_render_items")
@@ -12,6 +13,7 @@ func enter(_messages: Array = []):
 	# give them their item back
 	if _messages.size() != 0 && _messages[0] == "replenish":
 		battle.player.items[last_focused_item_index].qty += 1
+
 
 func _refocus():
 	var child_count = %ItemsMenu.get_child_count()
@@ -24,6 +26,7 @@ func _refocus():
 
 	battle.ui_manager.get_item_buttons()[last_focused_item_index].grab_focus()
 
+
 func exit():
 	battle.ui_manager.show_items_menu(false)
 	for button: Button in battle.ui_manager.get_item_buttons():
@@ -34,9 +37,11 @@ func exit():
 		for dict in button.get_signal_connection_list("mouse_entered"):
 			button.disconnect("mouse_entered", dict.callable)
 
+
 func handle_input(event: InputEvent):
 	if event.is_action_pressed("ui_cancel"):
 		battle.transition_state_to(battle.STATE_SELECTING_ACTION)
+
 
 func _render_items():
 	# Clear existing items first (except the first one which has focus signals)
@@ -56,6 +61,7 @@ func _render_items():
 		item_button.pressed.connect(func(): _on_item_pressed(i))
 		item_button.set_theme_type_variation("Button")
 
+
 # callback used when a item is focused
 # displays the PP and type of the item in $"items/ItemsInfo"
 func _display_qty_info(item_index: int) -> void:
@@ -63,6 +69,7 @@ func _display_qty_info(item_index: int) -> void:
 
 	battle.ui_manager.set_item_qty_info("%d / 99" % GameManager.player.items[item_index].qty)
 	battle.ui_manager.set_item_type_info(GameManager.player.items[item_index].description)
+
 
 func _on_item_pressed(item_index: int) -> void:
 	var item = GameManager.player.items[item_index]

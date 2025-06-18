@@ -1,5 +1,6 @@
 extends Node2D
 
+
 func _init():
 	for type in MovesList.Type.values():
 		var key = MovesList.Type.find_key(type)

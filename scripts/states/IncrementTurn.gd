@@ -3,6 +3,7 @@ extends BaseState
 var statuses_enacted = false
 var dead_monster = false
 
+
 func enter(_messages: Array = []):
 	if not dead_monster:
 		var message = _check_for_dead_monsters()
@@ -39,6 +40,7 @@ func enter(_messages: Array = []):
 	else:
 		battle.transition_state_to(battle.STATE_ENEMY_ATTACK)
 
+
 func _check_for_dead_monsters() -> String:
 	var player = GameManager.player
 	var enemy = GameManager.enemy
@@ -52,6 +54,7 @@ func _check_for_dead_monsters() -> String:
 
 	return message
 
+
 func _swap_dead_monsters():
 	var player = GameManager.player
 	var enemy = GameManager.enemy
@@ -60,8 +63,9 @@ func _swap_dead_monsters():
 	if player.selected_monster.hp <= 0:
 		player.swap_dead_monster()
 
+
 func _log_turn_info():
-	if (battle.turn_order_index == 0):
+	if battle.turn_order_index == 0:
 		print("\t---------------------------")
 		print("\tTurn: %d" % battle.turn)
 		print("\t---------------------------")

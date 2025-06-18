@@ -5,6 +5,7 @@ enum AI_TYPE { RANDOM, AGGRESSIVE, HIGH_EV }
 @export var ai_type: AI_TYPE = AI_TYPE.HIGH_EV
 var ai_types = AI_TYPE.values()
 
+
 func setup_enemy(_monsters: Array[Monster], _ai_type_index: int):
 	monsters = _monsters
 	for monster in monsters:
@@ -12,8 +13,10 @@ func setup_enemy(_monsters: Array[Monster], _ai_type_index: int):
 	ai_type = ai_types[_ai_type_index]
 	position = Vector2(192, 40)
 
+
 func _ready():
 	is_player = false
+
 
 func select_move() -> int:
 	var available_moves = []

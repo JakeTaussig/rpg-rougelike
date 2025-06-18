@@ -1,5 +1,6 @@
 extends BaseState
 
+
 func enter(messages: Array = []):
 	battle.ui_manager.show_player_prompt(true)
 	battle.ui_manager.show_action_menu(true)
@@ -13,6 +14,7 @@ func enter(messages: Array = []):
 	else:
 		battle.ui_manager.set_player_prompt(messages[0])
 
+
 func exit():
 	for button: Button in battle.ui_manager.get_action_buttons():
 		button.mouse_entered.disconnect(button.grab_focus)
@@ -20,8 +22,10 @@ func exit():
 	battle.ui_manager.show_player_prompt(false)
 	battle.ui_manager.show_action_menu(false)
 
+
 func _on_attack_pressed() -> void:
 	battle.transition_state_to(battle.STATE_SELECTING_ATTACK)
+
 
 func _on_item_pressed() -> void:
 	battle.transition_state_to(battle.STATE_SELECTING_ITEM)

@@ -4,6 +4,7 @@ extends EditorScript
 var battle_script_path = "scripts/battle.gd"
 var state_directory_path = "scripts/states/"
 
+
 func _print_file_contents(file_path: String) -> String:
 	var result = ""
 	if FileAccess.file_exists(file_path):
@@ -20,6 +21,7 @@ func _print_file_contents(file_path: String) -> String:
 	else:
 		result = "File not found: " + file_path + "\n"
 	return result
+
 
 func _run():
 	var output_text = ""

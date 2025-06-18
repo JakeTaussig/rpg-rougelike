@@ -3,6 +3,7 @@ extends InfoState
 var _player_victorious = true
 var _has_finished = false
 
+
 func enter(_messages: Array = []):
 	var player = GameManager.player
 	var enemy = GameManager.enemy
@@ -24,6 +25,7 @@ func enter(_messages: Array = []):
 
 	super.enter(_messages)
 
+
 func handle_continue():
 	message_index += 1
 	if message_index < messages.size():
@@ -41,5 +43,6 @@ func handle_continue():
 		# Let the old battle scene finish it's state logic first
 		call_deferred("_end_battle")
 
+
 func _end_battle():
-		battle.emit_signal("battle_ended", _player_victorious)
+	battle.emit_signal("battle_ended", _player_victorious)
