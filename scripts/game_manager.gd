@@ -4,6 +4,7 @@ extends Control
 
 @onready var screen_fade = $ScreenFade
 
+var floor_number = 1
 var floor_events = []
 var current_battle: Battle
 
@@ -13,6 +14,10 @@ var enemy: BattleParticipant
 var battle_scene = preload("res://scenes/battle.tscn")
 var battle_participant_scene := preload("res://scenes/battle_participant.tscn")
 # var shop_scene = preload("res://scenes/shop.tscn") (future)
+
+# All of the player's and enemy's stats will be multiplied by their respective value at the end of each floor
+var player_stat_up_multiplier := 1.1
+var enemy_stat_up_multiplier := 1.1
 
 
 func start_game():
@@ -24,17 +29,17 @@ func start_game():
 	_start_next_event()
 
 
+# TODO: In the future, this will generate all events for a floor. Currently only 1 event per floor for testing.
 func _generate_floor_events():
-	for i in 2:
-		var battle = battle_scene.instantiate()
-		floor_events.push_back(battle)
+	var battle = battle_scene.instantiate()
+	floor_events.push_back(battle)
 
 
 func _start_next_event():
 	if floor_events.is_empty():
 		print("Floor complete!")
-		# TODO: transition to next floor or win screen
-		return
+		floor_number += 1
+		_generate_floor_events()
 
 	# This will always be index 0, since we pop_front of floor_events whenever switching events.
 	var event = floor_events[0]
