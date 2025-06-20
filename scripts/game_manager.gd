@@ -97,7 +97,8 @@ func _create_new_enemy() -> BattleParticipant:
 	self.add_child(new_enemy)
 	new_enemy.name = "Enemy"
 	return new_enemy
-	
+
+
 func _player_level_up():
 	var monster = player.selected_monster
 	var old_max_hp = monster.max_hp
@@ -110,13 +111,14 @@ func _player_level_up():
 	monster.sp_def *= player_stat_multiplier
 	monster.speed *= player_stat_multiplier
 	monster.luck *= player_stat_multiplier
-	
+
 
 # This is a seperate function because it must be called from BattleOver.gd to display the correct information
 func level_up_player_and_enemies():
-	# Only the enemy stat multiplier increases, because the player stays the same, while the enemies are generated every time. 
+	# Only the enemy stat multiplier increases, because the player stays the same, while the enemies are generated every time.
 	enemy_stat_multiplier += 0.2
 	_player_level_up()
+
 
 func load_monsters_from_folder(path: String = "res://assets/monsters") -> Array[Monster]:
 	var monsters: Array[Monster] = []
