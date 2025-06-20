@@ -16,8 +16,8 @@ var battle_participant_scene := preload("res://scenes/battle_participant.tscn")
 # var shop_scene = preload("res://scenes/shop.tscn") (future)
 
 # All of the player's and enemy's stats will be multiplied by their respective value at the end of each floor
-var player_stat_up_multiplier := 1.1
-var enemy_stat_up_multiplier := 1.1
+var player_stat_multiplier := 1.2
+var enemy_stat_multiplier := 1.0
 
 
 func start_game():
@@ -85,7 +85,7 @@ func _create_new_enemy() -> BattleParticipant:
 	var new_enemy = battle_participant_scene.instantiate()
 	new_enemy.set_script(preload("res://scripts/enemy.gd"))
 	# 2nd param = AI types 0 = RANDOM, 1 = AGGRESSIVE, 2 = HIGH_EV
-	new_enemy.setup_enemy(monsters, 0)
+	new_enemy.setup_enemy(monsters, 0, enemy_stat_multiplier)
 
 	# Replace old enemy node in the scene
 	if enemy:
@@ -97,7 +97,26 @@ func _create_new_enemy() -> BattleParticipant:
 	self.add_child(new_enemy)
 	new_enemy.name = "Enemy"
 	return new_enemy
+	
+func _player_level_up():
+	var monster = player.selected_monster
+	var old_max_hp = monster.max_hp
+	monster.max_hp *= player_stat_multiplier
+	var hp_to_gain = monster.max_hp - old_max_hp
+	monster.hp += hp_to_gain
+	monster.atk *= player_stat_multiplier
+	monster.sp_atk *= player_stat_multiplier
+	monster.def *= player_stat_multiplier
+	monster.sp_def *= player_stat_multiplier
+	monster.speed *= player_stat_multiplier
+	monster.luck *= player_stat_multiplier
+	
 
+# This is a seperate function because it must be called from BattleOver.gd to display the correct information
+func level_up_player_and_enemies():
+	# Only the enemy stat multiplier increases, because the player stays the same, while the enemies are generated every time. 
+	enemy_stat_multiplier += 0.2
+	_player_level_up()
 
 func load_monsters_from_folder(path: String = "res://assets/monsters") -> Array[Monster]:
 	var monsters: Array[Monster] = []

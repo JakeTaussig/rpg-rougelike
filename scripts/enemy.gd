@@ -6,10 +6,18 @@ enum AI_TYPE { RANDOM, AGGRESSIVE, HIGH_EV }
 var ai_types = AI_TYPE.values()
 
 
-func setup_enemy(_monsters: Array[Monster], _ai_type_index: int):
+func setup_enemy(_monsters: Array[Monster], _ai_type_index: int, stat_multiplier: float):
 	monsters = _monsters
 	for monster in monsters:
 		monster.is_player = false
+		monster.max_hp *= stat_multiplier
+		monster.hp *= stat_multiplier
+		monster.atk *= stat_multiplier
+		monster.sp_atk *= stat_multiplier
+		monster.def *= stat_multiplier
+		monster.sp_def *= stat_multiplier
+		monster.speed *= stat_multiplier
+		monster.luck *= stat_multiplier
 	ai_type = ai_types[_ai_type_index]
 	position = Vector2(192, 40)
 
