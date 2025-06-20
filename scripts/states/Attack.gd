@@ -16,6 +16,13 @@ func enter(params: Array = []):
 
 	# Execute attack
 	var results: Monster.AttackResults = attacker.use_move(move_index, target)
+
+	if attacker.is_player:
+		%BattleStatus.position.x = 32.0
+	else:
+		%BattleStatus.position.x = 80.0
+
+
 	var messages = _generate_attack_messages(attacker, target, results)
 
 	if results.move.backdrop:

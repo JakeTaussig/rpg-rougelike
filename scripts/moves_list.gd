@@ -57,7 +57,7 @@ static func status_effect_to_color(status_effect: StatusEffect) -> Color:
 		MovesList.StatusEffect.BURN:
 			return Color(0.894, 0.231, 0.267, 1.0)
 		MovesList.StatusEffect.WHIRLPOOL:
-			return Color(0.0, 0.6, 0.859, 1.0)
+			return Color(0.071, 0.306, 0.537, 1.0)
 		MovesList.StatusEffect.POISON:
 			return Color(0.388, 0.78, 0.302, 1.0)
 		MovesList.StatusEffect.PARALYZE:

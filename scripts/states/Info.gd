@@ -19,6 +19,7 @@ func enter(_messages: Array = []):
 
 
 func exit():
+	%BattleStatus.position.x = 32.0
 	battle.ui_manager.clear_backdrop_material()
 	battle.ui_manager.show_info_panel(false)
 

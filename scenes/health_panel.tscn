@@ -15,7 +15,7 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.0705882, 0.305882, 0.537255, 1)
+border_color = Color(0.227, 0.267, 0.424, 1)
 expand_margin_right = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uj006"]
@@ -28,7 +28,7 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.0705882, 0.305882, 0.537255, 1)
+border_color = Color(0.227, 0.267, 0.424, 1)
 expand_margin_right = 1.0
 
 [node name="HealthPanel" type="Control"]
@@ -49,7 +49,7 @@ theme_type_variation = &"FullBorderPanel"
 z_index = 1
 z_as_relative = false
 layout_mode = 0
-offset_left = 26.0
+offset_left = 24.0
 offset_top = 16.0
 offset_right = 112.0
 offset_bottom = 25.0
@@ -112,7 +112,7 @@ horizontal_alignment = 1
 
 [node name="Placeholder" type="Panel" parent="LabelContainer"]
 texture_filter = 1
-custom_minimum_size = Vector2(27, 8)
+custom_minimum_size = Vector2(24, 8)
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_5pall")
@@ -123,17 +123,17 @@ unique_name_in_owner = true
 z_index = 1
 z_as_relative = false
 layout_mode = 0
-offset_right = 26.0
+offset_right = 24.0
 offset_bottom = 16.0
 
 [node name="StatusLabel" type="RichTextLabel" parent="LabelContainer/Placeholder/StatusLabelPanel"]
 unique_name_in_owner = true
 z_index = 1
 texture_filter = 1
-custom_minimum_size = Vector2(26, 17)
+custom_minimum_size = Vector2(23, 17)
 layout_mode = 0
-offset_right = 26.0
-offset_bottom = 15.0
+offset_right = 24.0
+offset_bottom = 17.0
 theme = ExtResource("1_5pall")
 theme_type_variation = &"HealthPanelLabel"
 theme_override_styles/normal = SubResource("StyleBoxFlat_d0kh3")
@@ -144,9 +144,9 @@ horizontal_alignment = 1
 [node name="HPBar" type="ProgressBar" parent="LabelContainer"]
 unique_name_in_owner = true
 z_index = 2
-custom_minimum_size = Vector2(84, 7)
+custom_minimum_size = Vector2(86, 7)
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 10
 size_flags_vertical = 8
 theme_override_styles/background = ExtResource("3_twfsv")
 theme_override_styles/fill = ExtResource("5_d0kh3")
@@ -163,7 +163,7 @@ theme_type_variation = &"EmptyPanel"
 [node name="HPNumber" type="RichTextLabel" parent="LabelContainer"]
 unique_name_in_owner = true
 texture_filter = 1
-custom_minimum_size = Vector2(59, 17)
+custom_minimum_size = Vector2(63, 17)
 layout_mode = 2
 theme = ExtResource("1_5pall")
 theme_type_variation = &"HealthPanelLabel"

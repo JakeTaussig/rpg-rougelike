@@ -9,6 +9,7 @@ var player_hp_bar: ProgressBar
 var enemy_hp_bar: ProgressBar
 var state_display: Label
 var battle_status: Label
+var battle_status_panel: Panel
 var continue_button: Button
 var turn_display: Label
 var action_menu: Control
@@ -32,6 +33,7 @@ func _init_references():
 	enemy_hp_bar = %EnemyHPBar
 	state_display = %StateDisplay
 	battle_status = %BattleStatus
+	battle_status_panel = %BattleStatusPanel
 	continue_button = %ContinueButton
 	turn_display = %TurnDisplay
 	action_menu = %Action
@@ -40,6 +42,8 @@ func _init_references():
 	player_prompt = %PlayerPrompt
 
 	initialized = true
+
+	show_info_panel(false)
 
 
 func set_backdrop_material(material: ShaderMaterial):
@@ -63,7 +67,7 @@ func render_battlers():
 	GameManager.enemy.render_battler()
 
 func show_info_panel(visible: bool):
-	battle_status.visible = visible
+	battle_status_panel.visible = visible
 	continue_button.visible = visible
 
 
