@@ -82,7 +82,7 @@ func get_move_by_name(move_to_find: String):
 
 
 func _create_new_enemy() -> BattleParticipant:
-	var monsters: Array[Monster] = [load_monsters_from_folder()[0]]
+	var monsters = load_monsters_from_folder()
 	var new_enemy = battle_participant_scene.instantiate()
 	new_enemy.set_script(preload("res://scripts/enemy.gd"))
 	# 2nd param = AI types 0 = RANDOM, 1 = AGGRESSIVE, 2 = HIGH_EV
