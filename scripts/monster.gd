@@ -49,8 +49,13 @@ var status_effect_turn_counter: int = 0
 var consume_benefactor: Monster = null
 var is_player = true
 
+# Save prior hp for hp rendering purposes
+var prior_hp = 0
+
+
 func increment_health(value: int) -> void:
 	hp += value
+
 
 func level_up(stat_multiplier: float):
 	var old_max_hp = max_hp
@@ -63,6 +68,7 @@ func level_up(stat_multiplier: float):
 	sp_def *= stat_multiplier
 	speed *= stat_multiplier
 	luck *= stat_multiplier
+
 
 func use_move(index: int, target: Monster) -> AttackResults:
 	# This is done here rather than in EnactStatuses.gd so that speed doesn't have an impact on how long status effects will last.
@@ -136,6 +142,7 @@ func _attack(move: Move, target: Monster, is_physical: bool) -> AttackResults:
 
 	var int_damage = int(damage)
 
+	target.prior_hp = target.hp
 	target.hp -= int_damage
 
 	return AttackResults.new(move, int_damage, true, false, is_critical)
