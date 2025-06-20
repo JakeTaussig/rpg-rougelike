@@ -50,8 +50,8 @@ func render_hp(player_monster, enemy_monster):
 	if !initialized:
 		_init_references()
 
-	enemy_health_panel.render_hp(enemy_monster)
-	player_health_panel.render_hp(player_monster)
+	await enemy_health_panel.render_hp(enemy_monster)
+	await player_health_panel.render_hp(player_monster)
 
 
 func render_battlers():
