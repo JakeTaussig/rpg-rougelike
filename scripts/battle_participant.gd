@@ -23,6 +23,7 @@ func _setup_monsters():
 var selected_monster: Monster:
 	set(new_monster):
 		selected_monster = new_monster
+		selected_monster.parent = self
 		render_battler()
 
 var is_player = true:
@@ -39,6 +40,14 @@ func render_battler():
 	flip_h = is_player
 	$StatusEmitter.status_effect = selected_monster.status_effect
 
+
+func get_trinkets_in_category(category: Trinket.TrinketCategory) -> Array[Trinket]:
+	var output: Array[Trinket] = []
+	for trinket in trinkets:
+		if trinket.category == category:
+			output.append(trinket)
+
+	return output
 
 # Called when the node enters the scene tree for the first time.
 func _enter_tree() -> void:

@@ -8,4 +8,5 @@ script = ExtResource("2_i835e")
 trinket_name = "Humanize"
 icon = ExtResource("1_w3v4u")
 description = "Change the player's type to HUMAN"
+callback_name = "_change_type_to_human"
 metadata/_custom_type_script = "uid://c7ph0ydi5trjd"

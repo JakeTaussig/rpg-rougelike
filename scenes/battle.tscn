@@ -73,6 +73,7 @@ theme = ExtResource("2_p1qf1")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
+focus_neighbor_top = NodePath("../Trinkets")
 text = "   Attack"
 alignment = 0
 
@@ -85,6 +86,7 @@ alignment = 0
 [node name="Trinkets" type="Button" parent="BottomBar/Action/ActionButtons"]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../Attack")
 text = "   Trinkets
 "
 alignment = 0

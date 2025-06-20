@@ -8,4 +8,5 @@ script = ExtResource("2_56pco")
 trinket_name = "Inferno"
 icon = ExtResource("1_fovfq")
 description = "Change the player's type to FIRE"
+callback_name = "_change_type_to_fire"
 metadata/_custom_type_script = "uid://c7ph0ydi5trjd"
