@@ -4,6 +4,7 @@ extends Control
 
 @onready var screen_fade = $ScreenFade
 
+var floor_number = 1
 var floor_events = []
 var current_battle: Battle
 
@@ -13,6 +14,11 @@ var enemy: BattleParticipant
 var battle_scene = preload("res://scenes/battle.tscn")
 var battle_participant_scene := preload("res://scenes/battle_participant.tscn")
 # var shop_scene = preload("res://scenes/shop.tscn") (future)
+
+# All of the player's and enemy's stats will be multiplied by their respective value at the end of each floor
+var player_stat_multiplier := 1.2
+var enemy_stat_multiplier := 1.2
+var enemy_level = 0
 
 
 func start_game():
@@ -24,17 +30,17 @@ func start_game():
 	_start_next_event()
 
 
+# TODO: In the future, this will generate all events for a floor. Currently only 1 event per floor for testing.
 func _generate_floor_events():
-	for i in 2:
-		var battle = battle_scene.instantiate()
-		floor_events.push_back(battle)
+	var battle = battle_scene.instantiate()
+	floor_events.push_back(battle)
 
 
 func _start_next_event():
 	if floor_events.is_empty():
 		print("Floor complete!")
-		# TODO: transition to next floor or win screen
-		return
+		floor_number += 1
+		_generate_floor_events()
 
 	# This will always be index 0, since we pop_front of floor_events whenever switching events.
 	var event = floor_events[0]
@@ -80,7 +86,7 @@ func _create_new_enemy() -> BattleParticipant:
 	var new_enemy = battle_participant_scene.instantiate()
 	new_enemy.set_script(preload("res://scripts/enemy.gd"))
 	# 2nd param = AI types 0 = RANDOM, 1 = AGGRESSIVE, 2 = HIGH_EV
-	new_enemy.setup_enemy(monsters, 0)
+	new_enemy.setup_enemy(monsters, 0, enemy_stat_multiplier, enemy_level)
 
 	# Replace old enemy node in the scene
 	if enemy:
@@ -92,6 +98,13 @@ func _create_new_enemy() -> BattleParticipant:
 	self.add_child(new_enemy)
 	new_enemy.name = "Enemy"
 	return new_enemy
+
+
+# This is a seperate function because it must be called from BattleOver.gd to display the correct information
+func level_up_player_and_enemies():
+	# Only the enemy stat multiplier increases, because the player stays the same, while the enemies are generated every time.
+	enemy_level += 1
+	player.selected_monster.level_up(player_stat_multiplier)
 
 
 func load_monsters_from_folder(path: String = "res://assets/monsters") -> Array[Monster]:

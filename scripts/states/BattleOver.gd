@@ -12,7 +12,26 @@ func enter(_messages: Array = []):
 		_player_victorious = false
 		_messages.append("You lost the Battle. Proceeding...")
 	elif enemy.selected_monster.hp <= 0:
-		_messages.append("You won the Battle! Proceeding...")
+		if GameManager.floor_events.is_empty():
+			GameManager.level_up_player_and_enemies()
+			match GameManager.floor_number:
+				1:
+					_messages.append("You cleared the 1st circle of hell!")
+				2:
+					_messages.append("You cleared the 2nd circle of hell!")
+				3:
+					_messages.append("You cleared the 3rd circle of hell!")
+				_:
+					messages.append("You cleared the %dth circle of hell!" % GameManager.floor_number)
+			_messages.append(
+				(
+					"%s's struggle made their spirit stronger! All of their stats were increased by %.1fx!"
+					% [player.selected_monster.character_name, GameManager.player_stat_multiplier]
+				)
+			)
+			_messages.append("The enemies grow stronger as you descend deeper into hell!")
+		else:
+			_messages.append("You won the Battle! Proceeding...")
 		_player_victorious = true
 	elif player.selected_monster.hp <= 0:
 		_messages.append("You lost the Battle. Proceeding...")
