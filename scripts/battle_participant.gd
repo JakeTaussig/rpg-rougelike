@@ -31,6 +31,8 @@ var is_player = true:
 		selected_monster.is_player = _is_player
 		render_battler()
 
+var trinkets: Array[Trinket] = []
+
 
 func render_battler():
 	texture = selected_monster.texture

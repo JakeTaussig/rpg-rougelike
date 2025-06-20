@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=3 format=3 uid="uid://dhy85hi8yee4g"]
+
+[ext_resource type="Texture2D" uid="uid://c5ru8mdxdty7f" path="res://assets/sprites/trinket_icons/skull.png" id="1_ovgrf"]
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinket.gd" id="1_rp4iw"]
+
+[resource]
+script = ExtResource("1_rp4iw")
+icon = ExtResource("1_ovgrf")
+metadata/_custom_type_script = "uid://c7ph0ydi5trjd"
