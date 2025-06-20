@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=3 format=3 uid="uid://dhy85hi8yee4g"]
+
+[ext_resource type="Texture2D" uid="uid://c5ru8mdxdty7f" path="res://assets/sprites/trinket_icons/skull.png" id="1_fovfq"]
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinket.gd" id="2_56pco"]
+
+[resource]
+script = ExtResource("2_56pco")
+trinket_name = "Inferno"
+icon = ExtResource("1_fovfq")
+description = "Change the player's type to FIRE"
+metadata/_custom_type_script = "uid://c7ph0ydi5trjd"

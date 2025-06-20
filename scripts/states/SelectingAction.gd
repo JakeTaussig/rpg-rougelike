@@ -29,3 +29,7 @@ func _on_attack_pressed() -> void:
 
 func _on_item_pressed() -> void:
 	battle.transition_state_to(battle.STATE_SELECTING_ITEM)
+
+
+func _on_trinkets_pressed() -> void:
+	battle.transition_state_to(battle.STATE_SELECTING_TRINKETS)

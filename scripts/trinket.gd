@@ -5,3 +5,4 @@ class_name Trinket extends Resource
 enum TrinketCategory { ATK }
 @export var trinket_name: String = "Transform"
 @export var icon: CompressedTexture2D = load("res://assets/sprites/trinket_icons/skull.png")
+@export var description: String = "Change the player's type"
