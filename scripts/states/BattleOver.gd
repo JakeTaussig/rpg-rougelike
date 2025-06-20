@@ -14,7 +14,6 @@ func enter(_messages: Array = []):
 	elif enemy.selected_monster.hp <= 0:
 		if GameManager.floor_events.is_empty():
 			GameManager.level_up_player_and_enemies()
-			#_messages.append("You cleared the %dth circle of hell!" % GameManager.floor_number)
 			match GameManager.floor_number:
 				1:
 					_messages.append("You cleared the 1st circle of hell!")
