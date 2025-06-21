@@ -47,6 +47,7 @@ func _load_and_randomize_monsters():
 			var monster_resource = load(monster_path)
 			if monster_resource is Monster:
 				monster_resource.randomize_stat_spread(monster_resource.base_stat_total, 10)
+				monster_resource.randomize_moves()
 				randomized_monsters.append(monster_resource)
 		file_name = dir.get_next()
 	dir.list_dir_end()
