@@ -22,18 +22,16 @@ func render_hp(monster: Monster):
 		%StatusLabelPanel.visible = false
 	var prior_hp = %HPBar.value
 	while damage > 0 and prior_hp > 0:
-		if damage >= 10:
-			prior_hp -= 10
-			damage -= 10
+		if damage >= 2:
+			prior_hp -= 2
+			damage -= 2
 		else:
 			prior_hp -= damage
 			damage = 0
 		%HPBar.value = prior_hp
 		_set_hp_bar_color()
 		%HPNumber.text = "%d / %d" % [prior_hp, monster.max_hp]
-		# Wait 4 frames
-		for i in 4:
-			await get_tree().process_frame
+		await get_tree().process_frame
 
 	# Set again here, for cases in which we need to render and no damage was done.
 	%HPBar.value = monster.hp
