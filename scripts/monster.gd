@@ -79,10 +79,6 @@ func randomize_stat_spread(bst: int = 300, min_stat: int = 10) -> void:
 	luck = stat_values["luck"]
 
 
-# Save prior hp for hp rendering purposes
-var prior_hp = 0
-
-
 func increment_health(value: int) -> void:
 	hp += value
 
