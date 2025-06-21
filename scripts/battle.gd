@@ -75,7 +75,6 @@ func _init_states():
 
 # TODO: This may need to be called whenever a new monster enters the battle.
 func _sort_participants_by_speed(a: Monster, b: Monster) -> bool:
-
 	if a.speed == b.speed:
 		return randf() < 0.5  # More readable than randi() % 2
 	return a.speed > b.speed

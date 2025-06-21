@@ -32,12 +32,13 @@ func start_game():
 	_generate_floor_events()
 	_start_next_event()
 
+
 func _load_and_randomize_monsters():
 	var dir := DirAccess.open("res://assets/monsters")
 	if dir == null:
 		push_error("Could not open monster directory")
 		return
-	
+
 	dir.list_dir_begin()
 	var file_name = dir.get_next()
 	while file_name != "":
@@ -49,6 +50,7 @@ func _load_and_randomize_monsters():
 				randomized_monsters.append(monster_resource)
 		file_name = dir.get_next()
 	dir.list_dir_end()
+
 
 # TODO: In the future, this will generate all events for a floor. Currently only 1 event per floor for testing.
 func _generate_floor_events():
@@ -110,6 +112,7 @@ func _create_player() -> BattleParticipant:
 	new_player.name = "Player"
 	return new_player
 
+
 func _create_new_enemy() -> BattleParticipant:
 	var monsters = randomized_monsters
 	var new_enemy = battle_participant_scene.instantiate()
@@ -135,24 +138,23 @@ func level_up_player_and_enemies():
 	enemy_level += 1
 	player.selected_monster.level_up(player_stat_multiplier)
 
-
 #func load_monsters_from_folder(path: String = "res://assets/monsters") -> Array[Monster]:
-	#var monsters: Array[Monster] = []
-	#var dir := DirAccess.open(path)
-	#if dir == null:
-		#push_error("Could not open directory: " + path)
-		#return []
+#var monsters: Array[Monster] = []
+#var dir := DirAccess.open(path)
+#if dir == null:
+#push_error("Could not open directory: " + path)
+#return []
 #
-	#dir.list_dir_begin()
-	#var file_name = dir.get_next()
-	#while file_name != "":
-		#if not dir.current_is_dir() and file_name.ends_with(".tres"):
-			#var monster_path = path + "/" + file_name
-			#var monster_resource = load(monster_path)
+#dir.list_dir_begin()
+#var file_name = dir.get_next()
+#while file_name != "":
+#if not dir.current_is_dir() and file_name.ends_with(".tres"):
+#var monster_path = path + "/" + file_name
+#var monster_resource = load(monster_path)
 #
-			#if monster_resource is Monster:
-				#monsters.append(monster_resource.duplicate(true))  # Duplicate after randomization
-				#
-		#file_name = dir.get_next()
-	#dir.list_dir_end()
-	#return monsters
+#if monster_resource is Monster:
+#monsters.append(monster_resource.duplicate(true))  # Duplicate after randomization
+#
+#file_name = dir.get_next()
+#dir.list_dir_end()
+#return monsters

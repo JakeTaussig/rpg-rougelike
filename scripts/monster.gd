@@ -55,20 +55,20 @@ var prior_hp = 0
 
 func randomize_stat_spread(bst: int = 300, min_stat: int = 10) -> void:
 	var stat_keys = ["max_hp", "atk", "sp_atk", "def", "sp_def", "speed", "luck"]
-	var stat_values = {} 
-	
+	var stat_values = {}
+
 	# Give each stat it's min value
 	for key in stat_keys:
 		stat_values[key] = min_stat
-		
+
 	var remaining = bst - (min_stat * stat_keys.size())
-	
+
 	# Allocate remaining stat total one point at a time
 	while remaining > 0:
 		var stat = stat_keys[randi() % stat_keys.size()]
 		stat_values[stat] += 1
 		remaining -= 1
-	
+
 	max_hp = stat_values["max_hp"]
 	hp = max_hp
 	atk = stat_values["atk"]
