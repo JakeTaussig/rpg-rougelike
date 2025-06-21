@@ -79,6 +79,17 @@ func randomize_stat_spread(bst: int = 300, min_stat: int = 10) -> void:
 	luck = stat_values["luck"]
 
 
+func randomize_moves() -> void:
+	moves = []
+	var all_moves = GameManager.moves_list.moves.duplicate()
+	
+	# Remove moves that signify status conditions
+	all_moves = all_moves.filter(func(m): return m.move_name != "Paralyzed" and m.move_name != "Whirlpool")
+	all_moves.shuffle()
+	for move in all_moves.slice(0, 4):
+		moves.append(move.copy())
+
+
 func increment_health(value: int) -> void:
 	hp += value
 
