@@ -150,7 +150,6 @@ size_flags_horizontal = 6
 size_flags_vertical = 8
 theme_override_styles/background = ExtResource("3_twfsv")
 theme_override_styles/fill = ExtResource("5_d0kh3")
-value = 100.0
 show_percentage = false
 
 [node name="InvisiblePlaceholder" type="Panel" parent="LabelContainer"]

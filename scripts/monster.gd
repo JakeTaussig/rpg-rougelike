@@ -49,9 +49,6 @@ var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
 var status_effect_turn_counter: int = 0
 var consume_benefactor: Monster = null
 
-# Save prior hp for hp rendering purposes
-var prior_hp = 0
-
 
 func randomize_stat_spread(bst: int = 300, min_stat: int = 10) -> void:
 	var stat_keys = ["max_hp", "atk", "sp_atk", "def", "sp_def", "speed", "luck"]
@@ -167,8 +164,6 @@ func _attack(move: Move, target: Monster, is_physical: bool) -> AttackResults:
 		damage *= crit_factor
 
 	var int_damage = int(damage)
-
-	target.prior_hp = target.hp
 	target.hp -= int_damage
 
 	return AttackResults.new(move, int_damage, true, false, is_critical)
@@ -291,14 +286,13 @@ func enact_burn_on_self():
 	else:
 		var hp_to_lose = int(max_hp * 0.04)
 		hp -= hp_to_lose
-		return "%s took %s damage from burn!" % [character_name, str(hp_to_lose)]
+		return "%s took damage from burn!" % [character_name]
 
 
 func _recover_from_burn():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
 	atk = int(float(atk) * 1.5)
-
 	return "%s recovered from burn!" % character_name
 
 
@@ -311,7 +305,7 @@ func _recover_from_whirlpool():
 func enact_poison_on_self():
 	var hp_to_lose = int(max_hp * 0.08)
 	hp -= hp_to_lose
-	return "%s is poisoned and took %s damage!" % [character_name, hp_to_lose]
+	return "%s took damage from poison!" % [character_name]
 
 
 func _recover_from_poison():
