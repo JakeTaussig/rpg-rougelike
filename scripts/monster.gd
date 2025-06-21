@@ -293,7 +293,6 @@ func _recover_from_burn():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
 	atk = int(float(atk) * 1.5)
-
 	return "%s recovered from burn!" % character_name
 
 
