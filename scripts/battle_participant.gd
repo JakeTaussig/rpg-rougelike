@@ -6,18 +6,17 @@ class_name BattleParticipant
 
 @export var monsters: Array[Monster] = []:
 	set(_monsters):
-		monsters = _monsters
-		if len(monsters) > 0:
+		monsters = []
+		for monster in _monsters:
+			monsters.append(monster.duplicate(true))
+		if monsters.size() > 0:
 			selected_monster = monsters[0]
 
-		_setup_monsters()
 
-
-func _setup_monsters():
-	for i in monsters.size():
-		monsters[i] = monsters[i].duplicate(true)
-	if monsters.size() > 0:
-		selected_monster = monsters[0]
+func setup_player(_monster: Monster):
+	monsters = [_monster]
+	position.x = 64
+	position.y = 72
 
 
 var selected_monster: Monster:
@@ -28,7 +27,6 @@ var selected_monster: Monster:
 var is_player = true:
 	set(_is_player):
 		is_player = _is_player
-		selected_monster.is_player = _is_player
 		render_battler()
 
 

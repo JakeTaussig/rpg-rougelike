@@ -41,7 +41,6 @@ func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 	# assigns as reference
 	player = _player
 	enemy = _enemy
-	battle_participants = [player, enemy]
 	update_active_monsters()
 	setup_done = true
 	print("Assigned player:", _player.name, _player.selected_monster.character_name)
@@ -51,6 +50,11 @@ func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 func update_active_monsters():
 	active_monsters = [player.selected_monster, enemy.selected_monster]
 	active_monsters.sort_custom(_sort_participants_by_speed)
+	# Doing this removes the need to have is_player as a property on Monster
+	if active_monsters[0] == player.selected_monster:
+		battle_participants = [player, enemy]
+	else:
+		battle_participants = [enemy, player]
 	if ui_manager:
 		ui_manager.render_hp(player.selected_monster, enemy.selected_monster)
 
