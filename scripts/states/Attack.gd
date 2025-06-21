@@ -41,7 +41,7 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 		messages.append("%s missed %s!" % [attacker.character_name, used_move_name])
 	elif damage > 0:
 		var effectiveness_multiplier: float = attacker.get_effectiveness_modifier(used_move, target)
-		var message = "%s used %s on %s for %d damage!" % [attacker.character_name, used_move_name, target.character_name, damage]
+		var message = "%s used %s on %s for %d damage!" % [attacker.character_name, used_move_name, target.character_name, min(damage, target.prior_hp)]
 		if is_critical:
 			message += " Critical Hit!"
 		messages.append(message)
