@@ -1,6 +1,7 @@
 extends Control
 @export var moves_list: MovesList = preload("res://resources/moves/global_moves_list.tres")
 @export var items_list: ItemsList = preload("res://resources/items/global_items_list.tres")
+var trinkets_list: TrinketsList = TrinketsList.new()
 
 @onready var screen_fade = $ScreenFade
 
@@ -25,9 +26,13 @@ func start_game():
 	# Called once to seed the random number generator
 	randomize()
 	player = %Player
+	_init_player_trinkets()
 	enemy = _create_new_enemy()
 	_generate_floor_events()
 	_start_next_event()
+
+func _init_player_trinkets():
+	player.trinkets = trinkets_list.trinkets
 
 
 # TODO: In the future, this will generate all events for a floor. Currently only 1 event per floor for testing.

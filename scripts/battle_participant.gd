@@ -31,12 +31,22 @@ var is_player = true:
 		selected_monster.is_player = _is_player
 		render_battler()
 
+var trinkets: Array[Trinket] = []
+
 
 func render_battler():
 	texture = selected_monster.texture
 	flip_h = is_player
 	$StatusEmitter.status_effect = selected_monster.status_effect
 
+
+func get_trinkets_in_category(category: Trinket.TrinketCategory) -> Array[Trinket]:
+	var output: Array[Trinket] = []
+	for trinket in trinkets:
+		if trinket.category == category:
+			output.append(trinket)
+
+	return output
 
 # Called when the node enters the scene tree for the first time.
 func _enter_tree() -> void:
