@@ -137,24 +137,3 @@ func level_up_player_and_enemies():
 	# Only the enemy stat multiplier increases, because the player stays the same, while the enemies are generated every time.
 	enemy_level += 1
 	player.selected_monster.level_up(player_stat_multiplier)
-
-#func load_monsters_from_folder(path: String = "res://assets/monsters") -> Array[Monster]:
-#var monsters: Array[Monster] = []
-#var dir := DirAccess.open(path)
-#if dir == null:
-#push_error("Could not open directory: " + path)
-#return []
-#
-#dir.list_dir_begin()
-#var file_name = dir.get_next()
-#while file_name != "":
-#if not dir.current_is_dir() and file_name.ends_with(".tres"):
-#var monster_path = path + "/" + file_name
-#var monster_resource = load(monster_path)
-#
-#if monster_resource is Monster:
-#monsters.append(monster_resource.duplicate(true))  # Duplicate after randomization
-#
-#file_name = dir.get_next()
-#dir.list_dir_end()
-#return monsters

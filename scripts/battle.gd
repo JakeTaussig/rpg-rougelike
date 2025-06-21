@@ -41,7 +41,6 @@ func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 	# assigns as reference
 	player = _player
 	enemy = _enemy
-	#battle_participants = [player, enemy]
 	update_active_monsters()
 	setup_done = true
 	print("Assigned player:", _player.name, _player.selected_monster.character_name)
