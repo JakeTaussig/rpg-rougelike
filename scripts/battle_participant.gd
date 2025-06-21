@@ -23,7 +23,6 @@ func _setup_monsters():
 var selected_monster: Monster:
 	set(new_monster):
 		selected_monster = new_monster
-		selected_monster.parent = self
 		render_battler()
 
 var is_player = true:

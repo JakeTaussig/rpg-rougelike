@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=19 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
@@ -9,12 +9,13 @@
 [ext_resource type="Script" uid="uid://buy2ylv1t0vt0" path="res://scripts/states/EnemyAttack.gd" id="8_66ngm"]
 [ext_resource type="Script" uid="uid://bl3wtt7v3rtpm" path="res://scripts/states/SelectingAction.gd" id="9_03edq"]
 [ext_resource type="Script" uid="uid://dxrkm475i6ls6" path="res://scripts/states/SelectingAttack.gd" id="10_22uqi"]
-[ext_resource type="Script" uid="uid://cnfjqxlur76vs" path="res://scripts/states/SelectingTrinkets.gd" id="10_djc8l"]
+[ext_resource type="Script" path="res://scripts/states/SelectingTrinkets.gd" id="10_djc8l"]
 [ext_resource type="Script" uid="uid://cmikjgcwtvkyk" path="res://scripts/states/IncrementTurn.gd" id="12_03edq"]
 [ext_resource type="Script" uid="uid://bm0o2eovnfws7" path="res://scripts/states/Attack.gd" id="13_6ni85"]
 [ext_resource type="Script" uid="uid://sdwupuxudrjb" path="res://scripts/states/BattleOver.gd" id="13_22uqi"]
 [ext_resource type="Script" uid="uid://d0rdycr2tr5ll" path="res://scripts/states/EnactStatuses.gd" id="14_6ni85"]
 [ext_resource type="Script" uid="uid://m7sdis15lg1t" path="res://scripts/states/SelectingAttackPPRestore.gd" id="17_dd63g"]
+[ext_resource type="Texture2D" uid="uid://fs4ws7okfwn5" path="res://assets/sprites/trinket_icons/arrow.png" id="18_h4dll"]
 [ext_resource type="Script" uid="uid://flenaawlfq4g" path="res://scripts/states/SelectingItem.gd" id="20_61i1y"]
 [ext_resource type="PackedScene" uid="uid://capm3p3n50hky" path="res://scenes/ui_manager.tscn" id="23_fpf3k"]
 
@@ -32,10 +33,9 @@ z_index = 1
 
 [node name="PlayerPrompt" type="Label" parent="BottomBar"]
 unique_name_in_owner = true
-visible = false
 z_index = 1
 offset_top = 95.0
-offset_right = 144.0
+offset_right = 161.0
 offset_bottom = 143.0
 mouse_filter = 1
 theme = ExtResource("2_p1qf1")
@@ -46,13 +46,12 @@ autowrap_mode = 2
 
 [node name="Action" type="Control" parent="BottomBar"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 3
 anchors_preset = 0
 
 [node name="Panel" type="Panel" parent="BottomBar/Action"]
 layout_mode = 0
-offset_left = 144.0
+offset_left = 161.0
 offset_top = 95.0
 offset_right = 256.0
 offset_bottom = 144.0
@@ -63,7 +62,7 @@ theme_type_variation = &"FullBorderPanel"
 unique_name_in_owner = true
 z_index = 2
 layout_mode = 0
-offset_left = 145.0
+offset_left = 162.0
 offset_top = 96.0
 offset_right = 255.0
 offset_bottom = 144.0
@@ -132,7 +131,7 @@ script = ExtResource("4_saiin")
 [node name="Panel" type="Panel" parent="BottomBar/Moves"]
 layout_mode = 0
 offset_top = 95.0
-offset_right = 160.0
+offset_right = 162.0
 offset_bottom = 144.0
 theme = ExtResource("2_p1qf1")
 theme_type_variation = &"FullBorderPanel"
@@ -142,13 +141,13 @@ unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1.0
 offset_top = 96.0
-offset_right = 256.0
+offset_right = 162.0
 offset_bottom = 144.0
 theme = ExtResource("2_p1qf1")
 columns = 2
 
 [node name="Move1" type="Button" parent="BottomBar/Moves/MovesMenu"]
-custom_minimum_size = Vector2(80, 23)
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../BackButton")
 theme = ExtResource("2_p1qf1")
@@ -156,19 +155,19 @@ text = "   Move 1"
 alignment = 0
 
 [node name="Move2" type="Button" parent="BottomBar/Moves/MovesMenu"]
-custom_minimum_size = Vector2(80, 23)
+custom_minimum_size = Vector2(77, 23)
 layout_mode = 2
+theme = ExtResource("2_p1qf1")
 text = "   Move 2"
 alignment = 0
 
 [node name="Move3" type="Button" parent="BottomBar/Moves/MovesMenu"]
-custom_minimum_size = Vector2(0, 23)
 layout_mode = 2
 text = "   Move 3"
 alignment = 0
 
 [node name="Move4" type="Button" parent="BottomBar/Moves/MovesMenu"]
-custom_minimum_size = Vector2(0, 23)
+custom_minimum_size = Vector2(80, 23)
 layout_mode = 2
 text = "   Move 4
 "
@@ -177,7 +176,7 @@ alignment = 0
 [node name="MoveInfo" type="Panel" parent="BottomBar/Moves"]
 custom_minimum_size = Vector2(0, 23)
 layout_mode = 0
-offset_left = 160.0
+offset_left = 161.0
 offset_top = 95.0
 offset_right = 255.0
 offset_bottom = 143.0
@@ -414,13 +413,14 @@ offset_bottom = 55.0
 [node name="EnemyHealthPanel" parent="HealthPanels" instance=ExtResource("5_ekamt")]
 unique_name_in_owner = true
 offset_left = 17.0
-offset_top = 16.0
+offset_top = 21.0
 offset_right = 17.0
-offset_bottom = 16.0
+offset_bottom = 21.0
 show_hp_numbers = false
 
 [node name="StateDisplay" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 offset_left = 96.0
 offset_right = 255.0
 offset_bottom = 12.0
@@ -429,6 +429,7 @@ text = "state:"
 
 [node name="TurnDisplay" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 offset_right = 96.0
 offset_bottom = 12.0
 
@@ -470,6 +471,92 @@ script = ExtResource("20_61i1y")
 
 [node name="UiManager" parent="." instance=ExtResource("23_fpf3k")]
 unique_name_in_owner = true
+
+[node name="TrinketPanel" type="Panel" parent="."]
+offset_left = 89.0
+offset_right = 255.0
+offset_bottom = 21.0
+
+[node name="TrinketIconContainer" type="HBoxContainer" parent="TrinketPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 1
+alignment = 1
+
+[node name="button" type="Button" parent="TrinketPanel/TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"IconButton"
+icon = ExtResource("18_h4dll")
+icon_alignment = 1
+
+[node name="button5" type="Button" parent="TrinketPanel/TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"IconButton"
+icon = ExtResource("18_h4dll")
+
+[node name="button6" type="Button" parent="TrinketPanel/TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"IconButton"
+icon = ExtResource("18_h4dll")
+
+[node name="button7" type="Button" parent="TrinketPanel/TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"IconButton"
+icon = ExtResource("18_h4dll")
+
+[node name="button8" type="Button" parent="TrinketPanel/TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"IconButton"
+icon = ExtResource("18_h4dll")
+
+[node name="button2" type="Button" parent="TrinketPanel/TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"IconButton"
+icon = ExtResource("18_h4dll")
+
+[node name="button3" type="Button" parent="TrinketPanel/TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"IconButton"
+icon = ExtResource("18_h4dll")
+
+[node name="button4" type="Button" parent="TrinketPanel/TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"IconButton"
+icon = ExtResource("18_h4dll")
+
+[node name="TrinketInfoLabel2" type="Label" parent="."]
+unique_name_in_owner = true
+z_index = 3
+z_as_relative = false
+offset_left = 127.0
+offset_top = 53.0
+offset_right = 255.0
+offset_bottom = 95.0
+text = "Inferno
+Change the player's type to FIRE"
+autowrap_mode = 2
 
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Item" to="BattleStateMachine/SELECTING_ACTION" method="_on_item_pressed"]
