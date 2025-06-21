@@ -37,6 +37,7 @@ extends Resource
 		crit_chance = new_crit_chance
 		var crit_chance_mult = float(luck) / 10
 		crit_chance = max(crit_chance, crit_chance_mult * 0.02)
+@export var base_stat_total = 300
 
 var crit_factor: float = 2.0
 
@@ -47,10 +48,35 @@ var is_alive = true
 var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
 var status_effect_turn_counter: int = 0
 var consume_benefactor: Monster = null
-var is_player = true
 
 # Save prior hp for hp rendering purposes
 var prior_hp = 0
+
+
+func randomize_stat_spread(bst: int = 300, min_stat: int = 10) -> void:
+	var stat_keys = ["max_hp", "atk", "sp_atk", "def", "sp_def", "speed", "luck"]
+	var stat_values = {} 
+	
+	# Give each stat it's min value
+	for key in stat_keys:
+		stat_values[key] = min_stat
+		
+	var remaining = bst - (min_stat * stat_keys.size())
+	
+	# Allocate remaining stat total one point at a time
+	while remaining > 0:
+		var stat = stat_keys[randi() % stat_keys.size()]
+		stat_values[stat] += 1
+		remaining -= 1
+	
+	max_hp = stat_values["max_hp"]
+	hp = max_hp
+	atk = stat_values["atk"]
+	sp_atk = stat_values["sp_atk"]
+	def = stat_values["def"]
+	sp_def = stat_values["sp_def"]
+	speed = stat_values["speed"]
+	luck = stat_values["luck"]
 
 
 func increment_health(value: int) -> void:
