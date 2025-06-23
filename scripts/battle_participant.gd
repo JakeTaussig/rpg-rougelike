@@ -39,12 +39,6 @@ func render_battler():
 # Called when the node enters the scene tree for the first time.
 func _enter_tree() -> void:
 	if not Engine.is_editor_hint():
-		# TODO: Make it so you can select moves in the editor for Monsters, and make it so they can be randomly selected.
-		for monster in monsters:
-			if monster.moves.is_empty():
-				for move in GameManager.moves_list.moves.slice(0, 4):
-					monster.moves.append(move.copy())
-
 		call_deferred("_init_items")
 
 
