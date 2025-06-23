@@ -14,10 +14,20 @@ class_name BattleParticipant
 
 var trinkets: Array[Trinket] = []
 
+var trinkets_applied = false
 # called at the start of battle -- applies trinket effects to the player's monster
 func apply_trinkets():
+	if trinkets_applied:
+		return
 	for trinket in trinkets:
 		trinket.strategy.ApplyEffect(selected_monster)
+	trinkets_applied = true
+
+func remove_trinkets():
+	for i in range(trinkets.size()-1, -1, -1):
+		print(i)
+		var trinket = trinkets[i]
+		trinket.strategy.RemoveEffect(selected_monster)
 
 
 func _setup_monsters():
