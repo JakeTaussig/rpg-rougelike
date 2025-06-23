@@ -56,12 +56,12 @@ func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 		trinket_button.mouse_exited.connect(_hide_trinket_info)
 
 func _display_trinket_info(index: int):
-	%TrinketInfoLabel2.visible = true
+	%TrinketInfoLabel.visible = true
 	var trinket: Trinket = player.trinkets[index]
-	%TrinketInfoLabel2.text = "%s\n%s" % [trinket.trinket_name, trinket.description]
+	%TrinketInfoLabel.text = "[center]%s[/center]\n%s" % [trinket.trinket_name, trinket.description]
 
 func _hide_trinket_info():
-	%TrinketInfoLabel2.hide()
+	%TrinketInfoLabel.hide()
 
 
 func update_active_monsters():

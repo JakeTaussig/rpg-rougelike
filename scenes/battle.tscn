@@ -450,14 +450,16 @@ theme = ExtResource("2_p1qf1")
 theme_type_variation = &"IconButton"
 icon = ExtResource("18_h4dll")
 
-[node name="TrinketInfoLabel2" type="RichTextLabel" parent="."]
+[node name="TrinketInfoLabel" type="RichTextLabel" parent="."]
 unique_name_in_owner = true
 z_index = 3
 z_as_relative = false
 offset_left = 127.0
-offset_top = 53.0
+offset_top = 55.0
 offset_right = 256.0
 offset_bottom = 96.0
+theme = ExtResource("2_p1qf1")
+theme_type_variation = &"TrinketInfoLabel"
 bbcode_enabled = true
 text = "Inferno
 Change the player's type to FIRE"
