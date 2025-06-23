@@ -37,6 +37,7 @@ extends Resource
 		crit_chance = new_crit_chance
 		var crit_chance_mult = float(luck) / 10
 		crit_chance = max(crit_chance, crit_chance_mult * 0.02)
+var crit_checks: int = 1 # number of times we roll for a crit
 @export var acc = 1.0:
 	set(new_acc):
 		acc = min(1.0, new_acc)
@@ -170,7 +171,11 @@ func _attack(move: Move, target: Monster, is_physical: bool) -> AttackResults:
 	var power = move.base_power
 	var damage = 0
 	var effectiveness_modifier = get_move_effectiveness(move, target)
+
 	var is_critical = _does_move_hit_or_crit(crit_chance * 100)
+	for i in range(crit_checks - 1):
+		if not is_critical:
+			is_critical = _does_move_hit_or_crit(crit_chance * 100)
 	if is_physical:
 		power = power * atk
 		damage = float(power) / target.def
