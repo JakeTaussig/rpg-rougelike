@@ -98,15 +98,15 @@ func increment_health(value: int) -> void:
 
 func level_up(stat_multiplier: float):
 	var old_max_hp = max_hp
-	max_hp *= stat_multiplier
+	max_hp = int(float(max_hp) * stat_multiplier)
 	var hp_to_gain = max_hp - old_max_hp
 	hp += hp_to_gain
-	atk *= stat_multiplier
-	sp_atk *= stat_multiplier
-	def *= stat_multiplier
-	sp_def *= stat_multiplier
-	speed *= stat_multiplier
-	luck *= stat_multiplier
+	atk = int(float(atk) * stat_multiplier)
+	sp_atk = int(float(sp_atk) * stat_multiplier)
+	def = int(float(def) * stat_multiplier)
+	sp_def = int(float(sp_def) * stat_multiplier)
+	speed = int(float(speed) * stat_multiplier)
+	luck = int(float(luck) * stat_multiplier)
 
 
 func use_move(index: int, target: Monster) -> AttackResults:
