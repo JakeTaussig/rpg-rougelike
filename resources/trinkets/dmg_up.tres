@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="Trinket" load_steps=4 format=3 uid="uid://d1yxtmjt8jlys"]
+[gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://0d16aabmwba3"]
 
+[ext_resource type="Texture2D" uid="uid://b85ure3hfwged" path="res://assets/sprites/trinket_icons/sword.png" id="1_14v0i"]
 [ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinket.gd" id="1_rxab4"]
-[ext_resource type="Script" uid="uid://b0v7xkkm5ti0" path="res://resources/trinket_strategies/dmg_up_strategy.gd" id="2_7tj33"]
+[ext_resource type="Script" path="res://resources/trinket_strategies/dmg_up_strategy.gd" id="2_7tj33"]
 
 [sub_resource type="Resource" id="Resource_14v0i"]
 script = ExtResource("2_7tj33")
@@ -10,5 +11,6 @@ metadata/_custom_type_script = "uid://b0v7xkkm5ti0"
 [resource]
 script = ExtResource("1_rxab4")
 trinket_name = "Dmg Up"
+icon = ExtResource("1_14v0i")
 description = "atk +20%[br]def +20%"
 strategy = SubResource("Resource_14v0i")
