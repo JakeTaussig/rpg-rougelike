@@ -27,6 +27,7 @@ var previous_state_name: String
 
 var setup_done := false
 
+# Connected in GameManager
 signal battle_ended(victory: bool)
 
 @onready var ui_manager: UIManager = %UiManager
