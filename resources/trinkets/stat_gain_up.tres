@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://b2siw1jfbhtsk"]
+
+[ext_resource type="Texture2D" uid="uid://bb0auqgksvdau" path="res://assets/sprites/trinket_icons/spinach.png" id="1_bdp21"]
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinket.gd" id="1_xpxxn"]
+[ext_resource type="Script" uid="uid://dip01rv72vvsk" path="res://resources/trinket_strategies/stat_gain_up_strategy.gd" id="3_3eos7"]
+
+[sub_resource type="Resource" id="Resource_3eos7"]
+script = ExtResource("3_3eos7")
+metadata/_custom_type_script = "uid://dip01rv72vvsk"
+
+[resource]
+script = ExtResource("1_xpxxn")
+trinket_name = "Spinach"
+icon = ExtResource("1_bdp21")
+description = "Stat Gain + 10%"
+strategy = SubResource("Resource_3eos7")
+metadata/_custom_type_script = "uid://c7ph0ydi5trjd"

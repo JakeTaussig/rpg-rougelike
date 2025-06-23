@@ -36,6 +36,7 @@ func start_game():
 
 func _init_player_trinkets():
 	player.trinkets = trinkets_list.trinkets
+	player.apply_trinkets()
 
 
 func _load_and_randomize_monsters():
