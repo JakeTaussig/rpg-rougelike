@@ -21,18 +21,41 @@ var player_stat_multiplier := 1.2
 var enemy_stat_multiplier := 1.2
 var enemy_level = 0
 
+var randomized_monsters: Array[Monster] = []
+
 
 func start_game():
 	# Called once to seed the random number generator
 	randomize()
-	player = %Player
-	_init_player_trinkets()
+	_load_and_randomize_monsters()
+	player = _create_player()
 	enemy = _create_new_enemy()
+	_init_player_trinkets()
 	_generate_floor_events()
 	_start_next_event()
 
 func _init_player_trinkets():
 	player.trinkets = trinkets_list.trinkets
+
+
+func _load_and_randomize_monsters():
+	var dir := DirAccess.open("res://assets/monsters")
+	if dir == null:
+		push_error("Could not open monster directory")
+		return
+
+	dir.list_dir_begin()
+	var file_name = dir.get_next()
+	while file_name != "":
+		if not dir.current_is_dir() and file_name.ends_with(".tres"):
+			var monster_path = "res://assets/monsters/" + file_name
+			var monster_resource = load(monster_path)
+			if monster_resource is Monster:
+				monster_resource.randomize_stat_spread(monster_resource.base_stat_total, 10)
+				monster_resource.randomize_moves()
+				randomized_monsters.append(monster_resource)
+		file_name = dir.get_next()
+	dir.list_dir_end()
 
 
 # TODO: In the future, this will generate all events for a floor. Currently only 1 event per floor for testing.
@@ -86,8 +109,18 @@ func get_move_by_name(move_to_find: String):
 			return move
 
 
+func _create_player() -> BattleParticipant:
+	var monster_index = randi() % randomized_monsters.size()
+	var new_player = battle_participant_scene.instantiate()
+	new_player.set_script(preload("res://scripts/battle_participant.gd"))
+	new_player.setup_player(randomized_monsters[monster_index])
+	self.add_child(new_player)
+	new_player.name = "Player"
+	return new_player
+
+
 func _create_new_enemy() -> BattleParticipant:
-	var monsters = load_monsters_from_folder()
+	var monsters = randomized_monsters
 	var new_enemy = battle_participant_scene.instantiate()
 	new_enemy.set_script(preload("res://scripts/enemy.gd"))
 	# 2nd param = AI types 0 = RANDOM, 1 = AGGRESSIVE, 2 = HIGH_EV
@@ -110,23 +143,3 @@ func level_up_player_and_enemies():
 	# Only the enemy stat multiplier increases, because the player stays the same, while the enemies are generated every time.
 	enemy_level += 1
 	player.selected_monster.level_up(player_stat_multiplier)
-
-
-func load_monsters_from_folder(path: String = "res://assets/monsters") -> Array[Monster]:
-	var monsters: Array[Monster] = []
-	var dir := DirAccess.open(path)
-	if dir == null:
-		push_error("Could not open directory: " + path)
-		return []
-
-	dir.list_dir_begin()
-	var file_name = dir.get_next()
-	while file_name != "":
-		if not dir.current_is_dir() and file_name.ends_with(".tres"):
-			var monster_path = path + "/" + file_name
-			var monster_resource = load(monster_path)
-			if monster_resource is Monster:
-				monsters.append(monster_resource.duplicate(true))
-		file_name = dir.get_next()
-	dir.list_dir_end()
-	return monsters

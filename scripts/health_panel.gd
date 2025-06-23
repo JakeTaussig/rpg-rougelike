@@ -11,7 +11,7 @@ func _ready():
 
 
 func render_hp(monster: Monster):
-	var damage = monster.prior_hp - monster.hp
+	var damage = %HPBar.value - monster.hp
 	%NameLabel.text = "%s" % monster.character_name
 	%HPBar.max_value = monster.max_hp
 	%TypeLabel.text = "%s" % _set_bbcode_color(MovesList.Type.find_key(monster.type), MovesList.type_to_color(monster.type))
@@ -20,25 +20,23 @@ func render_hp(monster: Monster):
 		%StatusLabel.text = "%s" % _set_bbcode_color(MovesList.type_abbreviation(monster.status_effect), MovesList.status_effect_to_color(monster.status_effect))
 	else:
 		%StatusLabelPanel.visible = false
-	while damage > 0 and monster.prior_hp > 0:
-		if damage >= 10:
-			monster.prior_hp -= 10
-			damage -= 10
+	var prior_hp = %HPBar.value
+	while damage > 0 and prior_hp > 0:
+		if damage >= 2:
+			prior_hp -= 2
+			damage -= 2
 		else:
-			monster.prior_hp -= damage
+			prior_hp -= damage
 			damage = 0
-		%HPBar.value = monster.prior_hp
+		%HPBar.value = prior_hp
 		_set_hp_bar_color()
-		%HPNumber.text = "%d / %d" % [monster.prior_hp, monster.max_hp]
-		# Wait 4 frames
-		for i in 4:
-			await get_tree().process_frame
+		%HPNumber.text = "%d / %d" % [prior_hp, monster.max_hp]
+		await get_tree().process_frame
 
 	# Set again here, for cases in which we need to render and no damage was done.
 	%HPBar.value = monster.hp
 	_set_hp_bar_color()
 	%HPNumber.text = "%d / %d" % [monster.hp, monster.max_hp]
-	monster.prior_hp = 0
 
 
 func _set_hp_bar_color():

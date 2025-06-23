@@ -27,6 +27,7 @@ var previous_state_name: String
 
 var setup_done := false
 
+# Connected in GameManager
 signal battle_ended(victory: bool)
 
 @onready var ui_manager: UIManager = %UiManager
@@ -41,7 +42,6 @@ func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 	# assigns as reference
 	player = _player
 	enemy = _enemy
-	battle_participants = [player, enemy]
 	update_active_monsters()
 	player.apply_trinkets()
 	setup_done = true
@@ -67,6 +67,11 @@ func _hide_trinket_info():
 func update_active_monsters():
 	active_monsters = [player.selected_monster, enemy.selected_monster]
 	active_monsters.sort_custom(_sort_participants_by_speed)
+	# Doing this removes the need to have is_player as a property on Monster
+	if active_monsters[0] == player.selected_monster:
+		battle_participants = [player, enemy]
+	else:
+		battle_participants = [enemy, player]
 	if ui_manager:
 		ui_manager.render_hp(player.selected_monster, enemy.selected_monster)
 
