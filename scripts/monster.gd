@@ -37,6 +37,10 @@ extends Resource
 		crit_chance = new_crit_chance
 		var crit_chance_mult = float(luck) / 10
 		crit_chance = max(crit_chance, crit_chance_mult * 0.02)
+@export var acc = 1.0:
+	set(new_acc):
+		acc = min(1.0, new_acc)
+
 @export var base_stat_total = 300
 
 var crit_factor: float = 2.0
@@ -152,6 +156,10 @@ func use_move(index: int, target: Monster) -> AttackResults:
 func _does_move_hit_or_crit(accuracy: int) -> bool:
 	if status_effect == MovesList.StatusEffect.BLIND:
 		accuracy = int(float(accuracy) * 0.5)
+
+	# take the monster's own accuracy into effect
+	accuracy = int(float(accuracy) * acc)
+
 	accuracy = clamp(accuracy, 0, 100)
 	# Generates a number between 1 and 100
 	var roll = randi() % 100 + 1

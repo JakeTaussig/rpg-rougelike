@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=4 format=3 uid="uid://cwhqnhbi0ca5h"]
+
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinket.gd" id="1_bphy4"]
+[ext_resource type="Script" uid="uid://bdw5aqq0o851n" path="res://resources/trinket_strategies/haymaker_strategy.gd" id="2_hicn7"]
+
+[sub_resource type="Resource" id="Resource_jgb3b"]
+script = ExtResource("2_hicn7")
+metadata/_custom_type_script = "uid://bdw5aqq0o851n"
+
+[resource]
+script = ExtResource("1_bphy4")
+trinket_name = "Haymaker"
+description = "200% def[br]50% acc"
+strategy = SubResource("Resource_jgb3b")
+metadata/_custom_type_script = "uid://c7ph0ydi5trjd"
