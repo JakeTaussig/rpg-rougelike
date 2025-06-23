@@ -1,12 +1,18 @@
-[gd_resource type="Resource" script_class="Trinket" load_steps=3 format=3 uid="uid://dhy85hi8yee4g"]
+[gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://dhy85hi8yee4g"]
 
 [ext_resource type="Texture2D" uid="uid://c5ru8mdxdty7f" path="res://assets/sprites/trinket_icons/skull.png" id="1_fovfq"]
 [ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinket.gd" id="2_56pco"]
+[ext_resource type="Script" uid="uid://bwke0y8d3lcml" path="res://resources/trinket_strategies/change_type_fire_strategy.gd" id="3_56pco"]
+
+[sub_resource type="Resource" id="Resource_ntt54"]
+script = ExtResource("3_56pco")
+metadata/_custom_type_script = "uid://bwke0y8d3lcml"
 
 [resource]
 script = ExtResource("2_56pco")
 trinket_name = "Inferno"
 icon = ExtResource("1_fovfq")
 description = "Change the player's type to FIRE"
-callback_name = "_change_type_to_fire"
+category = 1
+strategy = SubResource("Resource_ntt54")
 metadata/_custom_type_script = "uid://c7ph0ydi5trjd"

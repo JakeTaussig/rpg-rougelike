@@ -12,6 +12,13 @@ class_name BattleParticipant
 
 		_setup_monsters()
 
+var trinkets: Array[Trinket] = []
+
+# called at the start of battle -- applies trinket effects to the player's monster
+func apply_trinkets():
+	for trinket in trinkets:
+		trinket.strategy.ApplyEffect(selected_monster)
+
 
 func _setup_monsters():
 	for i in monsters.size():
@@ -31,7 +38,6 @@ var is_player = true:
 		selected_monster.is_player = _is_player
 		render_battler()
 
-var trinkets: Array[Trinket] = []
 
 
 func render_battler():

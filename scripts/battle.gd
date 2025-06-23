@@ -43,6 +43,7 @@ func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 	enemy = _enemy
 	battle_participants = [player, enemy]
 	update_active_monsters()
+	player.apply_trinkets()
 	setup_done = true
 	print("Assigned player:", _player.name, _player.selected_monster.character_name)
 	print("Assigned enemy:", enemy.name, enemy.selected_monster.character_name)
