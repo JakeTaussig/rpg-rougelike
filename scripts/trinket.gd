@@ -7,4 +7,4 @@ enum TrinketCategory { ATK, TYPE }
 @export var description: String = "Change the player's type"
 @export var category: TrinketCategory = TrinketCategory.TYPE
 
-@export var strategy: TrinketStrategy
+@export var strategy: TrinketStrategy = TrinketStrategy.new()
