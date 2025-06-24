@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=20 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
@@ -18,6 +18,19 @@
 [ext_resource type="Texture2D" uid="uid://fs4ws7okfwn5" path="res://assets/sprites/trinket_icons/arrow.png" id="18_h4dll"]
 [ext_resource type="Script" uid="uid://flenaawlfq4g" path="res://scripts/states/SelectingItem.gd" id="20_61i1y"]
 [ext_resource type="PackedScene" uid="uid://capm3p3n50hky" path="res://scenes/ui_manager.tscn" id="23_fpf3k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4dll"]
+content_margin_top = 0.0
+content_margin_right = 1.0
+content_margin_bottom = 0.0
+bg_color = Color(0.0705882, 0.305882, 0.537255, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+expand_margin_left = 1.0
+expand_margin_right = 1.0
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_a12nh")
@@ -397,7 +410,7 @@ offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
-theme_override_constants/separation = 1
+theme_override_constants/separation = 0
 alignment = 1
 
 [node name="button" type="Button" parent="TrinketPanel/TrinketIconContainer"]
@@ -457,6 +470,7 @@ layout_mode = 2
 focus_neighbor_right = NodePath("../button")
 theme = ExtResource("2_p1qf1")
 theme_type_variation = &"IconButton"
+theme_override_styles/normal = SubResource("StyleBoxFlat_h4dll")
 icon = ExtResource("18_h4dll")
 
 [node name="TrinketInfoLabel" type="RichTextLabel" parent="."]

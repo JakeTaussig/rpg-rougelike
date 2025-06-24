@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b85ure3hfwged" path="res://assets/sprites/trinket_icons/sword.png" id="1_14v0i"]
 [ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinket.gd" id="1_rxab4"]
-[ext_resource type="Script" path="res://resources/trinket_strategies/dmg_up_strategy.gd" id="2_7tj33"]
+[ext_resource type="Script" uid="uid://b0v7xkkm5ti0" path="res://resources/trinket_strategies/dmg_up_strategy.gd" id="2_7tj33"]
 
 [sub_resource type="Resource" id="Resource_14v0i"]
 script = ExtResource("2_7tj33")
