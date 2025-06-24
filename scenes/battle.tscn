@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=19 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://sdwupuxudrjb" path="res://scripts/states/BattleOver.gd" id="13_22uqi"]
 [ext_resource type="Script" uid="uid://d0rdycr2tr5ll" path="res://scripts/states/EnactStatuses.gd" id="14_6ni85"]
 [ext_resource type="Script" uid="uid://m7sdis15lg1t" path="res://scripts/states/SelectingAttackPPRestore.gd" id="17_dd63g"]
+[ext_resource type="Script" uid="uid://b0c1nqtmap8ax" path="res://scripts/trinket_panel.gd" id="17_h4dll"]
 [ext_resource type="Texture2D" uid="uid://fs4ws7okfwn5" path="res://assets/sprites/trinket_icons/arrow.png" id="18_h4dll"]
 [ext_resource type="Script" uid="uid://flenaawlfq4g" path="res://scripts/states/SelectingItem.gd" id="20_61i1y"]
 [ext_resource type="PackedScene" uid="uid://capm3p3n50hky" path="res://scenes/ui_manager.tscn" id="23_fpf3k"]
@@ -69,12 +70,15 @@ theme = ExtResource("2_p1qf1")
 
 [node name="Attack" type="Button" parent="BottomBar/Action/ActionButtons"]
 unique_name_in_owner = true
+texture_filter = 1
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
+focus_neighbor_top = NodePath("../../../../TrinketPanel/TrinketIconContainer/button")
 text = "   Attack"
 alignment = 0
 
 [node name="Item" type="Button" parent="BottomBar/Action/ActionButtons"]
+texture_filter = 1
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 text = "   Item"
@@ -377,9 +381,9 @@ script = ExtResource("20_61i1y")
 unique_name_in_owner = true
 
 [node name="TrinketPanel" type="Panel" parent="."]
-offset_left = 89.0
-offset_right = 255.0
+offset_right = 154.0
 offset_bottom = 21.0
+script = ExtResource("17_h4dll")
 
 [node name="TrinketIconContainer" type="HBoxContainer" parent="TrinketPanel"]
 unique_name_in_owner = true
@@ -387,15 +391,19 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
 offset_top = 1.0
+offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 theme_override_constants/separation = 1
 alignment = 1
 
 [node name="button" type="Button" parent="TrinketPanel/TrinketIconContainer"]
 texture_filter = 1
 layout_mode = 2
+focus_neighbor_left = NodePath("../button4")
 theme = ExtResource("2_p1qf1")
 theme_type_variation = &"IconButton"
 icon = ExtResource("18_h4dll")
@@ -446,24 +454,40 @@ icon = ExtResource("18_h4dll")
 [node name="button4" type="Button" parent="TrinketPanel/TrinketIconContainer"]
 texture_filter = 1
 layout_mode = 2
+focus_neighbor_right = NodePath("../button")
 theme = ExtResource("2_p1qf1")
 theme_type_variation = &"IconButton"
 icon = ExtResource("18_h4dll")
 
 [node name="TrinketInfoLabel" type="RichTextLabel" parent="."]
 unique_name_in_owner = true
+visible = false
 z_index = 3
 z_as_relative = false
-offset_left = 127.0
-offset_top = 55.0
-offset_right = 256.0
-offset_bottom = 96.0
+offset_top = 21.0
+offset_right = 128.0
+offset_bottom = 62.0
 theme = ExtResource("2_p1qf1")
 theme_type_variation = &"TrinketInfoLabel"
 bbcode_enabled = true
 text = "Inferno
 Change the player's type to FIRE"
 autowrap_mode = 2
+
+[node name="TrinketInfoSpritePanel" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = 220.0
+offset_top = 2.0
+offset_right = 253.0
+offset_bottom = 35.0
+
+[node name="TrinketInfoSprite" type="Sprite2D" parent="TrinketInfoSpritePanel"]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(17, 17)
+scale = Vector2(2, 2)
+texture = ExtResource("18_h4dll")
 
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Item" to="BattleStateMachine/SELECTING_ACTION" method="_on_item_pressed"]

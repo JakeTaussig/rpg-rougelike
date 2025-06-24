@@ -47,20 +47,6 @@ func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 	print("Assigned player:", _player.name, _player.selected_monster.character_name)
 	print("Assigned enemy:", enemy.name, enemy.selected_monster.character_name)
 
-	for i in range(player.trinkets.size()):
-		var trinket: Trinket = player.trinkets[i]
-		var trinket_button: Button = %TrinketIconContainer.get_child(i)
-		trinket_button.icon = trinket.icon
-		trinket_button.mouse_entered.connect(func(): _display_trinket_info(i))
-		trinket_button.mouse_exited.connect(_hide_trinket_info)
-
-func _display_trinket_info(index: int):
-	%TrinketInfoLabel.visible = true
-	var trinket: Trinket = player.trinkets[index]
-	%TrinketInfoLabel.text = "[center]%s[/center]\n%s" % [trinket.trinket_name, trinket.description]
-
-func _hide_trinket_info():
-	%TrinketInfoLabel.hide()
 
 
 func update_active_monsters():
