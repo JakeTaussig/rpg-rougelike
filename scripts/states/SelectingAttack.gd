@@ -3,10 +3,12 @@ class_name SelectingAttack
 
 var last_focused_move_index: int = 0
 
+
 func enter(_messages: Array = []):
 	_init_move_buttons()
 	battle.ui_manager.show_moves_menu(true)
 	battle.ui_manager.get_move_buttons()[last_focused_move_index].grab_focus()
+
 
 func exit():
 	battle.ui_manager.show_moves_menu(false)
@@ -18,9 +20,11 @@ func exit():
 		for dict in button.get_signal_connection_list("mouse_entered"):
 			button.disconnect("mouse_entered", dict.callable)
 
+
 func handle_input(event: InputEvent):
 	if event.is_action_pressed("ui_cancel"):
 		battle.transition_state_to(battle.STATE_SELECTING_ACTION)
+
 
 func _on_move_pressed(index: int) -> void:
 	var move = GameManager.player.selected_monster.moves[index]
@@ -30,8 +34,8 @@ func _on_move_pressed(index: int) -> void:
 		attackCommand.attacker = GameManager.player.selected_monster
 		attackCommand.move_index = index
 		attackCommand.target = GameManager.enemy.selected_monster
-		battle.transition_state_to(
-			battle.STATE_ATTACK, [attackCommand])
+		battle.transition_state_to(battle.STATE_ATTACK, [attackCommand])
+
 
 # initialize move names and connect PP info display
 func _init_move_buttons():
@@ -48,6 +52,7 @@ func _init_move_buttons():
 			move_buttons[i].set_theme_type_variation("DisabledButton")
 		else:
 			move_buttons[i].set_theme_type_variation("Button")
+
 
 # callback used when a move is focused
 # displays the PP and type of the move in $"Moves/MovesInfo"

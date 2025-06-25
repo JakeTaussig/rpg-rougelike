@@ -1,11 +1,13 @@
 extends SelectingAttack
 
+
 func _render_moves():
 	var move_buttons = battle.ui_manager.get_move_buttons()
 	for i in GameManager.player.selected_monster.moves.size():
 		var move = GameManager.player.selected_monster.moves[i]
 		var enabled = move.pp < move.max_pp
 		battle.ui_manager.set_button_style_enabled(move_buttons[i], enabled)
+
 
 func _init_move_buttons():
 	var move_buttons = battle.ui_manager.get_move_buttons()
@@ -22,6 +24,7 @@ func _init_move_buttons():
 		else:
 			move_buttons[i].set_theme_type_variation("Button")
 
+
 func _restore(i: int):
 	var move = GameManager.player.selected_monster.moves[i]
 	if move.pp == move.max_pp:
@@ -33,7 +36,17 @@ func _restore(i: int):
 
 	move.pp = restored_pp
 
-	battle.transition_state_to(battle.STATE_INFO, ["%s meditated." % GameManager.player.selected_monster.character_name, ".....", ".......", ".....", "Restored PP of %s from %d to %d." % [GameManager.player.selected_monster.moves[i].move_name, initial_pp, restored_pp]])
+	battle.transition_state_to(
+		battle.STATE_INFO,
+		[
+			"%s meditated." % GameManager.player.selected_monster.character_name,
+			".....",
+			".......",
+			".....",
+			"Restored PP of %s from %d to %d." % [GameManager.player.selected_monster.moves[i].move_name, initial_pp, restored_pp]
+		]
+	)
+
 
 func _display_pp_info(move_index: int) -> void:
 	var move = GameManager.player.selected_monster.moves[move_index]
@@ -54,11 +67,13 @@ func _display_pp_info(move_index: int) -> void:
 		battle.ui_manager.set_pp_info("%d -->  %d - %d" % [move.pp, min_updated_pp, max_updated_pp], false)
 		battle.ui_manager.set_type_info("Restore %d-%d PP" % [min_added_pp, max_added_pp] % [min_added_pp], false)
 
+
 func _on_move_pressed(index: int) -> void:
 	var move = GameManager.player.selected_monster.moves[index]
 	print("\tuser input:\t\tselect %s (idx %d)" % [move.move_name, index])
 	if move.pp < move.max_pp:
 		battle.transition_state_to(battle.STATE_INFO, [])
+
 
 func handle_input(event: InputEvent):
 	if event.is_action_pressed("ui_cancel"):

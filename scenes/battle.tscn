@@ -1,31 +1,33 @@
-[gd_scene load_steps=18 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=17 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_p1qf1"]
-[ext_resource type="StyleBox" uid="uid://dwb68ajbfeqp0" path="res://assets/styles/normal_sbf.tres" id="4_lpir7"]
 [ext_resource type="Script" uid="uid://mb41k8rtgn0q" path="res://scripts/back_button.gd" id="4_saiin"]
-[ext_resource type="Script" uid="uid://yal21vgfjdjg" path="res://scripts/health_panel.gd" id="5_61i1y"]
+[ext_resource type="PackedScene" uid="uid://bs4b2pu5fsx6o" path="res://scenes/health_panel.tscn" id="5_ekamt"]
 [ext_resource type="Script" uid="uid://brto6aw55bukl" path="res://scripts/states/Info.gd" id="7_v7i3o"]
 [ext_resource type="Script" uid="uid://buy2ylv1t0vt0" path="res://scripts/states/EnemyAttack.gd" id="8_66ngm"]
 [ext_resource type="Script" uid="uid://bl3wtt7v3rtpm" path="res://scripts/states/SelectingAction.gd" id="9_03edq"]
 [ext_resource type="Script" uid="uid://dxrkm475i6ls6" path="res://scripts/states/SelectingAttack.gd" id="10_22uqi"]
 [ext_resource type="Script" uid="uid://cmikjgcwtvkyk" path="res://scripts/states/IncrementTurn.gd" id="12_03edq"]
 [ext_resource type="Script" uid="uid://bm0o2eovnfws7" path="res://scripts/states/Attack.gd" id="13_6ni85"]
-[ext_resource type="Script" uid="uid://sdwupuxudrjb" path="res://scripts/states/BattleOver.gd" id="13_22uqi"]
+[ext_resource type="Script" path="res://scripts/states/BattleOver.gd" id="13_22uqi"]
 [ext_resource type="Script" uid="uid://d0rdycr2tr5ll" path="res://scripts/states/EnactStatuses.gd" id="14_6ni85"]
 [ext_resource type="Script" uid="uid://m7sdis15lg1t" path="res://scripts/states/SelectingAttackPPRestore.gd" id="17_dd63g"]
 [ext_resource type="Script" uid="uid://flenaawlfq4g" path="res://scripts/states/SelectingItem.gd" id="20_61i1y"]
-[ext_resource type="PackedScene" path="res://scenes/ui_manager.tscn" id="23_fpf3k"]
+[ext_resource type="PackedScene" uid="uid://capm3p3n50hky" path="res://scenes/ui_manager.tscn" id="23_fpf3k"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_a12nh")
 
-[node name="PokemonRpgScreenGrayscale" type="Sprite2D" parent="."]
+[node name="Backdrop" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+z_index = -1
 position = Vector2(128, 72)
 texture = ExtResource("1_dn72j")
 
 [node name="BottomBar" type="Node2D" parent="."]
+z_index = 1
 
 [node name="PlayerPrompt" type="Label" parent="BottomBar"]
 unique_name_in_owner = true
@@ -309,27 +311,20 @@ autowrap_mode = 2
 [node name="HealthPanels" type="Node2D" parent="."]
 position = Vector2(-1, 0)
 
-[node name="EnemyPanel" type="Label" parent="HealthPanels"]
+[node name="PlayerHealthPanel" parent="HealthPanels" instance=ExtResource("5_ekamt")]
+unique_name_in_owner = true
+offset_left = 145.0
+offset_top = 55.0
+offset_right = 145.0
+offset_bottom = 55.0
+
+[node name="EnemyHealthPanel" parent="HealthPanels" instance=ExtResource("5_ekamt")]
 unique_name_in_owner = true
 offset_left = 17.0
 offset_top = 16.0
-offset_right = 113.0
-offset_bottom = 40.0
-theme = ExtResource("2_p1qf1")
-text = "Enemy"
-
-[node name="PlayerPanel" type="Label" parent="HealthPanels"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(96, 24)
-offset_left = 145.0
-offset_top = 56.0
-offset_right = 241.0
-offset_bottom = 80.0
-size_flags_horizontal = 0
-theme = ExtResource("2_p1qf1")
-theme_override_styles/normal = ExtResource("4_lpir7")
-text = "Player"
-script = ExtResource("5_61i1y")
+offset_right = 17.0
+offset_bottom = 16.0
+show_hp_numbers = false
 
 [node name="StateDisplay" type="Label" parent="."]
 unique_name_in_owner = true

@@ -1,0 +1,173 @@
+[gd_scene load_steps=7 format=3 uid="uid://bs4b2pu5fsx6o"]
+
+[ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="1_5pall"]
+[ext_resource type="Script" uid="uid://b2bvfyo8022af" path="res://scripts/health_panel.gd" id="1_07ma7"]
+[ext_resource type="StyleBox" uid="uid://biow57dl4dwgl" path="res://assets/styles/hp_bar_background_sbf.tres" id="3_twfsv"]
+[ext_resource type="StyleBox" uid="uid://copt7xkvufmol" path="res://assets/styles/hp_foreground_yellow_sbf.tres" id="5_d0kh3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0kh3"]
+content_margin_left = 2.0
+content_margin_top = 3.0
+content_margin_right = 1.0
+content_margin_bottom = 2.0
+bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0705882, 0.305882, 0.537255, 1)
+expand_margin_right = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uj006"]
+content_margin_left = 2.0
+content_margin_top = 3.0
+content_margin_right = 1.0
+content_margin_bottom = 2.0
+bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0705882, 0.305882, 0.537255, 1)
+expand_margin_right = 1.0
+
+[node name="HealthPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_07ma7")
+
+[node name="TopHealthBackdrop" type="Panel" parent="."]
+z_index = 1
+z_as_relative = false
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 17.0
+theme = ExtResource("1_5pall")
+theme_type_variation = &"FullBorderPanel"
+
+[node name="MiddleHealthBackdrop" type="Panel" parent="."]
+z_index = 1
+z_as_relative = false
+layout_mode = 0
+offset_left = 26.0
+offset_top = 16.0
+offset_right = 112.0
+offset_bottom = 25.0
+theme = ExtResource("1_5pall")
+theme_type_variation = &"FullBorderPanel"
+
+[node name="BottomHealthBackdrop" type="Panel" parent="."]
+unique_name_in_owner = true
+z_index = 1
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 107.0
+offset_top = 19.0
+offset_right = 112.0
+offset_bottom = 41.0
+grow_horizontal = 0
+theme = ExtResource("1_5pall")
+theme_type_variation = &"FullBorderPanel"
+
+[node name="LabelContainer" type="HFlowContainer" parent="."]
+z_index = 1
+layout_mode = 0
+offset_right = 111.0
+offset_bottom = 40.0
+theme = ExtResource("1_5pall")
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+alignment = 2
+
+[node name="NameLabel" type="RichTextLabel" parent="LabelContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(64, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme = ExtResource("1_5pall")
+theme_type_variation = &"HealthPanelLabel"
+bbcode_enabled = true
+text = "Player"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="TypeLabel" type="RichTextLabel" parent="LabelContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(47, 16)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_type_variation = &"HealthPanelLabel"
+bbcode_enabled = true
+text = "PLASMA"
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="Placeholder" type="Panel" parent="LabelContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(27, 8)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_5pall")
+theme_type_variation = &"EmptyPanel"
+
+[node name="StatusLabelPanel" type="Panel" parent="LabelContainer/Placeholder"]
+unique_name_in_owner = true
+z_index = 1
+z_as_relative = false
+layout_mode = 0
+offset_right = 26.0
+offset_bottom = 16.0
+
+[node name="StatusLabel" type="RichTextLabel" parent="LabelContainer/Placeholder/StatusLabelPanel"]
+unique_name_in_owner = true
+z_index = 1
+texture_filter = 1
+custom_minimum_size = Vector2(26, 17)
+layout_mode = 0
+offset_right = 26.0
+offset_bottom = 15.0
+theme = ExtResource("1_5pall")
+theme_type_variation = &"HealthPanelLabel"
+theme_override_styles/normal = SubResource("StyleBoxFlat_d0kh3")
+bbcode_enabled = true
+text = "PSN"
+horizontal_alignment = 1
+
+[node name="HPBar" type="ProgressBar" parent="LabelContainer"]
+unique_name_in_owner = true
+z_index = 2
+custom_minimum_size = Vector2(84, 7)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 8
+theme_override_styles/background = ExtResource("3_twfsv")
+theme_override_styles/fill = ExtResource("5_d0kh3")
+show_percentage = false
+
+[node name="InvisiblePlaceholder" type="Panel" parent="LabelContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(23, 15)
+layout_mode = 2
+theme = ExtResource("1_5pall")
+theme_type_variation = &"EmptyPanel"
+
+[node name="HPNumber" type="RichTextLabel" parent="LabelContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(59, 17)
+layout_mode = 2
+theme = ExtResource("1_5pall")
+theme_type_variation = &"HealthPanelLabel"
+theme_override_styles/normal = SubResource("StyleBoxFlat_uj006")
+text = "345/400"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1

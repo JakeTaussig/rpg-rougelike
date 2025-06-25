@@ -1,5 +1,6 @@
 extends BaseState
 
+
 func enter(_messages: Array = []):
 	var enemy = GameManager.enemy
 	var enemyMoveIdx = enemy.select_move()
@@ -8,7 +9,6 @@ func enter(_messages: Array = []):
 		attackCommand.attacker = enemy.selected_monster
 		attackCommand.move_index = enemyMoveIdx
 		attackCommand.target = GameManager.player.selected_monster
-		battle.transition_state_to(
-			battle.STATE_ATTACK, [attackCommand])
+		battle.transition_state_to(battle.STATE_ATTACK, [attackCommand])
 	else:
 		battle.transition_state_to(battle.STATE_INFO, ["%s can't attack" % enemy.monster.character_name])

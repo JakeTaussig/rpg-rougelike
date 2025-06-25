@@ -1,6 +1,7 @@
 extends BaseState
 var participants_statused: bool = false
 
+
 func enter(messages: Array = []):
 	var message = ""
 	for monster in battle.active_monsters:
@@ -11,15 +12,15 @@ func enter(messages: Array = []):
 					message = monster.enact_status_effect()
 					if message != "":
 						messages.append(message)
-				1: 
+				1:
 					message = monster.enact_status_effect()
 					if message != "":
 						messages.append(message)
-				2: 
+				2:
 					message = monster.enact_status_effect()
 					if message != "":
 						messages.append(message)
-				3: 
+				3:
 					if randi() % 4 == 0:
 						message = monster.recover_from_status_effect()
 					else:
@@ -33,14 +34,14 @@ func enter(messages: Array = []):
 						message = monster.enact_status_effect()
 					if message != "":
 						messages.append(message)
-				5: 
+				5:
 					if randi() % 2 == 0:
 						message = monster.recover_from_status_effect()
 					else:
 						message = monster.enact_status_effect()
 					if message != "":
 						messages.append(message)
-				6:     
+				6:
 					message = monster.recover_from_status_effect()
 					if message != "":
 						messages.append(message)

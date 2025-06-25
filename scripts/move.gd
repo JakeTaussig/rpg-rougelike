@@ -1,6 +1,6 @@
 class_name Move extends Resource
 
-enum MoveCategory {ATK, SP_ATK, STATUS_EFFECT, STAT_MODIFIER}
+enum MoveCategory { ATK, SP_ATK, STATUS_EFFECT, STAT_MODIFIER }
 @export var move_name: String = "Bubblebeam"
 @export var category: MoveCategory = MoveCategory.ATK
 @export var type: MovesList.Type = MovesList.Type.HUMAN
@@ -30,6 +30,8 @@ enum MoveCategory {ATK, SP_ATK, STATUS_EFFECT, STAT_MODIFIER}
 # 0 = Normal, 1 = Priority
 @export var priority: bool = 0
 
+@export var backdrop: ShaderMaterial
+
 
 # returns an identical copy of the current move
 func copy() -> Move:
@@ -45,10 +47,11 @@ func copy() -> Move:
 			new_move.set(property_name, get(property_name))
 
 	return new_move
-	
+
+
 func _to_string() -> String:
 	var output = ""
 	for property_name in ["move_name", "type", "category", "acc", "base_power", "pp", "max_pp", "priority"]:
 		output += "\n%s: %s" % [property_name, get(property_name)]
-		
+
 	return output

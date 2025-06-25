@@ -1,6 +1,7 @@
 class_name AttackState
 extends BaseState
 
+
 func enter(params: Array = []):
 	if params.size() != 1 or not params[0] is AttackCommand:
 		push_error("AttackState: Expected AttackCommand")
@@ -17,8 +18,12 @@ func enter(params: Array = []):
 	var results: Monster.AttackResults = attacker.use_move(move_index, target)
 	var messages = _generate_attack_messages(attacker, target, results)
 
+	if results.move.backdrop:
+		battle.ui_manager.set_backdrop_material(results.move.backdrop)
+
 	# Transition to AttackingInfoState to show results
 	battle.transition_state_to(battle.STATE_INFO, messages)
+
 
 func _generate_attack_messages(attacker, target, results) -> Array:
 	var messages = []
@@ -28,7 +33,7 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 	var move_hit = results.move_hit
 	var is_critical = results.is_critical
 	if used_move_name == "Whirlpool":
-		messages.append("%s got caught in the whirlpool and took %d damage!" % [attacker.character_name, damage])
+		messages.append("%s got caught in the whirlpool!" % [attacker.character_name])
 		return messages
 	elif used_move_name == "Paralyzed":
 		messages.append("%s is paralyzed and could not move!" % attacker.character_name)
@@ -36,7 +41,7 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 		messages.append("%s missed %s!" % [attacker.character_name, used_move_name])
 	elif damage > 0:
 		var effectiveness_multiplier: float = attacker.get_effectiveness_modifier(used_move, target)
-		var message = ("%s used %s on %s for %d damage!" % [attacker.character_name, used_move_name, target.character_name, damage])
+		var message = "%s used %s on %s!" % [attacker.character_name, used_move_name, target.character_name]
 		if is_critical:
 			message += " Critical Hit!"
 		messages.append(message)
@@ -55,12 +60,19 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 		var target_status_effect_string = String(MovesList.StatusEffect.find_key(target.status_effect)).to_lower()
 		var attempted_status_effect_string = String(MovesList.StatusEffect.find_key(used_move.status_effect)).to_lower()
 		if target.status_effect == MovesList.StatusEffect.NONE:
-			messages.append("%s used %s and attempted to apply %s on %s, but %s is immune!" % 
-			[attacker.character_name, used_move_name, attempted_status_effect_string, target.character_name, target.character_name])
+			messages.append(
+				(
+					"%s used %s and attempted to apply %s on %s, but %s is immune!"
+					% [attacker.character_name, used_move_name, attempted_status_effect_string, target.character_name, target.character_name]
+				)
+			)
 		else:
-			messages.append("%s used %s and attempted to apply %s on %s, but %s is already afflicted with %s!" % 
-			[attacker.character_name, used_move_name, attempted_status_effect_string, target.character_name, target.character_name, target_status_effect_string])
-
+			messages.append(
+				(
+					"%s used %s and attempted to apply %s on %s, but %s is already afflicted with %s!"
+					% [attacker.character_name, used_move_name, attempted_status_effect_string, target.character_name, target.character_name, target_status_effect_string]
+				)
+			)
 
 	if not target.is_alive:
 		return messages
@@ -82,6 +94,7 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 			MovesList.StatusEffect.BLIND:
 				messages.append("%s's accuracy was lowered by 33" % target.character_name + "%!")
 	return messages
+
 
 # Inner class. Used to pass data to `AttackState.enter`
 class AttackCommand:
