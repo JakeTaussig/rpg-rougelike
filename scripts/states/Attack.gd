@@ -3,10 +3,14 @@ extends BaseState
 
 
 func enter(params: Array = []):
-	if params.size() != 1 or not params[0] is AttackCommand:
+	if params.size() < 1 or not params[0] is AttackCommand:
 		push_error("AttackState: Expected AttackCommand")
 		battle.transition_state_to(battle.STATE_INFO, ["Invalid attack command"])
 		return
+
+	var n_repeats = 0
+	if params.size() >= 2:
+		n_repeats = params[1]
 
 	var command = params[0] as AttackCommand
 
@@ -23,6 +27,14 @@ func enter(params: Array = []):
 
 	# Transition to AttackingInfoState to show results
 	battle.push_state(battle.STATE_INFO, messages)
+
+	if results.move.move_name == "Bullet Seed":
+		if n_repeats <= 0 || (n_repeats <= 3 && randi() % 2 == 0):
+			results.move.pp += 1
+			battle.transition_state_to(battle.STATE_ATTACK, [command, n_repeats + 1])
+			return
+		else:
+			battle.push_state(battle.STATE_INFO, ["Hit %d times." % (n_repeats + 1)])
 	battle.transition_state_to(battle.STATE_INCREMENT_TURN)
 
 
