@@ -23,6 +23,8 @@ var enemy: BattleParticipant
 var active_monsters = []
 
 var current_state: BaseState
+var next_states: Array[BaseState]
+var next_state_messages: Array[Array]
 var previous_state_name: String
 
 var setup_done := false
@@ -80,20 +82,35 @@ func _sort_participants_by_speed(a: Monster, b: Monster) -> bool:
 	return a.speed > b.speed
 
 
+func push_state(state_name: String, messages: Array = []):
+	if not %BattleStateMachine.has_node(state_name):
+		push_error("Invalid state: " + state_name)
+		return
+
+	next_states.append(%BattleStateMachine.get_node(state_name))
+	next_state_messages.append(messages)
+
+func transition_to_next_state():
+	if current_state:
+		current_state.exit()
+		previous_state_name = current_state.name
+
+	var next_state = next_states.pop_front()
+	var next_state_messages = next_state_messages.pop_front()
+
+	print("Entering state: ", next_state.name)
+	ui_manager.set_state_display(next_state.name)
+
+	current_state = next_state
+	current_state.enter(next_state_messages)
+
 func transition_state_to(state_name: String, messages: Array = []):
 	if not %BattleStateMachine.has_node(state_name):
 		push_error("Invalid state: " + state_name)
 		return
 
-	if current_state:
-		current_state.exit()
-		previous_state_name = current_state.name
-
-	print("Entering state: ", state_name)
-	ui_manager.set_state_display(state_name)
-
-	current_state = %BattleStateMachine.get_node(state_name)
-	current_state.enter(messages)
+	push_state(state_name, messages)
+	transition_to_next_state()
 
 
 func is_battle_over() -> bool:
