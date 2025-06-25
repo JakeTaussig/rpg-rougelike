@@ -22,7 +22,8 @@ func enter(params: Array = []):
 		battle.ui_manager.set_backdrop_material(results.move.backdrop)
 
 	# Transition to AttackingInfoState to show results
-	battle.transition_state_to(battle.STATE_INFO, messages)
+	battle.push_state(battle.STATE_INFO, messages)
+	battle.transition_state_to(battle.STATE_INCREMENT_TURN)
 
 
 func _generate_attack_messages(attacker, target, results) -> Array:

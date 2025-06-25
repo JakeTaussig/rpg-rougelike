@@ -31,7 +31,7 @@ func handle_continue():
 	if message_index < messages.size():
 		_update_message()
 	else:
-		battle.transition_state_to(battle.STATE_INCREMENT_TURN)
+		battle.transition_to_next_state()
 
 
 func _update_message():
