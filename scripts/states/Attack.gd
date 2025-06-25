@@ -28,6 +28,7 @@ func enter(params: Array = []):
 	# Transition to AttackingInfoState to show results
 	battle.push_state(battle.STATE_INFO, messages)
 
+	# TODO: relocate move-specific logic to Monster._attack
 	if results.move.move_name == "Bullet Seed":
 		if n_repeats <= 0 || (n_repeats <= 3 && randi() % 2 == 0):
 			results.move.pp += 1
