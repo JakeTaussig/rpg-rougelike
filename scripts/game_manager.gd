@@ -1,6 +1,7 @@
 extends Control
 @export var moves_list: MovesList = preload("res://resources/moves/global_moves_list.tres")
 @export var items_list: ItemsList = preload("res://resources/items/global_items_list.tres")
+var trinkets_list: TrinketsList = TrinketsList.new()
 
 @onready var screen_fade = $ScreenFade
 
@@ -29,8 +30,14 @@ func start_game():
 	_load_and_randomize_monsters()
 	player = _create_player()
 	enemy = _create_new_enemy()
+	_init_player_trinkets()
 	_generate_floor_events()
 	_start_next_event()
+
+
+func _init_player_trinkets():
+	player.trinkets = trinkets_list.trinkets
+	player.apply_trinkets()
 
 
 func _load_and_randomize_monsters():

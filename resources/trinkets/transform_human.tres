@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://dlvuc0c47v5du"]
+
+[ext_resource type="Texture2D" uid="uid://bppwan6jspjq0" path="res://assets/sprites/trinket_icons/human.png" id="1_i835e"]
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinket.gd" id="2_i835e"]
+[ext_resource type="Script" uid="uid://ytr80rh1biwm" path="res://resources/trinket_strategies/change_type_human_strategy.gd" id="3_i835e"]
+
+[sub_resource type="Resource" id="Resource_y4fx8"]
+script = ExtResource("3_i835e")
+metadata/_custom_type_script = "uid://ytr80rh1biwm"
+
+[resource]
+script = ExtResource("2_i835e")
+trinket_name = "Humanize"
+icon = ExtResource("1_i835e")
+description = "Change the player's type to HUMAN"
+strategy = SubResource("Resource_y4fx8")
+metadata/_custom_type_script = "uid://c7ph0ydi5trjd"

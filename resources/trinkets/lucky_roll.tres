@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://cdp46yqgvmwaj"]
+
+[ext_resource type="Texture2D" uid="uid://bq3krwyevsv2l" path="res://assets/sprites/trinket_icons/lucky-dice.png" id="1_bkhu5"]
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinket.gd" id="1_lubsd"]
+[ext_resource type="Script" uid="uid://brc5y38a3jn6v" path="res://resources/trinket_strategies/lucky_roll_strategy.gd" id="2_n32qn"]
+
+[sub_resource type="Resource" id="Resource_bkhu5"]
+script = ExtResource("2_n32qn")
+metadata/_custom_type_script = "uid://brc5y38a3jn6v"
+
+[resource]
+script = ExtResource("1_lubsd")
+trinket_name = "Lucky Roll"
+icon = ExtResource("1_bkhu5")
+description = "Roll for Critical hits 2x"
+strategy = SubResource("Resource_bkhu5")

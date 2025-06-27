@@ -37,9 +37,14 @@ extends Resource
 		crit_chance = new_crit_chance
 		var crit_chance_mult = float(luck) / 10
 		crit_chance = max(crit_chance, crit_chance_mult * 0.02)
+@export var acc = 1.0:
+	set(new_acc):
+		acc = min(1.0, new_acc)
+
 @export var base_stat_total = 300
 
 var crit_factor: float = 2.0
+var crit_checks: int = 1  # number of times we roll for a crit
 
 @export var type: MovesList.Type
 @export var moves: Array[Move] = []
@@ -93,15 +98,15 @@ func increment_health(value: int) -> void:
 
 func level_up(stat_multiplier: float):
 	var old_max_hp = max_hp
-	max_hp *= stat_multiplier
+	max_hp = int(float(max_hp) * stat_multiplier)
 	var hp_to_gain = max_hp - old_max_hp
 	hp += hp_to_gain
-	atk *= stat_multiplier
-	sp_atk *= stat_multiplier
-	def *= stat_multiplier
-	sp_def *= stat_multiplier
-	speed *= stat_multiplier
-	luck *= stat_multiplier
+	atk = int(float(atk) * stat_multiplier)
+	sp_atk = int(float(sp_atk) * stat_multiplier)
+	def = int(float(def) * stat_multiplier)
+	sp_def = int(float(sp_def) * stat_multiplier)
+	speed = int(float(speed) * stat_multiplier)
+	luck = int(float(luck) * stat_multiplier)
 
 
 func use_move(index: int, target: Monster) -> AttackResults:
@@ -152,6 +157,10 @@ func use_move(index: int, target: Monster) -> AttackResults:
 func _does_move_hit_or_crit(accuracy: int) -> bool:
 	if status_effect == MovesList.StatusEffect.BLIND:
 		accuracy = int(float(accuracy) * 0.5)
+
+	# take the monster's own accuracy into effect
+	accuracy = int(float(accuracy) * acc)
+
 	accuracy = clamp(accuracy, 0, 100)
 	# Generates a number between 1 and 100
 	var roll = randi() % 100 + 1
@@ -162,7 +171,11 @@ func _attack(move: Move, target: Monster, is_physical: bool) -> AttackResults:
 	var power = move.base_power
 	var damage = 0
 	var effectiveness_modifier = get_move_effectiveness(move, target)
+
 	var is_critical = _does_move_hit_or_crit(crit_chance * 100)
+	for i in range(crit_checks - 1):
+		if not is_critical:
+			is_critical = _does_move_hit_or_crit(crit_chance * 100)
 	if is_physical:
 		power = power * atk
 		damage = float(power) / target.def
