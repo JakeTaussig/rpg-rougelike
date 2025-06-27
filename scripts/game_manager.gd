@@ -34,7 +34,7 @@ func start_game():
 
 
 func _load_and_randomize_monsters():
-	var dir := DirAccess.open("res://resources/monsters")
+	var dir := DirAccess.open("res://assets/monsters")
 	if dir == null:
 		push_error("Could not open monster directory")
 		return
@@ -43,7 +43,7 @@ func _load_and_randomize_monsters():
 	var file_name = dir.get_next()
 	while file_name != "":
 		if not dir.current_is_dir() and file_name.ends_with(".tres"):
-			var monster_path = "res://resources/monsters/" + file_name
+			var monster_path = "res://assets/monsters/" + file_name
 			var monster_resource = load(monster_path)
 			if monster_resource is Monster:
 				monster_resource.randomize_stat_spread(monster_resource.base_stat_total, 10)

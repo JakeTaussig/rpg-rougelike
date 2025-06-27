@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d0ejnncl5rkg0" path="res://scripts/battle_participant.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://cngw2ls1edyyl" path="res://scenes/status_emitter.tscn" id="3_dmbjg"]
 [ext_resource type="Texture2D" uid="uid://ccw3gkgcfoqh0" path="res://assets/sprites/characters/omenite.png" id="4_07hmd"]
-[ext_resource type="Shader" path="res://resources/assets/shaders/outline.gdshader" id="4_i87j4"]
+[ext_resource type="Shader" uid="uid://cwjiowobjkvf" path="res://assets/shaders/outline.gdshader" id="4_i87j4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_07hmd"]
 resource_local_to_scene = true
