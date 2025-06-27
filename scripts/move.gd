@@ -32,6 +32,10 @@ enum MoveCategory { ATK, SP_ATK, STATUS_EFFECT, STAT_MODIFIER }
 
 @export var backdrop: ShaderMaterial
 
+# commonly set on special attacking moves
+# If set, will be called after the move hits
+@export var post_attack_strategy: PostAttackStrategy
+
 
 # returns an identical copy of the current move
 func copy() -> Move:

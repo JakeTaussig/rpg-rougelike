@@ -25,7 +25,7 @@ func enter(params: Array = []):
 	battle.transition_state_to(battle.STATE_INFO, messages)
 
 
-func _generate_attack_messages(attacker, target, results) -> Array:
+func _generate_attack_messages(attacker, target, results: Monster.AttackResults) -> Array:
 	var messages = []
 	var used_move = results.move
 	var used_move_name = used_move.move_name
@@ -74,10 +74,7 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 				)
 			)
 
-	if not target.is_alive:
-		return messages
-
-	if results.status_applied:
+	if results.status_applied and target.is_alive:
 		var status_effect = target.status_effect
 		# Different message if the move only applies status effect or if it also did damage. In this case we need to display the move name.
 		var status_effect_string = String(MovesList.StatusEffect.find_key(status_effect)).to_lower()
@@ -93,6 +90,10 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 				messages.append(target.enact_burn_on_self())
 			MovesList.StatusEffect.BLIND:
 				messages.append("%s's accuracy was lowered by 33" % target.character_name + "%!")
+
+	if results.additional_message:
+		messages.append(results.additional_message)
+
 	return messages
 
 
