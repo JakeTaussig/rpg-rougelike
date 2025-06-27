@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MovesList" load_steps=20 format=3 uid="uid://btnh7hoa1cll6"]
+[gd_resource type="Resource" script_class="MovesList" load_steps=21 format=3 uid="uid://btnh7hoa1cll6"]
 
 [ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_ofag1"]
 [ext_resource type="Resource" uid="uid://c22tuotquomd3" path="res://resources/moves/tackle.tres" id="2_bdaju"]
@@ -19,7 +19,8 @@
 [ext_resource type="Resource" uid="uid://u8et24i20sa7" path="res://resources/moves/giga_drain.tres" id="16_2b58r"]
 [ext_resource type="Resource" uid="uid://xb4xtygupfcq" path="res://resources/moves/echoed_voice.tres" id="17_8pfnk"]
 [ext_resource type="Resource" uid="uid://dwov7yvmqtulq" path="res://resources/moves/snarl.tres" id="18_6s8og"]
+[ext_resource type="Resource" uid="uid://cwrvg03f7br2r" path="res://resources/moves/fleur_cannon.tres" id="19_uqw6k"]
 
 [resource]
 script = ExtResource("7_2u8do")
-moves = Array[ExtResource("1_ofag1")]([ExtResource("2_jqwdi"), ExtResource("5_p5lyi"), ExtResource("2_bdaju"), ExtResource("5_6riy4"), ExtResource("3_4xer7"), ExtResource("4_wtwah"), ExtResource("11_1l5jq"), ExtResource("9_xl5mf"), ExtResource("5_uk1h8"), ExtResource("13_xga3l"), ExtResource("7_qyrit"), ExtResource("10_lqm4p"), ExtResource("4_ux0hn"), ExtResource("6_f500o"), ExtResource("16_2b58r"), ExtResource("17_8pfnk"), ExtResource("18_6s8og")])
+moves = Array[ExtResource("1_ofag1")]([ExtResource("2_jqwdi"), ExtResource("5_p5lyi"), ExtResource("2_bdaju"), ExtResource("5_6riy4"), ExtResource("3_4xer7"), ExtResource("4_wtwah"), ExtResource("11_1l5jq"), ExtResource("9_xl5mf"), ExtResource("5_uk1h8"), ExtResource("13_xga3l"), ExtResource("7_qyrit"), ExtResource("10_lqm4p"), ExtResource("4_ux0hn"), ExtResource("6_f500o"), ExtResource("16_2b58r"), ExtResource("17_8pfnk"), ExtResource("18_6s8og"), ExtResource("19_uqw6k"), ExtResource("19_uqw6k"), ExtResource("19_uqw6k")])
