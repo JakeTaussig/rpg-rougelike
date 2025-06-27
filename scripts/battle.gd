@@ -48,7 +48,6 @@ func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 	print("Assigned enemy:", enemy.name, enemy.selected_monster.character_name)
 
 
-
 func update_active_monsters():
 	active_monsters = [player.selected_monster, enemy.selected_monster]
 	active_monsters.sort_custom(_sort_participants_by_speed)

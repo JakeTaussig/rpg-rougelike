@@ -37,7 +37,6 @@ extends Resource
 		crit_chance = new_crit_chance
 		var crit_chance_mult = float(luck) / 10
 		crit_chance = max(crit_chance, crit_chance_mult * 0.02)
-var crit_checks: int = 1 # number of times we roll for a crit
 @export var acc = 1.0:
 	set(new_acc):
 		acc = min(1.0, new_acc)
@@ -45,6 +44,7 @@ var crit_checks: int = 1 # number of times we roll for a crit
 @export var base_stat_total = 300
 
 var crit_factor: float = 2.0
+var crit_checks: int = 1 # number of times we roll for a crit
 
 @export var type: MovesList.Type
 @export var moves: Array[Move] = []
