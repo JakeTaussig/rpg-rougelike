@@ -150,6 +150,7 @@ func use_move(index: int, target: Monster) -> AttackResults:
 
 	if move.post_attack_strategy != null:
 		results.attacker = self
+		results.target = target
 		var additional_message = move.post_attack_strategy.ApplyEffect(results)
 		results.additional_message = additional_message
 
@@ -378,6 +379,7 @@ class AttackResults:
 	var is_critical: bool
 
 	var attacker: Monster
+	var target: Monster
 	var additional_message: String
 
 	func _init(_move: Move, _damage: int, _move_hit: bool, _status_applied: bool, _is_critical: bool):
