@@ -1,8 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://dspy5d5yn1fxj"]
+[gd_scene load_steps=6 format=3 uid="uid://dspy5d5yn1fxj"]
 
 [ext_resource type="Script" uid="uid://d0ejnncl5rkg0" path="res://scripts/battle_participant.gd" id="1_3vyb7"]
-[ext_resource type="PackedScene" path="res://scenes/status_emitter.tscn" id="3_dmbjg"]
+[ext_resource type="PackedScene" uid="uid://cngw2ls1edyyl" path="res://scenes/status_emitter.tscn" id="3_dmbjg"]
 [ext_resource type="Texture2D" uid="uid://ccw3gkgcfoqh0" path="res://assets/sprites/characters/omenite.png" id="4_07hmd"]
+[ext_resource type="Shader" path="res://resources/assets/shaders/outline.gdshader" id="4_i87j4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_07hmd"]
+resource_local_to_scene = true
+shader = ExtResource("4_i87j4")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="BattleParticipant" type="Sprite2D"]
 z_index = 1
@@ -14,6 +25,7 @@ script = ExtResource("1_3vyb7")
 [node name="StatusEmitter" parent="." instance=ExtResource("3_dmbjg")]
 z_as_relative = false
 texture_filter = 1
+material = SubResource("ShaderMaterial_07hmd")
 emitting = false
 lifetime = 0.5
 speed_scale = 0.25
