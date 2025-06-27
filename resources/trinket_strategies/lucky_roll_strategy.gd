@@ -5,5 +5,3 @@ extends TrinketStrategy
 func ApplyEffect(monster: Monster):
 	monster.crit_checks += 1
 
-func RemoveEffect(monster: Monster):
-	monster.crit_checks -= 1

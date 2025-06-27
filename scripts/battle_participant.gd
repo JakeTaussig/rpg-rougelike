@@ -24,18 +24,6 @@ func apply_trinkets():
 		trinket.strategy.ApplyEffect(selected_monster)
 	trinkets_applied = true
 
-func remove_trinkets():
-	for i in range(trinkets.size()-1, -1, -1):
-		print(i)
-		var trinket = trinkets[i]
-		trinket.strategy.RemoveEffect(selected_monster)
-
-
-func _setup_monsters():
-	for i in monsters.size():
-		monsters[i] = monsters[i].duplicate(true)
-	if monsters.size() > 0:
-		selected_monster = monsters[0]
 
 func setup_player(_monster: Monster):
 	monsters = [_monster]
@@ -59,14 +47,6 @@ func render_battler():
 	flip_h = is_player
 	$StatusEmitter.status_effect = selected_monster.status_effect
 
-
-func get_trinkets_in_category(category: Trinket.TrinketCategory) -> Array[Trinket]:
-	var output: Array[Trinket] = []
-	for trinket in trinkets:
-		if trinket.category == category:
-			output.append(trinket)
-
-	return output
 
 # Called when the node enters the scene tree for the first time.
 func _enter_tree() -> void:

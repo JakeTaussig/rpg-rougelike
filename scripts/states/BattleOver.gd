@@ -13,7 +13,6 @@ func enter(_messages: Array = []):
 		_messages.append("You lost the Battle. Proceeding...")
 	elif enemy.selected_monster.hp <= 0:
 		if GameManager.floor_events.is_empty():
-			#player.remove_trinkets()
 			GameManager.level_up_player_and_enemies()
 			match GameManager.floor_number:
 				1:
