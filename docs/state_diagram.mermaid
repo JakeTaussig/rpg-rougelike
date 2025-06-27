@@ -10,8 +10,6 @@ flowchart TD
   EnactStatuses[*State: EnactStatuses*]
   SelectingItem[*State: SelectingItem*]
   SelectingAttackPPRestore[*State: SelectingAttackPPRestore*]
-  SelectingTrinkets[*State: SelectingTrinkets*]
-  style SelectingTrinkets stroke:#33cc33,stroke-width:4
 
   Start --> IncrementTurn
 
@@ -25,7 +23,6 @@ flowchart TD
 
   SelectingAttackPPRestore --> |specific attack selected|Info
 
-  SelectingAction --> |Trinket menu selected|SelectingTrinkets
 
   IncrementTurn --> |Enemy Turn| EnemyAttack
   EnemyAttack --> Attack
@@ -40,6 +37,3 @@ flowchart TD
   Info --> |More messages to display| Info
 
   EnactStatuses --> Info
-
-   %% linkStyle 4 stroke:#33cc33,stroke-width:4px
-   %% style SelectingAttackPPRestore stroke:#33cc33,stroke-width:4
