@@ -327,7 +327,6 @@ offset_left = 17.0
 offset_top = 21.0
 offset_right = 17.0
 offset_bottom = 21.0
-show_hp_numbers = false
 
 [node name="StateDisplay" type="Label" parent="."]
 unique_name_in_owner = true
@@ -380,7 +379,10 @@ script = ExtResource("20_61i1y")
 [node name="UiManager" parent="." instance=ExtResource("23_fpf3k")]
 unique_name_in_owner = true
 
-[node name="TrinketShelf" parent="." instance=ExtResource("17_h4dll")]
+[node name="TrinketShelf" parent="." node_paths=PackedStringArray("trinket_info_label", "trinket_info_panel", "trinket_info_sprite") instance=ExtResource("17_h4dll")]
+trinket_info_label = NodePath("../TrinketInfoLabel")
+trinket_info_panel = NodePath("../TrinketInfoSpritePanel")
+trinket_info_sprite = NodePath("../TrinketInfoSpritePanel/TrinketInfoSprite")
 
 [node name="TrinketInfoLabel" type="RichTextLabel" parent="."]
 unique_name_in_owner = true
