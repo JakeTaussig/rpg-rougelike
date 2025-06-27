@@ -44,7 +44,7 @@ extends Resource
 @export var base_stat_total = 300
 
 var crit_factor: float = 2.0
-var crit_checks: int = 1 # number of times we roll for a crit
+var crit_checks: int = 1  # number of times we roll for a crit
 
 @export var type: MovesList.Type
 @export var moves: Array[Move] = []

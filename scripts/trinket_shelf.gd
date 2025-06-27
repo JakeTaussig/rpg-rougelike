@@ -12,6 +12,7 @@ var last_focused_idx = 0
 
 @export var trinkets: Array[Trinket]
 
+
 func _ready():
 	if trinkets.size() == 0 && GameManager.player != null:
 		trinkets = GameManager.player.trinkets
@@ -25,6 +26,7 @@ func _ready():
 		trinket_button.focus_entered.connect(func(): _display_trinket_info(i))
 		trinket_button.focus_exited.connect(_hide_trinket_info)
 
+
 func _display_trinket_info(index: int):
 	trinket_info_panel.visible = true
 	trinket_info_label.visible = true
@@ -33,12 +35,16 @@ func _display_trinket_info(index: int):
 
 	trinket_info_sprite.texture = trinket.icon
 
-	trinket_info_label.text = "[center]%s[/center]\n%s" % [trinket.trinket_name, trinket.description]
+	trinket_info_label.text = (
+		"[center]%s[/center]\n%s" % [trinket.trinket_name, trinket.description]
+	)
 	last_focused_idx = index
+
 
 func _hide_trinket_info():
 	trinket_info_label.hide()
 	trinket_info_panel.hide()
+
 
 func steal_focus(index):
 	var focus_owner = get_viewport().gui_get_focus_owner()
@@ -48,6 +54,7 @@ func steal_focus(index):
 
 	get_child(0).get_child(index).grab_focus()
 	on = true
+
 
 func return_focus():
 	prior_focused_element.grab_focus()

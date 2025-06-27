@@ -3,8 +3,10 @@ class_name TrinketsList
 
 var trinkets: Array[Trinket] = []
 
+
 func _init():
 	_load_trinkets_from_folder()
+
 
 func _load_trinkets_from_folder(path: String = "res://resources/trinkets"):
 	var dir := DirAccess.open(path)
@@ -19,6 +21,10 @@ func _load_trinkets_from_folder(path: String = "res://resources/trinkets"):
 			var trinket_path = path + "/" + file_name
 			var trinket_resource = load(trinket_path)
 			if trinket_resource is Trinket:
-				trinkets.append(trinket_resource.duplicate_deep(Resource.ResourceDeepDuplicateMode.RESOURCE_DEEP_DUPLICATE_INTERNAL))
+				trinkets.append(
+					trinket_resource.duplicate_deep(
+						Resource.ResourceDeepDuplicateMode.RESOURCE_DEEP_DUPLICATE_INTERNAL
+					)
+				)
 		file_name = dir.get_next()
 	dir.list_dir_end()

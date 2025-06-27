@@ -11,7 +11,12 @@ func _init():
 	for StatusEffect in MovesList.StatusEffect.values():
 		var key = MovesList.StatusEffect.find_key(StatusEffect)
 
-		var text = "%s" % HealthPanel.set_bbcode_color(key, MovesList.status_effect_to_color(StatusEffect).to_html())
+		var text = (
+			"%s"
+			% HealthPanel.set_bbcode_color(
+				key, MovesList.status_effect_to_color(StatusEffect).to_html()
+			)
+		)
 		_create_label(text, StatusEffect * 15, 96)
 
 

@@ -34,6 +34,7 @@ func start_game():
 	_generate_floor_events()
 	_start_next_event()
 
+
 func _init_player_trinkets():
 	player.trinkets = trinkets_list.trinkets
 	player.apply_trinkets()

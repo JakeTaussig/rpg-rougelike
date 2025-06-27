@@ -12,10 +12,11 @@ class_name BattleParticipant
 		if monsters.size() > 0:
 			selected_monster = monsters[0]
 
-
 var trinkets: Array[Trinket] = []
 
 var trinkets_applied = false
+
+
 # called at the start of battle -- applies trinket effects to the player's monster
 func apply_trinkets():
 	if trinkets_applied:
@@ -30,6 +31,7 @@ func setup_player(_monster: Monster):
 	position.x = 64
 	position.y = 72
 
+
 var selected_monster: Monster:
 	set(new_monster):
 		selected_monster = new_monster
@@ -39,7 +41,6 @@ var is_player = true:
 	set(_is_player):
 		is_player = _is_player
 		render_battler()
-
 
 
 func render_battler():
