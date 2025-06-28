@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cglr6hi1owouu"]
+
+[ext_resource type="Shader" uid="uid://yohroafjih6a" path="res://assets/shaders/pattern.gdshader" id="1_o8ial"]
+[ext_resource type="Texture2D" uid="uid://b7kujefrccru0" path="res://assets/sprites/tiles/bw_tile_large.png" id="2_1hwqq"]
+
+[resource]
+shader = ExtResource("1_o8ial")
+shader_parameter/input_texture = ExtResource("2_1hwqq")
+shader_parameter/bottom_layer_white = Color(0.635294, 0.14902, 0.2, 1)
+shader_parameter/bottom_layer_black = Color(0.968627, 0.462745, 0.133333, 1)
+shader_parameter/top_layer_white = Color(0.8, 0, 0, 1)
+shader_parameter/top_layer_black = Color(0.894118, 0.231373, 0.266667, 1)
+shader_parameter/top_white_enabled = false
+shader_parameter/top_black_enabled = true
+shader_parameter/top_layer_x_offset = 4.0
+shader_parameter/top_layer_y_offset = 8.0
+shader_parameter/transformations = PackedInt32Array(3, 1, 5)
+shader_parameter/transformation_count = 3
+shader_parameter/time_scale = 100.0
+shader_parameter/top_scroll_x_enabled = false
+shader_parameter/top_scroll_x_factor = -20.0
+shader_parameter/top_scroll_y_enabled = true
+shader_parameter/top_scroll_y_factor = 50.0
+shader_parameter/global_scroll_enabled = true
+shader_parameter/global_scroll_factor = -12.0
+shader_parameter/global_double_scale = false

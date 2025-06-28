@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://i87han8eps6i"]
+[gd_resource type="Resource" script_class="Move" load_steps=3 format=3 uid="uid://i87han8eps6i"]
 
 [ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_42fsq"]
+[ext_resource type="Material" uid="uid://to3a77mxnhkk" path="res://assets/shaders/pattern/tsunami.tres" id="1_opgpo"]
 
 [resource]
 script = ExtResource("1_42fsq")
@@ -14,4 +15,5 @@ max_pp = 10
 status_effect = 3
 status_effect_chance = 15
 priority = false
+backdrop = ExtResource("1_opgpo")
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

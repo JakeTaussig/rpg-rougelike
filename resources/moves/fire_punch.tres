@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://cj401xdexfiwj"]
+[gd_resource type="Resource" script_class="Move" load_steps=3 format=3 uid="uid://cj401xdexfiwj"]
 
 [ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_ajx2p"]
+[ext_resource type="Material" uid="uid://cglr6hi1owouu" path="res://assets/shaders/pattern/fire_punch.tres" id="1_nqy62"]
 
 [resource]
 script = ExtResource("1_ajx2p")
@@ -14,4 +15,5 @@ max_pp = 10
 status_effect = 0
 status_effect_chance = 100
 priority = false
+backdrop = ExtResource("1_nqy62")
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"
