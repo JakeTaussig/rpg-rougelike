@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dmgusvobn2ags"]
+
+[ext_resource type="Shader" uid="uid://yohroafjih6a" path="res://assets/shaders/pattern.gdshader" id="1_ctda5"]
+[ext_resource type="Texture2D" uid="uid://mi6nduwr3wqn" path="res://assets/sprites/tiles/bw_tile_xl_eye.png" id="2_5am3t"]
+
+[resource]
+shader = ExtResource("1_ctda5")
+shader_parameter/input_texture = ExtResource("2_5am3t")
+shader_parameter/bottom_layer_white = Color(0.752941, 0.796078, 0.862745, 1)
+shader_parameter/bottom_layer_black = Color(0.352941, 0.411765, 0.533333, 1)
+shader_parameter/top_layer_white = Color(0.752941, 0.796078, 0.862745, 1)
+shader_parameter/top_layer_black = Color(0.352941, 0.411765, 0.533333, 1)
+shader_parameter/top_white_enabled = true
+shader_parameter/top_black_enabled = false
+shader_parameter/top_layer_x_offset = 32.0
+shader_parameter/top_layer_y_offset = 16.0
+shader_parameter/transformations = PackedInt32Array(5, 0, 0, 6)
+shader_parameter/transformation_count = 4
+shader_parameter/time_scale = 100.0
+shader_parameter/top_scroll_x_enabled = true
+shader_parameter/top_scroll_x_factor = 45.0
+shader_parameter/top_scroll_y_enabled = true
+shader_parameter/top_scroll_y_factor = 15.0
+shader_parameter/global_scroll_enabled = true
+shader_parameter/global_scroll_factor = 25.0
+shader_parameter/global_double_scale = true
