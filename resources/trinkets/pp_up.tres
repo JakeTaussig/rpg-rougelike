@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://ojly0yf32s50"]
+
+[ext_resource type="Texture2D" uid="uid://bqrkjsn85lc8i" path="res://assets/sprites/trinket_icons/pp.png" id="1_cifv5"]
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinket.gd" id="1_htx8y"]
+[ext_resource type="Script" uid="uid://bwmbne2861lvm" path="res://resources/trinket_strategies/pp_up_strategy.gd" id="2_f1dkk"]
+
+[sub_resource type="Resource" id="Resource_cifv5"]
+script = ExtResource("2_f1dkk")
+metadata/_custom_type_script = "uid://bwmbne2861lvm"
+
+[resource]
+script = ExtResource("1_htx8y")
+trinket_name = "PP Up"
+icon = ExtResource("1_cifv5")
+description = "Increase the PP of all moves by 25%"
+strategy = SubResource("Resource_cifv5")
+metadata/_custom_type_script = "uid://c7ph0ydi5trjd"

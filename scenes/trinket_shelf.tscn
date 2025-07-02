@@ -1,0 +1,98 @@
+[gd_scene load_steps=5 format=3 uid="uid://jpf5gywks7wx"]
+
+[ext_resource type="Script" uid="uid://b0c1nqtmap8ax" path="res://scripts/trinket_shelf.gd" id="1_5xmw3"]
+[ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_hvr8j"]
+[ext_resource type="Texture2D" uid="uid://fs4ws7okfwn5" path="res://assets/sprites/trinket_icons/arrow.png" id="3_ya8va"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4dll"]
+content_margin_top = 0.0
+content_margin_right = 1.0
+content_margin_bottom = 0.0
+bg_color = Color(0.0705882, 0.305882, 0.537255, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+expand_margin_left = 1.0
+expand_margin_right = 1.0
+
+[node name="TrinketShelf" type="Panel"]
+offset_right = 154.0
+offset_bottom = 21.0
+script = ExtResource("1_5xmw3")
+
+[node name="TrinketIconContainer" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="button" type="Button" parent="TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+focus_neighbor_left = NodePath("../button4")
+theme = ExtResource("2_hvr8j")
+theme_type_variation = &"IconButton"
+icon = ExtResource("3_ya8va")
+icon_alignment = 1
+
+[node name="button5" type="Button" parent="TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("2_hvr8j")
+theme_type_variation = &"IconButton"
+icon = ExtResource("3_ya8va")
+
+[node name="button6" type="Button" parent="TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("2_hvr8j")
+theme_type_variation = &"IconButton"
+icon = ExtResource("3_ya8va")
+
+[node name="button7" type="Button" parent="TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("2_hvr8j")
+theme_type_variation = &"IconButton"
+icon = ExtResource("3_ya8va")
+
+[node name="button8" type="Button" parent="TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("2_hvr8j")
+theme_type_variation = &"IconButton"
+icon = ExtResource("3_ya8va")
+
+[node name="button2" type="Button" parent="TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("2_hvr8j")
+theme_type_variation = &"IconButton"
+icon = ExtResource("3_ya8va")
+
+[node name="button3" type="Button" parent="TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("2_hvr8j")
+theme_type_variation = &"IconButton"
+icon = ExtResource("3_ya8va")
+
+[node name="button4" type="Button" parent="TrinketIconContainer"]
+texture_filter = 1
+layout_mode = 2
+focus_neighbor_right = NodePath("../button")
+theme = ExtResource("2_hvr8j")
+theme_type_variation = &"IconButton"
+theme_override_styles/normal = SubResource("StyleBoxFlat_h4dll")
+icon = ExtResource("3_ya8va")

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=3 format=3 uid="uid://cwhqnhbi0ca5h"]
+
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinket.gd" id="1_bphy4"]
+[ext_resource type="Texture2D" uid="uid://0tu4rht0gtat" path="res://assets/sprites/trinket_icons/haymaker.png" id="1_hicn7"]
+
+[resource]
+script = ExtResource("1_bphy4")
+trinket_name = "Haymaker"
+icon = ExtResource("1_hicn7")
+description = "200% def[br]50% acc"
+metadata/_custom_type_script = "uid://c7ph0ydi5trjd"
