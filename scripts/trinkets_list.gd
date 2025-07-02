@@ -23,7 +23,7 @@ func _load_trinkets_from_folder(path: String = "res://resources/trinkets"):
 			if trinket_resource is Trinket:
 				trinkets.append(
 					trinket_resource.duplicate_deep(
-						Resource.ResourceDeepDuplicateMode.RESOURCE_DEEP_DUPLICATE_INTERNAL
+						DeepDuplicateMode.DEEP_DUPLICATE_INTERNAL
 					)
 				)
 		file_name = dir.get_next()
