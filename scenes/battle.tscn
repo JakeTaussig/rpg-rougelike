@@ -33,6 +33,7 @@ z_index = 1
 
 [node name="PlayerPrompt" type="Label" parent="BottomBar"]
 unique_name_in_owner = true
+visible = false
 z_index = 1
 offset_top = 95.0
 offset_right = 161.0
@@ -46,6 +47,7 @@ autowrap_mode = 2
 
 [node name="Action" type="Control" parent="BottomBar"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 3
 anchors_preset = 0
 
