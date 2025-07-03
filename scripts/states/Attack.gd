@@ -32,8 +32,8 @@ func _generate_attack_messages(attacker, target, results) -> Array:
 	var damage = results.damage
 	var move_hit = results.move_hit
 	var is_critical = results.is_critical
-	if used_move_name == "Whirlpool":
-		messages.append("%s got caught in the whirlpool!" % [attacker.character_name])
+	if used_move_name == "Delusion":
+		messages.append("%s got caught in the delusion!" % [attacker.character_name])
 		return messages
 	elif used_move_name == "Paralyzed":
 		messages.append("%s is paralyzed and could not move!" % attacker.character_name)

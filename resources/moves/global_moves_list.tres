@@ -11,7 +11,7 @@
 [ext_resource type="Resource" uid="uid://cup1blpmfdi8p" path="res://resources/moves/heat_wave.tres" id="5_uk1h8"]
 [ext_resource type="Resource" uid="uid://cj401xdexfiwj" path="res://resources/moves/fire_punch.tres" id="6_f500o"]
 [ext_resource type="Script" uid="uid://btgl7ks1m3ei3" path="res://scripts/moves_list.gd" id="7_2u8do"]
-[ext_resource type="Resource" uid="uid://8jcddcsnbyms" path="res://resources/moves/whirlpool.tres" id="7_qyrit"]
+[ext_resource type="Resource" uid="uid://8jcddcsnbyms" path="res://resources/moves/delusion.tres" id="7_qyrit"]
 [ext_resource type="Resource" uid="uid://en3lvxoqdpbg" path="res://resources/moves/electrocute.tres" id="9_xl5mf"]
 [ext_resource type="Resource" uid="uid://chacpi7ng0b4p" path="res://resources/moves/paralyzed.tres" id="10_lqm4p"]
 [ext_resource type="Resource" uid="uid://bjmuju8kjgv2l" path="res://resources/moves/vortex.tres" id="11_1l5jq"]

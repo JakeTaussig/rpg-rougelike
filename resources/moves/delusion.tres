@@ -4,14 +4,9 @@
 
 [resource]
 script = ExtResource("1_lu2fq")
-move_name = "Whirlpool"
-category = 0
-type = 0
+move_name = "Delusion"
+type = 2
 base_power = 40
-acc = 100
 pp = 1000000
 max_pp = 1000000
-status_effect = 0
-status_effect_chance = 100
-priority = false
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"
