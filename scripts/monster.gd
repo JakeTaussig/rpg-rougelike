@@ -151,7 +151,15 @@ func use_move(index: int, target: Monster) -> AttackResults:
 			is_critical = results["is_critical"]
 		if move.status_effect != MovesList.StatusEffect.NONE:
 			status_applied = _roll_and_apply_status_effect(move, target)
-	return AttackResults.new(move, damage, move_hit, status_applied, is_critical)
+	var results = AttackResults.new(move, damage, move_hit, status_applied, is_critical)
+
+	if move.post_attack_strategy != null:
+		results.attacker = self
+		results.target = target
+		var additional_message = move.post_attack_strategy.ApplyEffect(results)
+		results.additional_message = additional_message
+
+	return results
 
 
 func _does_move_hit_or_crit(accuracy: int) -> bool:
@@ -382,6 +390,10 @@ class AttackResults:
 	var move_hit: bool
 	var status_applied: bool
 	var is_critical: bool
+
+	var attacker: Monster
+	var target: Monster
+	var additional_message: String
 
 	func _init(_move: Move, _damage: int, _move_hit: bool, _status_applied: bool, _is_critical: bool):
 		move = _move
