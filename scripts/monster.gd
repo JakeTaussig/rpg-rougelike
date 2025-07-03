@@ -123,7 +123,7 @@ func use_move(index: int, target: Monster) -> AttackResults:
 	if status_effect == MovesList.StatusEffect.DELUSION:
 		# Delusion has a 50% chance to damage the affected character each turn
 		var delusion_activation_chance = 50
-		move_hit = _does_move_hit_or_crit(delusion_activation_chance)
+		move_hit = _does_move_hit_or_crit(delusion_activation_chance, true)
 		if move_hit:
 			move = GameManager.get_move_by_name("Delusion")
 			var results = _attack(move, self, 1)
@@ -132,13 +132,13 @@ func use_move(index: int, target: Monster) -> AttackResults:
 	elif status_effect == MovesList.StatusEffect.PARALYZE:
 		# 33% chance for paralysis to activate
 		var paralyze_activation_chance = 33
-		move_hit = _does_move_hit_or_crit(paralyze_activation_chance)
+		move_hit = _does_move_hit_or_crit(paralyze_activation_chance, true)
 		if move_hit:
 			move = GameManager.get_move_by_name("Paralyzed")
 			damage = 0
 			return AttackResults.new(move, damage, move_hit, status_applied, false)
 
-	move_hit = _does_move_hit_or_crit(move.acc)
+	move_hit = _does_move_hit_or_crit(move.acc, false)
 
 	if move_hit:
 		if move.category == Move.MoveCategory.ATK:
@@ -154,12 +154,14 @@ func use_move(index: int, target: Monster) -> AttackResults:
 	return AttackResults.new(move, damage, move_hit, status_applied, is_critical)
 
 
-func _does_move_hit_or_crit(accuracy: int) -> bool:
-	if status_effect == MovesList.StatusEffect.BLIND:
-		accuracy = int(float(accuracy) * 0.5)
+func _does_move_hit_or_crit(accuracy: int, is_status_or_crit_roll: bool) -> bool:
+	# If we are rolling for status or crit, the move already hit. Therefore, don't take these into effect. 
+	if not is_status_or_crit_roll:
+		if status_effect == MovesList.StatusEffect.BLIND:
+			accuracy = int(float(accuracy) * 0.5)
 
-	# take the monster's own accuracy into effect
-	accuracy = int(float(accuracy) * acc)
+		# take the monster's own accuracy into effect
+		accuracy = int(float(accuracy) * acc)
 
 	accuracy = clamp(accuracy, 0, 100)
 	# Generates a number between 1 and 100
@@ -172,10 +174,10 @@ func _attack(move: Move, target: Monster, is_physical: bool) -> AttackResults:
 	var damage = 0
 	var effectiveness_modifier = get_move_effectiveness(move, target)
 
-	var is_critical = _does_move_hit_or_crit(crit_chance * 100)
+	var is_critical = _does_move_hit_or_crit(crit_chance * 100, true)
 	for i in range(crit_checks - 1):
 		if not is_critical:
-			is_critical = _does_move_hit_or_crit(crit_chance * 100)
+			is_critical = _does_move_hit_or_crit(crit_chance * 100, true)
 	if is_physical:
 		power = power * atk
 		damage = float(power) / target.def
@@ -198,10 +200,10 @@ func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
 	var target_type = target.type
 	var is_immune = _check_status_immunity(effect, target_type)
 	if is_immune:
-		return false
+		return false 
 	# Only attempt to apply a status effect if one is not already applied
 	if target.status_effect == MovesList.StatusEffect.NONE:
-		var status_applied = _does_move_hit_or_crit(move.status_effect_chance)
+		var status_applied = _does_move_hit_or_crit(move.status_effect_chance, true)
 		if status_applied:
 			target.status_effect = move.status_effect
 			if target.status_effect == MovesList.StatusEffect.CONSUME:
@@ -253,9 +255,11 @@ func enact_status_effect() -> String:
 		MovesList.StatusEffect.BURN:
 			return enact_burn_on_self()
 		MovesList.StatusEffect.POISON:
-			return enact_poison_on_self()
+			return _enact_poison_on_self()
 		MovesList.StatusEffect.CONSUME:
 			return enact_consume_on_self()
+		MovesList.StatusEffect.PARALYZE:
+			return enact_paralyze_on_self()
 	return ""
 
 
@@ -326,7 +330,7 @@ func _recover_from_delusion():
 	return "%s recovered from delusion!" % character_name
 
 
-func enact_poison_on_self():
+func _enact_poison_on_self():
 	var hp_to_lose = int(max_hp * 0.08)
 	hp -= hp_to_lose
 	return "%s took damage from poison!" % [character_name]
@@ -335,13 +339,21 @@ func enact_poison_on_self():
 func _recover_from_poison():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
-	return "%s recovered from poison" % character_name
+	return "%s recovered from poison!" % character_name
+	
+
+func enact_paralyze_on_self():
+	if status_effect_turn_counter == 0:
+		speed = int(float(speed * 0.5))
+		return "%'s speed was lowered by 50%!"
+	return ""
 
 
 func _recover_from_paralyze():
 	status_effect = MovesList.StatusEffect.NONE
+	speed = speed * 2
 	status_effect_turn_counter = 0
-	return "%s recovered from paralyze" % character_name
+	return "%s recovered from paralyze!" % character_name
 
 
 func enact_consume_on_self():
