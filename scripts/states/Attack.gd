@@ -32,8 +32,8 @@ func _generate_attack_messages(attacker, target, results: Monster.AttackResults)
 	var damage = results.damage
 	var move_hit = results.move_hit
 	var is_critical = results.is_critical
-	if used_move_name == "Whirlpool":
-		messages.append("%s got caught in the whirlpool!" % [attacker.character_name])
+	if used_move_name == "Delusion":
+		messages.append("%s got caught in the delusion!" % [attacker.character_name])
 		return messages
 	elif used_move_name == "Paralyzed":
 		messages.append("%s is paralyzed and could not move!" % attacker.character_name)
@@ -82,12 +82,14 @@ func _generate_attack_messages(attacker, target, results: Monster.AttackResults)
 			messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
 		else:
 			messages.append("%s was afflicted with %s!" % [target.character_name, status_effect_string])
-		# Burn and cripple need to be applied instantly since they affect the stats of the afflicted user.
+		# Burn, cripple, and paralyze need to be applied instantly since they affect the stats of the afflicted user.
 		match status_effect:
 			MovesList.StatusEffect.CRIPPLE:
 				messages.append(target.enact_cripple_on_self())
 			MovesList.StatusEffect.BURN:
 				messages.append(target.enact_burn_on_self())
+			MovesList.StatusEffect.PARALYZE:
+				messages.append(target.enact_paralyze_on_self())
 			MovesList.StatusEffect.BLIND:
 				messages.append("%s's accuracy was lowered by 33" % target.character_name + "%!")
 

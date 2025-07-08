@@ -3,16 +3,16 @@ class_name MovesList
 
 @export var moves: Array[Move]
 
-enum Type {HUMAN, FIRE, WATER, PLANT, PLASMA, DARK, LIGHT}
-				  		# HUMAN, FIRE,  WATER,   PLANT,   PLASMA,   DARK,   LIGHT
-enum StatusEffect {NONE, CRIPPLE, BURN, WHIRLPOOL, POISON, PARALYZE, CONSUME, BLIND}
+enum Type {HUMAN, FIRE, SPIRIT, POISON, PLASMA, DARK, LIGHT}
+				  		# HUMAN, FIRE,  SPIRIT,   POISON,   PLASMA,   DARK,   LIGHT
+enum StatusEffect {NONE, CRIPPLE, BURN, DELUSION, POISON, PARALYZE, CONSUME, BLIND}
 
 
 const TYPES = {
 	Type.HUMAN: 0,
 	Type.FIRE: 1,
-	Type.WATER: 2,
-	Type.PLANT: 3,
+	Type.SPIRIT: 2,
+	Type.POISON: 3,
 	Type.PLASMA: 4,
 	Type.DARK: 5,
 	Type.LIGHT: 6
@@ -20,11 +20,11 @@ const TYPES = {
 
 # Row = Attacker, Col = Defender
 const TYPE_CHART = [
-# HUMAN FIRE  WATER PLANT Earth DARK  LIGHT
+# HUMAN FIRE  SPIRIT POISON Earth DARK  LIGHT
 [ 1.0,  1.0,  1.0,  1.0,  1.0,  1.0,  1.0 ], # HUMAN
 [ 1.0,  1.0,  0.5,  2.0,  1.0,  0.5,  2.0 ], # FIRE
-[ 1.0,  2.0,  1.0,  0.5,  2.0,  1.0,  0.5 ], # WATER
-[ 1.0,  0.5,  2.0,  1.0,  2.0,  0.5,  1.0 ], # PLANT
+[ 1.0,  2.0,  1.0,  0.5,  2.0,  1.0,  0.5 ], # SPIRIT
+[ 1.0,  0.5,  2.0,  1.0,  2.0,  0.5,  1.0 ], # POISON
 [ 1.0,  1.0,  0.5,  0.5,  1.0,  2.0,  2.0 ], # PLASMA
 [ 1.0,  2.0,  1.0,  2.0,  0.5,  1.0,  0.5 ], # DARK
 [ 1.0,  0.5,  2.0,  1.0,  0.5,  2.0,  1.0 ]  # LIGHT
@@ -37,9 +37,9 @@ static func type_to_color(type: Type) -> Color:
 			return Color(0.996, 0.906, 0.38, 1.0)
 		Type.FIRE:
 			return Color(0.894, 0.231, 0.267, 1.0)
-		Type.WATER:
+		Type.SPIRIT:
 			return Color(0.0, 0.6, 0.859, 1.0)
-		Type.PLANT:
+		Type.POISON:
 			return Color(0.388, 0.78, 0.302, 1.0)
 		Type.PLASMA:
 			return Color(0.71, 0.314, 0.533, 1.0)
@@ -57,7 +57,7 @@ static func status_effect_to_color(status_effect: StatusEffect) -> Color:
 			return Color(0.996, 0.906, 0.38, 1.0)
 		MovesList.StatusEffect.BURN:
 			return Color(0.894, 0.231, 0.267, 1.0)
-		MovesList.StatusEffect.WHIRLPOOL:
+		MovesList.StatusEffect.DELUSION:
 			return Color(0.0, 0.6, 0.859, 1.0)
 		MovesList.StatusEffect.POISON:
 			return Color(0.388, 0.78, 0.302, 1.0)
@@ -77,8 +77,8 @@ static func type_abbreviation(effect) -> String:
 			return "CRP"
 		MovesList.StatusEffect.BURN:
 			return "BRN"
-		MovesList.StatusEffect.WHIRLPOOL:
-			return "WRL"
+		MovesList.StatusEffect.DELUSION:
+			return "DEL"
 		MovesList.StatusEffect.POISON:
 			return "PSN"
 		MovesList.StatusEffect.PARALYZE:
