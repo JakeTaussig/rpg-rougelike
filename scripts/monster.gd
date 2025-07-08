@@ -109,12 +109,11 @@ func level_up(stat_multiplier: float):
 	luck = int(float(luck) * stat_multiplier)
 
 
-func use_move(index: int, target: Monster) -> AttackResults:
+func use_move(move: Move, target: Monster) -> AttackResults:
 	# This is done here rather than in EnactStatuses.gd so that speed doesn't have an impact on how long status effects will last.
 	# This will need to be adjusted should the possiblity of using 2 moves on a single turn come into play.
 	if status_effect != MovesList.StatusEffect.NONE:
 		status_effect_turn_counter += 1
-	var move = moves[index]
 	move.pp -= 1
 	var move_hit: bool = 1
 	var status_applied: bool = 0
