@@ -155,8 +155,6 @@ func use_move(index: int, target: Monster) -> AttackResults:
 
 
 func _does_move_hit(accuracy: int) -> bool:
-	# If we are rolling for status or crit, the move already hit. Therefore, don't take these into effect. 
-	
 	# TODO: Apply BLIND directly to the Monster's accuracy
 	if status_effect == MovesList.StatusEffect.BLIND:
 		accuracy = int(float(accuracy) * 0.5)
