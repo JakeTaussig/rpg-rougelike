@@ -123,7 +123,7 @@ func use_move(index: int, target: Monster) -> AttackResults:
 	if status_effect == MovesList.StatusEffect.DELUSION:
 		# Delusion has a 50% chance to damage the affected character each turn
 		var delusion_activation_chance = 50
-		move_hit = _does_move_hit_or_crit(delusion_activation_chance, true)
+		move_hit = _does_move_crit_or_status(delusion_activation_chance)
 		if move_hit:
 			move = GameManager.get_move_by_name("Delusion")
 			var results = _attack(move, self, 1)
@@ -132,13 +132,13 @@ func use_move(index: int, target: Monster) -> AttackResults:
 	elif status_effect == MovesList.StatusEffect.PARALYZE:
 		# 33% chance for paralysis to activate
 		var paralyze_activation_chance = 33
-		move_hit = _does_move_hit_or_crit(paralyze_activation_chance, true)
+		move_hit = _does_move_crit_or_status(paralyze_activation_chance)
 		if move_hit:
 			move = GameManager.get_move_by_name("Paralyzed")
 			damage = 0
 			return AttackResults.new(move, damage, move_hit, status_applied, false)
 
-	move_hit = _does_move_hit_or_crit(move.acc, false)
+	move_hit = _does_move_hit(move.acc)
 
 	if move_hit:
 		if move.category == Move.MoveCategory.ATK:
@@ -154,17 +154,24 @@ func use_move(index: int, target: Monster) -> AttackResults:
 	return AttackResults.new(move, damage, move_hit, status_applied, is_critical)
 
 
-func _does_move_hit_or_crit(accuracy: int, is_status_or_crit_roll: bool) -> bool:
+func _does_move_hit(accuracy: int) -> bool:
 	# If we are rolling for status or crit, the move already hit. Therefore, don't take these into effect. 
-	if not is_status_or_crit_roll:
-		if status_effect == MovesList.StatusEffect.BLIND:
-			accuracy = int(float(accuracy) * 0.5)
+	
+	# TODO: Apply BLIND directly to the Monster's accuracy
+	if status_effect == MovesList.StatusEffect.BLIND:
+		accuracy = int(float(accuracy) * 0.5)
 
-		# take the monster's own accuracy into effect
-		accuracy = int(float(accuracy) * acc)
+	# take the monster's own accuracy into effect
+	accuracy = int(float(accuracy) * acc)
 
 	accuracy = clamp(accuracy, 0, 100)
 	# Generates a number between 1 and 100
+	var roll = randi() % 100 + 1
+	return roll <= accuracy
+	
+
+func _does_move_crit_or_status(accuracy: int) -> bool:
+	accuracy = clamp(accuracy, 0, 100)
 	var roll = randi() % 100 + 1
 	return roll <= accuracy
 
@@ -174,10 +181,10 @@ func _attack(move: Move, target: Monster, is_physical: bool) -> AttackResults:
 	var damage = 0
 	var effectiveness_modifier = get_move_effectiveness(move, target)
 
-	var is_critical = _does_move_hit_or_crit(crit_chance * 100, true)
+	var is_critical = _does_move_crit_or_status(crit_chance * 100)
 	for i in range(crit_checks - 1):
 		if not is_critical:
-			is_critical = _does_move_hit_or_crit(crit_chance * 100, true)
+			is_critical = _does_move_crit_or_status(crit_chance * 100)
 	if is_physical:
 		power = power * atk
 		damage = float(power) / target.def
@@ -203,7 +210,7 @@ func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
 		return false 
 	# Only attempt to apply a status effect if one is not already applied
 	if target.status_effect == MovesList.StatusEffect.NONE:
-		var status_applied = _does_move_hit_or_crit(move.status_effect_chance, true)
+		var status_applied = _does_move_crit_or_status(move.status_effect_chance)
 		if status_applied:
 			target.status_effect = move.status_effect
 			if target.status_effect == MovesList.StatusEffect.CONSUME:
