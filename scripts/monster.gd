@@ -358,7 +358,7 @@ func _recover_from_poison():
 func enact_paralyze_on_self():
 	if status_effect_turn_counter == 0:
 		speed = int(float(speed * 0.5))
-		return "%'s speed was lowered by 50%!"
+		return "%s's speed was lowered by 50" % character_name + "%!"
 	return ""
 
 
