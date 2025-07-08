@@ -23,4 +23,4 @@
 
 [resource]
 script = ExtResource("7_2u8do")
-moves = Array[ExtResource("1_ofag1")]([ExtResource("2_jqwdi"), ExtResource("5_p5lyi"), ExtResource("2_bdaju"), ExtResource("5_6riy4"), ExtResource("3_4xer7"), ExtResource("4_wtwah"), ExtResource("11_1l5jq"), ExtResource("9_xl5mf"), ExtResource("5_uk1h8"), ExtResource("13_xga3l"), ExtResource("7_qyrit"), ExtResource("10_lqm4p"), ExtResource("4_ux0hn"), ExtResource("6_f500o"), ExtResource("16_2b58r"), ExtResource("17_8pfnk"), ExtResource("18_6s8og"), ExtResource("19_uqw6k"), ExtResource("19_uqw6k"), ExtResource("19_uqw6k")])
+moves = Array[ExtResource("1_ofag1")]([ExtResource("2_jqwdi"), ExtResource("5_p5lyi"), ExtResource("2_bdaju"), ExtResource("5_6riy4"), ExtResource("3_4xer7"), ExtResource("4_wtwah"), ExtResource("11_1l5jq"), ExtResource("9_xl5mf"), ExtResource("5_uk1h8"), ExtResource("13_xga3l"), ExtResource("7_qyrit"), ExtResource("10_lqm4p"), ExtResource("4_ux0hn"), ExtResource("6_f500o"), ExtResource("16_2b58r"), ExtResource("17_8pfnk"), ExtResource("18_6s8og"), ExtResource("19_uqw6k")])
