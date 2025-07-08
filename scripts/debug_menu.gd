@@ -20,7 +20,10 @@ func toggle_pause():
 func _render_moves_list():
 	%MovesList.get_child(0).queue_free()
 
-	for move in GameManager.moves_list.moves:
+	var alphabetized_moves_list = GameManager.moves_list.moves.duplicate()
+	alphabetized_moves_list.sort_custom(_sort_moves_alphabetically)
+
+	for move in alphabetized_moves_list:
 		var button = Button.new()
 		button.text = move.move_name
 		%MovesList.add_child(button)
@@ -30,6 +33,10 @@ func _render_moves_list():
 		button.mouse_entered.connect(button.grab_focus)
 		button.pressed.connect(func(): _on_debug_move_pressed(move))
 
+func _sort_moves_alphabetically(a: Move, b: Move) -> bool:
+	if a.move_name < b.move_name:
+		return true
+	return false
 
 func _on_debug_move_pressed(move: Move):
 	print("\tuser input (DEBUG):\t\tselect DEBUG move %s" % [move.move_name])
