@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=18 format=3 uid="uid://bb5xdt6d0xc8h"]
+[gd_resource type="Theme" load_steps=19 format=3 uid="uid://bb5xdt6d0xc8h"]
 
 [ext_resource type="StyleBox" uid="uid://dv2ftdeiv2dr3" path="res://assets/styles/focus_sbf.tres" id="2_7mpy8"]
 [ext_resource type="StyleBox" uid="uid://dlv23d40rqvlb" path="res://assets/styles/normal_sbf_rich_text_label.tres" id="2_upbfd"]
@@ -10,6 +10,7 @@
 [ext_resource type="StyleBox" uid="uid://dq5bgcynd5yxl" path="res://assets/styles/scrollbar_background_sbf.tres" id="6_keqi6"]
 [ext_resource type="StyleBox" uid="uid://biow57dl4dwgl" path="res://assets/styles/hp_bar_background_sbf.tres" id="7_ewgrn"]
 [ext_resource type="FontFile" uid="uid://hk526fxfu4wa" path="res://assets/fonts/LoRes 9 OT Wide Regular.ttf" id="7_upbfd"]
+[ext_resource type="StyleBox" uid="uid://dwb68ajbfeqp0" path="res://assets/styles/normal_sbf.tres" id="7_vv0yi"]
 [ext_resource type="StyleBox" uid="uid://bg1kpjok5bcns" path="res://assets/styles/hp_foreground_green_sbf.tres" id="8_vv0yi"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fjh1m"]
@@ -118,6 +119,7 @@ NoBorderLabel/base_type = &"Label"
 NoBorderLabel/constants/line_spacing = 6
 NoBorderLabel/styles/normal = SubResource("StyleBoxFlat_fjh1m")
 Panel/styles/panel = ExtResource("2_upbfd")
+PanelContainer/styles/panel = ExtResource("7_vv0yi")
 ProgressBar/styles/background = ExtResource("7_ewgrn")
 ProgressBar/styles/fill = ExtResource("8_vv0yi")
 RedTextLabel/base_type = &"NoBorderLabel"
