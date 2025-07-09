@@ -1,18 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://cv5e4qocm73cv"]
+[gd_scene load_steps=5 format=3 uid="uid://cv5e4qocm73cv"]
 
 [ext_resource type="Script" uid="uid://bmh41s8hthx3j" path="res://scripts/debug_menu.gd" id="1_rta6x"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_03so6"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_03so6"]
-content_margin_left = 3.0
-content_margin_top = 3.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7bace"]
+content_margin_left = 2.0
+content_margin_top = 2.0
 content_margin_right = 1.0
-content_margin_bottom = 3.0
+content_margin_bottom = 2.0
 bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
+border_color = Color(0.0705882, 0.305882, 0.537255, 1)
+expand_margin_right = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_03so6"]
+content_margin_left = 3.0
+content_margin_right = 1.0
+content_margin_bottom = 2.0
+bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
 border_color = Color(0.0705882, 0.305882, 0.537255, 1)
 
 [node name="DebugMenu" type="Control"]
@@ -26,8 +34,9 @@ script = ExtResource("1_rta6x")
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
 offset_right = 255.0
-offset_bottom = 143.0
+offset_bottom = 144.0
 theme = ExtResource("2_03so6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7bace")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
@@ -36,7 +45,8 @@ theme = ExtResource("2_03so6")
 [node name="MenuTitle" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_03so6")
-text = "Debug Menu"
+theme_type_variation = &"NoBorderLabel"
+text = "Pause/Debug Menu"
 
 [node name="Placeholder" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -47,7 +57,7 @@ theme_type_variation = &"NoBorderLabel"
 layout_mode = 2
 theme = ExtResource("2_03so6")
 theme_override_styles/normal = SubResource("StyleBoxFlat_03so6")
-text = "Debug Moves"
+text = "Use Move (debug)"
 
 [node name="MovesList" type="Tree" parent="PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
