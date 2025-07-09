@@ -59,3 +59,7 @@ func _on_debug_move_pressed():
 		attackCommand.target = GameManager.enemy.selected_monster
 		GameManager.current_battle.transition_state_to(GameManager.current_battle.STATE_ATTACK, [attackCommand])
 		toggle_pause()
+
+
+func _on_use_move_button_pressed() -> void:
+	%MovesList.visible = !%MovesList.visible

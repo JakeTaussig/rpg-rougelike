@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cv5e4qocm73cv"]
+[gd_scene load_steps=4 format=3 uid="uid://cv5e4qocm73cv"]
 
 [ext_resource type="Script" uid="uid://bmh41s8hthx3j" path="res://scripts/debug_menu.gd" id="1_rta6x"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_03so6"]
@@ -15,13 +15,6 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.0705882, 0.305882, 0.537255, 1)
 expand_margin_right = 1.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_03so6"]
-content_margin_left = 3.0
-content_margin_right = 1.0
-content_margin_bottom = 2.0
-bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
-border_color = Color(0.0705882, 0.305882, 0.537255, 1)
 
 [node name="DebugMenu" type="Control"]
 process_mode = 3
@@ -53,10 +46,11 @@ layout_mode = 2
 theme = ExtResource("2_03so6")
 theme_type_variation = &"NoBorderLabel"
 
-[node name="MovesTitle" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="UseMoveButton" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_03so6")
-theme_override_styles/normal = SubResource("StyleBoxFlat_03so6")
+theme_type_variation = &"BorderButton"
+action_mode = 0
 text = "Use Move (debug)"
 
 [node name="MovesList" type="Tree" parent="PanelContainer/VBoxContainer"]
@@ -75,3 +69,5 @@ hide_root = true
 select_mode = 1
 scroll_horizontal_enabled = false
 auto_tooltip = false
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/UseMoveButton" to="." method="_on_use_move_button_pressed"]
