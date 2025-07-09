@@ -52,9 +52,6 @@ func _render_trinkets_list():
 	%TrinketsList.set_column_title(0, "name")
 	%TrinketsList.set_column_title(1, "desc.")
 
-	#%TrinketsList.set_column_expand(0, true)
-	#%TrinketsList.set_column_expand_ratio(0, 1)
-
 	%TrinketsList.set_column_expand(1, true)
 	%TrinketsList.set_column_expand_ratio(1, 5)
 
@@ -95,3 +92,19 @@ func _on_use_move_button_pressed() -> void:
 
 func _on_give_player_trinket_button_pressed() -> void:
 	%TrinketsList.visible = !%TrinketsList.visible
+
+
+func _on_use_move_button_mouse_entered() -> void:
+	%UseMoveButton.grab_focus()
+
+
+func _on_give_player_trinket_button_mouse_entered() -> void:
+	%GivePlayerTrinketButton.grab_focus()
+
+
+func _on_trinkets_list_mouse_entered() -> void:
+	%TrinketsList.grab_focus()
+
+
+func _on_moves_list_mouse_entered() -> void:
+	%MovesList.grab_focus()
