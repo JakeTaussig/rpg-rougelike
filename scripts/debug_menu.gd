@@ -1,6 +1,7 @@
 extends Control
 
 var _alphabetized_moves_list: Array[Move]
+var _alphabetized_trinkets_list: Array[Trinket]
 
 func _ready() -> void:
 	if !get_parent().PROCESS_MODE_PAUSABLE:
@@ -9,7 +10,11 @@ func _ready() -> void:
 	_alphabetized_moves_list = GameManager.moves_list.moves.duplicate()
 	_alphabetized_moves_list.sort_custom(_sort_moves_alphabetically)
 
+	_alphabetized_trinkets_list = GameManager.trinkets_list.trinkets.duplicate()
+	_alphabetized_trinkets_list.sort_custom(_sort_trinkets_alphabetically)
+
 	_render_moves_list()
+	_render_trinkets_list()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -42,6 +47,29 @@ func _render_moves_list():
 
 	%MovesList.item_selected.connect(func(): _on_debug_move_pressed())
 
+func _render_trinkets_list():
+	%TrinketsList.create_item()
+	%TrinketsList.set_column_title(0, "name")
+	%TrinketsList.set_column_title(1, "desc.")
+
+	#%TrinketsList.set_column_expand(0, true)
+	#%TrinketsList.set_column_expand_ratio(0, 1)
+
+	%TrinketsList.set_column_expand(1, true)
+	%TrinketsList.set_column_expand_ratio(1, 5)
+
+	for trinket in _alphabetized_trinkets_list:
+		var trinketItem: TreeItem = %TrinketsList.create_item()
+
+		trinketItem.set_text(0, trinket.trinket_name)
+		trinketItem.set_text(1, trinket.description)
+
+
+func _sort_trinkets_alphabetically(a: Trinket, b: Trinket) -> bool:
+	if a.trinket_name < b.trinket_name:
+		return true
+	return false
+
 func _sort_moves_alphabetically(a: Move, b: Move) -> bool:
 	if a.move_name < b.move_name:
 		return true
@@ -63,3 +91,7 @@ func _on_debug_move_pressed():
 
 func _on_use_move_button_pressed() -> void:
 	%MovesList.visible = !%MovesList.visible
+
+
+func _on_give_player_trinket_button_pressed() -> void:
+	%TrinketsList.visible = !%TrinketsList.visible
