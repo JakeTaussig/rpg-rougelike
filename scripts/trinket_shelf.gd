@@ -57,5 +57,8 @@ func steal_focus(index):
 
 
 func return_focus():
-	prior_focused_element.grab_focus()
+	if prior_focused_element:
+		prior_focused_element.grab_focus()
+	else:
+		release_focus()
 	on = false
