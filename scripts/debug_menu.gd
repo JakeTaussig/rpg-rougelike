@@ -1,8 +1,13 @@
 extends Control
 
+var _alphabetized_moves_list: Array[Move]
+
 func _ready() -> void:
 	if !get_parent().PROCESS_MODE_PAUSABLE:
 		push_warning("warning: parent is not pausable")
+
+	_alphabetized_moves_list = GameManager.moves_list.moves.duplicate()
+	_alphabetized_moves_list.sort_custom(_sort_moves_alphabetically)
 
 	_render_moves_list()
 
@@ -15,12 +20,7 @@ func toggle_pause():
 	get_tree().paused = paused
 	visible = paused
 
-	# TODO: manage focus
-
 func _render_moves_list():
-	var alphabetized_moves_list: Array[Move] = GameManager.moves_list.moves.duplicate()
-	alphabetized_moves_list.sort_custom(_sort_moves_alphabetically)
-
 	%MovesList.create_item()
 	%MovesList.set_column_title(0, "name")
 	%MovesList.set_column_title(1, "type")
@@ -30,25 +30,26 @@ func _render_moves_list():
 	%MovesList.set_column_expand(0, true)
 	%MovesList.set_column_expand_ratio(0, 2)
 
-	for move in alphabetized_moves_list:
+	for move in _alphabetized_moves_list:
 		var moveItem: TreeItem = %MovesList.create_item()
+
 		moveItem.set_text(0, move.move_name)
+
 		moveItem.set_text(1, MovesList.Type.keys()[move.type])
 		moveItem.set_custom_color(1, MovesList.type_to_color(move.type))
 		moveItem.set_text(2, str(move.base_power))
 		moveItem.set_text(3, str(move.acc))
 
-		# TODO: display addtl. info when move is hovered
-		#button.focus_entered.connect(func(): _display_pp_info(i))
-		#nameItem.mouse_entered.connect(nameItem)
-		#nameItem.pressed.connect(func(): _on_debug_move_pressed(move))
+	%MovesList.item_selected.connect(func(): _on_debug_move_pressed())
 
 func _sort_moves_alphabetically(a: Move, b: Move) -> bool:
 	if a.move_name < b.move_name:
 		return true
 	return false
 
-func _on_debug_move_pressed(move: Move):
+func _on_debug_move_pressed():
+	var move_index: int = %MovesList.get_selected().get_index()
+	var move: Move = _alphabetized_moves_list[move_index]
 	print("\tuser input (DEBUG):\t\tselect DEBUG move %s" % [move.move_name])
 	if move.pp > 0:
 		var attackCommand = AttackState.AttackCommand.new()
