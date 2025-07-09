@@ -53,7 +53,7 @@ func _render_trinkets_list():
 	%TrinketsList.set_column_title(1, "desc.")
 
 	%TrinketsList.set_column_expand(1, true)
-	%TrinketsList.set_column_expand_ratio(1, 5)
+	%TrinketsList.set_column_expand_ratio(1, 7)
 
 	for trinket in _alphabetized_trinkets_list:
 		var trinketItem: TreeItem = %TrinketsList.create_item()
