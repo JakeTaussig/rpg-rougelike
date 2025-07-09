@@ -48,6 +48,7 @@ theme = ExtResource("2_03so6")
 theme_type_variation = &"BorderButton"
 action_mode = 0
 text = "Use Move (debug)"
+alignment = 0
 
 [node name="MovesList" type="Tree" parent="PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -74,6 +75,7 @@ theme = ExtResource("2_03so6")
 theme_type_variation = &"BorderButton"
 action_mode = 0
 text = "Give Player Trinket (debug)"
+alignment = 0
 
 [node name="TrinketsList" type="Tree" parent="PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
