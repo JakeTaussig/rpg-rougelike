@@ -12,7 +12,6 @@ func enter(params: Array = []):
 
 	var attacker: Monster = command.attacker
 	var target: Monster = command.target
-
 	var move: Move = command.move
 
 	# Execute attack
@@ -92,7 +91,7 @@ func _generate_attack_messages(attacker, target, results: Monster.AttackResults)
 			MovesList.StatusEffect.PARALYZE:
 				messages.append(target.enact_paralyze_on_self())
 			MovesList.StatusEffect.BLIND:
-				messages.append("%s's accuracy was lowered by 33" % target.character_name + "%!")
+				messages.append(target.enact_blind_on_self())
 
 	if results.additional_message:
 		messages.append(results.additional_message)
