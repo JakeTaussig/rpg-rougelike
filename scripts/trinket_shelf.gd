@@ -35,9 +35,7 @@ func _display_trinket_info(index: int):
 
 	trinket_info_sprite.texture = trinket.icon
 
-	trinket_info_label.text = (
-		"[center]%s[/center]\n%s" % [trinket.trinket_name, trinket.description]
-	)
+	trinket_info_label.text = ("[center]%s[/center]\n%s" % [trinket.trinket_name, trinket.description])
 	last_focused_idx = index
 
 
