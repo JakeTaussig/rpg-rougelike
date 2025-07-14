@@ -32,8 +32,8 @@ func _on_move_pressed(index: int) -> void:
 	if move.pp > 0:
 		var attackCommand = AttackState.AttackCommand.new()
 		attackCommand.attacker = GameManager.player.selected_monster
-		attackCommand.move_index = index
 		attackCommand.target = GameManager.enemy.selected_monster
+		attackCommand.move = GameManager.player.selected_monster.moves[index]
 		battle.transition_state_to(battle.STATE_ATTACK, [attackCommand])
 
 

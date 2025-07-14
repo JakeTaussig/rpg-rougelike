@@ -123,7 +123,7 @@ unique_name_in_owner = true
 z_index = 1
 z_as_relative = false
 layout_mode = 0
-offset_right = 26.0
+offset_right = 27.0
 offset_bottom = 16.0
 
 [node name="StatusLabel" type="RichTextLabel" parent="LabelContainer/Placeholder/StatusLabelPanel"]
@@ -133,7 +133,7 @@ texture_filter = 1
 custom_minimum_size = Vector2(26, 17)
 layout_mode = 0
 offset_right = 26.0
-offset_bottom = 15.0
+offset_bottom = 17.0
 theme = ExtResource("1_5pall")
 theme_type_variation = &"HealthPanelLabel"
 theme_override_styles/normal = SubResource("StyleBoxFlat_d0kh3")
