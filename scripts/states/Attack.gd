@@ -12,14 +12,8 @@ func enter(params: Array = []):
 
 	var attacker: Monster = command.attacker
 	var target: Monster = command.target
-	var move_index: int = command.move_index
 
-	var move: Move
-
-	if move_index == -1:
-		move = command._debug_move
-	else:
-		move = attacker.moves[move_index]
+	var move: Move = command.move
 
 	# Execute attack
 	var results: Monster.AttackResults = attacker.use_move(move, target)
@@ -110,6 +104,7 @@ func _generate_attack_messages(attacker, target, results: Monster.AttackResults)
 class AttackCommand:
 	var attacker: Monster
 	var target: Monster
-	var move_index: int
 
-	var _debug_move: Move
+	# The move that will be used against the target.
+	# This should (generally) be an entry in attacker.moves
+	var move: Move

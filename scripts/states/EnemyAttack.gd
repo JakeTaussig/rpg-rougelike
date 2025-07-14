@@ -7,7 +7,7 @@ func enter(_messages: Array = []):
 	if enemyMoveIdx != -1:
 		var attackCommand = AttackState.AttackCommand.new()
 		attackCommand.attacker = enemy.selected_monster
-		attackCommand.move_index = enemyMoveIdx
+		attackCommand.move = GameManager.enemy.selected_monster.moves[enemyMoveIdx]
 		attackCommand.target = GameManager.player.selected_monster
 		battle.transition_state_to(battle.STATE_ATTACK, [attackCommand])
 	else:

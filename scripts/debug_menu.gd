@@ -79,8 +79,7 @@ func _on_debug_move_pressed():
 	if move.pp > 0:
 		var attackCommand = AttackState.AttackCommand.new()
 		attackCommand.attacker = GameManager.player.selected_monster
-		attackCommand.move_index = -1
-		attackCommand._debug_move = move
+		attackCommand.move = move
 		attackCommand.target = GameManager.enemy.selected_monster
 		GameManager.current_battle.transition_state_to(GameManager.current_battle.STATE_ATTACK, [attackCommand])
 		toggle_pause()
