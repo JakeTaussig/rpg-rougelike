@@ -77,7 +77,7 @@ layout_mode = 2
 theme = ExtResource("2_03so6")
 theme_type_variation = &"BorderButton"
 action_mode = 0
-text = "Give Player Trinket (debug) (WIP)"
+text = "Give Player Trinket (debug)"
 alignment = 2
 
 [node name="TrinketsList" type="Tree" parent="PanelContainer/VBoxContainer"]
