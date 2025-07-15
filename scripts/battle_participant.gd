@@ -12,7 +12,13 @@ class_name BattleParticipant
 		if monsters.size() > 0:
 			selected_monster = monsters[0]
 
+signal trinkets_updated
+
 var trinkets: Array[Trinket] = []
+
+
+func emit_trinkets_updated_signal():
+	trinkets_updated.emit()
 
 
 # called at the start of battle -- applies trinket effects to the player's monster
