@@ -392,7 +392,7 @@ func _recover_from_consume():
 func enact_blind_on_self():
 	if status_effect_turn_counter == 0:
 		acc = float(acc * 0.5)
-		return "%s's accuracy was lowered by 50" % character_name + " %!"
+		return "%s's accuracy was lowered by 50" % character_name + "%!"
 	return ""
 
 
