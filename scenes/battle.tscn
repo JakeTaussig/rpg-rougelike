@@ -383,6 +383,7 @@ script = ExtResource("20_61i1y")
 unique_name_in_owner = true
 
 [node name="TrinketShelf" parent="." node_paths=PackedStringArray("trinket_info_label", "trinket_info_panel", "trinket_info_sprite") instance=ExtResource("17_h4dll")]
+unique_name_in_owner = true
 trinket_info_label = NodePath("../TrinketInfoLabel")
 trinket_info_panel = NodePath("../TrinketInfoSpritePanel")
 trinket_info_sprite = NodePath("../TrinketInfoSpritePanel/TrinketInfoSprite")

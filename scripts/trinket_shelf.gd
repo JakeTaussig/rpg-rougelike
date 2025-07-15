@@ -18,14 +18,19 @@ func _ready():
 		trinkets = GameManager.player.trinkets
 
 	for i in range(trinkets.size()):
-		var trinket: Trinket = trinkets[i]
 		var trinket_button: Button = %TrinketIconContainer.get_child(i)
-		trinket_button.icon = trinket.icon
 		trinket_button.mouse_entered.connect(func(): steal_focus(i))
 		trinket_button.mouse_exited.connect(return_focus)
 		trinket_button.focus_entered.connect(func(): _display_trinket_info(i))
 		trinket_button.focus_exited.connect(_hide_trinket_info)
 
+	render_trinkets()
+
+func render_trinkets():
+	for i in range(trinkets.size()):
+		var trinket: Trinket = trinkets[i]
+		var trinket_button: Button = %TrinketIconContainer.get_child(i)
+		trinket_button.icon = trinket.icon
 
 func _display_trinket_info(index: int):
 	trinket_info_panel.visible = true
