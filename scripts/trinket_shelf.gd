@@ -17,7 +17,7 @@ func _ready():
 	if trinkets.size() == 0 && GameManager.player != null:
 		trinkets = GameManager.player.trinkets
 
-	for i in range(trinkets.size()):
+	for i in range(%TrinketIconContainer.get_child_count()):
 		var trinket_button: Button = %TrinketIconContainer.get_child(i)
 		trinket_button.mouse_entered.connect(func(): steal_focus(i))
 		trinket_button.mouse_exited.connect(return_focus)
@@ -33,6 +33,9 @@ func render_trinkets():
 		trinket_button.icon = trinket.icon
 
 func _display_trinket_info(index: int):
+	if index >= trinkets.size():
+		return
+
 	trinket_info_panel.visible = true
 	trinket_info_label.visible = true
 
