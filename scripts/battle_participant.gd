@@ -21,12 +21,6 @@ func emit_trinkets_updated_signal():
 	trinkets_updated.emit()
 
 
-# called at the start of battle -- applies trinket effects to the player's monster
-func apply_trinkets():
-	for trinket in trinkets:
-		trinket.strategy.ApplyEffect(selected_monster)
-
-
 func setup_player(_monster: Monster):
 	monsters = [_monster]
 	position.x = 64
