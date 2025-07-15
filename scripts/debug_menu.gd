@@ -66,6 +66,8 @@ func _render_trinkets_list():
 		trinketItem.set_text(0, trinket.trinket_name)
 		trinketItem.set_text(1, trinket.description)
 
+	%TrinketsList.item_selected.connect(func(): _on_debug_trinket_pressed())
+
 
 func _sort_trinkets_alphabetically(a: Trinket, b: Trinket) -> bool:
 	if a.trinket_name < b.trinket_name:
@@ -88,8 +90,18 @@ func _on_debug_move_pressed():
 		attackCommand.attacker = GameManager.player.selected_monster
 		attackCommand.move = move
 		attackCommand.target = GameManager.enemy.selected_monster
-		GameManager.current_battle.transition_state_to(GameManager.current_battle.STATE_ATTACK, [attackCommand])
+		GameManager.current_battle.transition_state_to(
+			GameManager.current_battle.STATE_ATTACK, [attackCommand]
+		)
 		toggle_pause()
+
+
+func _on_debug_trinket_pressed():
+	var trinket_index: int = %TrinketsList.get_selected().get_index()
+	var trinket: Trinket = _alphabetized_trinkets_list[trinket_index]
+	GameManager.player.trinkets.append(trinket)
+	trinket.strategy.ApplyEffect(GameManager.player.selected_monster)
+	GameManager.player.emit_trinkets_updated_signal()
 
 
 func _on_use_move_button_pressed() -> void:
