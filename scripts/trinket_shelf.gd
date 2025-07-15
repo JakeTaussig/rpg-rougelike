@@ -26,11 +26,13 @@ func _ready():
 
 	render_trinkets()
 
+
 func render_trinkets():
 	for i in range(trinkets.size()):
 		var trinket: Trinket = trinkets[i]
 		var trinket_button: Button = %TrinketIconContainer.get_child(i)
 		trinket_button.icon = trinket.icon
+
 
 func _display_trinket_info(index: int):
 	if index >= trinkets.size():

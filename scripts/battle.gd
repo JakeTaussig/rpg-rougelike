@@ -49,6 +49,7 @@ func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 
 	player.trinkets_updated.connect(func(): %TrinketShelf.render_trinkets())
 
+
 func update_active_monsters():
 	active_monsters = [player.selected_monster, enemy.selected_monster]
 	active_monsters.sort_custom(_sort_participants_by_speed)

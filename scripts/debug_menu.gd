@@ -3,6 +3,7 @@ extends Control
 var _alphabetized_moves_list: Array[Move]
 var _alphabetized_trinkets_list: Array[Trinket]
 
+
 func _ready() -> void:
 	if !get_parent().PROCESS_MODE_PAUSABLE:
 		push_warning("warning: parent is not pausable")
@@ -16,14 +17,17 @@ func _ready() -> void:
 	_render_moves_list()
 	_render_trinkets_list()
 
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_pause"):
 		toggle_pause()
+
 
 func toggle_pause():
 	var paused := not get_tree().paused
 	get_tree().paused = paused
 	visible = paused
+
 
 func _render_moves_list():
 	%MovesList.create_item()
@@ -47,6 +51,7 @@ func _render_moves_list():
 
 	%MovesList.item_selected.connect(func(): _on_debug_move_pressed())
 
+
 func _render_trinkets_list():
 	%TrinketsList.create_item()
 	%TrinketsList.set_column_title(0, "name")
@@ -69,10 +74,12 @@ func _sort_trinkets_alphabetically(a: Trinket, b: Trinket) -> bool:
 		return true
 	return false
 
+
 func _sort_moves_alphabetically(a: Move, b: Move) -> bool:
 	if a.move_name < b.move_name:
 		return true
 	return false
+
 
 func _on_debug_move_pressed():
 	var move_index: int = %MovesList.get_selected().get_index()
@@ -83,14 +90,18 @@ func _on_debug_move_pressed():
 		attackCommand.attacker = GameManager.player.selected_monster
 		attackCommand.move = move
 		attackCommand.target = GameManager.enemy.selected_monster
-		GameManager.current_battle.transition_state_to(GameManager.current_battle.STATE_ATTACK, [attackCommand])
+		GameManager.current_battle.transition_state_to(
+			GameManager.current_battle.STATE_ATTACK, [attackCommand]
+		)
 		toggle_pause()
+
 
 func _on_debug_trinket_pressed():
 	var trinket_index: int = %TrinketsList.get_selected().get_index()
 	var trinket: Trinket = _alphabetized_trinkets_list[trinket_index]
 	GameManager.player.trinkets.append(trinket)
 	GameManager.player.emit_trinkets_updated_signal()
+
 
 func _on_use_move_button_pressed() -> void:
 	%MovesList.visible = !%MovesList.visible
