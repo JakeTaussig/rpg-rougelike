@@ -3,6 +3,7 @@ extends Control
 var _alphabetized_moves_list: Array[Move]
 var _alphabetized_trinkets_list: Array[Trinket]
 
+
 func _ready() -> void:
 	if !get_parent().PROCESS_MODE_PAUSABLE:
 		push_warning("warning: parent is not pausable")
@@ -16,14 +17,17 @@ func _ready() -> void:
 	_render_moves_list()
 	_render_trinkets_list()
 
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_pause"):
 		toggle_pause()
+
 
 func toggle_pause():
 	var paused := not get_tree().paused
 	get_tree().paused = paused
 	visible = paused
+
 
 func _render_moves_list():
 	%MovesList.create_item()
@@ -47,6 +51,7 @@ func _render_moves_list():
 
 	%MovesList.item_selected.connect(func(): _on_debug_move_pressed())
 
+
 func _render_trinkets_list():
 	%TrinketsList.create_item()
 	%TrinketsList.set_column_title(0, "name")
@@ -67,10 +72,12 @@ func _sort_trinkets_alphabetically(a: Trinket, b: Trinket) -> bool:
 		return true
 	return false
 
+
 func _sort_moves_alphabetically(a: Move, b: Move) -> bool:
 	if a.move_name < b.move_name:
 		return true
 	return false
+
 
 func _on_debug_move_pressed():
 	var move_index: int = %MovesList.get_selected().get_index()

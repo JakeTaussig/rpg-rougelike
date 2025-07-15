@@ -32,14 +32,15 @@ extends Resource
 	set(new_luck):
 		luck = max(1, new_luck)
 		crit_chance = crit_chance
-@export var crit_chance = 0.02:
+@export var crit_chance: float = 0.02:
 	set(new_crit_chance):
 		crit_chance = new_crit_chance
 		var crit_chance_mult = float(luck) / 10
 		crit_chance = max(crit_chance, crit_chance_mult * 0.02)
-@export var acc = 1.0:
+@export var acc: float = 1.0:
 	set(new_acc):
-		acc = min(1.0, new_acc)
+		# Allow acc to go upto 2.0, allow for high acc builds where BLIND and acc lowering moves have less effect.
+		acc = min(2.0, new_acc)
 
 @export var base_stat_total = 300
 
@@ -84,7 +85,7 @@ func randomize_stat_spread(bst: int = 300, min_stat: int = 10) -> void:
 func randomize_moves() -> void:
 	moves = []
 	var all_moves = GameManager.moves_list.moves.duplicate()
-	
+
 	# Remove moves that signify status conditions
 	all_moves = all_moves.filter(func(m): return m.move_name != "Paralyzed" and m.move_name != "Delusion")
 	all_moves.shuffle()
@@ -162,18 +163,13 @@ func use_move(move: Move, target: Monster) -> AttackResults:
 
 
 func _does_move_hit(accuracy: int) -> bool:
-	# TODO: Apply BLIND directly to the Monster's accuracy
-	if status_effect == MovesList.StatusEffect.BLIND:
-		accuracy = int(float(accuracy) * 0.5)
-
-	# take the monster's own accuracy into effect
+	# take the monster's own accuracy (acc) into effect (the accuracy variable is the move's accuracy)
 	accuracy = int(float(accuracy) * acc)
-
 	accuracy = clamp(accuracy, 0, 100)
 	# Generates a number between 1 and 100
 	var roll = randi() % 100 + 1
 	return roll <= accuracy
-	
+
 
 func _does_move_crit_or_status(accuracy: int) -> bool:
 	accuracy = clamp(accuracy, 0, 100)
@@ -212,7 +208,7 @@ func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
 	var target_type = target.type
 	var is_immune = _check_status_immunity(effect, target_type)
 	if is_immune:
-		return false 
+		return false
 	# Only attempt to apply a status effect if one is not already applied
 	if target.status_effect == MovesList.StatusEffect.NONE:
 		var status_applied = _does_move_crit_or_status(move.status_effect_chance)
@@ -352,7 +348,7 @@ func _recover_from_poison():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
 	return "%s recovered from poison!" % character_name
-	
+
 
 func enact_paralyze_on_self():
 	if status_effect_turn_counter == 0:
@@ -393,8 +389,16 @@ func _recover_from_consume():
 	return "%s recovered from consume!" % character_name
 
 
+func enact_blind_on_self():
+	if status_effect_turn_counter == 0:
+		acc = float(acc * 0.5)
+		return "%s's accuracy was lowered by 50" % character_name + "%!"
+	return ""
+
+
 func _recover_from_blind():
 	status_effect = MovesList.StatusEffect.NONE
+	acc = acc * 2
 	status_effect_turn_counter = 0
 	return "%s recovered from blind!" % character_name
 

@@ -67,6 +67,7 @@ func is_defeated() -> bool:
 
 func swap_dead_monster():
 	if selected_monster.hp <= 0:
+		selected_monster.status_effect = MovesList.StatusEffect.NONE
 		monsters.remove_at(0)
 		if monsters.size() == 0:
 			return
