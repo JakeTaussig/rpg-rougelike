@@ -13,12 +13,15 @@ var action_menu: Control
 var moves_menu: Control
 var items_menu: Control
 var player_prompt: Label
+var trinket_shelf: TrinketShelf
 
 var initialized = false
 
+var stored_visibility = {}
 
 func _ready():
 	call_deferred("_init_references")
+
 
 
 func _init_references():
@@ -34,6 +37,7 @@ func _init_references():
 	moves_menu = %Moves
 	items_menu = %Items
 	player_prompt = %PlayerPrompt
+	trinket_shelf = %TrinketShelf
 
 	initialized = true
 
@@ -154,3 +158,42 @@ func set_item_qty_info(text: String):
 
 func set_item_type_info(text: String):
 	items_menu.get_node("ItemInfo/ItemTypeInfo").text = text
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_hide"):
+		# Store current visibility states
+		stored_visibility = {
+			"player_health": player_health_panel.visible,
+			"enemy_health": enemy_health_panel.visible,
+			"battle_status": battle_status.visible,
+			"continue_button": continue_button.visible,
+			"action_menu": action_menu.visible,
+			"moves_menu": moves_menu.visible,
+			"items_menu": items_menu.visible,
+			"player_prompt": player_prompt.visible,
+			"trinket_shelf": trinket_shelf.visible
+		}
+
+		# Hide all elements
+		player_health_panel.hide()
+		enemy_health_panel.hide()
+		battle_status.hide()
+		continue_button.hide()
+		action_menu.hide()
+		moves_menu.hide()
+		items_menu.hide()
+		player_prompt.hide()
+		trinket_shelf.hide()
+
+	if event.is_action_released("ui_hide"):
+		# Restore visibility
+		player_health_panel.visible = stored_visibility.get("player_health", true)
+		enemy_health_panel.visible = stored_visibility.get("enemy_health", true)
+		battle_status.visible = stored_visibility.get("battle_status", false)
+		continue_button.visible = stored_visibility.get("continue_button", false)
+		action_menu.visible = stored_visibility.get("action_menu", false)
+		moves_menu.visible = stored_visibility.get("moves_menu", false)
+		items_menu.visible = stored_visibility.get("items_menu", false)
+		player_prompt.visible = stored_visibility.get("player_prompt", false)
+		trinket_shelf.visible = stored_visibility.get("trinket_shelf", false)

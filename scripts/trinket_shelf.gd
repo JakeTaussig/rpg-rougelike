@@ -1,4 +1,5 @@
 extends Panel
+class_name TrinketShelf
 
 var prior_focused_element: Variant
 
