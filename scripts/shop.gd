@@ -65,7 +65,8 @@ func _on_trinket_focus(trinket_index: int):
 	%TrinketIconEnlarged.texture = trinket.icon
 	%TrinketName.text = trinket.trinket_name
 	# TODO: introduce varying trinket costs
-	%TrinketCost.text = "100"
+	var trinket_cost = 100
+	%TrinketCost.text = "¶ %d" % trinket_cost
 
 	var trinket_cost_label = %TrinketNameAndCost/TrinketCost
 	if purchased_trinkets[trinket_index]:
