@@ -16,14 +16,6 @@ func setup():
 	_render_player_money()
 
 
-	call_deferred("_init_focus")
-
-
-func _init_focus():
-	var trinket_entry: HBoxContainer = %TrinketContainer.get_child(0)
-	var trinket_button: Button = trinket_entry.get_node("TrinketName")
-	trinket_button.grab_focus()
-
 func _init_trinket_menu_buttons():
 	for i in range(N_TRINKETS):
 		var trinket_entry: HBoxContainer = %TrinketContainer.get_child(i)
