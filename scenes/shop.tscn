@@ -232,6 +232,7 @@ theme = ExtResource("1_xfvoa")
 theme_override_constants/separation = -1
 
 [node name="ExitButton" type="Button" parent="GridContainer/TrinketContainer/ExitButtonRow"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_xfvoa")
@@ -266,6 +267,7 @@ theme_override_constants/separation = -1
 
 [node name="TrinketName" type="Label" parent="TrinketNameAndCost"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(78, 18)
 layout_mode = 2
 theme = ExtResource("1_xfvoa")
@@ -283,6 +285,7 @@ theme_type_variation = &"AllBorderLabel"
 
 [node name="TrinketCost" type="RichTextLabel" parent="TrinketNameAndCost"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(4, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -303,6 +306,7 @@ theme_override_constants/separation = 0
 
 [node name="TrinketInfo" type="RichTextLabel" parent="TrinketInfoContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(78, 48)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -316,6 +320,7 @@ autowrap_mode = 2
 
 [node name="TrinketIconEnlarged" type="TextureRect" parent="TrinketInfoContainer"]
 unique_name_in_owner = true
+visible = false
 texture_filter = 1
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
