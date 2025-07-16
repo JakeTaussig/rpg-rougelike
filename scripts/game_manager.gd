@@ -98,7 +98,7 @@ func _on_battle_ended(victory: bool):
 
 
 func _transition_events():
-	await screen_fade.fade_out()
+	#await screen_fade.fade_out()
 	if current_battle:
 		current_battle.queue_free()
 	if current_shop:
@@ -108,7 +108,7 @@ func _transition_events():
 	await get_tree().process_frame  # Ensure new enemy exists and is valid
 	_start_next_event()
 
-	await screen_fade.fade_in()
+	#await screen_fade.fade_in()
 
 
 func get_move_by_name(move_to_find: String):

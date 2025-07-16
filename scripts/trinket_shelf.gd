@@ -6,11 +6,17 @@ var on = false
 
 var last_focused_idx = 0
 
+@export var trinket_name_label: Label
 @export var trinket_info_label: RichTextLabel
 @export var trinket_info_panel: Panel
+
+# should be a Sprite2D or a Texture Rect
 @export var trinket_info_sprite: Sprite2D
+@export var trinket_info_texture_rect: TextureRect
 
 @export var trinkets: Array[Trinket]
+
+@export var remove_trinket_name_on_panel: bool = false
 
 
 func _ready():
@@ -38,20 +44,38 @@ func _display_trinket_info(index: int):
 	if index >= trinkets.size():
 		return
 
-	trinket_info_panel.visible = true
+	if trinket_info_panel:
+		trinket_info_panel.visible = true
 	trinket_info_label.visible = true
 
 	var trinket: Trinket = trinkets[index]
 
-	trinket_info_sprite.texture = trinket.icon
+	if trinket_info_sprite:
+		trinket_info_sprite.texture = trinket.icon
+	elif trinket_info_texture_rect:
+		trinket_info_texture_rect.texture = trinket.icon
+
 
 	trinket_info_label.text = ("[center]%s[/center]\n%s" % [trinket.trinket_name, trinket.description])
+	if remove_trinket_name_on_panel:
+		trinket_info_label.text = trinket.description
+
 	last_focused_idx = index
+
+	if trinket_info_texture_rect:
+		trinket_info_texture_rect.show()
+
+	if trinket_name_label:
+		trinket_name_label.text = trinket.trinket_name
+		trinket_name_label.show()
 
 
 func _hide_trinket_info():
 	trinket_info_label.hide()
-	trinket_info_panel.hide()
+	if trinket_info_panel:
+		trinket_info_panel.hide()
+	if trinket_info_texture_rect:
+		trinket_info_texture_rect.hide()
 
 
 func steal_focus(index):
