@@ -112,6 +112,8 @@ func _create_player() -> BattleParticipant:
 	new_player.setup_player(randomized_monsters[monster_index])
 	self.add_child(new_player)
 	new_player.name = "Player"
+	new_player.money = 100
+
 	return new_player
 
 

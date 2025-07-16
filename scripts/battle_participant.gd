@@ -16,6 +16,8 @@ signal trinkets_updated
 
 var trinkets: Array[Trinket] = []
 
+var money: int = 0
+
 
 func emit_trinkets_updated_signal():
 	trinkets_updated.emit()

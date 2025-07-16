@@ -16,6 +16,9 @@ func _ready() -> void:
 
 	_render_moves_list()
 	_render_trinkets_list()
+	# In game money is referred to as "Prana" -- I'm using "¶" as the equivalent of "$"
+	%Money.text = "¶ %d" % GameManager.player.money
+
 
 
 func _input(event: InputEvent) -> void:
