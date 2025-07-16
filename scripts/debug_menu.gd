@@ -54,17 +54,24 @@ func _render_moves_list():
 
 func _render_trinkets_list():
 	%TrinketsList.create_item()
-	%TrinketsList.set_column_title(0, "name")
-	%TrinketsList.set_column_title(1, "desc.")
+	%TrinketsList.set_column_title(0, "icon")
+	%TrinketsList.set_column_title(1, "name")
+	%TrinketsList.set_column_title(2, "desc.")
 
+	# set the description column to be 4x wider than the name column
+	%TrinketsList.set_column_expand(0, false)
 	%TrinketsList.set_column_expand(1, true)
-	%TrinketsList.set_column_expand_ratio(1, 7)
+	%TrinketsList.set_column_expand_ratio(1, 1)
+	%TrinketsList.set_column_expand(2, true)
+	%TrinketsList.set_column_expand_ratio(2, 4)
 
 	for trinket in _alphabetized_trinkets_list:
 		var trinketItem: TreeItem = %TrinketsList.create_item()
 
-		trinketItem.set_text(0, trinket.trinket_name)
-		trinketItem.set_text(1, trinket.description)
+		trinketItem.set_cell_mode(0,TreeItem.CELL_MODE_ICON)
+		trinketItem.set_icon(0, trinket.icon)
+		trinketItem.set_text(1, trinket.trinket_name)
+		trinketItem.set_text(2, trinket.description)
 
 	%TrinketsList.item_selected.connect(func(): _on_debug_trinket_pressed())
 
