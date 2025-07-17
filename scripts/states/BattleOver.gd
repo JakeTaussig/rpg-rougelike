@@ -12,6 +12,9 @@ func enter(_messages: Array = []):
 		_player_victorious = false
 		_messages.append("You lost the Battle. Proceeding...")
 	elif enemy.selected_monster.hp <= 0:
+		_messages.append("You Gained ¶ 500")
+		GameManager.player.money += 500
+
 		if GameManager.floor_events.is_empty():
 			GameManager.level_up_player_and_enemies()
 			match GameManager.floor_number:

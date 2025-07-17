@@ -67,6 +67,7 @@ func _start_next_event():
 	if floor_events.is_empty():
 		print("Floor complete!")
 		floor_number += 1
+		_generate_shop_events()
 		_generate_floor_events()
 
 	# This will always be index 0, since we pop_front of floor_events whenever switching events.
@@ -119,7 +120,7 @@ func _create_player() -> BattleParticipant:
 	new_player.setup_player(randomized_monsters[monster_index])
 	self.add_child(new_player)
 	new_player.name = "Player"
-	new_player.money = 1000
+	new_player.money = 500
 
 	return new_player
 
