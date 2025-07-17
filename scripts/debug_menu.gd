@@ -16,8 +16,7 @@ func _ready() -> void:
 
 	_render_moves_list()
 	_render_trinkets_list()
-	# In game money is referred to as "Prana" -- I'm using "¶" as the equivalent of "$"
-	%Money.text = "¶ %d" % GameManager.player.money
+	_render_player_money()
 
 
 
@@ -70,6 +69,10 @@ func _render_trinkets_list():
 		trinketItem.set_text(1, trinket.description)
 
 	%TrinketsList.item_selected.connect(func(): _on_debug_trinket_pressed())
+
+
+func _render_player_money():
+	%Money.text = "¶ %d" % GameManager.player.money
 
 
 func _sort_trinkets_alphabetically(a: Trinket, b: Trinket) -> bool:
