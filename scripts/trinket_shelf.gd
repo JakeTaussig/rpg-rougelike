@@ -16,7 +16,7 @@ var last_focused_idx = 0
 
 @export var trinkets: Array[Trinket]
 
-@export var remove_trinket_name_on_panel: bool = false
+@export var show_trinket_name_on_panel: bool = true
 
 
 func _ready():
@@ -44,30 +44,31 @@ func _display_trinket_info(index: int):
 	if index >= trinkets.size():
 		return
 
-	if trinket_info_panel:
-		trinket_info_panel.visible = true
-	trinket_info_label.visible = true
-
 	var trinket: Trinket = trinkets[index]
-
-	if trinket_info_sprite:
-		trinket_info_sprite.texture = trinket.icon
-	elif trinket_info_texture_rect:
-		trinket_info_texture_rect.texture = trinket.icon
-
-
-	trinket_info_label.text = ("[center]%s[/center]\n%s" % [trinket.trinket_name, trinket.description])
-	if remove_trinket_name_on_panel:
-		trinket_info_label.text = trinket.description
 
 	last_focused_idx = index
 
-	if trinket_info_texture_rect:
-		trinket_info_texture_rect.show()
+	if trinket_info_panel:
+		trinket_info_panel.show()
+
+	if trinket_info_label:
+		trinket_info_label.show()
 
 	if trinket_name_label:
 		trinket_name_label.text = trinket.trinket_name
 		trinket_name_label.show()
+
+	if trinket_info_sprite:
+		trinket_info_sprite.texture = trinket.icon
+		trinket_info_sprite.show()
+	elif trinket_info_texture_rect:
+		trinket_info_texture_rect.texture = trinket.icon
+		trinket_info_texture_rect.show()
+
+	if show_trinket_name_on_panel:
+		trinket_info_label.text = ("[center]%s[/center]\n%s" % [trinket.trinket_name, trinket.description])
+	else:
+		trinket_info_label.text = trinket.description
 
 
 func _hide_trinket_info():
