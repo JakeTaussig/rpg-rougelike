@@ -10,7 +10,8 @@ var last_focused_idx = 0
 @export var trinket_info_label: RichTextLabel
 @export var trinket_info_panel: Panel
 
-# should be a Sprite2D or a Texture Rect
+# the trinket icon is displayed via either a Sprite2D or a Texture Rect. only
+# one of trinket_info_sprite and trinket_info_texture_rect should be set
 @export var trinket_info_sprite: Sprite2D
 @export var trinket_info_texture_rect: TextureRect
 
