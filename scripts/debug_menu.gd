@@ -30,6 +30,9 @@ func toggle_pause():
 	get_tree().paused = paused
 	visible = paused
 
+	if visible:
+		_render_player_money()
+
 
 func _render_moves_list():
 	%MovesList.create_item()
