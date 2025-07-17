@@ -1,22 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cai3whynl4v0w"]
+[gd_scene load_steps=2 format=3 uid="uid://cai3whynl4v0w"]
 
 [ext_resource type="Script" uid="uid://dcg6p6ohqcsxp" path="res://scripts/game_manager.gd" id="1_34tde"]
-[ext_resource type="Script" uid="uid://bhkm5qn07swe2" path="res://scenes/screen_fade.gd" id="9_2chjq"]
 
 [node name="GameManager" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_34tde")
-
-[node name="ScreenFade" type="ColorRect" parent="."]
-modulate = Color(0, 0, 0, 0.003921569)
-self_modulate = Color(0, 0, 0, 1)
-top_level = true
-z_index = 100
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-script = ExtResource("9_2chjq")

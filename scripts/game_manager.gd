@@ -3,8 +3,6 @@ extends Control
 @export var items_list: ItemsList = preload("res://resources/items/global_items_list.tres")
 var trinkets_list: TrinketsList = TrinketsList.new()
 
-@onready var screen_fade = $ScreenFade
-
 var floor_number = 1
 var floor_events = []
 var current_battle: Battle
@@ -31,8 +29,8 @@ func start_game():
 	_load_and_randomize_monsters()
 	player = _create_player()
 	enemy = _create_new_enemy()
-	_generate_floor_events()
 	_generate_shop_events()
+	_generate_floor_events()
 	_start_next_event()
 
 
@@ -63,7 +61,7 @@ func _generate_floor_events():
 
 func _generate_shop_events():
 	var shop = shop_scene.instantiate()
-	floor_events.push_front(shop)
+	floor_events.push_back(shop)
 
 func _start_next_event():
 	if floor_events.is_empty():
@@ -98,7 +96,6 @@ func _on_battle_ended(victory: bool):
 
 
 func _transition_events():
-	#await screen_fade.fade_out()
 	if current_battle:
 		current_battle.queue_free()
 	if current_shop:
@@ -107,8 +104,6 @@ func _transition_events():
 	enemy = _create_new_enemy()
 	await get_tree().process_frame  # Ensure new enemy exists and is valid
 	_start_next_event()
-
-	#await screen_fade.fade_in()
 
 
 func get_move_by_name(move_to_find: String):
