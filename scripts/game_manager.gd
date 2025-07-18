@@ -3,18 +3,17 @@ extends Control
 @export var items_list: ItemsList = preload("res://resources/items/global_items_list.tres")
 var trinkets_list: TrinketsList = TrinketsList.new()
 
-@onready var screen_fade = $ScreenFade
-
 var floor_number = 1
 var floor_events = []
 var current_battle: Battle
+var current_shop: Shop
 
 var player: BattleParticipant
 var enemy: BattleParticipant
 
 var battle_scene = preload("res://scenes/battle.tscn")
 var battle_participant_scene := preload("res://scenes/battle_participant.tscn")
-# var shop_scene = preload("res://scenes/shop.tscn") (future)
+var shop_scene = preload("res://scenes/shop.tscn")
 
 # All of the player's and enemy's stats will be multiplied by their respective value at the end of each floor
 var player_stat_multiplier := 1.2
@@ -30,6 +29,7 @@ func start_game():
 	_load_and_randomize_monsters()
 	player = _create_player()
 	enemy = _create_new_enemy()
+	_generate_shop_events()
 	_generate_floor_events()
 	_start_next_event()
 
@@ -59,20 +59,23 @@ func _generate_floor_events():
 	var battle = battle_scene.instantiate()
 	floor_events.push_back(battle)
 
+func _generate_shop_events():
+	var shop = shop_scene.instantiate()
+	floor_events.push_back(shop)
 
 func _start_next_event():
 	if floor_events.is_empty():
 		print("Floor complete!")
 		floor_number += 1
+		_generate_shop_events()
 		_generate_floor_events()
 
 	# This will always be index 0, since we pop_front of floor_events whenever switching events.
 	var event = floor_events[0]
 	if event is Battle:
 		_run_battle()
-	#elif event is Shop:
-	#_run_shop(event.data)
-
+	elif event is Shop:
+		_run_shop()
 
 func _run_battle():
 	current_battle = floor_events.pop_front()
@@ -80,6 +83,11 @@ func _run_battle():
 	add_child(current_battle)
 	current_battle.connect("battle_ended", Callable(self, "_on_battle_ended"))
 
+func _run_shop():
+	current_shop = floor_events.pop_front()
+	current_shop.setup()
+	add_child(current_shop)
+	current_shop.connect("shop_ended", Callable(self, "_transition_events"))
 
 func _on_battle_ended(victory: bool):
 	if not victory:
@@ -89,14 +97,14 @@ func _on_battle_ended(victory: bool):
 
 
 func _transition_events():
-	await screen_fade.fade_out()
-	current_battle.queue_free()
+	if current_battle:
+		current_battle.queue_free()
+	if current_shop:
+		current_shop.queue_free()
 	# Eventually, we'll need a way of doing this procedurally.
 	enemy = _create_new_enemy()
 	await get_tree().process_frame  # Ensure new enemy exists and is valid
 	_start_next_event()
-
-	await screen_fade.fade_in()
 
 
 func get_move_by_name(move_to_find: String):
@@ -112,6 +120,8 @@ func _create_player() -> BattleParticipant:
 	new_player.setup_player(randomized_monsters[monster_index])
 	self.add_child(new_player)
 	new_player.name = "Player"
+	new_player.money = 500
+
 	return new_player
 
 

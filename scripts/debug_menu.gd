@@ -16,6 +16,8 @@ func _ready() -> void:
 
 	_render_moves_list()
 	_render_trinkets_list()
+	_render_player_money()
+
 
 
 func _input(event: InputEvent) -> void:
@@ -27,6 +29,9 @@ func toggle_pause():
 	var paused := not get_tree().paused
 	get_tree().paused = paused
 	visible = paused
+
+	if visible:
+		_render_player_money()
 
 
 func _render_moves_list():
@@ -74,6 +79,10 @@ func _render_trinkets_list():
 		trinketItem.set_text(2, trinket.description)
 
 	%TrinketsList.item_selected.connect(func(): _on_debug_trinket_pressed())
+
+
+func _render_player_money():
+	%Money.text = "¶ %d" % GameManager.player.money
 
 
 func _sort_trinkets_alphabetically(a: Trinket, b: Trinket) -> bool:
