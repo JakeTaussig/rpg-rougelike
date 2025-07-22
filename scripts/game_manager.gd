@@ -68,15 +68,20 @@ func _generate_floor_events():
 	var progress_button: Button = %FloorProgressDisplay.get_child(0)
 	progress_button.set_pressed(false)
 	progress_button.z_index = 1
-	progress_button.add_theme_stylebox_override("normal", load("res://assets/styles/shop_button.tres"))
-	progress_button.add_theme_stylebox_override("hover", load("res://assets/styles/shop_button.tres"))
+	progress_button.add_theme_stylebox_override("normal", load("res://assets/styles/progress_button_normal.tres"))
+	progress_button.add_theme_stylebox_override("hover", load("res://assets/styles/progress_button_normal.tres"))
 
 
 	for child in %FloorProgressDisplay.get_children():
 		%FloorProgressDisplay.remove_child(child)
 
 	for i in range(floor_event_count):
-		%FloorProgressDisplay.add_child(progress_button.duplicate(DUPLICATE_USE_INSTANTIATION))
+		var duplicate_button = progress_button.duplicate(DUPLICATE_USE_INSTANTIATION)
+		if floor_events[i] is Shop:
+			duplicate_button.icon = load("res://assets/sprites/room_icons/shop.png")
+		elif floor_events[i] is Battle:
+			duplicate_button.icon = load("res://assets/sprites/room_icons/battle.png")
+		%FloorProgressDisplay.add_child(duplicate_button)
 
 
 

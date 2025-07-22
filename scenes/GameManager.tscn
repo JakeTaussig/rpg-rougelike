@@ -1,14 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://cai3whynl4v0w"]
+[gd_scene load_steps=6 format=3 uid="uid://cai3whynl4v0w"]
 
 [ext_resource type="Script" uid="uid://dcg6p6ohqcsxp" path="res://scripts/game_manager.gd" id="1_34tde"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_qppyr"]
+[ext_resource type="StyleBox" uid="uid://dhp7hd78r457v" path="res://assets/styles/progress_button_normal.tres" id="3_3dus2"]
+[ext_resource type="Texture2D" uid="uid://opq0tcx8nro2" path="res://assets/sprites/room_icons/shop.png" id="3_4dhvd"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qppyr"]
-content_margin_left = 3.0
-content_margin_top = 3.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3dus2"]
+content_margin_left = 1.0
+content_margin_top = 1.0
 content_margin_right = 1.0
-content_margin_bottom = 4.0
-bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+content_margin_bottom = 1.0
+bg_color = Color(0.14902, 0.168627, 0.266667, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -95,13 +97,17 @@ offset_bottom = 112.0
 theme_override_constants/separation = -1
 
 [node name="Button" type="Button" parent="FloorProgressDisplay"]
-custom_minimum_size = Vector2(17, 15)
+texture_filter = 1
+custom_minimum_size = Vector2(16, 17)
 layout_mode = 2
 focus_mode = 0
-theme_type_variation = &"BorderButton"
-theme_override_styles/hover = SubResource("StyleBoxFlat_qppyr")
+theme_type_variation = &"IconButton"
+theme_override_styles/normal = ExtResource("3_3dus2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3dus2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_3dus2")
 toggle_mode = true
 button_mask = 0
+icon = ExtResource("3_4dhvd")
 text_overrun_behavior = 2
 
 [connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]
