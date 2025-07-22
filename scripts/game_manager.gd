@@ -3,7 +3,7 @@ extends Control
 @export var items_list: ItemsList = preload("res://resources/items/global_items_list.tres")
 var trinkets_list: TrinketsList = TrinketsList.new()
 
-var floor_number = 1
+var floor_number = 0
 var floor_events = []
 var floor_event_count = 0
 var floor_event_index = 0
@@ -65,6 +65,18 @@ func _generate_floor_events():
 	floor_events.push_back(battle)
 
 	floor_event_count = floor_events.size()
+	var progress_button: Button = %FloorProgressDisplay.get_child(0)
+	progress_button.set_pressed(false)
+	progress_button.z_index = 1
+	progress_button.add_theme_stylebox_override("normal", load("res://assets/styles/shop_button.tres"))
+	progress_button.add_theme_stylebox_override("hover", load("res://assets/styles/shop_button.tres"))
+
+
+	for child in %FloorProgressDisplay.get_children():
+		%FloorProgressDisplay.remove_child(child)
+
+	for i in range(floor_event_count):
+		%FloorProgressDisplay.add_child(progress_button.duplicate(DUPLICATE_USE_INSTANTIATION))
 
 
 
@@ -73,9 +85,12 @@ func _on_continue_button_pressed() -> void:
 
 
 func _start_next_event():
+	%FloorProgressDisplay.get_child(floor_event_index).set_pressed(true)
+
 	floor_event_index += 1
 
 	# hide the panel in the containing the player's money amount
+	%FloorProgressDisplay.hide()
 	%Money.hide()
 
 	# This will always be index 0, since we pop_front of floor_events whenever switching events.
@@ -122,7 +137,7 @@ func _update_panel_text():
 	%PanelText.text += "\n\n"
 	%PanelText.text += "Event %d" % (floor_event_index + 1)
 	%PanelText.text += "\n\n"
-	%PanelText.text += "Remaining Events: %d" % (floor_event_count - floor_event_index)
+	%PanelText.text += "Remaining Events: %d" % (floor_event_count)
 	%PanelText.text += "\n\n"
 	%PanelText.text += "Up next: %s" % next_event_type
 
@@ -145,6 +160,12 @@ func _transition_events():
 		floor_event_index = 0
 		floor_number += 1
 		_generate_floor_events()
+
+	var progress_button: Button = %FloorProgressDisplay.get_child(floor_event_index)
+	progress_button.add_theme_stylebox_override("normal", load("res://assets/styles/progress_button_active.tres"))
+	progress_button.add_theme_stylebox_override("hover", load("res://assets/styles/progress_button_active.tres"))
+	progress_button.z_index = 2
+	%FloorProgressDisplay.show()
 
 	# Eventually, we'll need a way of doing this procedurally.
 	enemy = _create_new_enemy()

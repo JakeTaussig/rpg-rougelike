@@ -1,7 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://cai3whynl4v0w"]
+[gd_scene load_steps=4 format=3 uid="uid://cai3whynl4v0w"]
 
 [ext_resource type="Script" uid="uid://dcg6p6ohqcsxp" path="res://scripts/game_manager.gd" id="1_34tde"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_qppyr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qppyr"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 1.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0705882, 0.305882, 0.537255, 1)
 
 [node name="GameManager" type="Control"]
 layout_mode = 3
@@ -73,5 +85,23 @@ layout_mode = 2
 theme = ExtResource("2_qppyr")
 theme_type_variation = &"AllBorderLabel"
 text = "¶ 100"
+
+[node name="FloorProgressDisplay" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 95.0
+offset_right = 94.0
+offset_bottom = 112.0
+theme_override_constants/separation = -1
+
+[node name="Button" type="Button" parent="FloorProgressDisplay"]
+custom_minimum_size = Vector2(17, 15)
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"BorderButton"
+theme_override_styles/hover = SubResource("StyleBoxFlat_qppyr")
+toggle_mode = true
+button_mask = 0
+text_overrun_behavior = 2
 
 [connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]
