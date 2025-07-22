@@ -37,6 +37,7 @@ func start_game():
 	_load_and_randomize_monsters()
 	player = _create_player()
 	enemy = _create_new_enemy()
+	_hide_player_and_enemy()
 	_generate_floor_events()
 	_update_panel_text()
 	_ready_for_next_event = true
@@ -93,6 +94,7 @@ func _start_next_event():
 
 func _run_battle():
 	current_battle = floor_events.pop_front()
+	_show_player_and_enemy()
 	current_battle.setup(player, enemy)
 	add_child(current_battle)
 	current_battle.connect("battle_ended", Callable(self, "_on_battle_ended"))
@@ -135,6 +137,13 @@ func _update_panel_text():
 	%PanelText.text += "\n\n"
 	%PanelText.text += "HP %d / %d" % [player.selected_monster.hp, player.selected_monster.max_hp]
 
+func _hide_player_and_enemy():
+	player.hide()
+	enemy.hide()
+
+func _show_player_and_enemy():
+	player.show()
+	enemy.show()
 
 func _transition_events():
 	_update_panel_text()
@@ -144,6 +153,8 @@ func _transition_events():
 		current_shop.queue_free()
 	# Eventually, we'll need a way of doing this procedurally.
 	enemy = _create_new_enemy()
+
+	_hide_player_and_enemy()
 	await get_tree().process_frame  # Ensure new enemy exists and is valid
 	_ready_for_next_event = true
 
