@@ -5,6 +5,14 @@ var trinkets_list: TrinketsList = TrinketsList.new()
 
 var floor_number = 1
 var floor_events = []
+var floor_event_count = 0
+var floor_event_index = 0
+# `_ready_for_next_event` is set to true when the previous event has been completely unloaded
+var _ready_for_next_event: bool = false:
+	set(_ready):
+		_ready_for_next_event = _ready
+		%ContinueButton.grab_focus()
+
 var current_battle: Battle
 var current_shop: Shop
 
@@ -29,9 +37,9 @@ func start_game():
 	_load_and_randomize_monsters()
 	player = _create_player()
 	enemy = _create_new_enemy()
-	_generate_shop_events()
 	_generate_floor_events()
-	_start_next_event()
+	_update_panel_text()
+	_ready_for_next_event = true
 
 
 func _load_and_randomize_monsters():
@@ -54,20 +62,26 @@ func _load_and_randomize_monsters():
 	dir.list_dir_end()
 
 
-# TODO: In the future, this will generate all events for a floor. Currently only 1 event per floor for testing.
+# generate all events for a floor.
 func _generate_floor_events():
-	var battle = battle_scene.instantiate()
-	floor_events.push_back(battle)
-
-func _generate_shop_events():
 	var shop = shop_scene.instantiate()
 	floor_events.push_back(shop)
 
+	var battle = battle_scene.instantiate()
+	floor_events.push_back(battle)
+
+	floor_event_count = floor_events.size()
+
+
 func _start_next_event():
+	if !_ready_for_next_event:
+		return
+
+	floor_event_index += 1
 	if floor_events.is_empty():
 		print("Floor complete!")
+		floor_event_index = 0
 		floor_number += 1
-		_generate_shop_events()
 		_generate_floor_events()
 
 	# This will always be index 0, since we pop_front of floor_events whenever switching events.
@@ -96,7 +110,34 @@ func _on_battle_ended(victory: bool):
 	_transition_events()
 
 
+func _update_panel_text():
+	if floor_events.size() == 0:
+		%PanelText.text = "Congrats! You completed floor %d!" % floor_number
+		return
+
+	var next_event = floor_events[0]
+	var next_event_type = ""
+	if next_event is Shop:
+		next_event_type = "Shop"
+	if next_event is Battle:
+		next_event_type = "Battle"
+
+	var player: BattleParticipant = get_node("Player")
+
+
+	%PanelText.text = "Floor %d" % floor_number
+	%PanelText.text += "\n\n"
+	%PanelText.text += "Event %d / %d" % [floor_event_index + 1, floor_event_count]
+	%PanelText.text += "\n\n"
+	%PanelText.text += "Up next: %s" % next_event_type
+	%PanelText.text += "\n\n"
+	%PanelText.text += "%s" % player.selected_monster.character_name
+	%PanelText.text += "\n\n"
+	%PanelText.text += "HP %d / %d" % [player.selected_monster.hp, player.selected_monster.max_hp]
+
+
 func _transition_events():
+	_update_panel_text()
 	if current_battle:
 		current_battle.queue_free()
 	if current_shop:
@@ -104,7 +145,7 @@ func _transition_events():
 	# Eventually, we'll need a way of doing this procedurally.
 	enemy = _create_new_enemy()
 	await get_tree().process_frame  # Ensure new enemy exists and is valid
-	_start_next_event()
+	_ready_for_next_event = true
 
 
 func get_move_by_name(move_to_find: String):
@@ -149,3 +190,7 @@ func level_up_player_and_enemies():
 	# Only the enemy stat multiplier increases, because the player stays the same, while the enemies are generated every time.
 	enemy_level += 1
 	player.selected_monster.level_up(player_stat_multiplier)
+
+
+func _on_continue_button_pressed() -> void:
+	_start_next_event()
