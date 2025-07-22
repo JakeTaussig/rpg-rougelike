@@ -71,9 +71,12 @@ func _generate_floor_events():
 	progress_button.add_theme_stylebox_override("normal", load("res://assets/styles/progress_button_normal.tres"))
 	progress_button.add_theme_stylebox_override("hover", load("res://assets/styles/progress_button_normal.tres"))
 
+	var description_label: RichTextLabel = %FloorProgressDescriptions.get_child(0)
 
 	for child in %FloorProgressDisplay.get_children():
 		%FloorProgressDisplay.remove_child(child)
+	for child in %FloorProgressDescriptions.get_children():
+		%FloorProgressDescriptions.remove_child(child)
 
 	for i in range(floor_event_count):
 		var duplicate_button = progress_button.duplicate(DUPLICATE_USE_INSTANTIATION)
@@ -84,6 +87,19 @@ func _generate_floor_events():
 		%FloorProgressDisplay.add_child(duplicate_button)
 
 
+		var duplicate_label = description_label.duplicate()
+
+		var next_event = floor_events[i]
+		var next_event_type = ""
+		if next_event is Shop:
+			next_event_type = "Shop"
+		if next_event is Battle:
+			next_event_type = "Battle"
+
+		duplicate_label.text = "Event %d / %d: %s" % [i + 1, floor_event_count, next_event_type]
+		%FloorProgressDescriptions.add_child(duplicate_label)
+
+
 
 func _on_continue_button_pressed() -> void:
 	_start_next_event()
@@ -91,13 +107,15 @@ func _on_continue_button_pressed() -> void:
 
 func _start_next_event():
 	%FloorProgressDisplay.get_child(floor_event_index).set_pressed(true)
+	%FloorProgressDescriptions.get_child(floor_event_index).text = ""
+	%FloorProgressDescriptions.get_child(floor_event_index).add_theme_stylebox_override("normal", load("res://assets/styles/border_color_sbf.tres"))
 
 	floor_event_index += 1
 
 	# hide the panel in the containing the player's money amount
 	# TODO: create hide/show UI helpers
-	%FloorProgressShelf.hide()
-	%Money.hide()
+	%FloorProgressDisplay.hide()
+	%FloorProgressDescriptions.hide()
 	%Title.hide()
 
 	# This will always be index 0, since we pop_front of floor_events whenever switching events.
@@ -140,11 +158,9 @@ func _update_panel_text():
 	var player: BattleParticipant = get_node("Player")
 
 
-	%PanelText.text = "Floor %d" % floor_number
-	%PanelText.text += "\n\n"
-	%PanelText.text += "Event %d: %s" % [floor_event_index + 1, next_event_type]
-	%PanelText.text += "\n\n"
-	%PanelText.text += "Remaining Events: %d / %d" % [floor_event_count - floor_event_index, floor_event_count]
+	%FloorNumber.text = "Floor %d" % floor_number
+	%PanelText.text = "\n\n"
+	%PanelText.text += "Event %d / %d: %s" % [floor_event_index + 1, floor_event_count, next_event_type]
 
 func _hide_player_and_enemy():
 	player.hide()
@@ -166,11 +182,16 @@ func _transition_events():
 		floor_number += 1
 		_generate_floor_events()
 
+
 	var progress_button: Button = %FloorProgressDisplay.get_child(floor_event_index)
 	progress_button.add_theme_stylebox_override("normal", load("res://assets/styles/progress_button_active.tres"))
 	progress_button.add_theme_stylebox_override("hover", load("res://assets/styles/progress_button_active.tres"))
 	progress_button.z_index = 2
-	%FloorProgressShelf.show()
+	%FloorProgressDisplay.show()
+	%FloorProgressDescriptions.show()
+
+	%FloorProgressDescriptions.get_child(floor_event_index).show()
+
 
 	# Eventually, we'll need a way of doing this procedurally.
 	enemy = _create_new_enemy()
@@ -179,7 +200,7 @@ func _transition_events():
 	await get_tree().process_frame  # Ensure new enemy exists and is valid
 
 	_update_panel_text()
-	%Money.show()
+	%Title.show()
 	%ContinueButton.grab_focus()
 
 

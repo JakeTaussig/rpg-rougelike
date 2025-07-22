@@ -6,24 +6,24 @@
 [ext_resource type="StyleBox" uid="uid://dhp7hd78r457v" path="res://assets/styles/progress_button_normal.tres" id="3_3dus2"]
 [ext_resource type="Texture2D" uid="uid://opq0tcx8nro2" path="res://assets/sprites/room_icons/shop.png" id="3_4dhvd"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtub8"]
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
-bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.0705882, 0.305882, 0.537255, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3dus2"]
 content_margin_left = 1.0
 content_margin_top = 1.0
 content_margin_right = 1.0
 content_margin_bottom = 1.0
 bg_color = Color(0.14902, 0.168627, 0.266667, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0705882, 0.305882, 0.537255, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtub8"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -39,18 +39,19 @@ script = ExtResource("1_34tde")
 z_index = -1
 layout_mode = 0
 offset_right = 256.0
-offset_bottom = 143.0
+offset_bottom = 144.0
 theme = ExtResource("2_qppyr")
 theme_type_variation = &"FullBorderPanel"
 
 [node name="PanelText" type="RichTextLabel" parent="Panel"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
-offset_top = 21.0
-offset_right = 256.0
-offset_bottom = 96.0
+offset_left = 117.0
+offset_top = 37.0
+offset_right = 258.0
+offset_bottom = 53.0
 scroll_active = false
-horizontal_alignment = 1
 
 [node name="ContinueButton" type="Button" parent="."]
 unique_name_in_owner = true
@@ -82,44 +83,78 @@ layout_mode = 0
 offset_top = 21.0
 offset_right = 256.0
 offset_bottom = 37.0
+theme_override_constants/separation = -1
 alignment = 1
 
 [node name="MenuTitle" type="Label" parent="Title"]
 layout_mode = 2
+size_flags_stretch_ratio = 4.8
 theme = ExtResource("2_qppyr")
 theme_type_variation = &"AllBorderLabel"
 text = "Elevator"
 horizontal_alignment = 1
 
-[node name="Placeholder" type="Label" parent="Title"]
+[node name="FloorNumber" type="Label" parent="Title"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 9.0
+theme = ExtResource("2_qppyr")
+theme_type_variation = &"AllBorderLabel"
+text = "Floor 1"
+horizontal_alignment = 1
+
+[node name="Funds" type="Label" parent="Title"]
+layout_mode = 2
+theme = ExtResource("2_qppyr")
+theme_type_variation = &"AllBorderLabel"
+text = "Funds:"
+horizontal_alignment = 2
+
+[node name="Placeholder2" type="Label" parent="Title"]
+custom_minimum_size = Vector2(14, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_qppyr")
-theme_type_variation = &"NoBorderLabel"
-horizontal_alignment = 1
+theme_type_variation = &"AllBorderLabel"
 
 [node name="Money" type="Label" parent="Title"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 8
 theme = ExtResource("2_qppyr")
 theme_type_variation = &"AllBorderLabel"
 text = "¶ 100"
 
-[node name="FloorProgressShelf" type="PanelContainer" parent="."]
+[node name="FloorProgressDescriptions" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(22, 21)
 layout_mode = 0
-offset_left = 172.0
-offset_right = 194.0
-offset_bottom = 22.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_rtub8")
+offset_left = 42.0
+offset_top = 37.0
+offset_right = 162.0
+offset_bottom = 72.0
+theme_override_constants/separation = -1
 
-[node name="FloorProgressDisplay" type="HBoxContainer" parent="FloorProgressShelf"]
-unique_name_in_owner = true
+[node name="RichTextLabel" type="RichTextLabel" parent="FloorProgressDescriptions"]
+visible = false
+custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
-theme_override_constants/separation = 1
+size_flags_horizontal = 8
+text = "Event 1 / 2: Shop"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
-[node name="Button" type="Button" parent="FloorProgressShelf/FloorProgressDisplay"]
+[node name="FloorProgressDisplay" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 161.0
+offset_top = 37.0
+offset_right = 179.0
+offset_bottom = 72.0
+theme_override_constants/separation = -1
+
+[node name="Button" type="Button" parent="FloorProgressDisplay"]
 texture_filter = 1
 custom_minimum_size = Vector2(16, 17)
 layout_mode = 2
@@ -132,6 +167,17 @@ toggle_mode = true
 button_mask = 0
 icon = ExtResource("3_4dhvd")
 text_overrun_behavior = 2
+
+[node name="FloorProgressShelf" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(22, 21)
+layout_mode = 0
+offset_left = 48.0
+offset_top = 37.0
+offset_right = 70.0
+offset_bottom = 59.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rtub8")
 
 [node name="TrinketShelf" parent="." instance=ExtResource("2_rtub8")]
 layout_mode = 0
