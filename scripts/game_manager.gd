@@ -113,6 +113,8 @@ func _on_battle_ended(victory: bool):
 
 
 func _update_panel_text():
+	%Money.text = "¶ %d" % GameManager.player.money
+
 	if floor_events.size() == 0:
 		%PanelText.text = "Congrats! You completed floor %d!" % floor_number
 		return
@@ -129,13 +131,11 @@ func _update_panel_text():
 
 	%PanelText.text = "Floor %d" % floor_number
 	%PanelText.text += "\n\n"
-	%PanelText.text += "Event %d / %d" % [floor_event_index + 1, floor_event_count]
+	%PanelText.text += "Event %d" % (floor_event_index + 1)
+	%PanelText.text += "\n\n"
+	%PanelText.text += "Remaining Events: %d" % (floor_event_count - floor_event_index)
 	%PanelText.text += "\n\n"
 	%PanelText.text += "Up next: %s" % next_event_type
-	%PanelText.text += "\n\n"
-	%PanelText.text += "%s" % player.selected_monster.character_name
-	%PanelText.text += "\n\n"
-	%PanelText.text += "HP %d / %d" % [player.selected_monster.hp, player.selected_monster.max_hp]
 
 func _hide_player_and_enemy():
 	player.hide()
