@@ -7,11 +7,6 @@ var floor_number = 1
 var floor_events = []
 var floor_event_count = 0
 var floor_event_index = 0
-# `_ready_for_next_event` is set to true when the previous event has been completely unloaded
-var _ready_for_next_event: bool = false:
-	set(_ready):
-		_ready_for_next_event = _ready
-		%ContinueButton.grab_focus()
 
 var current_battle: Battle
 var current_shop: Shop
@@ -37,10 +32,8 @@ func start_game():
 	_load_and_randomize_monsters()
 	player = _create_player()
 	enemy = _create_new_enemy()
-	_hide_player_and_enemy()
-	_generate_floor_events()
-	_update_panel_text()
-	_ready_for_next_event = true
+	_load_and_randomize_monsters()
+	_transition_events()
 
 
 func _load_and_randomize_monsters():
@@ -74,16 +67,16 @@ func _generate_floor_events():
 	floor_event_count = floor_events.size()
 
 
-func _start_next_event():
-	if !_ready_for_next_event:
-		return
 
+func _on_continue_button_pressed() -> void:
+	_start_next_event()
+
+
+func _start_next_event():
 	floor_event_index += 1
-	if floor_events.is_empty():
-		print("Floor complete!")
-		floor_event_index = 0
-		floor_number += 1
-		_generate_floor_events()
+
+	# hide the panel in the containing the player's money amount
+	%Money.hide()
 
 	# This will always be index 0, since we pop_front of floor_events whenever switching events.
 	var event = floor_events[0]
@@ -115,10 +108,6 @@ func _on_battle_ended(victory: bool):
 func _update_panel_text():
 	%Money.text = "¶ %d" % GameManager.player.money
 
-	if floor_events.size() == 0:
-		%PanelText.text = "Congrats! You completed floor %d!" % floor_number
-		return
-
 	var next_event = floor_events[0]
 	var next_event_type = ""
 	if next_event is Shop:
@@ -146,17 +135,26 @@ func _show_player_and_enemy():
 	enemy.show()
 
 func _transition_events():
-	_update_panel_text()
 	if current_battle:
 		current_battle.queue_free()
 	if current_shop:
 		current_shop.queue_free()
+
+	if floor_events.is_empty():
+		print("Floor complete!")
+		floor_event_index = 0
+		floor_number += 1
+		_generate_floor_events()
+
 	# Eventually, we'll need a way of doing this procedurally.
 	enemy = _create_new_enemy()
 
 	_hide_player_and_enemy()
 	await get_tree().process_frame  # Ensure new enemy exists and is valid
-	_ready_for_next_event = true
+
+	_update_panel_text()
+	%Money.show()
+	%ContinueButton.grab_focus()
 
 
 func get_move_by_name(move_to_find: String):
@@ -201,7 +199,3 @@ func level_up_player_and_enemies():
 	# Only the enemy stat multiplier increases, because the player stays the same, while the enemies are generated every time.
 	enemy_level += 1
 	player.selected_monster.level_up(player_stat_multiplier)
-
-
-func _on_continue_button_pressed() -> void:
-	_start_next_event()
