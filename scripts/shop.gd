@@ -22,6 +22,7 @@ func setup():
 	_init_trinket_menu_buttons()
 	_render_trinkets()
 	_render_player_money()
+	%ExitButton.grab_focus()
 
 
 func _roll_trinkets():

@@ -99,8 +99,8 @@ func _run_battle():
 
 func _run_shop():
 	current_shop = floor_events.pop_front()
-	current_shop.setup()
 	add_child(current_shop)
+	current_shop.setup()
 	current_shop.connect("shop_ended", Callable(self, "_transition_events"))
 
 func _on_battle_ended(victory: bool):
