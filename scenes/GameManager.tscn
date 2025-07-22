@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cai3whynl4v0w"]
+[gd_scene load_steps=9 format=3 uid="uid://cai3whynl4v0w"]
 
 [ext_resource type="Script" uid="uid://dcg6p6ohqcsxp" path="res://scripts/game_manager.gd" id="1_34tde"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_qppyr"]
 [ext_resource type="PackedScene" uid="uid://jpf5gywks7wx" path="res://scenes/trinket_shelf.tscn" id="2_rtub8"]
-[ext_resource type="StyleBox" uid="uid://dhp7hd78r457v" path="res://assets/styles/progress_button_normal.tres" id="3_3dus2"]
+[ext_resource type="StyleBox" uid="uid://bayawxbehrxwp" path="res://assets/styles/shop_button.tres" id="3_3dus2"]
 [ext_resource type="Texture2D" uid="uid://opq0tcx8nro2" path="res://assets/sprites/room_icons/shop.png" id="3_4dhvd"]
+[ext_resource type="StyleBox" uid="uid://dhp7hd78r457v" path="res://assets/styles/progress_button_normal.tres" id="4_jg7te"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3dus2"]
 content_margin_left = 1.0
@@ -94,14 +95,12 @@ theme_type_variation = &"AllBorderLabel"
 text = "Elevator"
 horizontal_alignment = 1
 
-[node name="FloorNumber" type="Label" parent="Title"]
-unique_name_in_owner = true
+[node name="Placeholder" type="Label" parent="Title"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 9.0
 theme = ExtResource("2_qppyr")
 theme_type_variation = &"AllBorderLabel"
-text = "Floor 1"
 horizontal_alignment = 1
 
 [node name="Funds" type="Label" parent="Title"]
@@ -135,15 +134,12 @@ offset_right = 162.0
 offset_bottom = 72.0
 theme_override_constants/separation = -1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="FloorProgressDescriptions"]
-visible = false
-custom_minimum_size = Vector2(0, 18)
+[node name="Label" type="Label" parent="FloorProgressDescriptions"]
+custom_minimum_size = Vector2(0, 17)
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_styles/normal = ExtResource("3_3dus2")
 text = "Event 1 / 2: Shop"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
 
 [node name="FloorProgressDisplay" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
@@ -160,7 +156,7 @@ custom_minimum_size = Vector2(16, 17)
 layout_mode = 2
 focus_mode = 0
 theme = ExtResource("2_qppyr")
-theme_override_styles/normal = ExtResource("3_3dus2")
+theme_override_styles/normal = ExtResource("4_jg7te")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3dus2")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_3dus2")
 toggle_mode = true

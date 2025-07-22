@@ -71,7 +71,7 @@ func _generate_floor_events():
 	progress_button.add_theme_stylebox_override("normal", load("res://assets/styles/progress_button_normal.tres"))
 	progress_button.add_theme_stylebox_override("hover", load("res://assets/styles/progress_button_normal.tres"))
 
-	var description_label: RichTextLabel = %FloorProgressDescriptions.get_child(0)
+	var description_label: Label = %FloorProgressDescriptions.get_child(0)
 
 	for child in %FloorProgressDisplay.get_children():
 		%FloorProgressDisplay.remove_child(child)
@@ -79,11 +79,12 @@ func _generate_floor_events():
 		%FloorProgressDescriptions.remove_child(child)
 
 	for i in range(floor_event_count):
-		var duplicate_button = progress_button.duplicate(DUPLICATE_USE_INSTANTIATION)
+		var duplicate_button: Button = progress_button.duplicate(DUPLICATE_USE_INSTANTIATION)
 		if floor_events[i] is Shop:
 			duplicate_button.icon = load("res://assets/sprites/room_icons/shop.png")
 		elif floor_events[i] is Battle:
 			duplicate_button.icon = load("res://assets/sprites/room_icons/battle.png")
+
 		%FloorProgressDisplay.add_child(duplicate_button)
 
 
@@ -99,6 +100,19 @@ func _generate_floor_events():
 		duplicate_label.text = "Event %d / %d: %s" % [i + 1, floor_event_count, next_event_type]
 		%FloorProgressDescriptions.add_child(duplicate_label)
 
+		duplicate_button.mouse_entered.connect(func():
+			if floor_event_index > i:
+				duplicate_label.add_theme_stylebox_override("normal", load("res://assets/styles/shop_button.tres"))
+				duplicate_label.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 1.0))
+			duplicate_label.show())
+		duplicate_button.mouse_exited.connect(func():
+			if floor_event_index < i:
+				duplicate_label.hide()
+			if floor_event_index > i:
+				duplicate_label.add_theme_stylebox_override("normal", load("res://assets/styles/shop_button_border_color.tres"))
+				duplicate_label.add_theme_color_override("font_color", Color(0.071, 0.306, 0.537, 1.0))
+		)
+
 
 
 func _on_continue_button_pressed() -> void:
@@ -107,8 +121,9 @@ func _on_continue_button_pressed() -> void:
 
 func _start_next_event():
 	%FloorProgressDisplay.get_child(floor_event_index).set_pressed(true)
-	%FloorProgressDescriptions.get_child(floor_event_index).text = ""
-	%FloorProgressDescriptions.get_child(floor_event_index).add_theme_stylebox_override("normal", load("res://assets/styles/border_color_sbf.tres"))
+	%FloorProgressDescriptions.get_child(floor_event_index).add_theme_stylebox_override("normal", load("res://assets/styles/shop_button_border_color.tres"))
+	var rtl: Label = %FloorProgressDescriptions.get_child(floor_event_index)
+	rtl.add_theme_color_override("font_color", Color(0.071, 0.306, 0.537, 1.0))
 
 	floor_event_index += 1
 
@@ -158,7 +173,6 @@ func _update_panel_text():
 	var player: BattleParticipant = get_node("Player")
 
 
-	%FloorNumber.text = "Floor %d" % floor_number
 	%PanelText.text = "\n\n"
 	%PanelText.text += "Event %d / %d: %s" % [floor_event_index + 1, floor_event_count, next_event_type]
 
