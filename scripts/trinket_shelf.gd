@@ -73,7 +73,8 @@ func _display_trinket_info(index: int):
 
 
 func _hide_trinket_info():
-	trinket_info_label.hide()
+	if trinket_info_label:
+		trinket_info_label.hide()
 	if trinket_info_panel:
 		trinket_info_panel.hide()
 	if trinket_info_texture_rect:

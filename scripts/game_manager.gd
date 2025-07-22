@@ -95,8 +95,10 @@ func _start_next_event():
 	floor_event_index += 1
 
 	# hide the panel in the containing the player's money amount
-	%FloorProgressDisplay.hide()
+	# TODO: create hide/show UI helpers
+	%FloorProgressShelf.hide()
 	%Money.hide()
+	%Title.hide()
 
 	# This will always be index 0, since we pop_front of floor_events whenever switching events.
 	var event = floor_events[0]
@@ -140,11 +142,9 @@ func _update_panel_text():
 
 	%PanelText.text = "Floor %d" % floor_number
 	%PanelText.text += "\n\n"
-	%PanelText.text += "Event %d" % (floor_event_index + 1)
+	%PanelText.text += "Event %d: %s" % [floor_event_index + 1, next_event_type]
 	%PanelText.text += "\n\n"
-	%PanelText.text += "Remaining Events: %d" % (floor_event_count)
-	%PanelText.text += "\n\n"
-	%PanelText.text += "Up next: %s" % next_event_type
+	%PanelText.text += "Remaining Events: %d / %d" % [floor_event_count - floor_event_index, floor_event_count]
 
 func _hide_player_and_enemy():
 	player.hide()
@@ -170,7 +170,7 @@ func _transition_events():
 	progress_button.add_theme_stylebox_override("normal", load("res://assets/styles/progress_button_active.tres"))
 	progress_button.add_theme_stylebox_override("hover", load("res://assets/styles/progress_button_active.tres"))
 	progress_button.z_index = 2
-	%FloorProgressDisplay.show()
+	%FloorProgressShelf.show()
 
 	# Eventually, we'll need a way of doing this procedurally.
 	enemy = _create_new_enemy()
