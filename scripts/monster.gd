@@ -126,6 +126,7 @@ func use_move(move: Move, target: Monster) -> AttackResults:
 		move_hit = _does_move_crit_or_status(delusion_activation_chance)
 		if move_hit:
 			move = GameManager.get_move_by_name("Delusion")
+			@warning_ignore("confusable_local_declaration")
 			var results = _attack(move, self, 1)
 			return AttackResults.new(move, max(1, results["damage"]), move_hit, status_applied, results["is_critical"])
 
@@ -142,10 +143,12 @@ func use_move(move: Move, target: Monster) -> AttackResults:
 
 	if move_hit:
 		if move.category == Move.MoveCategory.ATK:
+			@warning_ignore("confusable_local_declaration")
 			var results = _attack(move, target, 1)
 			damage = max(1, results["damage"])
 			is_critical = results["is_critical"]
 		elif move.category == Move.MoveCategory.SP_ATK:
+			@warning_ignore("confusable_local_declaration")
 			var results = _attack(move, target, 0)
 			damage = max(1, results["damage"])
 			is_critical = results["is_critical"]
@@ -180,20 +183,21 @@ func _does_move_crit_or_status(accuracy: int) -> bool:
 func _attack(move: Move, target: Monster, is_physical: bool) -> AttackResults:
 	var power = move.base_power
 	var damage = 0
-	var effectiveness_modifier = get_move_effectiveness(move, target)
+	# If the move is the same type as the user, same type attack bonus is 1.0, otherwise it's 1.5
+	var stab = get_stab(move)
 
-	var is_critical = _does_move_crit_or_status(crit_chance * 100)
+	var is_critical = _does_move_crit_or_status(int(crit_chance * 100))
 	for i in range(crit_checks - 1):
 		if not is_critical:
-			is_critical = _does_move_crit_or_status(crit_chance * 100)
+			is_critical = _does_move_crit_or_status(int(crit_chance * 100))
 	if is_physical:
 		power = power * atk
 		damage = float(power) / target.def
-		damage *= effectiveness_modifier
+		damage *= stab
 	else:
 		power = power * sp_atk
 		damage = float(power) / target.sp_def
-		damage *= effectiveness_modifier
+		damage *= stab
 	if is_critical:
 		damage *= crit_factor
 
@@ -243,17 +247,10 @@ func _check_status_immunity(effect: MovesList.StatusEffect, target_type: MovesLi
 	return false
 
 
-func get_move_effectiveness(move: Move, defender: Monster) -> float:
+func get_stab(move: Move) -> float:
+	# Keep STAB for future chakra alignment.
 	var same_type_attack_bonus: float = 1.5 if self.type == move.type else 1.0
-	var base_modifier = get_effectiveness_modifier(move, defender)
-	return base_modifier * same_type_attack_bonus
-
-
-func get_effectiveness_modifier(move: Move, defender: Monster) -> float:
-	var atk_idx = MovesList.TYPES[move.type]
-	var def_idx = MovesList.TYPES[defender.type]
-	var base_modifier = MovesList.TYPE_CHART[atk_idx][def_idx]
-	return base_modifier
+	return 1.0 * same_type_attack_bonus
 
 
 func enact_status_effect() -> String:

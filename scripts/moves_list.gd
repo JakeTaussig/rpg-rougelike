@@ -18,18 +18,6 @@ const TYPES = {
 	Type.LIGHT: 6
 }
 
-# Row = Attacker, Col = Defender
-const TYPE_CHART = [
-# HUMAN FIRE  SPIRIT POISON Earth DARK  LIGHT
-[ 1.0,  1.0,  1.0,  1.0,  1.0,  1.0,  1.0 ], # HUMAN
-[ 1.0,  1.0,  0.5,  2.0,  1.0,  0.5,  2.0 ], # FIRE
-[ 1.0,  2.0,  1.0,  0.5,  2.0,  1.0,  0.5 ], # SPIRIT
-[ 1.0,  0.5,  2.0,  1.0,  2.0,  0.5,  1.0 ], # POISON
-[ 1.0,  1.0,  0.5,  0.5,  1.0,  2.0,  2.0 ], # PLASMA
-[ 1.0,  2.0,  1.0,  2.0,  0.5,  1.0,  0.5 ], # DARK
-[ 1.0,  0.5,  2.0,  1.0,  0.5,  2.0,  1.0 ]  # LIGHT
-]
-
 
 static func type_to_color(type: Type) -> Color:
 	match type:
