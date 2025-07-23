@@ -97,8 +97,12 @@ func _generate_floor_events():
 		if next_event is Battle:
 			next_event_type = "Battle"
 
-		duplicate_label.text = "Event %d / %d: %s" % [i + 1, floor_event_count, next_event_type]
+		duplicate_label.text = "Room %d / %d: %s" % [i + 1, floor_event_count, next_event_type]
 		%FloorProgressDescriptions.add_child(duplicate_label)
+		duplicate_label.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 1.0))
+		duplicate_label.add_theme_stylebox_override("normal", load("res://assets/styles/shop_button.tres"))
+		duplicate_label.hide()
+
 
 		duplicate_button.mouse_entered.connect(func():
 			if floor_event_index > i:
@@ -132,6 +136,9 @@ func _start_next_event():
 	%FloorProgressDisplay.hide()
 	%FloorProgressDescriptions.hide()
 	%Title.hide()
+	%UpNext.hide()
+	%NextRoomPanel.hide()
+	%FloorName.hide()
 
 	# This will always be index 0, since we pop_front of floor_events whenever switching events.
 	var event = floor_events[0]
@@ -161,20 +168,23 @@ func _on_battle_ended(victory: bool):
 
 
 func _update_panel_text():
-	%Money.text = "¶ %d" % GameManager.player.money
-
 	var next_event = floor_events[0]
 	var next_event_type = ""
+	var next_event_icon
 	if next_event is Shop:
 		next_event_type = "Shop"
+		next_event_icon = load("res://assets/sprites/room_icons/shop.png")
 	if next_event is Battle:
 		next_event_type = "Battle"
+		next_event_icon = load("res://assets/sprites/room_icons/battle.png")
 
 	var player: BattleParticipant = get_node("Player")
 
 
 	%PanelText.text = "\n\n"
-	%PanelText.text += "Event %d / %d: %s" % [floor_event_index + 1, floor_event_count, next_event_type]
+	%PanelText.text += "Room %d / %d: %s" % [floor_event_index + 1, floor_event_count, next_event_type]
+	%UpNext.text = "Up next: %s" % next_event_type
+	%NextRoomIcon.texture = next_event_icon
 
 func _hide_player_and_enemy():
 	player.hide()
@@ -194,6 +204,7 @@ func _transition_events():
 		print("Floor complete!")
 		floor_event_index = 0
 		floor_number += 1
+		%FloorName.text = "Floor %d" % floor_number
 		_generate_floor_events()
 
 
@@ -205,6 +216,9 @@ func _transition_events():
 	%FloorProgressDescriptions.show()
 
 	%FloorProgressDescriptions.get_child(floor_event_index).show()
+	%UpNext.show()
+	%NextRoomPanel.show()
+	%FloorName.show()
 
 
 	# Eventually, we'll need a way of doing this procedurally.
