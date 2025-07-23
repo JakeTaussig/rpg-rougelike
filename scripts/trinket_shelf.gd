@@ -66,14 +66,16 @@ func _display_trinket_info(index: int):
 		trinket_info_texture_rect.texture = trinket.icon
 		trinket_info_texture_rect.show()
 
-	if show_trinket_name_on_panel:
-		trinket_info_label.text = ("[center]%s[/center]\n%s" % [trinket.trinket_name, trinket.description])
-	else:
-		trinket_info_label.text = trinket.description
+	if trinket_info_label:
+		if show_trinket_name_on_panel:
+			trinket_info_label.text = ("[center]%s[/center]\n%s" % [trinket.trinket_name, trinket.description])
+		else:
+			trinket_info_label.text = trinket.description
 
 
 func _hide_trinket_info():
-	trinket_info_label.hide()
+	if trinket_info_label:
+		trinket_info_label.hide()
 	if trinket_info_panel:
 		trinket_info_panel.hide()
 	if trinket_info_texture_rect:
