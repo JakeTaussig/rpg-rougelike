@@ -8,7 +8,13 @@ enum Type { EARTH, WATER, FIRE, AIR, ETHER, LIGHT, COSMIC }
 # Some status effects will need to be re-done to correspond to the appropriate chakra types.
 enum StatusEffect { NONE, CRIPPLE, DELUSION, BURN, POISON, PARALYZE, BLIND, CONSUME }
 
-const TYPES = {Type.EARTH: 0, Type.WATER: 1, Type.FIRE: 2, Type.AIR: 3, Type.ETHER: 4, Type.LIGHT: 5, Type.COSMIC: 6}  # Root Chakra/Muladhara  # Sacral Chakra/Svadhisthana  # Solar Plexus/Manipura  # Heart Charka/Anahata  # Throat Charka/Vishuddha  # Third Eye/Ajna  # Crown Chakra/Sahasrara
+const TYPES = {Type.EARTH: 0, # Root Chakra/Muladhara
+			   Type.WATER: 1, # Sacral Chakra/Svadhisthana
+			   Type.FIRE: 2, # Solar Plexus/Manipura
+			   Type.AIR: 3, # Heart Charka/Anahata
+			   Type.ETHER: 4, # Throat Charka/Vishuddha
+			   Type.LIGHT: 5, # Third Eye/Ajna 
+			   Type.COSMIC: 6} # Crown Chakra/Sahasrara          
 
 
 static func type_to_color(type: Type) -> Color:
