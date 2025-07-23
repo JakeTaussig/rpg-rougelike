@@ -5,6 +5,8 @@ var trinkets_list: TrinketsList = TrinketsList.new()
 
 var floor_number = 0
 var floor_events = []
+# events are removed from floor_events after the player completes them. because
+# of this, we need to store the # of events on the floor as they're generated
 var floor_event_count = 0
 var floor_event_index = 0
 
@@ -26,14 +28,16 @@ var enemy_level = 0
 var randomized_monsters: Array[Monster] = []
 
 
+const dark_blue_border_color = Color(0.071, 0.306, 0.537, 1.0)
+const white = Color(1.0, 1.0, 1.0, 1.0)
+
 func start_game():
 	# Called once to seed the random number generator
 	randomize()
 	_load_and_randomize_monsters()
 	player = _create_player()
 	enemy = _create_new_enemy()
-	_load_and_randomize_monsters()
-	_transition_events()
+	_exit_current_event()
 
 
 func _load_and_randomize_monsters():
@@ -65,80 +69,15 @@ func _generate_floor_events():
 	floor_events.push_back(battle)
 
 	floor_event_count = floor_events.size()
-	var progress_button: Button = %FloorProgressDisplay.get_child(0)
-	progress_button.set_pressed(false)
-	progress_button.z_index = 1
-	progress_button.add_theme_stylebox_override("normal", load("res://assets/styles/progress_button_normal.tres"))
-	progress_button.add_theme_stylebox_override("hover", load("res://assets/styles/progress_button_normal.tres"))
-
-	var description_label: Label = %FloorProgressDescriptions.get_child(0)
-
-	for child in %FloorProgressDisplay.get_children():
-		%FloorProgressDisplay.remove_child(child)
-	for child in %FloorProgressDescriptions.get_children():
-		%FloorProgressDescriptions.remove_child(child)
-
-	for i in range(floor_event_count):
-		var duplicate_button: Button = progress_button.duplicate(DUPLICATE_USE_INSTANTIATION)
-		if floor_events[i] is Shop:
-			duplicate_button.icon = load("res://assets/sprites/room_icons/shop.png")
-		elif floor_events[i] is Battle:
-			duplicate_button.icon = load("res://assets/sprites/room_icons/battle.png")
-
-		%FloorProgressDisplay.add_child(duplicate_button)
-
-
-		var duplicate_label = description_label.duplicate()
-
-		var next_event = floor_events[i]
-		var next_event_type = ""
-		if next_event is Shop:
-			next_event_type = "Shop"
-		if next_event is Battle:
-			next_event_type = "Battle"
-
-		duplicate_label.text = "Room %d / %d: %s" % [i + 1, floor_event_count, next_event_type]
-		%FloorProgressDescriptions.add_child(duplicate_label)
-		duplicate_label.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 1.0))
-		duplicate_label.add_theme_stylebox_override("normal", load("res://assets/styles/shop_button.tres"))
-		duplicate_label.hide()
-
-
-		duplicate_button.mouse_entered.connect(func():
-			if floor_event_index > i:
-				duplicate_label.add_theme_stylebox_override("normal", load("res://assets/styles/shop_button.tres"))
-				duplicate_label.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 1.0))
-			duplicate_label.show())
-		duplicate_button.mouse_exited.connect(func():
-			if floor_event_index < i:
-				duplicate_label.hide()
-			if floor_event_index > i:
-				duplicate_label.add_theme_stylebox_override("normal", load("res://assets/styles/shop_button_border_color.tres"))
-				duplicate_label.add_theme_color_override("font_color", Color(0.071, 0.306, 0.537, 1.0))
-		)
-
 
 
 func _on_continue_button_pressed() -> void:
+	_hide_ui_elements()
 	_start_next_event()
 
 
 func _start_next_event():
-	%FloorProgressDisplay.get_child(floor_event_index).set_pressed(true)
-	%FloorProgressDescriptions.get_child(floor_event_index).add_theme_stylebox_override("normal", load("res://assets/styles/shop_button_border_color.tres"))
-	var rtl: Label = %FloorProgressDescriptions.get_child(floor_event_index)
-	rtl.add_theme_color_override("font_color", Color(0.071, 0.306, 0.537, 1.0))
-
 	floor_event_index += 1
-
-	# hide the panel in the containing the player's money amount
-	# TODO: create hide/show UI helpers
-	%FloorProgressDisplay.hide()
-	%FloorProgressDescriptions.hide()
-	%Title.hide()
-	%UpNext.hide()
-	%NextRoomPanel.hide()
-	%FloorName.hide()
 
 	# This will always be index 0, since we pop_front of floor_events whenever switching events.
 	var event = floor_events[0]
@@ -158,45 +97,19 @@ func _run_shop():
 	current_shop = floor_events.pop_front()
 	add_child(current_shop)
 	current_shop.setup()
-	current_shop.connect("shop_ended", Callable(self, "_transition_events"))
+	current_shop.connect("shop_ended", Callable(self, "_exit_current_event"))
 
 func _on_battle_ended(victory: bool):
 	if not victory:
 		# TODO: game over screen
 		return
-	_transition_events()
+	_exit_current_event()
 
-
-func _update_panel_text():
-	var next_event = floor_events[0]
-	var next_event_type = ""
-	var next_event_icon
-	if next_event is Shop:
-		next_event_type = "Shop"
-		next_event_icon = load("res://assets/sprites/room_icons/shop.png")
-	if next_event is Battle:
-		next_event_type = "Battle"
-		next_event_icon = load("res://assets/sprites/room_icons/battle.png")
-
-	var player: BattleParticipant = get_node("Player")
-
-
-	%PanelText.text = "\n\n"
-	%PanelText.text += "Room %d / %d: %s" % [floor_event_index + 1, floor_event_count, next_event_type]
-	%UpNext.text = "Up next: %s" % next_event_type
-	%NextRoomIcon.texture = next_event_icon
-
-func _hide_player_and_enemy():
-	player.hide()
-	enemy.hide()
-
-func _show_player_and_enemy():
-	player.show()
-	enemy.show()
-
-func _transition_events():
+func _exit_current_event():
 	if current_battle:
 		current_battle.queue_free()
+		# Eventually, we'll need a way of doing this procedurally.
+		enemy = _create_new_enemy()
 	if current_shop:
 		current_shop.queue_free()
 
@@ -204,31 +117,15 @@ func _transition_events():
 		print("Floor complete!")
 		floor_event_index = 0
 		floor_number += 1
-		%FloorName.text = "Floor %d" % floor_number
 		_generate_floor_events()
+		_reset_ui_elements()
 
 
-	var progress_button: Button = %FloorProgressDisplay.get_child(floor_event_index)
-	progress_button.add_theme_stylebox_override("normal", load("res://assets/styles/progress_button_active.tres"))
-	progress_button.add_theme_stylebox_override("hover", load("res://assets/styles/progress_button_active.tres"))
-	progress_button.z_index = 2
-	%FloorProgressDisplay.show()
-	%FloorProgressDescriptions.show()
-
-	%FloorProgressDescriptions.get_child(floor_event_index).show()
-	%UpNext.show()
-	%NextRoomPanel.show()
-	%FloorName.show()
-
-
-	# Eventually, we'll need a way of doing this procedurally.
-	enemy = _create_new_enemy()
-
-	_hide_player_and_enemy()
+	_hide_player_and_enemy() # don't render the player and enemy on the room transition screen
 	await get_tree().process_frame  # Ensure new enemy exists and is valid
 
-	_update_panel_text()
-	%Title.show()
+	_update_ui_text()
+	_show_ui_elements()
 	%ContinueButton.grab_focus()
 
 
@@ -246,6 +143,8 @@ func _create_player() -> BattleParticipant:
 	self.add_child(new_player)
 	new_player.name = "Player"
 	new_player.money = 500
+
+	%TrinketShelf.trinkets = new_player.trinkets
 
 	return new_player
 
@@ -274,3 +173,123 @@ func level_up_player_and_enemies():
 	# Only the enemy stat multiplier increases, because the player stays the same, while the enemies are generated every time.
 	enemy_level += 1
 	player.selected_monster.level_up(player_stat_multiplier)
+
+
+func _reset_ui_elements():
+	# reset the first event button to base styling
+	var event_icon_button: Button = %FloorProgressDisplay.get_child(0)
+	event_icon_button.set_pressed(false)
+	event_icon_button.z_index = 1
+	event_icon_button.add_theme_stylebox_override("normal", load("res://assets/styles/progress_button_normal.tres"))
+	event_icon_button.add_theme_stylebox_override("hover", load("res://assets/styles/progress_button_normal.tres"))
+
+	# reset the first event description to base styling
+	var description_label: Label = %FloorProgressDescriptions.get_child(0)
+	description_label.hide()
+	description_label.add_theme_color_override("font_color", white)
+	description_label.add_theme_stylebox_override("normal", load("res://assets/styles/shop_button.tres"))
+
+	# Remove existing icons and labels for events
+	for child in %FloorProgressDisplay.get_children():
+		%FloorProgressDisplay.remove_child(child)
+	for child in %FloorProgressDescriptions.get_children():
+		%FloorProgressDescriptions.remove_child(child)
+
+	for i in range(floor_event_count):
+		var event = floor_events[i]
+		var duplicate_icon_button: Button = event_icon_button.duplicate(DUPLICATE_USE_INSTANTIATION)
+		var event_type = ""
+		if event is Shop:
+			duplicate_icon_button.icon = load("res://assets/sprites/room_icons/shop.png")
+			event_type = "Shop"
+		elif event is Battle:
+			duplicate_icon_button.icon = load("res://assets/sprites/room_icons/battle.png")
+			event_type = "Battle"
+
+		%FloorProgressDisplay.add_child(duplicate_icon_button)
+
+		var duplicate_label = description_label.duplicate()
+		duplicate_label.text = "Room %d / %d: %s" % [i + 1, floor_event_count, event_type]
+		%FloorProgressDescriptions.add_child(duplicate_label)
+
+		# mouse_entered handler: show labels for events (excluding the next
+		# upcoming event, which already has its label showing).
+		duplicate_icon_button.mouse_entered.connect(func():
+			if i < floor_event_index:
+				duplicate_label.add_theme_stylebox_override("normal", load("res://assets/styles/shop_button.tres"))
+				duplicate_label.add_theme_color_override("font_color", white)
+			duplicate_label.show()
+		)
+
+		# mouse_exited handler: hide labels. for already completed events, make
+		# the label the same color as the background to not affect layout
+		duplicate_icon_button.mouse_exited.connect(func():
+			if i > floor_event_index:
+				duplicate_label.hide()
+			if i < floor_event_index:
+				duplicate_label.add_theme_stylebox_override("normal", load("res://assets/styles/shop_button_border_color.tres"))
+				duplicate_label.add_theme_color_override("font_color", dark_blue_border_color)
+		)
+
+
+func _update_ui_text():
+	var next_event = floor_events[0]
+	var next_event_type = ""
+	var next_event_icon
+	if next_event is Shop:
+		next_event_type = "Shop"
+		next_event_icon = load("res://assets/sprites/room_icons/shop.png")
+	if next_event is Battle:
+		next_event_type = "Battle"
+		next_event_icon = load("res://assets/sprites/room_icons/battle.png")
+
+	%UpNext.text = "Up next: %s" % next_event_type
+	%NextRoomIcon.texture = next_event_icon
+	%FloorName.text = "Floor %d" % floor_number
+
+
+# This function is intended to be called after an event has been unloaded and
+# before floor_event_index has been incremented
+func _hide_ui_elements():
+	# press the icon button for the event, changing the background color
+	%FloorProgressDisplay.get_child(floor_event_index).set_pressed(true)
+
+	# Make the label for the recently unloaded event invisible
+	var event_label: Label = %FloorProgressDescriptions.get_child(floor_event_index)
+	event_label.add_theme_stylebox_override("normal", load("res://assets/styles/shop_button_border_color.tres"))
+	event_label.add_theme_color_override("font_color", dark_blue_border_color)
+
+	%FloorProgressDisplay.hide()
+	%FloorProgressDescriptions.hide()
+	%Title.hide()
+	%UpNext.hide()
+	%NextRoomPanel.hide()
+	%FloorName.hide()
+
+
+func _show_ui_elements():
+	%FloorProgressDisplay.show()
+	%FloorProgressDescriptions.show()
+	%FloorProgressDescriptions.get_child(floor_event_index).show()
+	%Title.show()
+	%UpNext.show()
+	%NextRoomPanel.show()
+	%FloorName.show()
+
+	# Make the button for the next event highlighted
+	var progress_button: Button = %FloorProgressDisplay.get_child(floor_event_index)
+	progress_button.add_theme_stylebox_override("normal", load("res://assets/styles/progress_button_active.tres"))
+	progress_button.add_theme_stylebox_override("hover", load("res://assets/styles/progress_button_active.tres"))
+	progress_button.z_index = 2
+
+	# Show any trinkets the player has obtained since last time
+	%TrinketShelf.render_trinkets()
+
+
+func _hide_player_and_enemy():
+	player.hide()
+	enemy.hide()
+
+func _show_player_and_enemy():
+	player.show()
+	enemy.show()

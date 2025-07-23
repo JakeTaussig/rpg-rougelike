@@ -37,23 +37,13 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_34tde")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Backdrop" type="Panel" parent="."]
 z_index = -1
 layout_mode = 0
 offset_right = 256.0
 offset_bottom = 144.0
 theme = ExtResource("2_qppyr")
 theme_type_variation = &"FullBorderPanel"
-
-[node name="PanelText" type="RichTextLabel" parent="Panel"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 0
-offset_left = 117.0
-offset_top = 37.0
-offset_right = 258.0
-offset_bottom = 53.0
-scroll_active = false
 
 [node name="ContinueButton" type="Button" parent="."]
 unique_name_in_owner = true
@@ -177,6 +167,7 @@ offset_bottom = 59.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_rtub8")
 
 [node name="TrinketShelf" parent="." instance=ExtResource("2_rtub8")]
+unique_name_in_owner = true
 layout_mode = 0
 
 [node name="NextRoomPanel" type="Panel" parent="."]
