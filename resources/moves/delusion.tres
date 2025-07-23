@@ -5,8 +5,9 @@
 [resource]
 script = ExtResource("1_lu2fq")
 move_name = "Delusion"
-type = 2
+type = 6
 base_power = 40
 pp = 1000000
 max_pp = 1000000
+status_effect = 6
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

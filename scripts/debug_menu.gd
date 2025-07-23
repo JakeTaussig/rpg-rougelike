@@ -19,7 +19,6 @@ func _ready() -> void:
 	_render_player_money()
 
 
-
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_pause"):
 		toggle_pause()
@@ -73,7 +72,7 @@ func _render_trinkets_list():
 	for trinket in _alphabetized_trinkets_list:
 		var trinketItem: TreeItem = %TrinketsList.create_item()
 
-		trinketItem.set_cell_mode(0,TreeItem.CELL_MODE_ICON)
+		trinketItem.set_cell_mode(0, TreeItem.CELL_MODE_ICON)
 		trinketItem.set_icon(0, trinket.icon)
 		trinketItem.set_text(1, trinket.trinket_name)
 		trinketItem.set_text(2, trinket.description)
@@ -106,9 +105,7 @@ func _on_debug_move_pressed():
 		attackCommand.attacker = GameManager.player.selected_monster
 		attackCommand.move = move
 		attackCommand.target = GameManager.enemy.selected_monster
-		GameManager.current_battle.transition_state_to(
-			GameManager.current_battle.STATE_ATTACK, [attackCommand]
-		)
+		GameManager.current_battle.transition_state_to(GameManager.current_battle.STATE_ATTACK, [attackCommand])
 		toggle_pause()
 
 

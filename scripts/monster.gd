@@ -230,19 +230,19 @@ func _check_status_immunity(effect: MovesList.StatusEffect, target_type: MovesLi
 			if target_type == MovesList.Type.FIRE:
 				return true
 		MovesList.StatusEffect.DELUSION:
-			if target_type == MovesList.Type.SPIRIT:
+			if target_type == MovesList.Type.WATER:
 				return true
 		MovesList.StatusEffect.POISON:
-			if target_type == MovesList.Type.POISON:
+			if target_type == MovesList.Type.AIR:
 				return true
 		MovesList.StatusEffect.PARALYZE:
-			if target_type == MovesList.Type.PLASMA:
-				return true
-		MovesList.StatusEffect.CONSUME:
-			if target_type == MovesList.Type.DARK:
+			if target_type == MovesList.Type.ETHER:
 				return true
 		MovesList.StatusEffect.BLIND:
 			if target_type == MovesList.Type.LIGHT:
+				return true
+		MovesList.StatusEffect.CONSUME:
+			if target_type == MovesList.Type.COSMIC:
 				return true
 	return false
 

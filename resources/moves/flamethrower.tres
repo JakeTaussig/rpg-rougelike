@@ -7,13 +7,11 @@
 script = ExtResource("1_5olab")
 move_name = "Flamethrower"
 category = 1
-type = 1
+type = 2
 base_power = 100
-acc = 100
 pp = 15
 max_pp = 15
 status_effect = 2
 status_effect_chance = 10
-priority = false
 backdrop = ExtResource("2_eb6sa")
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"
