@@ -183,8 +183,8 @@ func _reset_ui_elements():
 	var event_icon_button: Button = %FloorProgressDisplay.get_child(0)
 	event_icon_button.set_pressed(false)
 	event_icon_button.z_index = 1
-	event_icon_button.add_theme_stylebox_override("normal", load("res://assets/styles/progress_button_normal.tres"))
-	event_icon_button.add_theme_stylebox_override("hover", load("res://assets/styles/progress_button_normal.tres"))
+	event_icon_button.add_theme_stylebox_override("normal", load("res://assets/styles/room_event_button_normal.tres"))
+	event_icon_button.add_theme_stylebox_override("hover", load("res://assets/styles/room_event_button_normal.tres"))
 
 	# reset the first event description to base styling
 	var description_label: Label = %FloorProgressDescriptions.get_child(0)
@@ -280,10 +280,10 @@ func _show_ui_elements():
 	%FloorName.show()
 
 	# Make the button for the next event highlighted
-	var progress_button: Button = %FloorProgressDisplay.get_child(floor_event_index)
-	progress_button.add_theme_stylebox_override("normal", load("res://assets/styles/progress_button_active.tres"))
-	progress_button.add_theme_stylebox_override("hover", load("res://assets/styles/progress_button_active.tres"))
-	progress_button.z_index = 2
+	var event_button: Button = %FloorProgressDisplay.get_child(floor_event_index)
+	event_button.add_theme_stylebox_override("normal", load("res://assets/styles/room_event_button_active.tres"))
+	event_button.add_theme_stylebox_override("hover", load("res://assets/styles/room_event_button_active.tres"))
+	event_button.z_index = 2
 
 	# Show any trinkets the player has obtained since last time
 	%TrinketShelf.render_trinkets()
