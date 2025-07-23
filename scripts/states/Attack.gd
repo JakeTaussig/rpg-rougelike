@@ -40,17 +40,10 @@ func _generate_attack_messages(attacker, target, results: Monster.AttackResults)
 	elif not move_hit:
 		messages.append("%s missed %s!" % [attacker.character_name, used_move_name])
 	elif damage > 0:
-		var effectiveness_multiplier: float = attacker.get_effectiveness_modifier(used_move, target)
 		var message = "%s used %s on %s!" % [attacker.character_name, used_move_name, target.character_name]
 		if is_critical:
 			message += " Critical Hit!"
 		messages.append(message)
-
-		if effectiveness_multiplier > 1.0:
-			messages.append("%s was super effective!" % used_move_name)
-
-		elif effectiveness_multiplier < 1.0:
-			messages.append("%s was not very effective!" % used_move_name)
 
 		# if the damage killed someone we don't need to see any more messages (We might need to to send out the enemies next monster
 		if battle.is_battle_over():

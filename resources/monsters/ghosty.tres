@@ -16,6 +16,5 @@ def = 30
 sp_def = 50
 speed = 40
 luck = 20
-type = 5
-moves = Array[ExtResource("1_codod")]([])
+type = 4
 metadata/_custom_type_script = "uid://cyqywjpbta4p8"

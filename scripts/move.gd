@@ -3,7 +3,7 @@ class_name Move extends Resource
 enum MoveCategory { ATK, SP_ATK, STATUS_EFFECT, STAT_MODIFIER }
 @export var move_name: String = "Bubblebeam"
 @export var category: MoveCategory = MoveCategory.ATK
-@export var type: MovesList.Type = MovesList.Type.HUMAN
+@export var type: MovesList.Type = MovesList.Type.EARTH
 
 @export var base_power: int = 50:
 	set(new_base_power):
