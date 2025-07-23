@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://cup1blpmfdi8p"]
+[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://cosleyhqcxnn3"]
 
 [ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_mhgfd"]
 
@@ -6,12 +6,8 @@
 script = ExtResource("1_mhgfd")
 move_name = "Heat Wave"
 category = 2
-type = 1
+type = 2
 base_power = 0
 acc = 75
-pp = 10
-max_pp = 10
-status_effect = 2
-status_effect_chance = 100
-priority = false
+status_effect = 3
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

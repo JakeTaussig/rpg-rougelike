@@ -7,13 +7,8 @@
 script = ExtResource("1_lwh4x")
 move_name = "Vortex"
 category = 2
-type = 5
+type = 6
 base_power = 0
-acc = 100
-pp = 10
-max_pp = 10
-status_effect = 6
-status_effect_chance = 100
-priority = false
+status_effect = 7
 backdrop = ExtResource("1_rise3")
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

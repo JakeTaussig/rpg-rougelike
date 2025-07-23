@@ -41,7 +41,7 @@ func start_game():
 
 
 func _load_and_randomize_monsters():
-	var dir := DirAccess.open("res://assets/monsters")
+	var dir := DirAccess.open("res://resources/monsters")
 	if dir == null:
 		push_error("Could not open monster directory")
 		return
@@ -50,7 +50,7 @@ func _load_and_randomize_monsters():
 	var file_name = dir.get_next()
 	while file_name != "":
 		if not dir.current_is_dir() and file_name.ends_with(".tres"):
-			var monster_path = "res://assets/monsters/" + file_name
+			var monster_path = "res://resources/monsters/" + file_name
 			var monster_resource = load(monster_path)
 			if monster_resource is Monster:
 				monster_resource.randomize_stat_spread(monster_resource.base_stat_total, 10)
@@ -86,6 +86,7 @@ func _start_next_event():
 	elif event is Shop:
 		_run_shop()
 
+
 func _run_battle():
 	current_battle = floor_events.pop_front()
 	_show_player_and_enemy()
@@ -93,11 +94,13 @@ func _run_battle():
 	add_child(current_battle)
 	current_battle.connect("battle_ended", Callable(self, "_on_battle_ended"))
 
+
 func _run_shop():
 	current_shop = floor_events.pop_front()
 	add_child(current_shop)
 	current_shop.setup()
 	current_shop.connect("shop_ended", Callable(self, "_exit_current_event"))
+
 
 func _on_battle_ended(victory: bool):
 	if not victory:

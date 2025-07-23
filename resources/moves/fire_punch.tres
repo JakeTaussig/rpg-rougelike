@@ -6,14 +6,8 @@
 [resource]
 script = ExtResource("1_ajx2p")
 move_name = "Fire Punch"
-category = 0
-type = 1
-base_power = 50
-acc = 100
-pp = 10
-max_pp = 10
-status_effect = 0
-status_effect_chance = 100
-priority = false
+type = 2
+status_effect = 2
+status_effect_chance = 10
 backdrop = ExtResource("1_nqy62")
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

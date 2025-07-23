@@ -7,13 +7,8 @@
 script = ExtResource("1_lxby6")
 move_name = "Illuminate"
 category = 2
-type = 6
+type = 5
 base_power = 0
-acc = 100
-pp = 10
-max_pp = 10
-status_effect = 7
-status_effect_chance = 100
-priority = false
+status_effect = 6
 backdrop = ExtResource("1_88j8h")
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"
