@@ -59,9 +59,13 @@ func _init_items() -> void:
 
 
 func is_defeated() -> bool:
-	for monster in monsters:
-		if monster.hp > 0:
+	if is_player:
+		if selected_monster.hp > 0:
 			return false
+	else:
+		for monster in monsters:
+			if monster.hp > 0:
+				return false
 	return true
 
 
