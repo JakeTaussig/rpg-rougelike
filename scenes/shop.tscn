@@ -87,7 +87,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_xfvoa")
 theme_type_variation = &"AllBorderLabel"
-text = "Funds:"
+text = "Prana:"
 horizontal_alignment = 2
 
 [node name="Placeholder2" type="Label" parent="GridContainer/Title"]
@@ -96,7 +96,7 @@ size_flags_horizontal = 3
 theme = ExtResource("1_xfvoa")
 theme_type_variation = &"AllBorderLabel"
 
-[node name="Money" type="Label" parent="GridContainer/Title"]
+[node name="Prana" type="Label" parent="GridContainer/Title"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8

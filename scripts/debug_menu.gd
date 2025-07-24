@@ -16,7 +16,7 @@ func _ready() -> void:
 
 	_render_moves_list()
 	_render_trinkets_list()
-	_render_player_money()
+	_render_player_prana()
 
 
 func _input(event: InputEvent) -> void:
@@ -30,7 +30,7 @@ func toggle_pause():
 	visible = paused
 
 	if visible:
-		_render_player_money()
+		_render_player_prana()
 
 
 func _render_moves_list():
@@ -80,8 +80,8 @@ func _render_trinkets_list():
 	%TrinketsList.item_selected.connect(func(): _on_debug_trinket_pressed())
 
 
-func _render_player_money():
-	%Money.text = "¶ %d" % GameManager.player.money
+func _render_player_prana():
+	%Prana.text = "¶ %d" % GameManager.player.prana
 
 
 func _sort_trinkets_alphabetically(a: Trinket, b: Trinket) -> bool:
@@ -114,7 +114,7 @@ func _on_debug_trinket_pressed():
 	var trinket: Trinket = _alphabetized_trinkets_list[trinket_index]
 	GameManager.player.trinkets.append(trinket)
 	trinket.strategy.ApplyEffect(GameManager.player.selected_monster)
-	GameManager.player.emit_trinkets_updated_signal()
+	GameManager.player.selected_monster.emit_trinkets_updated_signal()
 
 
 func _on_use_move_button_pressed() -> void:

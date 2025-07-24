@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://ml72pjgq1pcd"]
 
 [ext_resource type="Texture2D" uid="uid://vxc3pp4ag00i" path="res://assets/sprites/trinket_icons/heart.png" id="1_cr0h2"]
-[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinket.gd" id="1_qunqy"]
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinkets/trinket.gd" id="1_qunqy"]
 [ext_resource type="Script" uid="uid://bcxsgub47ke5n" path="res://resources/trinket_strategies/max_hp_up_strategy.gd" id="3_i422k"]
 
 [sub_resource type="Resource" id="Resource_lucmb"]

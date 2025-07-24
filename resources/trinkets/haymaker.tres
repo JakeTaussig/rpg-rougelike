@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://cwhqnhbi0ca5h"]
 
-[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinket.gd" id="1_bphy4"]
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinkets/trinket.gd" id="1_bphy4"]
 [ext_resource type="Texture2D" uid="uid://0tu4rht0gtat" path="res://assets/sprites/trinket_icons/haymaker.png" id="1_hicn7"]
 [ext_resource type="Script" uid="uid://bdw5aqq0o851n" path="res://resources/trinket_strategies/haymaker_strategy.gd" id="3_jgb3b"]
 

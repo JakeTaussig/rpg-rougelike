@@ -145,9 +145,9 @@ func _create_player() -> BattleParticipant:
 	new_player.setup_player(randomized_monsters[monster_index])
 	self.add_child(new_player)
 	new_player.name = "Player"
-	new_player.money = 500
-
-	%TrinketShelf.trinkets = new_player.trinkets
+	new_player.prana = 500
+	new_player.selected_monster_backup = new_player.selected_monster.duplicate(true)
+	%TrinketShelf.trinkets = new_player.selected_monster.trinkets
 
 	return new_player
 
