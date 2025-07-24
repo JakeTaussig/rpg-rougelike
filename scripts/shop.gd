@@ -41,7 +41,6 @@ func _init_trinket_menu_buttons():
 	for i in range(N_TRINKETS):
 		var trinket_entry: HBoxContainer = %TrinketContainer.get_child(i)
 		var trinket_button: Button = trinket_entry.get_node("TrinketName")
-		var trinket = trinkets[i]
 		trinket_button.connect("mouse_entered", func(): trinket_button.grab_focus())
 		trinket_button.connect("focus_entered", func(): _on_trinket_focus(i))
 		trinket_button.connect("focus_exited", _on_trinket_focus_exit)
@@ -128,11 +127,8 @@ func _on_trinket_button_pressed(trinket_index: int):
 
 	# Give the trinket to the player, apply it, and redisplay the trinket shelf
 	GameManager.player.selected_monster.trinkets.append(trinket)
-	# TODO: Here, what needs to be done is revert the player monster to the backup, then apply each trinket one by one
 	# Remember to set the HP back to the monster's current hp, but make sure it doesn't exceed the potentially reduced max_hp
-	for tinket in GameManager.player.selected_monster.trinkets:
-		trinket.strategy.ApplyEffect(GameManager.player.selected_monster)
-	GameManager.player.selected_monster.emit_trinkets_updated_signal()
+	GameManager.apply_trinkets()
 	%TrinketShelf.render_trinkets()
 
 	purchased_trinkets[trinket_index] = true
