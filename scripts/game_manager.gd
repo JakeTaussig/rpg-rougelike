@@ -145,9 +145,9 @@ func _create_player() -> BattleParticipant:
 	new_player.setup_player(randomized_monsters[monster_index])
 	self.add_child(new_player)
 	new_player.name = "Player"
-	new_player.money = 500
-
-	%TrinketShelf.trinkets = new_player.trinkets
+	new_player.prana = 500
+	new_player.selected_monster_backup = new_player.selected_monster.duplicate(true)
+	%TrinketShelf.trinkets = new_player.selected_monster.trinkets
 
 	return new_player
 
@@ -171,11 +171,27 @@ func _create_new_enemy() -> BattleParticipant:
 	return new_enemy
 
 
-# This is a seperate function because it must be called from BattleOver.gd to display the correct information
 func level_up_player_and_enemies():
 	# Only the enemy stat multiplier increases, because the player stays the same, while the enemies are generated every time.
 	enemy_level += 1
-	player.selected_monster.level_up(player_stat_multiplier)
+	# Level up the backup so that trinkets don't effect the stats, then re-apply the trinkets
+	player.selected_monster_backup.level_up(player_stat_multiplier)
+	apply_trinkets()
+
+
+func apply_trinkets():
+	var old_hp = player.selected_monster.hp
+	var monster_trinkets = player.selected_monster.trinkets
+	player.selected_monster = player.selected_monster_backup.duplicate(true)
+	if old_hp > player.selected_monster.max_hp:
+		player.selected_monster.hp = player.selected_monster.max_hp
+	else:
+		player.selected_monster.hp = old_hp
+	player.selected_monster.trinkets = monster_trinkets
+	for trinket in player.selected_monster.trinkets:
+		trinket.strategy.ApplyEffect(player.selected_monster)
+	player.selected_monster.emit_trinkets_updated_signal()
+	%TrinketShelf.render_trinkets()
 
 
 func _reset_ui_elements():

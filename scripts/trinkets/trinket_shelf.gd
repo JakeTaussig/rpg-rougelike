@@ -22,7 +22,7 @@ var last_focused_idx = 0
 
 func _ready():
 	if trinkets.size() == 0 && GameManager.player != null:
-		trinkets = GameManager.player.trinkets
+		trinkets = GameManager.player.selected_monster.trinkets
 
 	for i in range(%TrinketIconContainer.get_child_count()):
 		var trinket_button: Button = %TrinketIconContainer.get_child(i)

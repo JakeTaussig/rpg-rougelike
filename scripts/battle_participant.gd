@@ -12,15 +12,8 @@ class_name BattleParticipant
 		if monsters.size() > 0:
 			selected_monster = monsters[0]
 
-signal trinkets_updated
 
-var trinkets: Array[Trinket] = []
-
-var money: int = 0
-
-
-func emit_trinkets_updated_signal():
-	trinkets_updated.emit()
+var prana: int = 0
 
 
 func setup_player(_monster: Monster):
@@ -33,6 +26,11 @@ var selected_monster: Monster:
 	set(new_monster):
 		selected_monster = new_monster
 		render_battler()
+
+
+# This is used as a fallback to apply new Trinkets and remove secondary move effects after battle.
+var selected_monster_backup: Monster
+	
 
 var is_player = true:
 	set(_is_player):
@@ -61,9 +59,13 @@ func _init_items() -> void:
 
 
 func is_defeated() -> bool:
-	for monster in monsters:
-		if monster.hp > 0:
+	if is_player:
+		if selected_monster.hp > 0:
 			return false
+	else:
+		for monster in monsters:
+			if monster.hp > 0:
+				return false
 	return true
 
 

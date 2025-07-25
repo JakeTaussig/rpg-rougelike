@@ -47,7 +47,7 @@ func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 	print("Assigned player:", _player.name, _player.selected_monster.character_name)
 	print("Assigned enemy:", enemy.name, enemy.selected_monster.character_name)
 
-	player.trinkets_updated.connect(func():
+	player.selected_monster.trinkets_updated.connect(func():
 		%TrinketShelf.render_trinkets()
 		update_active_monsters()
 	)

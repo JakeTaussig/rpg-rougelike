@@ -21,7 +21,7 @@ func setup():
 	_roll_trinkets()
 	_init_trinket_menu_buttons()
 	_render_trinkets()
-	_render_player_money()
+	_render_player_prana()
 	%ExitButton.grab_focus()
 
 
@@ -41,7 +41,6 @@ func _init_trinket_menu_buttons():
 	for i in range(N_TRINKETS):
 		var trinket_entry: HBoxContainer = %TrinketContainer.get_child(i)
 		var trinket_button: Button = trinket_entry.get_node("TrinketName")
-		var trinket = trinkets[i]
 		trinket_button.connect("mouse_entered", func(): trinket_button.grab_focus())
 		trinket_button.connect("focus_entered", func(): _on_trinket_focus(i))
 		trinket_button.connect("focus_exited", _on_trinket_focus_exit)
@@ -57,8 +56,8 @@ func _render_trinkets():
 		trinket_entry.get_node("TrinketCost").text = "¶ %d" % TRINKET_COST
 
 
-func _render_player_money():
-	%Money.text = "¶ %d" % GameManager.player.money
+func _render_player_prana():
+	%Prana.text = "¶ %d" % GameManager.player.prana
 
 
 # When a trinket is focused, show its information (name, icon, description,
@@ -102,7 +101,7 @@ func _on_trinket_button_pressed(trinket_index: int):
 	var trinket_cost_label: RichTextLabel = %TrinketContainer.get_child(trinket_index).get_node("TrinketCost")
 	var trinket_icon: TextureRect = %TrinketContainer.get_child(trinket_index).get_node("TrinketIcon")
 
-	if GameManager.player.money < TRINKET_COST:
+	if GameManager.player.prana < TRINKET_COST:
 		return
 
 	# when the trinket is purchased:
@@ -123,13 +122,13 @@ func _on_trinket_button_pressed(trinket_index: int):
 	%TrinketIconEnlarged.material = load("res://assets/shaders/grayscale-material.tres")
 
 	# charge the player for the trinket
-	GameManager.player.money -= TRINKET_COST
-	_render_player_money()
+	GameManager.player.prana -= TRINKET_COST
+	_render_player_prana()
 
 	# Give the trinket to the player, apply it, and redisplay the trinket shelf
-	GameManager.player.trinkets.append(trinket)
-	trinket.strategy.ApplyEffect(GameManager.player.selected_monster)
-	GameManager.player.emit_trinkets_updated_signal()
+	GameManager.player.selected_monster.trinkets.append(trinket)
+	# Remember to set the HP back to the monster's current hp, but make sure it doesn't exceed the potentially reduced max_hp
+	GameManager.apply_trinkets()
 	%TrinketShelf.render_trinkets()
 
 	purchased_trinkets[trinket_index] = true
