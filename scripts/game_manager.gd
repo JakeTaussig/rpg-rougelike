@@ -62,8 +62,8 @@ func _load_and_randomize_monsters():
 
 # generate all events for a floor.
 func _generate_floor_events():
-	#var shop = shop_scene.instantiate()
-	#floor_events.push_back(shop)
+	var shop = shop_scene.instantiate()
+	floor_events.push_back(shop)
 
 	var battle = battle_scene.instantiate()
 	floor_events.push_back(battle)
@@ -149,19 +149,11 @@ func _create_player() -> BattleParticipant:
 	new_player.selected_monster_backup = new_player.selected_monster.duplicate(true)
 	%TrinketShelf.trinkets = new_player.selected_monster.trinkets
 
-	# debug
-	new_player.selected_monster.hp -= 20
-
-	for trinket in trinkets_list.trinkets:
-		print(trinket.trinket_name)
-
-	new_player.selected_monster.trinkets.append(trinkets_list.trinkets[3])
-
 	return new_player
 
 
 func _create_new_enemy() -> BattleParticipant:
-	var monsters: Array[Monster] = [randomized_monsters[0]]
+	var monsters = randomized_monsters
 	var new_enemy = battle_participant_scene.instantiate()
 	new_enemy.set_script(preload("res://scripts/enemy.gd"))
 	# 2nd param = AI types 0 = RANDOM, 1 = AGGRESSIVE, 2 = HIGH_EV
@@ -176,10 +168,6 @@ func _create_new_enemy() -> BattleParticipant:
 
 	self.add_child(new_enemy)
 	new_enemy.name = "Enemy"
-
-	# debug
-	new_enemy.selected_monster.hp = 0
-
 	return new_enemy
 
 
