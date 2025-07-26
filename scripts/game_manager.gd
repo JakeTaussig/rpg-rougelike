@@ -181,15 +181,22 @@ func level_up_player_and_enemies():
 
 func apply_trinkets():
 	var old_hp = player.selected_monster.hp
-	var monster_trinkets = player.selected_monster.trinkets
+	var old_trinkets = player.selected_monster.trinkets
+
+	var hp_bonus = 0
+	for trinket in old_trinkets:
+		if trinket.trinket_name == "HP Up":
+			hp_bonus += 100
+
 	player.selected_monster = player.selected_monster_backup.duplicate(true)
-	if old_hp > player.selected_monster.max_hp:
-		player.selected_monster.hp = player.selected_monster.max_hp
-	else:
-		player.selected_monster.hp = old_hp
-	player.selected_monster.trinkets = monster_trinkets
+
+	var max_possible_hp = min(old_hp - hp_bonus, player.selected_monster.max_hp)
+	player.selected_monster.hp = max_possible_hp
+
+	player.selected_monster.trinkets = old_trinkets
 	for trinket in player.selected_monster.trinkets:
 		trinket.strategy.ApplyEffect(player.selected_monster)
+
 	player.selected_monster.emit_trinkets_updated_signal()
 	%TrinketShelf.render_trinkets()
 
