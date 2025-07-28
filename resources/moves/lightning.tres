@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_gmna2")
-move_name = "Lightning"
+move_name = "Ice Storm"
 category = 1
 type = 4
 base_power = 75

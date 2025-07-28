@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_725fc")
-move_name = "Paralyzed"
+move_name = "Frozen"
 category = 2
 type = 4
 base_power = 0

@@ -35,8 +35,8 @@ func _generate_attack_messages(attacker, target, results: Monster.AttackResults)
 	if used_move_name == "Whirlpool":
 		messages.append("%s got caught in the whirlpool!" % [attacker.character_name])
 		return messages
-	elif used_move_name == "Paralyzed":
-		messages.append("%s is paralyzed and could not move!" % attacker.character_name)
+	elif used_move_name == "Frozen":
+		messages.append("%s is frozen and could not move!" % attacker.character_name)
 	elif not move_hit:
 		messages.append("%s missed %s!" % [attacker.character_name, used_move_name])
 	elif damage > 0:
@@ -75,12 +75,12 @@ func _generate_attack_messages(attacker, target, results: Monster.AttackResults)
 			messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
 		else:
 			messages.append("%s was afflicted with %s!" % [target.character_name, status_effect_string])
-		# Burn, and paralyze need to be applied instantly since they affect the stats of the afflicted user.
+		# Burn, and freeze need to be applied instantly since they affect the stats of the afflicted user.
 		match status_effect:
 			MovesList.StatusEffect.BURN:
 				messages.append(target.enact_burn_on_self())
-			MovesList.StatusEffect.PARALYZE:
-				messages.append(target.enact_paralyze_on_self())
+			MovesList.StatusEffect.FREEZE:
+				messages.append(target.enact_freeze_on_self())
 			MovesList.StatusEffect.BLIND:
 				messages.append(target.enact_blind_on_self())
 

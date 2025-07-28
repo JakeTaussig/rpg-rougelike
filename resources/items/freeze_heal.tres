@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource("1")
-name = "Paralyze Heal"
-qty = 0
-description = "Heals player from PARALYZE"
-callback_name = "_handle_paralyze_heal"
+name = "Freeze Heal"
+description = "Heals player from FREEZE"
+callback_name = "_handle_freeze_heal"
