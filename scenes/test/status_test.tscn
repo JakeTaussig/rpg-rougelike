@@ -1,0 +1,285 @@
+[gd_scene load_steps=22 format=3 uid="uid://ds5vq28qhadqd"]
+
+[ext_resource type="PackedScene" uid="uid://dspy5d5yn1fxj" path="res://scenes/battle_participant.tscn" id="1_s0e5s"]
+[ext_resource type="Script" uid="uid://cyqywjpbta4p8" path="res://scripts/monster.gd" id="2_u7eqf"]
+[ext_resource type="Shader" uid="uid://cwjiowobjkvf" path="res://assets/shaders/outline.gdshader" id="2_wf34f"]
+[ext_resource type="Texture2D" uid="uid://ccw3gkgcfoqh0" path="res://assets/sprites/characters/omenite.png" id="3_u7eqf"]
+[ext_resource type="Texture2D" uid="uid://cqah3pvvxjf3e" path="res://assets/sprites/characters/oddesque.png" id="4_dnttg"]
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="4_wf34f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5jr45"]
+resource_local_to_scene = true
+shader = ExtResource("2_wf34f")
+shader_parameter/color = Color(0, 0, 0, 0)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_8dx8d"]
+script = ExtResource("2_u7eqf")
+character_name = "Omenite"
+texture = ExtResource("3_u7eqf")
+max_hp = 300
+hp = 300
+atk = 40
+sp_atk = 90
+def = 100
+sp_def = 55
+speed = 35
+type = 2
+metadata/_custom_type_script = "uid://cyqywjpbta4p8"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l5sbc"]
+resource_local_to_scene = true
+shader = ExtResource("2_wf34f")
+shader_parameter/color = Color(1, 0, 0.267, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_l1xpq"]
+script = ExtResource("2_u7eqf")
+character_name = "Omenite"
+texture = ExtResource("3_u7eqf")
+max_hp = 300
+hp = 300
+atk = 40
+sp_atk = 90
+def = 100
+sp_def = 55
+speed = 35
+type = 2
+metadata/_custom_type_script = "uid://cyqywjpbta4p8"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cx58c"]
+resource_local_to_scene = true
+shader = ExtResource("2_wf34f")
+shader_parameter/color = Color(0.894, 0.231, 0.267, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_w140b"]
+script = ExtResource("2_u7eqf")
+character_name = "Omenite"
+texture = ExtResource("3_u7eqf")
+max_hp = 300
+hp = 300
+atk = 40
+sp_atk = 90
+def = 100
+sp_def = 55
+speed = 35
+type = 2
+metadata/_custom_type_script = "uid://cyqywjpbta4p8"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ae6ho"]
+resource_local_to_scene = true
+shader = ExtResource("2_wf34f")
+shader_parameter/color = Color(0, 0.6, 0.859, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xf6ff"]
+resource_local_to_scene = true
+shader = ExtResource("2_wf34f")
+shader_parameter/color = Color(0.408, 0.22, 0.424, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_0oxkw"]
+script = ExtResource("2_u7eqf")
+character_name = "Omenite"
+texture = ExtResource("3_u7eqf")
+max_hp = 300
+hp = 300
+atk = 40
+sp_atk = 90
+def = 100
+sp_def = 55
+speed = 35
+type = 2
+metadata/_custom_type_script = "uid://cyqywjpbta4p8"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v4b6j"]
+resource_local_to_scene = true
+shader = ExtResource("2_wf34f")
+shader_parameter/color = Color(0.243, 0.153, 0.192, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_tcdue"]
+script = ExtResource("2_u7eqf")
+character_name = "Omenite"
+texture = ExtResource("3_u7eqf")
+max_hp = 300
+hp = 300
+atk = 40
+sp_atk = 90
+def = 100
+sp_def = 55
+speed = 35
+type = 2
+metadata/_custom_type_script = "uid://cyqywjpbta4p8"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2xcqj"]
+resource_local_to_scene = true
+shader = ExtResource("2_wf34f")
+shader_parameter/color = Color(0.545, 0.608, 0.706, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_v6u16"]
+script = ExtResource("2_u7eqf")
+character_name = "Omenite"
+texture = ExtResource("3_u7eqf")
+max_hp = 300
+hp = 300
+atk = 40
+sp_atk = 90
+def = 100
+sp_def = 55
+speed = 35
+type = 2
+metadata/_custom_type_script = "uid://cyqywjpbta4p8"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w36g1"]
+resource_local_to_scene = true
+shader = ExtResource("2_wf34f")
+shader_parameter/color = Color(0.094, 0.078, 0.145, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_3vsuy"]
+script = ExtResource("2_u7eqf")
+character_name = "Omenite"
+texture = ExtResource("3_u7eqf")
+max_hp = 300
+hp = 300
+atk = 40
+sp_atk = 90
+def = 100
+sp_def = 55
+speed = 35
+type = 2
+metadata/_custom_type_script = "uid://cyqywjpbta4p8"
+
+[node name="StatusTest" type="Node2D"]
+
+[node name="None" parent="." instance=ExtResource("1_s0e5s")]
+material = SubResource("ShaderMaterial_5jr45")
+position = Vector2(32, 96)
+monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_8dx8d")])
+
+[node name="Label" type="Label" parent="None"]
+offset_left = -24.0
+offset_top = 16.0
+offset_right = 24.0
+offset_bottom = 32.0
+text = "None"
+
+[node name="Cripple" parent="." instance=ExtResource("1_s0e5s")]
+material = SubResource("ShaderMaterial_l5sbc")
+position = Vector2(96, 96)
+monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_l1xpq")])
+
+[node name="Label" type="Label" parent="Cripple"]
+offset_left = -24.0
+offset_top = 16.0
+offset_right = 24.0
+offset_bottom = 32.0
+text = "Cripple"
+
+[node name="Burn" parent="." instance=ExtResource("1_s0e5s")]
+material = SubResource("ShaderMaterial_cx58c")
+position = Vector2(160, 32)
+monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_w140b")])
+
+[node name="Label" type="Label" parent="Burn"]
+offset_left = -24.0
+offset_top = 16.0
+offset_right = 24.0
+offset_bottom = 32.0
+text = "Burn"
+
+[node name="Whirlpool" parent="." instance=ExtResource("1_s0e5s")]
+material = SubResource("ShaderMaterial_ae6ho")
+position = Vector2(224, 96)
+texture = ExtResource("4_dnttg")
+
+[node name="Label" type="Label" parent="Whirlpool"]
+offset_left = -24.0
+offset_top = 16.0
+offset_right = 28.0
+offset_bottom = 32.0
+text = "Whirlpool"
+
+[node name="Poison" parent="." instance=ExtResource("1_s0e5s")]
+material = SubResource("ShaderMaterial_xf6ff")
+position = Vector2(32, 32)
+monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_0oxkw")])
+
+[node name="Label" type="Label" parent="Poison"]
+offset_left = -24.0
+offset_top = 16.0
+offset_right = 24.0
+offset_bottom = 32.0
+text = "Poison"
+metadata/_edit_use_anchors_ = true
+
+[node name="Paralyze" parent="." instance=ExtResource("1_s0e5s")]
+material = SubResource("ShaderMaterial_v4b6j")
+position = Vector2(96, 32)
+monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_tcdue")])
+
+[node name="Label" type="Label" parent="Paralyze"]
+offset_left = -24.0
+offset_top = 16.0
+offset_right = 26.0
+offset_bottom = 32.0
+text = "Paralyze"
+
+[node name="Blind" parent="." instance=ExtResource("1_s0e5s")]
+material = SubResource("ShaderMaterial_2xcqj")
+position = Vector2(224, 32)
+monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_v6u16")])
+
+[node name="Label" type="Label" parent="Blind"]
+offset_left = -24.0
+offset_top = 16.0
+offset_right = 24.0
+offset_bottom = 32.0
+text = "Blind"
+
+[node name="Consume" parent="." instance=ExtResource("1_s0e5s")]
+material = SubResource("ShaderMaterial_w36g1")
+position = Vector2(160, 96)
+monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_3vsuy")])
+
+[node name="Label" type="Label" parent="Consume"]
+offset_left = -24.0
+offset_top = 16.0
+offset_right = 24.0
+offset_bottom = 32.0
+text = "Consume"
