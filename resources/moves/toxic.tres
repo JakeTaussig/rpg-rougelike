@@ -7,6 +7,7 @@
 script = ExtResource("1_mfxq7")
 move_name = "Toxic"
 category = 2
+type = 3
 base_power = 0
 status_effect = 4
 backdrop = ExtResource("2_j4j0s")
