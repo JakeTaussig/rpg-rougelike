@@ -34,7 +34,7 @@ static func type_to_color(type: Type) -> Color:
 		Type.ETHER:
 			return Color(0.227, 0.267, 0.4, 1.0)
 		Type.LIGHT:
-			return Color(0.996, 0.906, 0.38, 1.0)
+			return Color(0.918, 0.831, 0.667, 1.0)
 		Type.COSMIC:
 			return Color(0.71, 0.314, 0.533, 1.0)
 
@@ -50,11 +50,11 @@ static func status_effect_to_color(status_effect: StatusEffect) -> Color:
 		MovesList.StatusEffect.BURN:
 			return Color(0.894, 0.231, 0.267, 1.0)
 		MovesList.StatusEffect.FREEZE:
-			return Color(0.227, 0.267, 0.4, 1.0)
-		MovesList.StatusEffect.BLIND:
 			return Color(0.545, 0.608, 0.706, 1.0)
+		MovesList.StatusEffect.BLIND:
+			return Color(0.918, 0.831, 0.667, 1.0)
 		MovesList.StatusEffect.CONSUME:
-			return Color(0.996, 0.906, 0.38, 1.0)
+			return Color(0.71, 0.314, 0.533, 1.0)
 
 	return Color(1.0, 1.0, 1.0, 0.0)
 
