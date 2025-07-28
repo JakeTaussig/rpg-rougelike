@@ -112,7 +112,7 @@ func _on_debug_move_pressed():
 func _on_debug_trinket_pressed():
 	var trinket_index: int = %TrinketsList.get_selected().get_index()
 	var trinket: Trinket = _alphabetized_trinkets_list[trinket_index]
-	GameManager.player.trinkets.append(trinket)
+	GameManager.player.selected_monster.trinkets.append(trinket)
 	trinket.strategy.ApplyEffect(GameManager.player.selected_monster)
 	GameManager.player.selected_monster.emit_trinkets_updated_signal()
 
