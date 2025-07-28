@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemsList" load_steps=18 format=3 uid="uid://s1cf40gdu6fg"]
+[gd_resource type="Resource" script_class="ItemsList" load_steps=17 format=3 uid="uid://s1cf40gdu6fg"]
 
 [ext_resource type="Script" uid="uid://dgesf7qieq0cw" path="res://scripts/item.gd" id="1_paoi4"]
 [ext_resource type="Resource" uid="uid://b0kdgn7tmkpuq" path="res://resources/items/aloe_vera.tres" id="2_eikr1"]
@@ -11,7 +11,6 @@
 [ext_resource type="Resource" uid="uid://m7gbemufw3q7" path="res://resources/items/hp_restore.tres" id="8_46d8n"]
 [ext_resource type="Resource" uid="uid://6he71i75y00k" path="res://resources/items/lifeguard.tres" id="9_4vl0c"]
 [ext_resource type="Resource" uid="uid://dwj32hd4rav0f" path="res://resources/items/luck_up.tres" id="10_hqfag"]
-[ext_resource type="Resource" uid="uid://b45uyv81flaky" path="res://resources/items/pain_meds.tres" id="11_78is1"]
 [ext_resource type="Resource" uid="uid://bfpdnsmia61p" path="res://resources/items/paralyze_heal.tres" id="12_b6kp7"]
 [ext_resource type="Resource" uid="uid://clltqxyr18d0p" path="res://resources/items/pp_restore.tres" id="13_f0a3l"]
 [ext_resource type="Resource" uid="uid://dvakdk63gmwn8" path="res://resources/items/speed_up.tres" id="14_v84j7"]
@@ -20,5 +19,5 @@
 
 [resource]
 script = ExtResource("2_snqoh")
-items = Array[ExtResource("1_paoi4")]([ExtResource("2_eikr1"), ExtResource("3_dk32x"), ExtResource("4_xmc1e"), ExtResource("5_w7n5b"), ExtResource("6_vmqa5"), ExtResource("7_x3yvo"), ExtResource("8_46d8n"), ExtResource("9_4vl0c"), ExtResource("10_hqfag"), ExtResource("11_78is1"), ExtResource("12_b6kp7"), ExtResource("13_f0a3l"), ExtResource("14_v84j7"), ExtResource("15_wucfk"), ExtResource("16_qus3u")])
+items = Array[ExtResource("1_paoi4")]([ExtResource("2_eikr1"), ExtResource("3_dk32x"), ExtResource("4_xmc1e"), ExtResource("5_w7n5b"), ExtResource("6_vmqa5"), ExtResource("7_x3yvo"), ExtResource("8_46d8n"), ExtResource("9_4vl0c"), ExtResource("10_hqfag"), ExtResource("12_b6kp7"), ExtResource("13_f0a3l"), ExtResource("14_v84j7"), ExtResource("15_wucfk"), ExtResource("16_qus3u")])
 metadata/_custom_type_script = "uid://e6ahcotcs3r8"

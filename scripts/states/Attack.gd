@@ -75,10 +75,8 @@ func _generate_attack_messages(attacker, target, results: Monster.AttackResults)
 			messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
 		else:
 			messages.append("%s was afflicted with %s!" % [target.character_name, status_effect_string])
-		# Burn, cripple, and paralyze need to be applied instantly since they affect the stats of the afflicted user.
+		# Burn, and paralyze need to be applied instantly since they affect the stats of the afflicted user.
 		match status_effect:
-			MovesList.StatusEffect.CRIPPLE:
-				messages.append(target.enact_cripple_on_self())
 			MovesList.StatusEffect.BURN:
 				messages.append(target.enact_burn_on_self())
 			MovesList.StatusEffect.PARALYZE:

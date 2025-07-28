@@ -263,8 +263,6 @@ func get_stab(move: Move) -> float:
 
 func enact_status_effect() -> String:
 	match status_effect:
-		MovesList.StatusEffect.CRIPPLE:
-			return enact_cripple_on_self()
 		MovesList.StatusEffect.BURN:
 			return enact_burn_on_self()
 		MovesList.StatusEffect.POISON:
@@ -278,8 +276,6 @@ func enact_status_effect() -> String:
 
 func recover_from_status_effect() -> String:
 	match status_effect:
-		MovesList.StatusEffect.CRIPPLE:
-			return _recover_from_cripple()
 		MovesList.StatusEffect.BURN:
 			return _recover_from_burn()
 		MovesList.StatusEffect.DELUSION:
@@ -293,31 +289,6 @@ func recover_from_status_effect() -> String:
 		MovesList.StatusEffect.BLIND:
 			return _recover_from_blind()
 	return ""
-
-
-# Only called on first turn of cripple
-func enact_cripple_on_self():
-	if status_effect_turn_counter == 0:
-		atk = int(float(atk) * 0.8)
-		sp_atk = int(float(sp_atk) * 0.8)
-		def = int(float(def) * 0.8)
-		sp_def = int(float(sp_def) * 0.8)
-		speed = int(float(speed) * 0.8)
-		luck = int(float(luck) * 0.8)
-		return "All of %s's stats were lowered by 20" % character_name + "%!"
-	return ""
-
-
-func _recover_from_cripple():
-	status_effect = MovesList.StatusEffect.NONE
-	status_effect_turn_counter = 0
-	atk = int(float(atk) * 1.25)
-	sp_atk = int(float(sp_atk) * 1.25)
-	def = int(float(def) * 1.25)
-	sp_def = int(float(sp_def) * 1.25)
-	speed = int(float(speed) * 1.25)
-	luck = int(float(luck) * 1.25)
-	return "%s recovered from cripple and their stats were restored!" % character_name
 
 
 func enact_burn_on_self():

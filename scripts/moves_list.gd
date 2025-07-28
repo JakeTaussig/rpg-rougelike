@@ -5,7 +5,11 @@ class_name MovesList
 
 enum Type { EARTH, WATER, FIRE, AIR, ETHER, LIGHT, COSMIC }
 
-# Some status effects will need to be re-done to correspond to the appropriate chakra types.
+# Some status effects will need to be re-done to correspond to the appropriate
+# chakra types.
+#
+# CRIPPLE is deprecated. If we remove it, we'll need to update
+# every move resource, so I'm going to leave it in the enum for now.
 enum StatusEffect { NONE, CRIPPLE, DELUSION, BURN, POISON, PARALYZE, BLIND, CONSUME }
 
 const TYPES = {Type.EARTH: 0, # Root Chakra/Muladhara
@@ -20,7 +24,7 @@ const TYPES = {Type.EARTH: 0, # Root Chakra/Muladhara
 static func type_to_color(type: Type) -> Color:
 	match type:
 		Type.EARTH:
-			return Color(0.243, 0.537, 0.282, 1.0)
+			return Color(0.388, 0.78, 0.302, 1.0)
 		Type.WATER:
 			return Color(0.0, 0.6, 0.859, 1.0)
 		Type.FIRE:
@@ -39,14 +43,12 @@ static func type_to_color(type: Type) -> Color:
 
 static func status_effect_to_color(status_effect: StatusEffect) -> Color:
 	match status_effect:
-		MovesList.StatusEffect.CRIPPLE:
-			return Color(0.91, 0.718, 0.588, 1.0)
 		MovesList.StatusEffect.BURN:
 			return Color(0.894, 0.231, 0.267, 1.0)
 		MovesList.StatusEffect.DELUSION:
 			return Color(0.0, 0.6, 0.859, 1.0)
 		MovesList.StatusEffect.POISON:
-			return Color(0.173, 0.91, 0.961, 1.0)
+			return Color(0.388, 0.78, 0.302, 1.0)
 		MovesList.StatusEffect.PARALYZE:
 			return Color(0.71, 0.314, 0.533, 1.0)
 		MovesList.StatusEffect.BLIND:
@@ -59,8 +61,6 @@ static func status_effect_to_color(status_effect: StatusEffect) -> Color:
 
 static func type_abbreviation(effect) -> String:
 	match effect:
-		MovesList.StatusEffect.CRIPPLE:
-			return "CRP"
 		MovesList.StatusEffect.BURN:
 			return "BRN"
 		MovesList.StatusEffect.DELUSION:

@@ -23,11 +23,6 @@ func _render_status():
 			emitting = true
 			gravity = Vector2(0, -250)
 			texture = load("res://assets/sprites/status_effects/poison.png")
-		MovesList.StatusEffect.CRIPPLE:
-			emitting = true
-			gravity = Vector2(0, 250)
-			position.y -= 8
-			texture = load("res://assets/sprites/status_effects/cripple.png")
 		MovesList.StatusEffect.BURN:
 			emitting = true
 			gravity = Vector2(0, -250)
