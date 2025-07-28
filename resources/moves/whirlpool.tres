@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://8jcddcsnbyms"]
 
-[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_lu2fq"]
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_ybm3d"]
 
 [resource]
-script = ExtResource("1_lu2fq")
-move_name = "Delusion"
-type = 6
+script = ExtResource("1_ybm3d")
+move_name = "Whirlpool"
+type = 1
 base_power = 40
 pp = 1000000
 max_pp = 1000000
-status_effect = 6
+status_effect = 2
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

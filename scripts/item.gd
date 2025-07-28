@@ -121,10 +121,10 @@ func _handle_burn_heal(selected_monster, battle):
 		return true  # return the item to the player
 
 
-func _handle_delusion_heal(selected_monster, battle):
-	if selected_monster.status_effect == MovesList.StatusEffect.DELUSION:
+func _handle_whirlpool_heal(selected_monster, battle):
+	if selected_monster.status_effect == MovesList.StatusEffect.WHIRLPOOL:
 		selected_monster.recover_from_status_effect()
-		battle.transition_state_to(battle.STATE_INFO, ["%s escaped the DELUSION" % selected_monster.character_name])
+		battle.transition_state_to(battle.STATE_INFO, ["%s escaped the WHIRLPOOL" % selected_monster.character_name])
 	else:
 		return true  # return the item to the player
 

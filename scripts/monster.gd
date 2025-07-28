@@ -95,7 +95,7 @@ func randomize_moves() -> void:
 	var all_moves = GameManager.moves_list.moves.duplicate()
 
 	# Remove moves that signify status conditions
-	all_moves = all_moves.filter(func(m): return m.move_name != "Paralyzed" and m.move_name != "Delusion")
+	all_moves = all_moves.filter(func(m): return m.move_name != "Paralyzed" and m.move_name != "Whirlpool")
 	all_moves.shuffle()
 	for move in all_moves.slice(0, 4):
 		moves.append(move.copy())
@@ -128,12 +128,12 @@ func use_move(move: Move, target: Monster) -> AttackResults:
 	var status_applied: bool = 0
 	var damage = 0
 	var is_critical := false
-	if status_effect == MovesList.StatusEffect.DELUSION:
-		# Delusion has a 50% chance to damage the affected character each turn
-		var delusion_activation_chance = 50
-		move_hit = _does_move_crit_or_status(delusion_activation_chance)
+	if status_effect == MovesList.StatusEffect.WHIRLPOOL:
+		# Whirlpool has a 50% chance to damage the affected character each turn
+		var whirlpool_activation_chance = 50
+		move_hit = _does_move_crit_or_status(whirlpool_activation_chance)
 		if move_hit:
-			move = GameManager.get_move_by_name("Delusion")
+			move = GameManager.get_move_by_name("Whirlpool")
 			@warning_ignore("confusable_local_declaration")
 			var results = _attack(move, self, 1)
 			return AttackResults.new(move, max(1, results["damage"]), move_hit, status_applied, results["is_critical"])
@@ -237,7 +237,7 @@ func _check_status_immunity(effect: MovesList.StatusEffect, target_type: MovesLi
 		MovesList.StatusEffect.BURN:
 			if target_type == MovesList.Type.FIRE:
 				return true
-		MovesList.StatusEffect.DELUSION:
+		MovesList.StatusEffect.WHIRLPOOL:
 			if target_type == MovesList.Type.WATER:
 				return true
 		MovesList.StatusEffect.POISON:
@@ -278,8 +278,8 @@ func recover_from_status_effect() -> String:
 	match status_effect:
 		MovesList.StatusEffect.BURN:
 			return _recover_from_burn()
-		MovesList.StatusEffect.DELUSION:
-			return _recover_from_delusion()
+		MovesList.StatusEffect.WHIRLPOOL:
+			return _recover_from_whirlpool()
 		MovesList.StatusEffect.POISON:
 			return _recover_from_poison()
 		MovesList.StatusEffect.PARALYZE:
@@ -308,10 +308,10 @@ func _recover_from_burn():
 	return "%s recovered from burn!" % character_name
 
 
-func _recover_from_delusion():
+func _recover_from_whirlpool():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
-	return "%s recovered from delusion!" % character_name
+	return "%s recovered from whirlpool!" % character_name
 
 
 func _enact_poison_on_self():

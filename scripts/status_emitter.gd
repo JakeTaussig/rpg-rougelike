@@ -14,7 +14,7 @@ func _render_status():
 	var shader_material: ShaderMaterial = material
 	position = Vector2(0, 0)
 	match status_effect:
-		MovesList.StatusEffect.DELUSION:
+		MovesList.StatusEffect.WHIRLPOOL:
 			emitting = true
 			gravity = Vector2(0, 250)
 			position.y -= 8

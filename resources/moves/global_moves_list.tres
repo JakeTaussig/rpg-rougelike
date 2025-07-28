@@ -13,7 +13,7 @@
 [ext_resource type="Resource" uid="uid://en3lvxoqdpbg" path="res://resources/moves/electrocute.tres" id="9_xl5mf"]
 [ext_resource type="Resource" uid="uid://chacpi7ng0b4p" path="res://resources/moves/paralyzed.tres" id="10_lqm4p"]
 [ext_resource type="Resource" uid="uid://bjmuju8kjgv2l" path="res://resources/moves/vortex.tres" id="11_1l5jq"]
-[ext_resource type="Resource" uid="uid://8jcddcsnbyms" path="res://resources/moves/delusion.tres" id="12_uqw6k"]
+[ext_resource type="Resource" uid="uid://8jcddcsnbyms" path="res://resources/moves/whirlpool.tres" id="11_6s8og"]
 [ext_resource type="Resource" uid="uid://cph5yhcj8o7ug" path="res://resources/moves/illuminate.tres" id="13_xga3l"]
 [ext_resource type="Resource" uid="uid://u8et24i20sa7" path="res://resources/moves/giga_drain.tres" id="16_2b58r"]
 [ext_resource type="Resource" uid="uid://xb4xtygupfcq" path="res://resources/moves/echoed_voice.tres" id="17_8pfnk"]
@@ -22,4 +22,4 @@
 
 [resource]
 script = ExtResource("7_2u8do")
-moves = Array[ExtResource("1_ofag1")]([ExtResource("2_jqwdi"), ExtResource("5_p5lyi"), ExtResource("2_bdaju"), ExtResource("5_6riy4"), ExtResource("3_4xer7"), ExtResource("11_1l5jq"), ExtResource("9_xl5mf"), ExtResource("5_uk1h8"), ExtResource("13_xga3l"), ExtResource("12_uqw6k"), ExtResource("10_lqm4p"), ExtResource("4_ux0hn"), ExtResource("6_f500o"), ExtResource("16_2b58r"), ExtResource("17_8pfnk"), ExtResource("18_6s8og"), ExtResource("19_uqw6k")])
+moves = Array[ExtResource("1_ofag1")]([ExtResource("2_jqwdi"), ExtResource("5_p5lyi"), ExtResource("2_bdaju"), ExtResource("5_6riy4"), ExtResource("3_4xer7"), ExtResource("11_1l5jq"), ExtResource("9_xl5mf"), ExtResource("5_uk1h8"), ExtResource("13_xga3l"), ExtResource("11_6s8og"), ExtResource("10_lqm4p"), ExtResource("4_ux0hn"), ExtResource("6_f500o"), ExtResource("16_2b58r"), ExtResource("17_8pfnk"), ExtResource("18_6s8og"), ExtResource("19_uqw6k")])

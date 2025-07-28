@@ -10,7 +10,7 @@ enum Type { EARTH, WATER, FIRE, AIR, ETHER, LIGHT, COSMIC }
 #
 # CRIPPLE is deprecated. If we remove it, we'll need to update
 # every move resource, so I'm going to leave it in the enum for now.
-enum StatusEffect { NONE, CRIPPLE, DELUSION, BURN, POISON, PARALYZE, BLIND, CONSUME }
+enum StatusEffect { NONE, CRIPPLE, WHIRLPOOL, BURN, POISON, PARALYZE, BLIND, CONSUME }
 
 const TYPES = {Type.EARTH: 0, # Root Chakra/Muladhara
 			   Type.WATER: 1, # Sacral Chakra/Svadhisthana
@@ -45,7 +45,7 @@ static func status_effect_to_color(status_effect: StatusEffect) -> Color:
 	match status_effect:
 		MovesList.StatusEffect.BURN:
 			return Color(0.894, 0.231, 0.267, 1.0)
-		MovesList.StatusEffect.DELUSION:
+		MovesList.StatusEffect.WHIRLPOOL:
 			return Color(0.0, 0.6, 0.859, 1.0)
 		MovesList.StatusEffect.POISON:
 			return Color(0.388, 0.78, 0.302, 1.0)
@@ -63,8 +63,8 @@ static func type_abbreviation(effect) -> String:
 	match effect:
 		MovesList.StatusEffect.BURN:
 			return "BRN"
-		MovesList.StatusEffect.DELUSION:
-			return "DEL"
+		MovesList.StatusEffect.WHIRLPOOL:
+			return "WRL"
 		MovesList.StatusEffect.POISON:
 			return "PSN"
 		MovesList.StatusEffect.PARALYZE:
