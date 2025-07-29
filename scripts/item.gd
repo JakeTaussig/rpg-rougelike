@@ -43,13 +43,13 @@ func copy() -> Item:
 	return new_item
 
 
-func vacuum(selected_monster, battle):
+func consume(selected_monster, battle):
 	if qty <= 0:
-		push_error("cannot vacuum item %s with <= 0 qty" % name)
+		push_error("cannot consume item %s with <= 0 qty" % name)
 		return
 
 	if not _callback:
-		push_error("cannot vacuum item with invalid callback_name %s" % callback_name)
+		push_error("cannot consume item with invalid callback_name %s" % callback_name)
 		return
 
 	qty -= 1
