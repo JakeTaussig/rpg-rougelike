@@ -303,7 +303,7 @@ func _recover_from_burn():
 func _recover_from_whirlpool():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
-	return "%s recovered from whirlpool!" % character_name
+	return "%s escaped the whirlpool!" % character_name
 
 
 func _enact_poison_on_self():
