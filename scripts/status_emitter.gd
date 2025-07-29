@@ -31,11 +31,11 @@ func _render_status():
 			emitting = true
 			gravity = Vector2(0, -250)
 			texture = load("res://assets/sprites/status_effects/vacuum.png")
-		MovesList.StatusEffect.FREEZE:
+		MovesList.StatusEffect.EXPOSE:
 			emitting = true
 			gravity = Vector2(0, 250)
 			position.y -= 10
-			texture = load("res://assets/sprites/status_effects/freeze.png")
+			texture = load("res://assets/sprites/status_effects/expose.png")
 		MovesList.StatusEffect.BLIND:
 			emitting = true
 			gravity = Vector2(0, -250)

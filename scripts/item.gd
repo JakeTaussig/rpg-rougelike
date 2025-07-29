@@ -137,10 +137,10 @@ func _handle_poison_heal(selected_monster, battle):
 		return true  # return the item to the player
 
 
-func _handle_freeze_heal(selected_monster, battle):
-	if selected_monster.status_effect == MovesList.StatusEffect.FREEZE:
+func _handle_expose_heal(selected_monster, battle):
+	if selected_monster.status_effect == MovesList.StatusEffect.EXPOSE:
 		selected_monster.recover_from_status_effect()
-		battle.transition_state_to(battle.STATE_INFO, ["%s recovered from FREEZE" % selected_monster.character_name])
+		battle.transition_state_to(battle.STATE_INFO, ["%s recovered from EXPOSE" % selected_monster.character_name])
 	else:
 		return true  # return the item to the player
 

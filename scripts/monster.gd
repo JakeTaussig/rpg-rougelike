@@ -95,7 +95,7 @@ func randomize_moves() -> void:
 	var all_moves = GameManager.moves_list.moves.duplicate()
 
 	# Remove moves that signify status conditions
-	all_moves = all_moves.filter(func(m): return m.move_name != "Frozen" and m.move_name != "Whirlpool")
+	all_moves = all_moves.filter(func(m): return m.move_name != "Whirlpool")
 	all_moves.shuffle()
 	for move in all_moves.slice(0, 4):
 		moves.append(move.copy())
@@ -138,16 +138,10 @@ func use_move(move: Move, target: Monster) -> AttackResults:
 			var results = _attack(move, self, 1)
 			return AttackResults.new(move, max(1, results["damage"]), move_hit, status_applied, results["is_critical"])
 
-	elif status_effect == MovesList.StatusEffect.FREEZE:
-		# 33% chance for paralysis to activate
-		var freeze_activation_chance = 33
-		move_hit = _does_move_crit_or_status(freeze_activation_chance)
-		if move_hit:
-			move = GameManager.get_move_by_name("Frozen")
-			damage = 0
-			return AttackResults.new(move, damage, move_hit, status_applied, false)
-
-	move_hit = _does_move_hit(move.acc)
+	elif target.status_effect == MovesList.StatusEffect.EXPOSE:
+		move_hit = true
+	else:
+		move_hit = _does_move_hit(move.acc)
 
 	if move_hit:
 		if move.category == Move.MoveCategory.ATK:
@@ -243,7 +237,7 @@ func _check_status_immunity(effect: MovesList.StatusEffect, target_type: MovesLi
 		MovesList.StatusEffect.POISON:
 			if target_type == MovesList.Type.AIR:
 				return true
-		MovesList.StatusEffect.FREEZE:
+		MovesList.StatusEffect.EXPOSE:
 			if target_type == MovesList.Type.ETHER:
 				return true
 		MovesList.StatusEffect.BLIND:
@@ -269,8 +263,6 @@ func enact_status_effect() -> String:
 			return _enact_poison_on_self()
 		MovesList.StatusEffect.VACUUM:
 			return enact_vacuum_on_self()
-		MovesList.StatusEffect.FREEZE:
-			return enact_freeze_on_self()
 	return ""
 
 
@@ -282,8 +274,8 @@ func recover_from_status_effect() -> String:
 			return _recover_from_whirlpool()
 		MovesList.StatusEffect.POISON:
 			return _recover_from_poison()
-		MovesList.StatusEffect.FREEZE:
-			return _recover_from_freeze()
+		MovesList.StatusEffect.EXPOSE:
+			return _recover_from_expose()
 		MovesList.StatusEffect.VACUUM:
 			return _recover_from_vacuum()
 		MovesList.StatusEffect.BLIND:
@@ -325,19 +317,10 @@ func _recover_from_poison():
 	status_effect_turn_counter = 0
 	return "%s recovered from poison!" % character_name
 
-
-func enact_freeze_on_self():
-	if status_effect_turn_counter == 0:
-		speed = int(float(speed * 0.5))
-		return "%s's speed was lowered by 50" % character_name + "%!"
-	return ""
-
-
-func _recover_from_freeze():
+func _recover_from_expose():
 	status_effect = MovesList.StatusEffect.NONE
-	speed = speed * 2
 	status_effect_turn_counter = 0
-	return "%s recovered from freeze!" % character_name
+	return "%s recovered from expose!" % character_name
 
 
 func enact_vacuum_on_self():

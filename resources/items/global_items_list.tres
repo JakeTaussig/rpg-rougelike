@@ -11,7 +11,7 @@
 [ext_resource type="Resource" uid="uid://m7gbemufw3q7" path="res://resources/items/hp_restore.tres" id="8_46d8n"]
 [ext_resource type="Resource" uid="uid://6he71i75y00k" path="res://resources/items/lifeguard.tres" id="9_4vl0c"]
 [ext_resource type="Resource" uid="uid://dwj32hd4rav0f" path="res://resources/items/luck_up.tres" id="10_hqfag"]
-[ext_resource type="Resource" uid="uid://bfpdnsmia61p" path="res://resources/items/freeze_heal.tres" id="12_b6kp7"]
+[ext_resource type="Resource" uid="uid://bfpdnsmia61p" path="res://resources/items/expose_heal.tres" id="12_b6kp7"]
 [ext_resource type="Resource" uid="uid://clltqxyr18d0p" path="res://resources/items/pp_restore.tres" id="13_f0a3l"]
 [ext_resource type="Resource" uid="uid://dvakdk63gmwn8" path="res://resources/items/speed_up.tres" id="14_v84j7"]
 [ext_resource type="Resource" uid="uid://dcgms7220ujpi" path="res://resources/items/sp_atk_up.tres" id="15_wucfk"]

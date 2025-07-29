@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://chqjmobfs7rfm" path="res://resources/moves/toxic.tres" id="2_jqwdi"]
 [ext_resource type="Resource" uid="uid://bf2k5kr6nnyk4" path="res://resources/moves/flamethrower.tres" id="3_4xer7"]
 [ext_resource type="Resource" uid="uid://p1i1a004ul1q" path="res://resources/moves/bubblebeam.tres" id="4_ux0hn"]
-[ext_resource type="Resource" uid="uid://dds6yl1epd347" path="res://resources/moves/lightning.tres" id="5_6riy4"]
+[ext_resource type="Resource" uid="uid://dds6yl1epd347" path="res://resources/moves/expose.tres" id="5_6riy4"]
 [ext_resource type="Resource" uid="uid://i87han8eps6i" path="res://resources/moves/tsunami.tres" id="5_p5lyi"]
 [ext_resource type="Resource" uid="uid://cosleyhqcxnn3" path="res://resources/moves/heat_wave.tres" id="5_uk1h8"]
 [ext_resource type="Resource" uid="uid://cj401xdexfiwj" path="res://resources/moves/fire_punch.tres" id="6_f500o"]
