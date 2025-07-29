@@ -7,7 +7,7 @@
 script = ExtResource("1_lwh4x")
 move_name = "Vortex"
 category = 2
-type = 6
+type = 4
 base_power = 0
 status_effect = 7
 backdrop = ExtResource("1_rise3")

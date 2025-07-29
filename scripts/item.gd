@@ -43,13 +43,13 @@ func copy() -> Item:
 	return new_item
 
 
-func consume(selected_monster, battle):
+func vacuum(selected_monster, battle):
 	if qty <= 0:
-		push_error("cannot consume item %s with <= 0 qty" % name)
+		push_error("cannot vacuum item %s with <= 0 qty" % name)
 		return
 
 	if not _callback:
-		push_error("cannot consume item with invalid callback_name %s" % callback_name)
+		push_error("cannot vacuum item with invalid callback_name %s" % callback_name)
 		return
 
 	qty -= 1
@@ -145,8 +145,8 @@ func _handle_freeze_heal(selected_monster, battle):
 		return true  # return the item to the player
 
 
-func _handle_consume_heal(selected_monster, battle):
-	if selected_monster.status_effect == MovesList.StatusEffect.CONSUME:
+func _handle_vacuum_heal(selected_monster, battle):
+	if selected_monster.status_effect == MovesList.StatusEffect.VACUUM:
 		selected_monster.recover_from_status_effect()
 		battle.transition_state_to(battle.STATE_INFO, ["%s regained their energy" % selected_monster.character_name])
 	else:

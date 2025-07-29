@@ -73,4 +73,4 @@ func _display_qty_info(item_index: int) -> void:
 
 func _on_item_pressed(item_index: int) -> void:
 	var item = GameManager.player.items[item_index]
-	item.consume(GameManager.player.selected_monster, battle)
+	item.vacuum(GameManager.player.selected_monster, battle)

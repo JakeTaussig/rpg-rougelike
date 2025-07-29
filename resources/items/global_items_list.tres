@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dgesf7qieq0cw" path="res://scripts/item.gd" id="1_paoi4"]
 [ext_resource type="Resource" uid="uid://b0kdgn7tmkpuq" path="res://resources/items/aloe_vera.tres" id="2_eikr1"]
 [ext_resource type="Script" uid="uid://e6ahcotcs3r8" path="res://scripts/items_list.gd" id="2_snqoh"]
-[ext_resource type="Resource" uid="uid://dovo7fwg5mp4k" path="res://resources/items/antibiotics.tres" id="3_dk32x"]
+[ext_resource type="Resource" uid="uid://dovo7fwg5mp4k" path="res://resources/items/vacuum_heal.tres" id="3_dk32x"]
 [ext_resource type="Resource" uid="uid://sprm75sfi512" path="res://resources/items/antidote.tres" id="4_xmc1e"]
 [ext_resource type="Resource" uid="uid://ck74tcufdjt5u" path="res://resources/items/attack_up.tres" id="5_w7n5b"]
 [ext_resource type="Resource" uid="uid://duwn1iw66mrm0" path="res://resources/items/def_up.tres" id="6_vmqa5"]

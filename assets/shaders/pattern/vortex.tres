@@ -7,9 +7,9 @@
 shader = ExtResource("1_3nqwl")
 shader_parameter/input_texture = ExtResource("2_5pjks")
 shader_parameter/bottom_layer_white = Color(0.0941176, 0.0784314, 0.145098, 1)
-shader_parameter/bottom_layer_black = Color(0.407843, 0.219608, 0.423529, 1)
+shader_parameter/bottom_layer_black = Color(0.14902, 0.168627, 0.266667, 1)
 shader_parameter/top_layer_white = Color(0.0941176, 0.0784314, 0.145098, 1)
-shader_parameter/top_layer_black = Color(0.709804, 0.313726, 0.533333, 1)
+shader_parameter/top_layer_black = Color(0.227451, 0.266667, 0.4, 1)
 shader_parameter/top_white_enabled = false
 shader_parameter/top_black_enabled = true
 shader_parameter/top_layer_x_offset = 0.0

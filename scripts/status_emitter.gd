@@ -27,10 +27,10 @@ func _render_status():
 			emitting = true
 			gravity = Vector2(0, -250)
 			texture = load("res://assets/sprites/status_effects/burn.png")
-		MovesList.StatusEffect.CONSUME:
+		MovesList.StatusEffect.VACUUM:
 			emitting = true
 			gravity = Vector2(0, -250)
-			texture = load("res://assets/sprites/status_effects/consume.png")
+			texture = load("res://assets/sprites/status_effects/vacuum.png")
 		MovesList.StatusEffect.FREEZE:
 			emitting = true
 			gravity = Vector2(0, 250)

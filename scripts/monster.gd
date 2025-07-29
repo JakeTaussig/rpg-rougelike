@@ -53,7 +53,7 @@ var crit_checks: int = 1  # number of times we roll for a crit
 var is_alive = true
 @export var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
 var status_effect_turn_counter: int = 0
-var consume_benefactor: Monster = null
+var vacuum_benefactor: Monster = null
 
 
 var trinkets: Array[Trinket] = []
@@ -226,8 +226,8 @@ func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
 		var status_applied = _does_move_crit_or_status(move.status_effect_chance)
 		if status_applied:
 			target.status_effect = move.status_effect
-			if target.status_effect == MovesList.StatusEffect.CONSUME:
-				target.consume_benefactor = self
+			if target.status_effect == MovesList.StatusEffect.VACUUM:
+				target.vacuum_benefactor = self
 			return true
 	return false
 
@@ -249,7 +249,7 @@ func _check_status_immunity(effect: MovesList.StatusEffect, target_type: MovesLi
 		MovesList.StatusEffect.BLIND:
 			if target_type == MovesList.Type.LIGHT:
 				return true
-		MovesList.StatusEffect.CONSUME:
+		MovesList.StatusEffect.VACUUM:
 			if target_type == MovesList.Type.COSMIC:
 				return true
 	return false
@@ -267,8 +267,8 @@ func enact_status_effect() -> String:
 			return enact_burn_on_self()
 		MovesList.StatusEffect.POISON:
 			return _enact_poison_on_self()
-		MovesList.StatusEffect.CONSUME:
-			return enact_consume_on_self()
+		MovesList.StatusEffect.VACUUM:
+			return enact_vacuum_on_self()
 		MovesList.StatusEffect.FREEZE:
 			return enact_freeze_on_self()
 	return ""
@@ -284,8 +284,8 @@ func recover_from_status_effect() -> String:
 			return _recover_from_poison()
 		MovesList.StatusEffect.FREEZE:
 			return _recover_from_freeze()
-		MovesList.StatusEffect.CONSUME:
-			return _recover_from_consume()
+		MovesList.StatusEffect.VACUUM:
+			return _recover_from_vacuum()
 		MovesList.StatusEffect.BLIND:
 			return _recover_from_blind()
 	return ""
@@ -340,29 +340,29 @@ func _recover_from_freeze():
 	return "%s recovered from freeze!" % character_name
 
 
-func enact_consume_on_self():
-	if consume_benefactor.is_alive:
+func enact_vacuum_on_self():
+	if vacuum_benefactor.is_alive:
 		var hp_to_siphen = int(max_hp * 0.04)
-		# Can only consume as much HP is missing.
-		var max_hp_to_siphen = consume_benefactor.max_hp - consume_benefactor.hp
+		# Can only vacuum as much HP is missing.
+		var max_hp_to_siphen = vacuum_benefactor.max_hp - vacuum_benefactor.hp
 		if max_hp_to_siphen == 0:
-			return "%s cannot consume because they are at full HP!" % consume_benefactor.character_name
+			return "%s cannot vacuum because they are at full HP!" % vacuum_benefactor.character_name
 		elif max_hp_to_siphen < hp_to_siphen:
 			hp_to_siphen = max_hp_to_siphen
 		hp -= hp_to_siphen
-		consume_benefactor.hp += hp_to_siphen
-		return "%s consumed %s HP from %s!" % [consume_benefactor.character_name, str(hp_to_siphen), character_name]
+		vacuum_benefactor.hp += hp_to_siphen
+		return "%s vacuumd %s HP from %s!" % [vacuum_benefactor.character_name, str(hp_to_siphen), character_name]
 	else:
-		var message = "%s died and %s was freed from their consume!" % [consume_benefactor.character_name, character_name]
-		_recover_from_consume()
+		var message = "%s died and %s was freed from their vacuum!" % [vacuum_benefactor.character_name, character_name]
+		_recover_from_vacuum()
 		return message
 
 
-func _recover_from_consume():
+func _recover_from_vacuum():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
-	consume_benefactor = null
-	return "%s recovered from consume!" % character_name
+	vacuum_benefactor = null
+	return "%s recovered from vacuum!" % character_name
 
 
 func enact_blind_on_self():
