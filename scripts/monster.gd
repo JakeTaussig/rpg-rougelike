@@ -334,7 +334,7 @@ func enact_vacuum_on_self():
 			hp_to_siphen = max_hp_to_siphen
 		hp -= hp_to_siphen
 		vacuum_benefactor.hp += hp_to_siphen
-		return "%s vacuumd %s HP from %s!" % [vacuum_benefactor.character_name, str(hp_to_siphen), character_name]
+		return "%s vacuumed %s HP from %s!" % [vacuum_benefactor.character_name, str(hp_to_siphen), character_name]
 	else:
 		var message = "%s died and %s was freed from their vacuum!" % [vacuum_benefactor.character_name, character_name]
 		_recover_from_vacuum()
