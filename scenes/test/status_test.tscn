@@ -188,7 +188,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Burn" parent="." instance=ExtResource("1_s0e5s")]
 material = SubResource("ShaderMaterial_l5sbc")
-position = Vector2(169, 32)
+position = Vector2(161, 32)
 texture = ExtResource("3_5jr45")
 monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_l1xpq")])
 
@@ -214,7 +214,7 @@ text = "Expose"
 
 [node name="Blind" parent="." instance=ExtResource("1_s0e5s")]
 material = SubResource("ShaderMaterial_ae6ho")
-position = Vector2(96, 104)
+position = Vector2(160, 104)
 texture = ExtResource("3_5jr45")
 monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_xf6ff")])
 
@@ -227,7 +227,7 @@ text = "Blind"
 
 [node name="Vacuum" parent="." instance=ExtResource("1_s0e5s")]
 material = SubResource("ShaderMaterial_0oxkw")
-position = Vector2(168, 104)
+position = Vector2(96, 104)
 texture = ExtResource("3_5jr45")
 monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_v4b6j")])
 
