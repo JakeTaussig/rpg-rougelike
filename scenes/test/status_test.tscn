@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b46fph1n85foc" path="res://assets/sprites/characters/bulb.png" id="3_5jr45"]
 [ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="5_dnttg"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dnttg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wf34f"]
 resource_local_to_scene = true
 shader = ExtResource("2_wf34f")
 shader_parameter/color = Color(1, 0, 0.267, 1)
@@ -16,7 +16,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="Resource" id="Resource_wf34f"]
+[sub_resource type="Resource" id="Resource_5jr45"]
 script = ExtResource("2_u7eqf")
 character_name = "Bulb"
 texture = ExtResource("3_5jr45")
@@ -31,7 +31,7 @@ base_stat_total = 198
 status_effect = 4
 metadata/_custom_type_script = "uid://cyqywjpbta4p8"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5jr45"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8dx8d"]
 resource_local_to_scene = true
 shader = ExtResource("2_wf34f")
 shader_parameter/color = Color(1, 0, 0.267, 1)
@@ -41,7 +41,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="Resource" id="Resource_8dx8d"]
+[sub_resource type="Resource" id="Resource_l5sbc"]
 script = ExtResource("2_u7eqf")
 character_name = "Bulb"
 texture = ExtResource("3_5jr45")
@@ -56,7 +56,7 @@ base_stat_total = 198
 status_effect = 2
 metadata/_custom_type_script = "uid://cyqywjpbta4p8"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l5sbc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l1xpq"]
 resource_local_to_scene = true
 shader = ExtResource("2_wf34f")
 shader_parameter/color = Color(1, 0, 0.267, 1)
@@ -66,7 +66,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="Resource" id="Resource_l1xpq"]
+[sub_resource type="Resource" id="Resource_cx58c"]
 script = ExtResource("2_u7eqf")
 character_name = "Bulb"
 texture = ExtResource("3_5jr45")
@@ -81,7 +81,7 @@ base_stat_total = 198
 status_effect = 3
 metadata/_custom_type_script = "uid://cyqywjpbta4p8"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cx58c"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w140b"]
 resource_local_to_scene = true
 shader = ExtResource("2_wf34f")
 shader_parameter/color = Color(1, 0, 0.267, 1)
@@ -91,7 +91,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="Resource" id="Resource_w140b"]
+[sub_resource type="Resource" id="Resource_ae6ho"]
 script = ExtResource("2_u7eqf")
 character_name = "Bulb"
 texture = ExtResource("3_5jr45")
@@ -106,7 +106,7 @@ base_stat_total = 198
 status_effect = 5
 metadata/_custom_type_script = "uid://cyqywjpbta4p8"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ae6ho"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xf6ff"]
 resource_local_to_scene = true
 shader = ExtResource("2_wf34f")
 shader_parameter/color = Color(1, 0, 0.267, 1)
@@ -116,7 +116,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="Resource" id="Resource_xf6ff"]
+[sub_resource type="Resource" id="Resource_0oxkw"]
 script = ExtResource("2_u7eqf")
 character_name = "Bulb"
 texture = ExtResource("3_5jr45")
@@ -131,7 +131,7 @@ base_stat_total = 198
 status_effect = 6
 metadata/_custom_type_script = "uid://cyqywjpbta4p8"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0oxkw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v4b6j"]
 resource_local_to_scene = true
 shader = ExtResource("2_wf34f")
 shader_parameter/color = Color(1, 0, 0.267, 1)
@@ -141,7 +141,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="Resource" id="Resource_v4b6j"]
+[sub_resource type="Resource" id="Resource_tcdue"]
 script = ExtResource("2_u7eqf")
 character_name = "Bulb"
 texture = ExtResource("3_5jr45")
@@ -160,10 +160,10 @@ metadata/_custom_type_script = "uid://cyqywjpbta4p8"
 custom_minimum_size = Vector2(256, 143)
 
 [node name="Poison" parent="." instance=ExtResource("1_s0e5s")]
-material = SubResource("ShaderMaterial_dnttg")
+material = SubResource("ShaderMaterial_wf34f")
 position = Vector2(34, 32)
 texture = ExtResource("3_5jr45")
-monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_wf34f")])
+monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_5jr45")])
 
 [node name="Label" type="Label" parent="Poison"]
 offset_left = -24.0
@@ -173,10 +173,10 @@ offset_bottom = 33.0
 text = "Poison"
 
 [node name="Whirlpool" parent="." instance=ExtResource("1_s0e5s")]
-material = SubResource("ShaderMaterial_5jr45")
+material = SubResource("ShaderMaterial_8dx8d")
 position = Vector2(96, 32)
 texture = ExtResource("3_5jr45")
-monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_8dx8d")])
+monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_l5sbc")])
 
 [node name="Label" type="Label" parent="Whirlpool"]
 offset_left = -24.0
@@ -187,10 +187,10 @@ text = "Whirlpool"
 metadata/_edit_use_anchors_ = true
 
 [node name="Burn" parent="." instance=ExtResource("1_s0e5s")]
-material = SubResource("ShaderMaterial_l5sbc")
+material = SubResource("ShaderMaterial_l1xpq")
 position = Vector2(161, 32)
 texture = ExtResource("3_5jr45")
-monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_l1xpq")])
+monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_cx58c")])
 
 [node name="Label" type="Label" parent="Burn"]
 offset_left = -24.0
@@ -200,10 +200,10 @@ offset_bottom = 33.0
 text = "Burn"
 
 [node name="Expose" parent="." instance=ExtResource("1_s0e5s")]
-material = SubResource("ShaderMaterial_cx58c")
+material = SubResource("ShaderMaterial_w140b")
 position = Vector2(32, 104)
 texture = ExtResource("3_5jr45")
-monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_w140b")])
+monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_ae6ho")])
 
 [node name="Label" type="Label" parent="Expose"]
 offset_left = -24.0
@@ -213,10 +213,10 @@ offset_bottom = 33.0
 text = "Expose"
 
 [node name="Blind" parent="." instance=ExtResource("1_s0e5s")]
-material = SubResource("ShaderMaterial_ae6ho")
+material = SubResource("ShaderMaterial_xf6ff")
 position = Vector2(160, 104)
 texture = ExtResource("3_5jr45")
-monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_xf6ff")])
+monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_0oxkw")])
 
 [node name="Label" type="Label" parent="Blind"]
 offset_left = -24.0
@@ -226,10 +226,10 @@ offset_bottom = 33.0
 text = "Blind"
 
 [node name="Vacuum" parent="." instance=ExtResource("1_s0e5s")]
-material = SubResource("ShaderMaterial_0oxkw")
+material = SubResource("ShaderMaterial_v4b6j")
 position = Vector2(96, 104)
 texture = ExtResource("3_5jr45")
-monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_v4b6j")])
+monsters = Array[ExtResource("2_u7eqf")]([SubResource("Resource_tcdue")])
 
 [node name="Label" type="Label" parent="Vacuum"]
 offset_left = -24.0

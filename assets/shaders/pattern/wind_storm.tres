@@ -1,15 +1,15 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cuqm6xqmhk4kl"]
 
-[ext_resource type="Shader" uid="uid://yohroafjih6a" path="res://assets/shaders/pattern.gdshader" id="1_sjlax"]
-[ext_resource type="Texture2D" uid="uid://cfxwq3v03npci" path="res://assets/sprites/tiles/bw_tile_plasma_small.png" id="2_16qwd"]
+[ext_resource type="Shader" uid="uid://yohroafjih6a" path="res://assets/shaders/pattern.gdshader" id="1_l63n4"]
+[ext_resource type="Texture2D" uid="uid://cfxwq3v03npci" path="res://assets/sprites/tiles/bw_tile_plasma_small.png" id="2_f7k2v"]
 
 [resource]
-shader = ExtResource("1_sjlax")
-shader_parameter/input_texture = ExtResource("2_16qwd")
-shader_parameter/bottom_layer_white = Color(0.352941, 0.411765, 0.533333, 1)
-shader_parameter/bottom_layer_black = Color(0.14902, 0.168627, 0.266667, 1)
-shader_parameter/top_layer_white = Color(0.14902, 0.168627, 0.266667, 1)
-shader_parameter/top_layer_black = Color(0.14902, 0.168627, 0.266667, 1)
+shader = ExtResource("1_l63n4")
+shader_parameter/input_texture = ExtResource("2_f7k2v")
+shader_parameter/bottom_layer_white = Color(0.752941, 0.796078, 0.862745, 1)
+shader_parameter/bottom_layer_black = Color(0.545098, 0.607843, 0.705882, 1)
+shader_parameter/top_layer_white = Color(0.545098, 0.607843, 0.705882, 1)
+shader_parameter/top_layer_black = Color(0.545098, 0.607843, 0.705882, 1)
 shader_parameter/top_white_enabled = false
 shader_parameter/top_black_enabled = true
 shader_parameter/top_layer_x_offset = 4.0

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Move" load_steps=3 format=3 uid="uid://en3lvxoqdpbg"]
+
+[ext_resource type="Material" uid="uid://cuqm6xqmhk4kl" path="res://assets/shaders/pattern/wind_storm.tres" id="1_70e51"]
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="2_8m7wi"]
+
+[resource]
+script = ExtResource("2_8m7wi")
+move_name = "Wind Storm"
+category = 1
+type = 3
+base_power = 75
+status_effect = 5
+status_effect_chance = 10
+backdrop = ExtResource("1_70e51")
+metadata/_custom_type_script = "uid://dj7o2vdrnopw3"
