@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1")
 name = "Lifeguard"
-description = "Save plyr. from DELUSION"
-callback_name = "_handle_delusion_heal"
+description = "Save plyr. from WHIRLPOOL"
+callback_name = "_handle_whirlpool_heal"

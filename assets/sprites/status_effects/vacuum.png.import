@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dehnndxbvdtcy"
-path="res://.godot/imported/paralyze.png-a8b9e576efd8e11f93e7f3fb898f4c73.ctex"
+uid="uid://c71nvncjnd3mh"
+path="res://.godot/imported/vacuum.png-98616cde9deb178427be7082337ad785.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/status_effects/paralyze.png"
-dest_files=["res://.godot/imported/paralyze.png-a8b9e576efd8e11f93e7f3fb898f4c73.ctex"]
+source_file="res://assets/sprites/status_effects/vacuum.png"
+dest_files=["res://.godot/imported/vacuum.png-98616cde9deb178427be7082337ad785.ctex"]
 
 [params]
 

@@ -1,15 +1,14 @@
 [gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://dds6yl1epd347"]
 
-[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_gmna2"]
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_lh6uy"]
 
 [resource]
-script = ExtResource("1_gmna2")
-move_name = "Lightning"
+script = ExtResource("1_lh6uy")
+move_name = "Expose"
 category = 1
-type = 4
-base_power = 75
+type = 3
+base_power = 0
 pp = 13
 max_pp = 13
 status_effect = 5
-status_effect_chance = 10
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

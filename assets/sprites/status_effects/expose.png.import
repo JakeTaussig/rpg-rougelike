@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dp4j46su0lv1p"
-path="res://.godot/imported/cripple.png-f07688cf332b03ec0d920d6d6f261220.ctex"
+uid="uid://dehnndxbvdtcy"
+path="res://.godot/imported/expose.png-e1caf9b3448af8afc770231f2420b969.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/status_effects/cripple.png"
-dest_files=["res://.godot/imported/cripple.png-f07688cf332b03ec0d920d6d6f261220.ctex"]
+source_file="res://assets/sprites/status_effects/expose.png"
+dest_files=["res://.godot/imported/expose.png-e1caf9b3448af8afc770231f2420b969.ctex"]
 
 [params]
 

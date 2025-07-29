@@ -14,7 +14,7 @@ func _render_status():
 	var shader_material: ShaderMaterial = material
 	position = Vector2(0, 0)
 	match status_effect:
-		MovesList.StatusEffect.DELUSION:
+		MovesList.StatusEffect.WHIRLPOOL:
 			emitting = true
 			gravity = Vector2(0, 250)
 			position.y -= 8
@@ -23,23 +23,19 @@ func _render_status():
 			emitting = true
 			gravity = Vector2(0, -250)
 			texture = load("res://assets/sprites/status_effects/poison.png")
-		MovesList.StatusEffect.CRIPPLE:
-			emitting = true
-			gravity = Vector2(0, 250)
-			position.y -= 8
-			texture = load("res://assets/sprites/status_effects/cripple.png")
 		MovesList.StatusEffect.BURN:
 			emitting = true
 			gravity = Vector2(0, -250)
 			texture = load("res://assets/sprites/status_effects/burn.png")
-		MovesList.StatusEffect.CONSUME:
+		MovesList.StatusEffect.VACUUM:
 			emitting = true
 			gravity = Vector2(0, -250)
-			texture = load("res://assets/sprites/status_effects/consume.png")
-		MovesList.StatusEffect.PARALYZE:
+			texture = load("res://assets/sprites/status_effects/vacuum.png")
+		MovesList.StatusEffect.EXPOSE:
 			emitting = true
-			gravity = Vector2(0, -250)
-			texture = load("res://assets/sprites/status_effects/paralyze.png")
+			gravity = Vector2(0, 250)
+			position.y -= 10
+			texture = load("res://assets/sprites/status_effects/expose.png")
 		MovesList.StatusEffect.BLIND:
 			emitting = true
 			gravity = Vector2(0, -250)

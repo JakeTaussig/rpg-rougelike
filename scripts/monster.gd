@@ -53,7 +53,7 @@ var crit_checks: int = 1  # number of times we roll for a crit
 var is_alive = true
 var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
 var status_effect_turn_counter: int = 0
-var consume_benefactor: Monster = null
+var vacuum_benefactor: Monster = null
 
 
 var trinkets: Array[Trinket] = []
@@ -95,7 +95,7 @@ func randomize_moves() -> void:
 	var all_moves = GameManager.moves_list.moves.duplicate()
 
 	# Remove moves that signify status conditions
-	all_moves = all_moves.filter(func(m): return m.move_name != "Paralyzed" and m.move_name != "Delusion")
+	all_moves = all_moves.filter(func(m): return m.move_name != "Whirlpool")
 	all_moves.shuffle()
 	for move in all_moves.slice(0, 4):
 		moves.append(move.copy())
@@ -128,26 +128,20 @@ func use_move(move: Move, target: Monster) -> AttackResults:
 	var status_applied: bool = 0
 	var damage = 0
 	var is_critical := false
-	if status_effect == MovesList.StatusEffect.DELUSION:
-		# Delusion has a 50% chance to damage the affected character each turn
-		var delusion_activation_chance = 50
-		move_hit = _does_move_crit_or_status(delusion_activation_chance)
+	if status_effect == MovesList.StatusEffect.WHIRLPOOL:
+		# Whirlpool has a 50% chance to damage the affected character each turn
+		var whirlpool_activation_chance = 50
+		move_hit = _does_move_crit_or_status(whirlpool_activation_chance)
 		if move_hit:
-			move = GameManager.get_move_by_name("Delusion")
+			move = GameManager.get_move_by_name("Whirlpool")
 			@warning_ignore("confusable_local_declaration")
 			var results = _attack(move, self, 1)
 			return AttackResults.new(move, max(1, results["damage"]), move_hit, status_applied, results["is_critical"])
 
-	elif status_effect == MovesList.StatusEffect.PARALYZE:
-		# 33% chance for paralysis to activate
-		var paralyze_activation_chance = 33
-		move_hit = _does_move_crit_or_status(paralyze_activation_chance)
-		if move_hit:
-			move = GameManager.get_move_by_name("Paralyzed")
-			damage = 0
-			return AttackResults.new(move, damage, move_hit, status_applied, false)
-
-	move_hit = _does_move_hit(move.acc)
+	elif target.status_effect == MovesList.StatusEffect.EXPOSE:
+		move_hit = true
+	else:
+		move_hit = _does_move_hit(move.acc)
 
 	if move_hit:
 		if move.category == Move.MoveCategory.ATK:
@@ -226,8 +220,8 @@ func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
 		var status_applied = _does_move_crit_or_status(move.status_effect_chance)
 		if status_applied:
 			target.status_effect = move.status_effect
-			if target.status_effect == MovesList.StatusEffect.CONSUME:
-				target.consume_benefactor = self
+			if target.status_effect == MovesList.StatusEffect.VACUUM:
+				target.vacuum_benefactor = self
 			return true
 	return false
 
@@ -237,19 +231,19 @@ func _check_status_immunity(effect: MovesList.StatusEffect, target_type: MovesLi
 		MovesList.StatusEffect.BURN:
 			if target_type == MovesList.Type.FIRE:
 				return true
-		MovesList.StatusEffect.DELUSION:
+		MovesList.StatusEffect.WHIRLPOOL:
 			if target_type == MovesList.Type.WATER:
 				return true
 		MovesList.StatusEffect.POISON:
 			if target_type == MovesList.Type.AIR:
 				return true
-		MovesList.StatusEffect.PARALYZE:
+		MovesList.StatusEffect.EXPOSE:
 			if target_type == MovesList.Type.ETHER:
 				return true
 		MovesList.StatusEffect.BLIND:
 			if target_type == MovesList.Type.LIGHT:
 				return true
-		MovesList.StatusEffect.CONSUME:
+		MovesList.StatusEffect.VACUUM:
 			if target_type == MovesList.Type.COSMIC:
 				return true
 	return false
@@ -263,61 +257,30 @@ func get_stab(move: Move) -> float:
 
 func enact_status_effect() -> String:
 	match status_effect:
-		MovesList.StatusEffect.CRIPPLE:
-			return enact_cripple_on_self()
 		MovesList.StatusEffect.BURN:
 			return enact_burn_on_self()
 		MovesList.StatusEffect.POISON:
 			return _enact_poison_on_self()
-		MovesList.StatusEffect.CONSUME:
-			return enact_consume_on_self()
-		MovesList.StatusEffect.PARALYZE:
-			return enact_paralyze_on_self()
+		MovesList.StatusEffect.VACUUM:
+			return enact_vacuum_on_self()
 	return ""
 
 
 func recover_from_status_effect() -> String:
 	match status_effect:
-		MovesList.StatusEffect.CRIPPLE:
-			return _recover_from_cripple()
 		MovesList.StatusEffect.BURN:
 			return _recover_from_burn()
-		MovesList.StatusEffect.DELUSION:
-			return _recover_from_delusion()
+		MovesList.StatusEffect.WHIRLPOOL:
+			return _recover_from_whirlpool()
 		MovesList.StatusEffect.POISON:
 			return _recover_from_poison()
-		MovesList.StatusEffect.PARALYZE:
-			return _recover_from_paralyze()
-		MovesList.StatusEffect.CONSUME:
-			return _recover_from_consume()
+		MovesList.StatusEffect.EXPOSE:
+			return _recover_from_expose()
+		MovesList.StatusEffect.VACUUM:
+			return _recover_from_vacuum()
 		MovesList.StatusEffect.BLIND:
 			return _recover_from_blind()
 	return ""
-
-
-# Only called on first turn of cripple
-func enact_cripple_on_self():
-	if status_effect_turn_counter == 0:
-		atk = int(float(atk) * 0.8)
-		sp_atk = int(float(sp_atk) * 0.8)
-		def = int(float(def) * 0.8)
-		sp_def = int(float(sp_def) * 0.8)
-		speed = int(float(speed) * 0.8)
-		luck = int(float(luck) * 0.8)
-		return "All of %s's stats were lowered by 20" % character_name + "%!"
-	return ""
-
-
-func _recover_from_cripple():
-	status_effect = MovesList.StatusEffect.NONE
-	status_effect_turn_counter = 0
-	atk = int(float(atk) * 1.25)
-	sp_atk = int(float(sp_atk) * 1.25)
-	def = int(float(def) * 1.25)
-	sp_def = int(float(sp_def) * 1.25)
-	speed = int(float(speed) * 1.25)
-	luck = int(float(luck) * 1.25)
-	return "%s recovered from cripple and their stats were restored!" % character_name
 
 
 func enact_burn_on_self():
@@ -337,10 +300,10 @@ func _recover_from_burn():
 	return "%s recovered from burn!" % character_name
 
 
-func _recover_from_delusion():
+func _recover_from_whirlpool():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
-	return "%s recovered from delusion!" % character_name
+	return "%s escaped the whirlpool!" % character_name
 
 
 func _enact_poison_on_self():
@@ -354,44 +317,35 @@ func _recover_from_poison():
 	status_effect_turn_counter = 0
 	return "%s recovered from poison!" % character_name
 
-
-func enact_paralyze_on_self():
-	if status_effect_turn_counter == 0:
-		speed = int(float(speed * 0.5))
-		return "%s's speed was lowered by 50" % character_name + "%!"
-	return ""
-
-
-func _recover_from_paralyze():
+func _recover_from_expose():
 	status_effect = MovesList.StatusEffect.NONE
-	speed = speed * 2
 	status_effect_turn_counter = 0
-	return "%s recovered from paralyze!" % character_name
+	return "%s recovered from expose!" % character_name
 
 
-func enact_consume_on_self():
-	if consume_benefactor.is_alive:
+func enact_vacuum_on_self():
+	if vacuum_benefactor.is_alive:
 		var hp_to_siphen = int(max_hp * 0.04)
-		# Can only consume as much HP is missing.
-		var max_hp_to_siphen = consume_benefactor.max_hp - consume_benefactor.hp
+		# Can only vacuum as much HP is missing.
+		var max_hp_to_siphen = vacuum_benefactor.max_hp - vacuum_benefactor.hp
 		if max_hp_to_siphen == 0:
-			return "%s cannot consume because they are at full HP!" % consume_benefactor.character_name
+			return "%s cannot vacuum because they are at full HP!" % vacuum_benefactor.character_name
 		elif max_hp_to_siphen < hp_to_siphen:
 			hp_to_siphen = max_hp_to_siphen
 		hp -= hp_to_siphen
-		consume_benefactor.hp += hp_to_siphen
-		return "%s consumed %s HP from %s!" % [consume_benefactor.character_name, str(hp_to_siphen), character_name]
+		vacuum_benefactor.hp += hp_to_siphen
+		return "%s vacuumed %s HP from %s!" % [vacuum_benefactor.character_name, str(hp_to_siphen), character_name]
 	else:
-		var message = "%s died and %s was freed from their consume!" % [consume_benefactor.character_name, character_name]
-		_recover_from_consume()
+		var message = "%s died and %s was freed from their vacuum!" % [vacuum_benefactor.character_name, character_name]
+		_recover_from_vacuum()
 		return message
 
 
-func _recover_from_consume():
+func _recover_from_vacuum():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
-	consume_benefactor = null
-	return "%s recovered from consume!" % character_name
+	vacuum_benefactor = null
+	return "%s recovered from vacuum!" % character_name
 
 
 func enact_blind_on_self():

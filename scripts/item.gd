@@ -121,18 +121,10 @@ func _handle_burn_heal(selected_monster, battle):
 		return true  # return the item to the player
 
 
-func _handle_cripple_heal(selected_monster, battle):
-	if selected_monster.status_effect == MovesList.StatusEffect.CRIPPLE:
+func _handle_whirlpool_heal(selected_monster, battle):
+	if selected_monster.status_effect == MovesList.StatusEffect.WHIRLPOOL:
 		selected_monster.recover_from_status_effect()
-		battle.transition_state_to(battle.STATE_INFO, ["%s recovered from CRIPPLE" % selected_monster.character_name])
-	else:
-		return true  # return the item to the player
-
-
-func _handle_delusion_heal(selected_monster, battle):
-	if selected_monster.status_effect == MovesList.StatusEffect.DELUSION:
-		selected_monster.recover_from_status_effect()
-		battle.transition_state_to(battle.STATE_INFO, ["%s escaped the DELUSION" % selected_monster.character_name])
+		battle.transition_state_to(battle.STATE_INFO, ["%s escaped the WHIRLPOOL" % selected_monster.character_name])
 	else:
 		return true  # return the item to the player
 
@@ -145,16 +137,16 @@ func _handle_poison_heal(selected_monster, battle):
 		return true  # return the item to the player
 
 
-func _handle_paralyze_heal(selected_monster, battle):
-	if selected_monster.status_effect == MovesList.StatusEffect.PARALYZE:
+func _handle_expose_heal(selected_monster, battle):
+	if selected_monster.status_effect == MovesList.StatusEffect.EXPOSE:
 		selected_monster.recover_from_status_effect()
-		battle.transition_state_to(battle.STATE_INFO, ["%s recovered from PARALYZE" % selected_monster.character_name])
+		battle.transition_state_to(battle.STATE_INFO, ["%s recovered from EXPOSE" % selected_monster.character_name])
 	else:
 		return true  # return the item to the player
 
 
-func _handle_consume_heal(selected_monster, battle):
-	if selected_monster.status_effect == MovesList.StatusEffect.CONSUME:
+func _handle_vacuum_heal(selected_monster, battle):
+	if selected_monster.status_effect == MovesList.StatusEffect.VACUUM:
 		selected_monster.recover_from_status_effect()
 		battle.transition_state_to(battle.STATE_INFO, ["%s regained their energy" % selected_monster.character_name])
 	else:
