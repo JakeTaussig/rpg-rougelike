@@ -51,7 +51,7 @@ var crit_checks: int = 1  # number of times we roll for a crit
 @export var moves: Array[Move] = []
 
 var is_alive = true
-@export var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
+var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
 var status_effect_turn_counter: int = 0
 var vacuum_benefactor: Monster = null
 
