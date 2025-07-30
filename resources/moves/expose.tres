@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_lh6uy")
 move_name = "Expose"
-category = 1
+category = 2
 type = 3
 base_power = 0
 pp = 13
