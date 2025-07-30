@@ -174,24 +174,19 @@ func _create_new_enemy() -> BattleParticipant:
 func level_up_player_and_enemies():
 	# Only the enemy stat multiplier increases, because the player stays the same, while the enemies are generated every time.
 	enemy_level += 1
-	# Level up the backup so that trinkets don't effect the stats, then re-apply the trinkets
+	var old_max_hp = player.selected_monster_backup.max_hp
+	# Level up the backup so that trinkets don't effect the stats, then re-apply the trinket
 	player.selected_monster_backup.level_up(player_stat_multiplier)
+	# The HP gets reset to what the monster's hp was at the end of battle, plus the level up bonus
+	var monster_hp = player.selected_monster.hp + (player.selected_monster_backup.max_hp - old_max_hp)
 	apply_trinkets()
+	player.selected_monster.hp = monster_hp
 
 
 func apply_trinkets():
-	var old_hp = player.selected_monster.hp
 	var old_trinkets = player.selected_monster.trinkets
 
-	var hp_bonus = 0
-	for trinket in old_trinkets:
-		if trinket.trinket_name == "HP Up":
-			hp_bonus += 100
-
 	player.selected_monster = player.selected_monster_backup.duplicate(true)
-
-	var max_possible_hp = min(old_hp - hp_bonus, player.selected_monster.max_hp)
-	player.selected_monster.hp = max_possible_hp
 
 	player.selected_monster.trinkets = old_trinkets
 	for trinket in player.selected_monster.trinkets:
