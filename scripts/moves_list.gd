@@ -17,8 +17,8 @@ const TYPES = {Type.EARTH: 0, # Root Chakra/Muladhara
 			   Type.FIRE: 2, # Solar Plexus/Manipura
 			   Type.AIR: 3, # Heart Charka/Anahata
 			   Type.ETHER: 4, # Throat Charka/Vishuddha
-			   Type.LIGHT: 5, # Third Eye/Ajna 
-			   Type.COSMIC: 6} # Crown Chakra/Sahasrara          
+			   Type.LIGHT: 5, # Third Eye/Ajna
+			   Type.COSMIC: 6} # Crown Chakra/Sahasrara
 
 
 static func type_to_color(type: Type) -> Color:
@@ -55,6 +55,8 @@ static func status_effect_to_color(status_effect: StatusEffect) -> Color:
 			return Color(0.227, 0.267, 0.4, 1.0)
 		MovesList.StatusEffect.BLIND:
 			return Color(0.918, 0.831, 0.667, 1.0)
+		MovesList.StatusEffect.UNVEIL:
+			return Color(0.71, 0.314, 0.533, 1.0)
 
 	return Color(1.0, 1.0, 1.0, 0.0)
 
@@ -73,5 +75,7 @@ static func type_abbreviation(effect) -> String:
 			return "BLD"
 		MovesList.StatusEffect.VACUUM:
 			return "VAC"
+		MovesList.StatusEffect.UNVEIL:
+			return "VEL"
 	printerr("Failed to match type abbreviation")
 	return ""
