@@ -1,6 +1,7 @@
 extends BaseState
 
 var statuses_enacted = false
+var first_status_enacted = false
 var dead_monster = false
 
 
@@ -17,14 +18,22 @@ func enter(_messages: Array = []):
 		return
 
 	# enact statuses before updating the turn order
+	var player = GameManager.player
+	var enemy = GameManager.enemy
 	if battle.turn_order_index == battle.active_monsters.size() - 1 and not statuses_enacted:
-		statuses_enacted = true
-		battle.transition_state_to(battle.STATE_ENACT_STATUSES)
-		return
+		if player.selected_monster.status_effect != MovesList.StatusEffect.NONE and enemy.selected_monster.status_effect != MovesList.StatusEffect.NONE and !first_status_enacted:
+			first_status_enacted = true
+			battle.transition_state_to(battle.STATE_ENACT_STATUSES)
+			return
+		else:
+			statuses_enacted = true
+			battle.transition_state_to(battle.STATE_ENACT_STATUSES, [first_status_enacted])
+			return
 
 	battle.turn_order_index = (battle.turn_order_index + 1) % battle.active_monsters.size()
 	if battle.turn_order_index == 0 || dead_monster:
 		statuses_enacted = false
+		first_status_enacted = false
 		battle.turn += 1
 		if dead_monster:
 			battle.turn_order_index = 0
