@@ -9,6 +9,6 @@ move_name = "Illuminate"
 category = 2
 type = 5
 base_power = 0
-status_effect = 6
+status_effect = 5
 backdrop = ExtResource("1_88j8h")
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

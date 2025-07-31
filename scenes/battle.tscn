@@ -34,7 +34,7 @@ z_index = 1
 unique_name_in_owner = true
 visible = false
 z_index = 1
-offset_top = 95.0
+offset_top = 111.0
 offset_right = 162.0
 offset_bottom = 143.0
 mouse_filter = 1
@@ -53,7 +53,7 @@ anchors_preset = 0
 [node name="Panel" type="Panel" parent="BottomBar/Action"]
 layout_mode = 0
 offset_left = 161.0
-offset_top = 95.0
+offset_top = 111.0
 offset_right = 256.0
 offset_bottom = 144.0
 theme = ExtResource("2_p1qf1")
@@ -64,9 +64,9 @@ unique_name_in_owner = true
 z_index = 2
 layout_mode = 0
 offset_left = 162.0
-offset_top = 96.0
+offset_top = 112.0
 offset_right = 255.0
-offset_bottom = 144.0
+offset_bottom = 143.0
 theme = ExtResource("2_p1qf1")
 
 [node name="Attack" type="Button" parent="BottomBar/Action/ActionButtons"]
@@ -81,7 +81,7 @@ alignment = 0
 [node name="BattleStatus" type="Label" parent="BottomBar"]
 unique_name_in_owner = true
 visible = false
-offset_top = 95.0
+offset_top = 111.0
 offset_right = 256.0
 offset_bottom = 143.0
 mouse_filter = 1
@@ -94,7 +94,7 @@ unique_name_in_owner = true
 z_index = -1
 layout_mode = 0
 offset_right = 255.0
-offset_bottom = 48.0
+offset_bottom = 32.0
 theme = ExtResource("2_p1qf1")
 text = "Continue"
 
@@ -107,9 +107,9 @@ anchors_preset = 0
 [node name="BackButton" type="Button" parent="BottomBar/Moves"]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 0
-offset_top = 80.0
+offset_top = 95.0
 offset_right = 32.0
-offset_bottom = 96.0
+offset_bottom = 112.0
 focus_neighbor_bottom = NodePath("../MovesMenu/Move1")
 theme = ExtResource("2_p1qf1")
 theme_type_variation = &"BorderButton"
@@ -118,7 +118,7 @@ script = ExtResource("4_saiin")
 
 [node name="Panel" type="Panel" parent="BottomBar/Moves"]
 layout_mode = 0
-offset_top = 95.0
+offset_top = 111.0
 offset_right = 162.0
 offset_bottom = 144.0
 theme = ExtResource("2_p1qf1")
@@ -128,7 +128,7 @@ theme_type_variation = &"FullBorderPanel"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1.0
-offset_top = 96.0
+offset_top = 112.0
 offset_right = 162.0
 offset_bottom = 144.0
 theme = ExtResource("2_p1qf1")
@@ -143,7 +143,7 @@ text = "   Move 1"
 alignment = 0
 
 [node name="Move2" type="Button" parent="BottomBar/Moves/MovesMenu"]
-custom_minimum_size = Vector2(77, 23)
+custom_minimum_size = Vector2(77, 15)
 layout_mode = 2
 theme = ExtResource("2_p1qf1")
 text = "   Move 2"
@@ -155,7 +155,7 @@ text = "   Move 3"
 alignment = 0
 
 [node name="Move4" type="Button" parent="BottomBar/Moves/MovesMenu"]
-custom_minimum_size = Vector2(80, 23)
+custom_minimum_size = Vector2(80, 15)
 layout_mode = 2
 text = "   Move 4
 "
@@ -165,7 +165,7 @@ alignment = 0
 custom_minimum_size = Vector2(0, 23)
 layout_mode = 0
 offset_left = 161.0
-offset_top = 95.0
+offset_top = 111.0
 offset_right = 256.0
 offset_bottom = 143.0
 theme = ExtResource("2_p1qf1")
@@ -173,8 +173,9 @@ theme = ExtResource("2_p1qf1")
 [node name="PPInfo" type="Label" parent="BottomBar/Moves/MoveInfo"]
 unique_name_in_owner = true
 layout_mode = 0
+offset_top = 1.0
 offset_right = 95.0
-offset_bottom = 24.0
+offset_bottom = 16.0
 theme = ExtResource("2_p1qf1")
 theme_type_variation = &"NoBorderLabel"
 text = "PP: 0/15"
@@ -184,9 +185,9 @@ vertical_alignment = 1
 [node name="TypeInfo" type="Label" parent="BottomBar/Moves/MoveInfo"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_top = 23.0
+offset_top = 17.0
 offset_right = 95.0
-offset_bottom = 47.0
+offset_bottom = 32.0
 theme = ExtResource("2_p1qf1")
 theme_type_variation = &"NoBorderLabel"
 text = "TYPE: HUMAN"
@@ -199,9 +200,9 @@ position = Vector2(-1, 0)
 [node name="PlayerHealthPanel" parent="HealthPanels" instance=ExtResource("5_ekamt")]
 unique_name_in_owner = true
 offset_left = 145.0
-offset_top = 55.0
+offset_top = 71.0
 offset_right = 145.0
-offset_bottom = 55.0
+offset_bottom = 71.0
 
 [node name="EnemyHealthPanel" parent="HealthPanels" instance=ExtResource("5_ekamt")]
 unique_name_in_owner = true
