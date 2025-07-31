@@ -9,6 +9,6 @@ move_name = "Vortex"
 category = 2
 type = 4
 base_power = 0
-status_effect = 7
+status_effect = 6
 backdrop = ExtResource("1_rise3")
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

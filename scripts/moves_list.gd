@@ -10,7 +10,7 @@ enum Type { EARTH, WATER, FIRE, AIR, ETHER, LIGHT, COSMIC }
 #
 # CRIPPLE is deprecated. If we remove it, we'll need to update
 # every move resource, so I'm going to leave it in the enum for now.
-enum StatusEffect { NONE, CRIPPLE, WHIRLPOOL, BURN, POISON, EXPOSE, BLIND, VACUUM }
+enum StatusEffect { NONE, POISON, WHIRLPOOL, BURN, EXPOSE, BLIND, VACUUM, UNVEIL }
 
 const TYPES = {Type.EARTH: 0, # Root Chakra/Muladhara
 			   Type.WATER: 1, # Sacral Chakra/Svadhisthana
