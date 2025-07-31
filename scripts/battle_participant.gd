@@ -41,12 +41,6 @@ func render_battler():
 	flip_h = is_player
 	$StatusEmitter.status_effect = selected_monster.status_effect
 
-
-# Called when the node enters the scene tree for the first time.
-func _enter_tree() -> void:
-	if not Engine.is_editor_hint():
-		call_deferred("_init_items")
-
 func is_defeated() -> bool:
 	if is_player:
 		if selected_monster.hp > 0:
