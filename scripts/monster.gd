@@ -203,7 +203,7 @@ func _attack(move: Move, target: Monster, is_physical: bool) -> AttackResults:
 	if is_critical:
 		damage *= crit_factor
 
-	var int_damage = int(damage)
+	var int_damage = min(int(damage), target.hp)
 	target.hp -= int_damage
 
 	return AttackResults.new(move, int_damage, true, false, is_critical)

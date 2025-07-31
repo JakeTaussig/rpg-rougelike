@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://c7hkhpi8nlibx"]
+
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_pxh3j"]
+
+[resource]
+script = ExtResource("1_pxh3j")
+move_name = "Karmic Flame"
+category = 1
+type = 2
+base_power = 100
+acc = 95
+pp = 5
+max_pp = 5
+status_effect_chance = 50
+metadata/_custom_type_script = "uid://dj7o2vdrnopw3"
