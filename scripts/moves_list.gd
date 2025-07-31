@@ -7,18 +7,15 @@ enum Type { EARTH, WATER, FIRE, AIR, ETHER, LIGHT, COSMIC }
 
 # Some status effects will need to be re-done to correspond to the appropriate
 # chakra types.
-#
-# CRIPPLE is deprecated. If we remove it, we'll need to update
-# every move resource, so I'm going to leave it in the enum for now.
-enum StatusEffect { NONE, CRIPPLE, WHIRLPOOL, BURN, POISON, EXPOSE, BLIND, VACUUM, UNVEIL }
+enum StatusEffect { NONE, POISON, WHIRLPOOL, BURN, EXPOSE, BLIND, VACUUM, UNVEIL }
 
 const TYPES = {Type.EARTH: 0, # Root Chakra/Muladhara
 			   Type.WATER: 1, # Sacral Chakra/Svadhisthana
 			   Type.FIRE: 2, # Solar Plexus/Manipura
 			   Type.AIR: 3, # Heart Charka/Anahata
 			   Type.ETHER: 4, # Throat Charka/Vishuddha
-			   Type.LIGHT: 5, # Third Eye/Ajna 
-			   Type.COSMIC: 6} # Crown Chakra/Sahasrara          
+			   Type.LIGHT: 5, # Third Eye/Ajna
+			   Type.COSMIC: 6} # Crown Chakra/Sahasrara
 
 
 static func type_to_color(type: Type) -> Color:

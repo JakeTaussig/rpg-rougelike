@@ -10,5 +10,5 @@ type = 3
 base_power = 0
 pp = 13
 max_pp = 13
-status_effect = 5
+status_effect = 4
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"
