@@ -18,17 +18,19 @@ func enter(_messages: Array = []):
 		return
 
 	# enact statuses before updating the turn order
+	# the slower monster has their status applied first,
+	# then the faster monster.
 	var player = GameManager.player
 	var enemy = GameManager.enemy
 	if battle.turn_order_index == battle.active_monsters.size() - 1 and not statuses_enacted:
-		if player.selected_monster.status_effect != MovesList.StatusEffect.NONE and enemy.selected_monster.status_effect != MovesList.StatusEffect.NONE and !first_status_enacted:
+		battle.transition_state_to(battle.STATE_ENACT_STATUSES, [first_status_enacted])
+
+		if not first_status_enacted:
 			first_status_enacted = true
-			battle.transition_state_to(battle.STATE_ENACT_STATUSES)
 			return
-		else:
-			statuses_enacted = true
-			battle.transition_state_to(battle.STATE_ENACT_STATUSES, [first_status_enacted])
-			return
+
+		statuses_enacted = true
+		return
 
 	battle.turn_order_index = (battle.turn_order_index + 1) % battle.active_monsters.size()
 	if battle.turn_order_index == 0 || dead_monster:
