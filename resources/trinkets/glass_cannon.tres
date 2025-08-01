@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://tn070g2cfsw3"]
+
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinkets/trinket.gd" id="1_gm4qf"]
+[ext_resource type="Texture2D" uid="uid://cqy2nvx1e3t7u" path="res://assets/sprites/trinket_icons/window.png" id="1_nuue6"]
+[ext_resource type="Script" uid="uid://crdva27cx0acm" path="res://resources/trinket_strategies/glass_cannon_strategy.gd" id="3_dys78"]
+
+[sub_resource type="Resource" id="Resource_l04gg"]
+script = ExtResource("3_dys78")
+metadata/_custom_type_script = "uid://crdva27cx0acm"
+
+[resource]
+script = ExtResource("1_gm4qf")
+trinket_name = "Glass Cannon"
+icon = ExtResource("1_nuue6")
+description = "Attack stats increased, defense stats decreased"
+strategy = SubResource("Resource_l04gg")
+metadata/_custom_type_script = "uid://c7ph0ydi5trjd"
