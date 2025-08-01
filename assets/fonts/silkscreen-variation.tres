@@ -1,0 +1,8 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://byy5gaadarqhp"]
+
+[ext_resource type="FontFile" uid="uid://cnskm0cj6w5jx" path="res://assets/fonts/slkscr.ttf" id="1_5mjfi"]
+
+[resource]
+base_font = ExtResource("1_5mjfi")
+spacing_top = -2
+spacing_bottom = -1

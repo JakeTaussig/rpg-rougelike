@@ -115,22 +115,47 @@ func set_button_style_enabled(button: Button, enabled: bool):
 
 
 func set_pp_info(text: String, disabled: bool):
-	moves_menu.get_node("MoveInfo/InfoContainer/PPInfo").text = text
-	#if disabled:
-		#moves_menu.get_node("MoveInfo/InfoContainer/PPInfo").set_theme_type_variation("RedTextLabel")
-	#else:
-		#moves_menu.get_node("MoveInfo/InfoContainer/PPInfo").set_theme_type_variation("NoBorderLabel")
+	var pp_display = moves_menu.get_node("MoveInfo/InfoContainer/PPInfo")
+	var pp_label = moves_menu.get_node("MoveInfo/InfoContainer/PPInfoLabel")
+	pp_display.text = text
+	if disabled:
+		pp_display.set_theme_type_variation("SmallTextRedTextLabel")
+		pp_label.set_theme_type_variation("SmallTextRedTextLabel")
+
+	else:
+		pp_display.set_theme_type_variation("SmallTextLabel")
+		pp_label.set_theme_type_variation("SmallTextLabel")
 
 
 func set_type_info(text: String, disabled: bool):
-	moves_menu.get_node("MoveInfo/InfoContainer/TypeInfo").text = text
-	#if disabled:
-		#moves_menu.get_node("MoveInfo/InfoContainer/TypeInfo").set_theme_type_variation("RedTextLabel")
-	#else:
-		#moves_menu.get_node("MoveInfo/InfoContainer/TypeInfo").set_theme_type_variation("NoBorderLabel")
+	var type_info = moves_menu.get_node("MoveInfo/InfoContainer/TypeInfo")
+	var type_label = moves_menu.get_node("MoveInfo/InfoContainer/TypeInfoLabel")
+	type_info.text = text
+	if disabled:
+		type_info.set_theme_type_variation("SmallTextDisabledLabel")
+		type_label.set_theme_type_variation("SmallTextDisabledLabel")
+	else:
+		type_info.set_theme_type_variation("SmallTextLabel")
+		type_label.set_theme_type_variation("SmallTextLabel")
 
 func set_move_power(power: int, disabled: bool):
-	moves_menu.get_node("MoveInfo/InfoContainer/Power").text = "%d" % power
+	var power_display = moves_menu.get_node("MoveInfo/InfoContainer/Power")
+	var power_label = moves_menu.get_node("MoveInfo/InfoContainer/PowerLabel")
+	power_display.text = "%d" % power
+	if disabled:
+		power_display.set_theme_type_variation("SmallTextDisabledLabel")
+		power_label.set_theme_type_variation("SmallTextDisabledLabel")
+	else:
+		power_display.set_theme_type_variation("SmallTextLabel")
+		power_label.set_theme_type_variation("SmallTextLabel")
 
 func set_move_accuracy(acc: int, disabled: bool):
-	moves_menu.get_node("MoveInfo/InfoContainer/Acc").text = "%d" % acc
+	var acc_display = moves_menu.get_node("MoveInfo/InfoContainer/Acc")
+	var acc_label = moves_menu.get_node("MoveInfo/InfoContainer/AccLabel")
+	acc_display.text = "%d" % acc
+	if disabled:
+		acc_display.set_theme_type_variation("SmallTextDisabledLabel")
+		acc_label.set_theme_type_variation("SmallTextDisabledLabel")
+	else:
+		acc_display.set_theme_type_variation("SmallTextLabel")
+		acc_label.set_theme_type_variation("SmallTextLabel")
