@@ -115,16 +115,22 @@ func set_button_style_enabled(button: Button, enabled: bool):
 
 
 func set_pp_info(text: String, disabled: bool):
-	moves_menu.get_node("MoveInfo/PPInfo").text = text
-	if disabled:
-		moves_menu.get_node("MoveInfo/PPInfo").set_theme_type_variation("RedTextLabel")
-	else:
-		moves_menu.get_node("MoveInfo/PPInfo").set_theme_type_variation("NoBorderLabel")
+	moves_menu.get_node("MoveInfo/InfoContainer/PPInfo").text = text
+	#if disabled:
+		#moves_menu.get_node("MoveInfo/InfoContainer/PPInfo").set_theme_type_variation("RedTextLabel")
+	#else:
+		#moves_menu.get_node("MoveInfo/InfoContainer/PPInfo").set_theme_type_variation("NoBorderLabel")
 
 
 func set_type_info(text: String, disabled: bool):
-	moves_menu.get_node("MoveInfo/TypeInfo").text = text
-	if disabled:
-		moves_menu.get_node("MoveInfo/TypeInfo").set_theme_type_variation("RedTextLabel")
-	else:
-		moves_menu.get_node("MoveInfo/TypeInfo").set_theme_type_variation("NoBorderLabel")
+	moves_menu.get_node("MoveInfo/InfoContainer/TypeInfo").text = text
+	#if disabled:
+		#moves_menu.get_node("MoveInfo/InfoContainer/TypeInfo").set_theme_type_variation("RedTextLabel")
+	#else:
+		#moves_menu.get_node("MoveInfo/InfoContainer/TypeInfo").set_theme_type_variation("NoBorderLabel")
+
+func set_move_power(power: int, disabled: bool):
+	moves_menu.get_node("MoveInfo/InfoContainer/Power").text = "%d" % power
+
+func set_move_accuracy(acc: int, disabled: bool):
+	moves_menu.get_node("MoveInfo/InfoContainer/Acc").text = "%d" % acc
