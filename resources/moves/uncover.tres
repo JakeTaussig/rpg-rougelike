@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://dds6yl1epd347"]
 
-[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_lh6uy"]
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_ymilh"]
 
 [resource]
-script = ExtResource("1_lh6uy")
-move_name = "Expose"
+script = ExtResource("1_ymilh")
+move_name = "Uncover"
 category = 2
 type = 3
 base_power = 0

@@ -10,6 +10,6 @@ base_power = 90
 acc = 85
 pp = 15
 max_pp = 15
-status_effect = 6
+status_effect = 5
 status_effect_chance = 30
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

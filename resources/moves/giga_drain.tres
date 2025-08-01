@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Move" load_steps=4 format=3 uid="uid://u8et24i20sa7"]
+[gd_resource type="Resource" script_class="Move" load_steps=4 format=3 uid="uid://cu18kyklhijgj"]
 
 [ext_resource type="Script" uid="uid://cdwqt21mwjvdq" path="res://resources/post_move_strategies/giga_drain_strategy.gd" id="1_rj7px"]
 [ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_ylyma"]

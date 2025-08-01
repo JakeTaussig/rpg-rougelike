@@ -1,5 +1,5 @@
 extends PostAttackStrategy
-class_name FleurCannonStrategy
+class_name SpecialBeamStrategy
 
 
 func ApplyEffect(AttackResults: Monster.AttackResults) -> String:

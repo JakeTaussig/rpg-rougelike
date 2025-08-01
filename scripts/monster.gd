@@ -144,6 +144,11 @@ func use_move(move: Move, target: Monster) -> AttackResults:
 		move_hit = _does_move_hit(move.acc)
 
 	if move_hit:
+		if move.pre_attack_strategy != null:
+			var pre_attack_info = AttackResults.new(move, 0, 1, 0, 0)
+			pre_attack_info.attacker = self
+			pre_attack_info.target = target
+			move.pre_attack_strategy.ApplyEffect(pre_attack_info)
 		if move.category == Move.MoveCategory.ATK:
 			@warning_ignore("confusable_local_declaration")
 			var results = _attack(move, target, 1)

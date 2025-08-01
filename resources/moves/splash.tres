@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://ctphdw00q5ad5"]
+
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_aft7x"]
+
+[resource]
+script = ExtResource("1_aft7x")
+move_name = "Splash"
+category = 1
+type = 1
+base_power = 100
+acc = 50
+status_effect = 2
+status_effect_chance = 100
+metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

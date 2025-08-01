@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://cafymel0vi480"]
+
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_etr7e"]
+
+[resource]
+script = ExtResource("1_etr7e")
+move_name = "Faster Than Light"
+type = 5
+base_power = 80
+pp = 5
+max_pp = 5
+priority = true
+metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

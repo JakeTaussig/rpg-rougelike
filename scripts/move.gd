@@ -1,6 +1,6 @@
 class_name Move extends Resource
 
-enum MoveCategory { ATK, SP_ATK, STATUS_EFFECT, STAT_MODIFIER }
+enum MoveCategory { ATK, SP_ATK, STATUS_EFFECT, STAT_MODIFIER, MISC_EFFECT }
 @export var move_name: String = "Bubblebeam"
 @export var category: MoveCategory = MoveCategory.ATK
 @export var type: MovesList.Type = MovesList.Type.EARTH
@@ -25,7 +25,7 @@ enum MoveCategory { ATK, SP_ATK, STATUS_EFFECT, STAT_MODIFIER }
 		max_pp = max(1, new_max_pp)
 
 @export var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
-@export var status_effect_chance: int = 100
+@export var status_effect_chance: int = 0
 
 # 0 = Normal, 1 = Priority
 @export var priority: bool = 0
@@ -33,8 +33,9 @@ enum MoveCategory { ATK, SP_ATK, STATUS_EFFECT, STAT_MODIFIER }
 @export var backdrop: ShaderMaterial
 
 # commonly set on special attacking moves
-# If set, will be called after the move hits
+# If set, will be called before or after the move hits
 @export var post_attack_strategy: PostAttackStrategy
+@export var pre_attack_strategy: PreAttackStrategy
 
 
 # returns an identical copy of the current move
