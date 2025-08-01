@@ -74,6 +74,7 @@ unique_name_in_owner = true
 texture_filter = 1
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
 focus_neighbor_top = NodePath("../../../../TrinketShelf/TrinketIconContainer/button")
 focus_neighbor_bottom = NodePath("../Tracker")
 text = "   Attack"
@@ -84,6 +85,7 @@ unique_name_in_owner = true
 texture_filter = 1
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
 focus_neighbor_top = NodePath("../Attack")
 text = "   Tracker"
 alignment = 0
@@ -120,6 +122,7 @@ layout_mode = 0
 offset_top = 95.0
 offset_right = 32.0
 offset_bottom = 112.0
+focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("../MovesMenu/Move1")
 theme = ExtResource("2_p1qf1")
 theme_type_variation = &"BorderButton"
@@ -147,7 +150,10 @@ columns = 2
 [node name="Move1" type="Button" parent="BottomBar/Moves/MovesMenu"]
 custom_minimum_size = Vector2(97, 0)
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
 focus_neighbor_top = NodePath("../../BackButton")
+focus_neighbor_right = NodePath("../Move2")
+focus_neighbor_bottom = NodePath("../Move3")
 theme = ExtResource("2_p1qf1")
 text = "   Move 1"
 alignment = 0
@@ -155,18 +161,26 @@ alignment = 0
 [node name="Move2" type="Button" parent="BottomBar/Moves/MovesMenu"]
 custom_minimum_size = Vector2(77, 15)
 layout_mode = 2
+focus_neighbor_left = NodePath("../Move1")
+focus_neighbor_top = NodePath("../../BackButton")
+focus_neighbor_bottom = NodePath("../Move4")
 theme = ExtResource("2_p1qf1")
 text = "   Move 2"
 alignment = 0
 
 [node name="Move3" type="Button" parent="BottomBar/Moves/MovesMenu"]
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Move1")
+focus_neighbor_right = NodePath("../Move4")
 text = "   Move 3"
 alignment = 0
 
 [node name="Move4" type="Button" parent="BottomBar/Moves/MovesMenu"]
 custom_minimum_size = Vector2(97, 15)
 layout_mode = 2
+focus_neighbor_left = NodePath("../Move3")
+focus_neighbor_top = NodePath("../Move2")
 text = "   Move 4
 "
 alignment = 0
