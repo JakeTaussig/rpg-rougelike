@@ -127,16 +127,23 @@ func set_pp_info(text: String, disabled: bool):
 		pp_label.set_theme_type_variation("SmallTextLabel")
 
 
-func set_type_info(text: String, disabled: bool):
+func set_type_info(type: MovesList.Type, disabled: bool):
 	var type_info = moves_menu.get_node("MoveInfo/InfoContainer/TypeInfo")
 	var type_label = moves_menu.get_node("MoveInfo/InfoContainer/TypeInfoLabel")
+
+	var text = MovesList.Type.keys()[type]
 	type_info.text = text
+
 	if disabled:
 		type_info.set_theme_type_variation("SmallTextDisabledLabel")
 		type_label.set_theme_type_variation("SmallTextDisabledLabel")
+		type_info.remove_theme_color_override("font_color")
 	else:
 		type_info.set_theme_type_variation("SmallTextLabel")
 		type_label.set_theme_type_variation("SmallTextLabel")
+
+		var type_color = MovesList.type_to_color(type)
+		type_info.add_theme_color_override("font_color", type_color)
 
 func set_move_power(power: int, disabled: bool):
 	var power_display = moves_menu.get_node("MoveInfo/InfoContainer/Power")
