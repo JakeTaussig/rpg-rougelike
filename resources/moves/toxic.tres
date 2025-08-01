@@ -9,5 +9,6 @@ move_name = "Toxic"
 category = 2
 base_power = 0
 status_effect = 1
+status_effect_chance = 80
 backdrop = ExtResource("2_j4j0s")
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

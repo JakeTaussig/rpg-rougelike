@@ -12,6 +12,6 @@ metadata/_custom_type_script = "uid://crdva27cx0acm"
 script = ExtResource("1_gm4qf")
 trinket_name = "Glass Cannon"
 icon = ExtResource("1_nuue6")
-description = "Attack stats increased, defense stats decreased"
+description = "Atk stats increased, def stats decreased by 1.5x"
 strategy = SubResource("Resource_l04gg")
 metadata/_custom_type_script = "uid://c7ph0ydi5trjd"
