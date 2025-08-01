@@ -28,15 +28,14 @@ func setup():
 func _roll_trinkets():
 	while trinkets.size() < N_TRINKETS:
 		var trinkets_list = GameManager.trinkets_list.trinkets
+		var trinkets_list_copy = []
 		# Trinkets the player has can't be added to the shop
 		for trinket in trinkets_list:
-			if GameManager.player.selected_monster.trinkets.has(trinket):
-				trinkets_list.erase(trinket)
+			if not GameManager.player.selected_monster.trinkets.has(trinket):
+				trinkets_list_copy.append(trinket)
 		
-		var trinket = GameManager.trinkets_list.trinkets.pick_random()
+		var trinket = trinkets_list_copy.pick_random()
 
-		# TODO: consider preventing trinkets from appearing in the shop more than once
-		# TODO: need a fallback if less than N_TRINKETS trinkets are available - shouldn't be an issue with enough trinkets in game
 		if !trinkets.has(trinket):
 			trinkets.append(trinket)
 			purchased_trinkets.append(false)
