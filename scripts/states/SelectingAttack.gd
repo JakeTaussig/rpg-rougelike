@@ -65,4 +65,6 @@ func _display_pp_info(move_index: int) -> void:
 	var disabled: bool = move.pp <= 0
 	battle.ui_manager.set_pp_info(text, disabled)
 
-	battle.ui_manager.set_type_info(MovesList.Type.keys()[move.type], disabled)
+	battle.ui_manager.set_type_info(move.type, disabled)
+	battle.ui_manager.set_move_power(move.base_power, disabled)
+	battle.ui_manager.set_move_accuracy(move.acc, disabled)

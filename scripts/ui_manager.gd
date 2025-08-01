@@ -115,16 +115,54 @@ func set_button_style_enabled(button: Button, enabled: bool):
 
 
 func set_pp_info(text: String, disabled: bool):
-	moves_menu.get_node("MoveInfo/PPInfo").text = text
+	var pp_display = moves_menu.get_node("MoveInfo/InfoContainer/PPInfo")
+	var pp_label = moves_menu.get_node("MoveInfo/InfoContainer/PPInfoLabel")
+	pp_display.text = text
 	if disabled:
-		moves_menu.get_node("MoveInfo/PPInfo").set_theme_type_variation("RedTextLabel")
+		pp_display.set_theme_type_variation("SmallTextRedTextLabel")
+		pp_label.set_theme_type_variation("SmallTextRedTextLabel")
+
 	else:
-		moves_menu.get_node("MoveInfo/PPInfo").set_theme_type_variation("NoBorderLabel")
+		pp_display.set_theme_type_variation("SmallTextLabel")
+		pp_label.set_theme_type_variation("SmallTextLabel")
 
 
-func set_type_info(text: String, disabled: bool):
-	moves_menu.get_node("MoveInfo/TypeInfo").text = text
+func set_type_info(type: MovesList.Type, disabled: bool):
+	var type_info = moves_menu.get_node("MoveInfo/InfoContainer/TypeInfo")
+	var type_label = moves_menu.get_node("MoveInfo/InfoContainer/TypeInfoLabel")
+
+	var text = MovesList.Type.keys()[type]
+	type_info.text = text
+
 	if disabled:
-		moves_menu.get_node("MoveInfo/TypeInfo").set_theme_type_variation("RedTextLabel")
+		type_info.set_theme_type_variation("SmallTextDisabledLabel")
+		type_label.set_theme_type_variation("SmallTextDisabledLabel")
+		type_info.remove_theme_color_override("font_color")
 	else:
-		moves_menu.get_node("MoveInfo/TypeInfo").set_theme_type_variation("NoBorderLabel")
+		type_info.set_theme_type_variation("SmallTextLabel")
+		type_label.set_theme_type_variation("SmallTextLabel")
+
+		var type_color = MovesList.type_to_color(type)
+		type_info.add_theme_color_override("font_color", type_color)
+
+func set_move_power(power: int, disabled: bool):
+	var power_display = moves_menu.get_node("MoveInfo/InfoContainer/Power")
+	var power_label = moves_menu.get_node("MoveInfo/InfoContainer/PowerLabel")
+	power_display.text = "%d" % power
+	if disabled:
+		power_display.set_theme_type_variation("SmallTextDisabledLabel")
+		power_label.set_theme_type_variation("SmallTextDisabledLabel")
+	else:
+		power_display.set_theme_type_variation("SmallTextLabel")
+		power_label.set_theme_type_variation("SmallTextLabel")
+
+func set_move_accuracy(acc: int, disabled: bool):
+	var acc_display = moves_menu.get_node("MoveInfo/InfoContainer/Acc")
+	var acc_label = moves_menu.get_node("MoveInfo/InfoContainer/AccLabel")
+	acc_display.text = "%d" % acc
+	if disabled:
+		acc_display.set_theme_type_variation("SmallTextDisabledLabel")
+		acc_label.set_theme_type_variation("SmallTextDisabledLabel")
+	else:
+		acc_display.set_theme_type_variation("SmallTextLabel")
+		acc_label.set_theme_type_variation("SmallTextLabel")
