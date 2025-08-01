@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://6he71i75y00k"]
-
-[ext_resource type="Script" uid="uid://dgesf7qieq0cw" path="res://scripts/item.gd" id="1"]
-
-[resource]
-script = ExtResource("1")
-name = "Lifeguard"
-description = "Save plyr. from WHIRLPOOL"
-callback_name = "_handle_whirlpool_heal"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=18 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
@@ -13,11 +13,9 @@
 [ext_resource type="Script" uid="uid://bm0o2eovnfws7" path="res://scripts/states/Attack.gd" id="13_6ni85"]
 [ext_resource type="Script" uid="uid://sdwupuxudrjb" path="res://scripts/states/BattleOver.gd" id="13_22uqi"]
 [ext_resource type="Script" uid="uid://d0rdycr2tr5ll" path="res://scripts/states/EnactStatuses.gd" id="14_6ni85"]
-[ext_resource type="Script" uid="uid://m7sdis15lg1t" path="res://scripts/states/SelectingAttackPPRestore.gd" id="17_dd63g"]
 [ext_resource type="PackedScene" uid="uid://jpf5gywks7wx" path="res://scenes/trinket_shelf.tscn" id="17_h4dll"]
 [ext_resource type="Texture2D" uid="uid://fs4ws7okfwn5" path="res://assets/sprites/trinket_icons/arrow.png" id="18_h4dll"]
 [ext_resource type="PackedScene" uid="uid://cv5e4qocm73cv" path="res://scenes/debug_menu.tscn" id="19_p0caf"]
-[ext_resource type="Script" uid="uid://flenaawlfq4g" path="res://scripts/states/SelectingItem.gd" id="20_61i1y"]
 [ext_resource type="PackedScene" uid="uid://capm3p3n50hky" path="res://scenes/ui_manager.tscn" id="23_fpf3k"]
 
 [node name="Battle" type="Node2D"]
@@ -77,16 +75,7 @@ texture_filter = 1
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../../../TrinketShelf/TrinketIconContainer/button")
-focus_neighbor_bottom = NodePath("../Item")
 text = "   Attack"
-alignment = 0
-
-[node name="Item" type="Button" parent="BottomBar/Action/ActionButtons"]
-texture_filter = 1
-custom_minimum_size = Vector2(0, 15)
-layout_mode = 2
-focus_neighbor_top = NodePath("../Attack")
-text = "   Item"
 alignment = 0
 
 [node name="BattleStatus" type="Label" parent="BottomBar"]
@@ -205,118 +194,6 @@ text = "TYPE: HUMAN"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Items" type="Control" parent="BottomBar"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 3
-anchors_preset = 0
-
-[node name="BackButton" type="Button" parent="BottomBar/Items"]
-layout_mode = 0
-offset_top = 95.0
-offset_right = 32.0
-offset_bottom = 112.0
-focus_neighbor_bottom = NodePath("../MarginContainer/ScrollContainer/ItemsMenu/Item1")
-theme = ExtResource("2_p1qf1")
-theme_type_variation = &"BorderButton"
-text = "back"
-script = ExtResource("4_saiin")
-
-[node name="Panel" type="Panel" parent="BottomBar/Items"]
-layout_mode = 0
-offset_top = 111.0
-offset_right = 168.0
-offset_bottom = 144.0
-theme = ExtResource("2_p1qf1")
-theme_type_variation = &"FullBorderPanel"
-
-[node name="MarginContainer" type="MarginContainer" parent="BottomBar/Items"]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 111.0
-offset_right = 170.0
-offset_bottom = 144.0
-theme = ExtResource("2_p1qf1")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="BottomBar/Items/MarginContainer"]
-layout_mode = 2
-theme = ExtResource("2_p1qf1")
-follow_focus = true
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 2
-
-[node name="ItemsMenu" type="GridContainer" parent="BottomBar/Items/MarginContainer/ScrollContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme = ExtResource("2_p1qf1")
-columns = 2
-
-[node name="Item1" type="Button" parent="BottomBar/Items/MarginContainer/ScrollContainer/ItemsMenu"]
-custom_minimum_size = Vector2(80, 15)
-layout_mode = 2
-focus_neighbor_top = NodePath("../../../../BackButton")
-theme = ExtResource("2_p1qf1")
-text = "Item 1"
-alignment = 0
-
-[node name="Item2" type="Button" parent="BottomBar/Items/MarginContainer/ScrollContainer/ItemsMenu"]
-custom_minimum_size = Vector2(80, 15)
-layout_mode = 2
-theme = ExtResource("2_p1qf1")
-text = "Item 2"
-alignment = 0
-
-[node name="Item3" type="Button" parent="BottomBar/Items/MarginContainer/ScrollContainer/ItemsMenu"]
-custom_minimum_size = Vector2(80, 15)
-layout_mode = 2
-theme = ExtResource("2_p1qf1")
-text = "Item 3"
-alignment = 0
-
-[node name="Item4" type="Button" parent="BottomBar/Items/MarginContainer/ScrollContainer/ItemsMenu"]
-custom_minimum_size = Vector2(80, 15)
-layout_mode = 2
-theme = ExtResource("2_p1qf1")
-text = "Item 4"
-alignment = 0
-
-[node name="Item5" type="Button" parent="BottomBar/Items/MarginContainer/ScrollContainer/ItemsMenu"]
-custom_minimum_size = Vector2(80, 15)
-layout_mode = 2
-theme = ExtResource("2_p1qf1")
-text = "Item 4"
-alignment = 0
-
-[node name="ItemInfo" type="Panel" parent="BottomBar/Items"]
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 0
-offset_left = 168.0
-offset_top = 111.0
-offset_right = 256.0
-offset_bottom = 143.0
-theme = ExtResource("2_p1qf1")
-
-[node name="ItemQtyInfo" type="Label" parent="BottomBar/Items/ItemInfo"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_right = 87.0
-offset_bottom = 17.0
-theme = ExtResource("2_p1qf1")
-theme_type_variation = &"NoBorderLabel"
-text = "1/15"
-horizontal_alignment = 1
-
-[node name="ItemTypeInfo" type="Label" parent="BottomBar/Items/ItemInfo"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_top = 16.0
-offset_right = 87.0
-offset_bottom = 48.0
-theme = ExtResource("2_p1qf1")
-theme_type_variation = &"NoBorderLabel"
-text = "Heals 30 HP overflow text"
-autowrap_mode = 2
-
 [node name="HealthPanels" type="Node2D" parent="."]
 position = Vector2(-1, 0)
 
@@ -364,9 +241,6 @@ script = ExtResource("9_03edq")
 [node name="SELECTING_ATTACK" type="Node" parent="BattleStateMachine"]
 script = ExtResource("10_22uqi")
 
-[node name="SELECTING_ATTACK_PP_RESTORE" type="Node" parent="BattleStateMachine"]
-script = ExtResource("17_dd63g")
-
 [node name="INCREMENT_TURN" type="Node" parent="BattleStateMachine"]
 script = ExtResource("12_03edq")
 
@@ -378,9 +252,6 @@ script = ExtResource("13_6ni85")
 
 [node name="ENACT_STATUSES" type="Node" parent="BattleStateMachine"]
 script = ExtResource("14_6ni85")
-
-[node name="SELECTING_ITEM" type="Node" parent="BattleStateMachine"]
-script = ExtResource("20_61i1y")
 
 [node name="UiManager" parent="." instance=ExtResource("23_fpf3k")]
 unique_name_in_owner = true
@@ -425,5 +296,4 @@ texture = ExtResource("18_h4dll")
 visible = false
 
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]
-[connection signal="pressed" from="BottomBar/Action/ActionButtons/Item" to="BattleStateMachine/SELECTING_ACTION" method="_on_item_pressed"]
 [connection signal="pressed" from="BottomBar/BattleStatus/ContinueButton" to="." method="_on_continue_button_pressed"]
