@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://5ralinavyg8"]
+
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_d4181"]
+
+[resource]
+script = ExtResource("1_d4181")
+move_name = "Astral Blast"
+category = 1
+type = 4
+base_power = 65
+status_effect = 6
+status_effect_chance = 20
+metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Move" load_steps=4 format=3 uid="uid://c4twskkkgbi01"]
+
+[ext_resource type="Script" uid="uid://ccin1y8smcio7" path="res://resources/post_move_strategies/bolt_up_strategy.gd" id="1_uxtf2"]
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="2_qgij7"]
+
+[sub_resource type="Resource" id="Resource_tqvvm"]
+script = ExtResource("1_uxtf2")
+metadata/_custom_type_script = "uid://ccin1y8smcio7"
+
+[resource]
+script = ExtResource("2_qgij7")
+move_name = "Bolt Up"
+category = 1
+type = 5
+base_power = 120
+post_attack_strategy = SubResource("Resource_tqvvm")
+metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://dmqadx5w4a1i6"]
+
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_1exc7"]
+
+[resource]
+script = ExtResource("1_1exc7")
+move_name = "Etheric Thunder"
+category = 1
+type = 4
+base_power = 80
+acc = 90
+status_effect = 7
+status_effect_chance = 30
+metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

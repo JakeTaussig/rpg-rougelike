@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://obcr8wxi71ra"]
+
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_l2vkm"]
+
+[resource]
+script = ExtResource("1_l2vkm")
+move_name = "Cosmic Thrust"
+type = 6
+base_power = 80
+acc = 80
+pp = 15
+max_pp = 15
+status_effect = 7
+status_effect_chance = 15
+metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

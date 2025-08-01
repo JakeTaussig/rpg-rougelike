@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://bnkg8rbfgnq2e"]
+
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_iws3a"]
+
+[resource]
+script = ExtResource("1_iws3a")
+move_name = "Light Slash"
+type = 5
+base_power = 90
+acc = 85
+pp = 15
+max_pp = 15
+status_effect = 5
+status_effect_chance = 30
+metadata/_custom_type_script = "uid://dj7o2vdrnopw3"

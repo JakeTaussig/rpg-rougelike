@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://b0ju3kghscwec"]
+
+[ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_85wc1"]
+
+[resource]
+script = ExtResource("1_85wc1")
+move_name = "Star Punch"
+type = 5
+base_power = 120
+acc = 75
+pp = 5
+max_pp = 5
+metadata/_custom_type_script = "uid://dj7o2vdrnopw3"
