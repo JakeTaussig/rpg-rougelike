@@ -13,5 +13,6 @@ script = ExtResource("2_i835e")
 trinket_name = "Earthize"
 icon = ExtResource("1_i835e")
 description = "Change the player's type to EARTH"
+apply_once = true
 strategy = SubResource("Resource_y4fx8")
 metadata/_custom_type_script = "uid://c7ph0ydi5trjd"

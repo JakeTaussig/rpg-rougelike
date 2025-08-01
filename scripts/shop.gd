@@ -27,11 +27,15 @@ func setup():
 
 func _roll_trinkets():
 	while trinkets.size() < N_TRINKETS:
-		var trinket = GameManager.trinkets_list.trinkets.pick_random()
+		var trinkets_list = GameManager.trinkets_list.trinkets
+		var trinkets_list_copy = []
+		# Trinkets the player has can't be added to the shop
+		for trinket in trinkets_list:
+			if not GameManager.player.selected_monster.trinkets.has(trinket):
+				trinkets_list_copy.append(trinket)
+		
+		var trinket = trinkets_list_copy.pick_random()
 
-		# TODO: validate that the player does not have the trinket before adding it to the shop
-		# TODO: consider preventing trinkets from appearing in the shop more than once
-		# TODO: need a fallback if less than N_TRINKETS trinkets are available
 		if !trinkets.has(trinket):
 			trinkets.append(trinket)
 			purchased_trinkets.append(false)
@@ -128,7 +132,7 @@ func _on_trinket_button_pressed(trinket_index: int):
 	# Give the trinket to the player, apply it, and redisplay the trinket shelf
 	GameManager.player.selected_monster.trinkets.append(trinket)
 	# Remember to set the HP back to the monster's current hp, but make sure it doesn't exceed the potentially reduced max_hp
-	GameManager.apply_trinkets()
+	trinket.strategy.ApplyEffect(GameManager.player.selected_monster)
 	%TrinketShelf.render_trinkets()
 
 	purchased_trinkets[trinket_index] = true

@@ -49,6 +49,7 @@ var crit_checks: int = 1  # number of times we roll for a crit
 
 @export var type: MovesList.Type
 @export var moves: Array[Move] = []
+var previous_move: Move
 
 var is_alive = true
 var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
@@ -163,11 +164,12 @@ func use_move(move: Move, target: Monster) -> AttackResults:
 			status_applied = _roll_and_apply_status_effect(move, target)
 	var results = AttackResults.new(move, damage, move_hit, status_applied, is_critical)
 
-	if move.post_attack_strategy != null:
+	if move_hit and move.post_attack_strategy != null:
 		results.attacker = self
 		results.target = target
 		var additional_message = move.post_attack_strategy.ApplyEffect(results)
 		results.additional_message = additional_message
+		
 
 	return results
 

@@ -13,5 +13,6 @@ script = ExtResource("1_xpxxn")
 trinket_name = "Spinach"
 icon = ExtResource("1_bdp21")
 description = "Stat Gain + 10%"
+apply_once = true
 strategy = SubResource("Resource_3eos7")
 metadata/_custom_type_script = "uid://c7ph0ydi5trjd"

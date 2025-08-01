@@ -17,6 +17,7 @@ func enter(params: Array = []):
 	# Execute attack
 	var results: Monster.AttackResults = attacker.use_move(move, target)
 	var messages = _generate_attack_messages(attacker, target, results)
+	attacker.previous_move = move
 
 	if results.move.backdrop:
 		battle.ui_manager.set_backdrop_material(results.move.backdrop)
@@ -51,6 +52,7 @@ func _generate_attack_messages(attacker, target, results: Monster.AttackResults)
 		var target_status_effect_string = String(MovesList.StatusEffect.find_key(target.status_effect)).to_lower()
 		var attempted_status_effect_string = String(MovesList.StatusEffect.find_key(used_move.status_effect)).to_lower()
 		if target.status_effect == MovesList.StatusEffect.NONE:
+			# TODO: This message will trigger if a status effect only move misses.
 			messages.append(
 				(
 					"%s used %s and attempted to apply %s on %s, but %s is immune!"
