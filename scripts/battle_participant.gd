@@ -2,8 +2,6 @@
 extends Sprite2D
 class_name BattleParticipant
 
-@export var items: Array[Item] = []
-
 @export var monsters: Array[Monster] = []:
 	set(_monsters):
 		monsters = []
@@ -42,21 +40,6 @@ func render_battler():
 	texture = selected_monster.texture
 	flip_h = is_player
 	$StatusEmitter.status_effect = selected_monster.status_effect
-
-
-# Called when the node enters the scene tree for the first time.
-func _enter_tree() -> void:
-	if not Engine.is_editor_hint():
-		call_deferred("_init_items")
-
-
-func _init_items() -> void:
-	# TODO: dummy implementation -- give each participant 5 of each item
-	for item in GameManager.items_list.items:
-		var player_item = item.copy()
-		player_item.qty = 5
-		items.append(player_item)
-
 
 func is_defeated() -> bool:
 	if is_player:

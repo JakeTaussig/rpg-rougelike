@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://dovo7fwg5mp4k"]
-
-[ext_resource type="Script" uid="uid://dgesf7qieq0cw" path="res://scripts/item.gd" id="1_0gddc"]
-
-[resource]
-script = ExtResource("1_0gddc")
-name = "Vacuum Heal"
-description = "Frees player from VACUUM"
-callback_name = "_handle_vacuum_heal"

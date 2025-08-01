@@ -11,7 +11,6 @@ var continue_button: Button
 var turn_display: Label
 var action_menu: Control
 var moves_menu: Control
-var items_menu: Control
 var player_prompt: Label
 
 var initialized = false
@@ -32,7 +31,6 @@ func _init_references():
 	turn_display = %TurnDisplay
 	action_menu = %Action
 	moves_menu = %Moves
-	items_menu = %Items
 	player_prompt = %PlayerPrompt
 
 	initialized = true
@@ -101,24 +99,8 @@ func show_moves_menu(visible: bool):
 	moves_menu.visible = visible
 
 
-func show_items_menu(visible: bool):
-	items_menu.visible = visible
-
-
-func focus_items_back_button():
-	%Items.get_node("BackButton").grab_focus()
-
-
 func get_move_buttons() -> Array[Node]:
 	return moves_menu.get_node("MovesMenu").get_children()
-
-
-func get_item_buttons() -> Array[Node]:
-	return %ItemsMenu.get_children()
-
-
-func add_item_button(button: Button):
-	%ItemsMenu.add_child(button)
 
 
 func get_action_buttons() -> Array[Node]:
@@ -146,11 +128,3 @@ func set_type_info(text: String, disabled: bool):
 		moves_menu.get_node("MoveInfo/TypeInfo").set_theme_type_variation("RedTextLabel")
 	else:
 		moves_menu.get_node("MoveInfo/TypeInfo").set_theme_type_variation("NoBorderLabel")
-
-
-func set_item_qty_info(text: String):
-	items_menu.get_node("ItemInfo/ItemQtyInfo").text = text
-
-
-func set_item_type_info(text: String):
-	items_menu.get_node("ItemInfo/ItemTypeInfo").text = text

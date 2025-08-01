@@ -1,6 +1,5 @@
 extends Control
 @export var moves_list: MovesList = preload("res://resources/moves/global_moves_list.tres")
-@export var items_list: ItemsList = preload("res://resources/items/global_items_list.tres")
 var trinkets_list: TrinketsList = TrinketsList.new()
 
 var floor_number = 0

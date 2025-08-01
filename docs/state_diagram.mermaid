@@ -8,21 +8,12 @@ flowchart TD
   EnemyAttack[*State: EnemyAttack*]
   GameEnd[*State: GameEnd*]
   EnactStatuses[*State: EnactStatuses*]
-  SelectingItem[*State: SelectingItem*]
-  SelectingAttackPPRestore[*State: SelectingAttackPPRestore*]
 
   Start --> IncrementTurn
 
   IncrementTurn --> |Player Turn| SelectingAction
   SelectingAction --> |Attack menu selected| SelectingAttack
   SelectingAttack --> |specific attack selected| Attack
-
-  SelectingAction --> |Item menu selected|SelectingItem
-  SelectingItem --> |Specific consumable item selected|Info
-  SelectingItem --> |PP Restore item selected|SelectingAttackPPRestore
-
-  SelectingAttackPPRestore --> |specific attack selected|Info
-
 
   IncrementTurn --> |Enemy Turn| EnemyAttack
   EnemyAttack --> Attack
