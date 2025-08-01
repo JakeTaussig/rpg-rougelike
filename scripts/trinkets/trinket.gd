@@ -6,6 +6,5 @@ enum TrinketCategory { ATK, TYPE }
 @export var icon: CompressedTexture2D = load("res://assets/sprites/trinket_icons/skull.png")
 @export var description: String = "Change the player's type"
 @export var apply_once: bool = false
-var applied: bool = false
 
 @export var strategy: TrinketStrategy = TrinketStrategy.new()

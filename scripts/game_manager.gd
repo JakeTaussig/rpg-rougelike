@@ -192,11 +192,6 @@ func apply_trinkets():
 		# Gets applied every time
 		if not trinket.apply_once:
 			trinket.strategy.ApplyEffect(player.selected_monster)
-			trinket.applied = true
-		# Only gets applied once and has not been applied yet.
-		elif not trinket.applied:
-			trinket.strategy.ApplyEffect(player.selected_monster)
-			trinket.applied = true
 
 	player.selected_monster.emit_trinkets_updated_signal()
 	%TrinketShelf.render_trinkets()

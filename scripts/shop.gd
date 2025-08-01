@@ -133,7 +133,7 @@ func _on_trinket_button_pressed(trinket_index: int):
 	# Give the trinket to the player, apply it, and redisplay the trinket shelf
 	GameManager.player.selected_monster.trinkets.append(trinket)
 	# Remember to set the HP back to the monster's current hp, but make sure it doesn't exceed the potentially reduced max_hp
-	GameManager.apply_trinkets()
+	trinket.strategy.ApplyEffect(GameManager.player.selected_monster)
 	%TrinketShelf.render_trinkets()
 
 	purchased_trinkets[trinket_index] = true
