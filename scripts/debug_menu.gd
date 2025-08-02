@@ -142,13 +142,19 @@ func _on_moves_list_mouse_entered() -> void:
 
 func _on_make_player_invincible_pressed() -> void:
 	var player_monster = GameManager.player.selected_monster
-	player_monster.invincible = !player_monster.invincible
-	if player_monster.invincible:
+
+	if !player_monster.invincible:
 		%MakePlayerInvincible.text = "✔ Invincibility"
-		GameManager.player.selected_monster.hp = GameManager.player.selected_monster.max_hp
+
+		# if we're making the player invincible, reset their HP to full
+		player_monster.hp = player_monster.max_hp
 		GameManager.current_battle.render_hp()
 	else:
 		%MakePlayerInvincible.text = "🅇 Invincibility"
+
+	# we need to modify this setting after the if statement above, because HP
+	# can not be modified once the player is invincible.
+	player_monster.invincible = !player_monster.invincible
 
 func _on_make_player_invincible_entered() -> void:
 	%MakePlayerInvincible.grab_focus()
