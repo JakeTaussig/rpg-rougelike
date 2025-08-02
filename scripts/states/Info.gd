@@ -14,7 +14,7 @@ func enter(_messages: Array = []):
 	_update_message()
 	# Block continue button while hp is being rendered.
 	GameManager.current_battle.ui_manager.continue_button.disabled = true
-	await battle.ui_manager.render_hp(GameManager.player.selected_monster, GameManager.enemy.selected_monster)
+	await battle.render_hp()
 	GameManager.current_battle.ui_manager.continue_button.disabled = false
 	if messages.size() == 0:
 		print("\tno messages; skipping INFO state")

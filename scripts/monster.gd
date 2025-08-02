@@ -8,9 +8,14 @@ extends Resource
 	set(new_max_hp):
 		max_hp = max(1, new_max_hp)
 		hp = min(hp, max_hp)  # Clamp down hp if max_hp is decreased.
+
+# invincibility is a DEBUG setting. players are not intended to access this.
+@export var invincible = false
+
 @export var hp: int = 100:
 	set(new_hp):
-		hp = clamp(new_hp, 0, max_hp)  # hp can never exceed max_hp
+		if !invincible:
+			hp = clamp(new_hp, 0, max_hp)  # hp can never exceed max_hp
 		if new_hp <= 0:
 			is_alive = false
 @export var atk: int = 20:
