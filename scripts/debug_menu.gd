@@ -139,3 +139,15 @@ func _on_trinkets_list_mouse_entered() -> void:
 
 func _on_moves_list_mouse_entered() -> void:
 	%MovesList.grab_focus()
+
+func _on_make_player_invincible_pressed() -> void:
+	GameManager.debug_player_invincible = !GameManager.debug_player_invincible
+	if GameManager.debug_player_invincible:
+		%MakePlayerInvincible.text = "✔ Invincibility"
+		GameManager.player.selected_monster.hp = GameManager.player.selected_monster.max_hp
+		GameManager.current_battle.render_hp()
+	else:
+		%MakePlayerInvincible.text = "🅇 Invincibility"
+
+func _on_make_player_invincible_entered() -> void:
+	%MakePlayerInvincible.grab_focus()

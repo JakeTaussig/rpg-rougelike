@@ -26,6 +26,8 @@ var enemy_level = 0
 
 var randomized_monsters: Array[Monster] = []
 
+var debug_player_invincible = false
+
 
 const dark_blue_border_color = Color(0.071, 0.306, 0.537, 1.0)
 const white = Color(1.0, 1.0, 1.0, 1.0)
