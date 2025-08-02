@@ -141,8 +141,9 @@ func _on_moves_list_mouse_entered() -> void:
 	%MovesList.grab_focus()
 
 func _on_make_player_invincible_pressed() -> void:
-	GameManager.debug_player_invincible = !GameManager.debug_player_invincible
-	if GameManager.debug_player_invincible:
+	var player_monster = GameManager.player.selected_monster
+	player_monster.invincible = !player_monster.invincible
+	if player_monster.invincible:
 		%MakePlayerInvincible.text = "✔ Invincibility"
 		GameManager.player.selected_monster.hp = GameManager.player.selected_monster.max_hp
 		GameManager.current_battle.render_hp()
