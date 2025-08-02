@@ -22,7 +22,7 @@ func enter(params: Array = []):
 	if results.move.backdrop:
 		battle.ui_manager.set_backdrop_material(results.move.backdrop)
 
-	# if the debug setting is enabled, reset the player's HP to full
+	# if the debug setting is enabled, mention it
 	if GameManager.player.selected_monster.invincible and target == GameManager.player.selected_monster:
 		messages.append("DEBUG: Player takes no damage")
 
