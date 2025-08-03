@@ -60,13 +60,18 @@ func update_active_monsters():
 	else:
 		battle_participants = [enemy, player]
 	if ui_manager:
-		ui_manager.render_hp(player.selected_monster, enemy.selected_monster)
+		render_hp()
 
 
 func _start_battle():
-	ui_manager.render_hp(player.selected_monster, enemy.selected_monster)
+	render_hp()
 	ui_manager.render_battlers()
 	transition_state_to(STATE_INCREMENT_TURN)
+
+
+func render_hp():
+	ui_manager.render_hp(player.selected_monster, enemy.selected_monster)
+
 
 
 func _init_states():
