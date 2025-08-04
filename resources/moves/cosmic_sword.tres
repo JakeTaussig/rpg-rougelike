@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://be36ggnntfbds"]
+[gd_resource type="Resource" script_class="Move" load_steps=3 format=3 uid="uid://be36ggnntfbds"]
 
+[ext_resource type="Material" uid="uid://d2nr2qoynh1nx" path="res://assets/shaders/pattern/cosmic.tres" id="1_52kdm"]
 [ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_sujtx"]
 
 [resource]
@@ -7,4 +8,5 @@ script = ExtResource("1_sujtx")
 move_name = "Cosmic Sword"
 type = 6
 base_power = 75
+backdrop = ExtResource("1_52kdm")
 metadata/_custom_type_script = "uid://dj7o2vdrnopw3"
