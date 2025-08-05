@@ -181,6 +181,10 @@ func level_up_player_and_enemies():
 	var monster_moves = player.selected_monster.moves
 	apply_trinkets()
 	player.selected_monster.hp = monster_hp
+
+	# The way we copy moves assumes that trinkets which modify the player's
+	# moves (e.g. PP up) do not have effects that need to be applied every time
+	# the player levels up
 	player.selected_monster.moves = monster_moves
 
 
