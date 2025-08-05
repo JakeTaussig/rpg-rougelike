@@ -178,8 +178,10 @@ func level_up_player_and_enemies():
 	player.selected_monster_backup.level_up(player_stat_multiplier)
 	# The HP gets reset to what the monster's hp was at the end of battle, plus the level up bonus
 	var monster_hp = player.selected_monster.hp + (player.selected_monster_backup.max_hp - old_max_hp)
+	var monster_moves = player.selected_monster.moves
 	apply_trinkets()
 	player.selected_monster.hp = monster_hp
+	player.selected_monster.moves = monster_moves
 
 
 func apply_trinkets():
