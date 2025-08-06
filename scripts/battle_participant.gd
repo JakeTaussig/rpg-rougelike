@@ -23,8 +23,12 @@ func setup_player(_monster: Monster):
 var selected_monster: Monster:
 	set(new_monster):
 		selected_monster = new_monster
+		selected_monster.connect("attack_used", play_attack_animation)
 		render_battler()
 
+func play_attack_animation():
+	var ap: AnimationPlayer = $AnimationPlayer
+	ap.play("attack_shake")
 
 # This is used as a fallback to apply new Trinkets and remove secondary move effects after battle.
 var selected_monster_backup: Monster
