@@ -105,7 +105,8 @@ func _on_debug_move_pressed():
 		attackCommand.attacker = GameManager.player.selected_monster
 		attackCommand.move = move
 		attackCommand.target = GameManager.enemy.selected_monster
-		GameManager.current_battle.transition_state_to(GameManager.current_battle.STATE_ATTACK, [attackCommand])
+		GameManager.current_battle.player_attack = attackCommand
+		GameManager.current_battle.transition_state_to(GameManager.current_battle.STATE_INCREMENT_TURN)
 		toggle_pause()
 
 
