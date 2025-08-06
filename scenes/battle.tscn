@@ -365,7 +365,7 @@ script = ExtResource("13_6ni85")
 [node name="ENACT_STATUSES" type="Node" parent="BattleStateMachine"]
 script = ExtResource("14_6ni85")
 
-[node name="UiManager" parent="." instance=ExtResource("23_fpf3k")]
+[node name="BattleUiManager" parent="." instance=ExtResource("23_fpf3k")]
 unique_name_in_owner = true
 
 [node name="TrinketShelf" parent="." node_paths=PackedStringArray("trinket_info_label", "trinket_info_panel", "trinket_info_sprite") instance=ExtResource("17_h4dll")]
