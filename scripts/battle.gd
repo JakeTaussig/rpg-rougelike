@@ -14,6 +14,11 @@ const NONE := "NONE"
 var turn = 0
 var turn_order_index := -1
 
+# These are the attacks registered by the player and enemy for the given turn.
+# These fields are overridden each turn.
+var player_attack: AttackState.AttackCommand
+var enemy_attack: AttackState.AttackCommand
+
 var battle_participants = []
 var player: BattleParticipant
 var enemy: BattleParticipant

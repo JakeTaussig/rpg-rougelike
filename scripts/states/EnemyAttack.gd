@@ -9,6 +9,7 @@ func enter(_messages: Array = []):
 		attackCommand.attacker = enemy.selected_monster
 		attackCommand.move = GameManager.enemy.selected_monster.moves[enemyMoveIdx]
 		attackCommand.target = GameManager.player.selected_monster
-		battle.transition_state_to(battle.STATE_ATTACK, [attackCommand])
-	else:
-		battle.transition_state_to(battle.STATE_INFO, ["%s can't attack" % enemy.monster.character_name])
+		battle.enemy_attack = attackCommand
+
+	# keep the game loop going even if there isn't a valid move
+	battle.transition_state_to(battle.STATE_INCREMENT_TURN)

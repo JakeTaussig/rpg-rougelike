@@ -2,9 +2,10 @@ extends BaseState
 
 var statuses_enacted = false
 var dead_monster = false
-
+var attacks_executed = 0
 
 func enter(_messages: Array = []):
+	# check for dead monsters
 	if not dead_monster:
 		var message = _check_for_dead_monsters()
 		if message != "":
@@ -16,6 +17,21 @@ func enter(_messages: Array = []):
 		battle.transition_state_to(battle.STATE_BATTLE_OVER)
 		return
 
+	# Execute attacks before updating the turn order
+	if battle.turn_order_index == battle.active_monsters.size() - 1 and attacks_executed < battle.active_monsters.size():
+		attacks_executed += 1
+		if battle.active_monsters[attacks_executed - 1] == battle.player.selected_monster:
+			battle.transition_state_to(battle.STATE_ATTACK, [battle.player_attack])
+		else:
+			# if the enemy is alive, process its attack. otherwise, return to
+			# the start of the IncrementTurn workflow
+			if battle.enemy.selected_monster.hp > 0:
+				battle.transition_state_to(battle.STATE_ATTACK, [battle.enemy_attack])
+			else:
+				battle.transition_state_to(battle.STATE_INCREMENT_TURN)
+
+		return
+
 	# enact statuses before updating the turn order
 	if battle.turn_order_index == battle.active_monsters.size() - 1 and not statuses_enacted:
 		statuses_enacted = true
@@ -24,6 +40,7 @@ func enter(_messages: Array = []):
 
 	battle.turn_order_index = (battle.turn_order_index + 1) % battle.active_monsters.size()
 	if battle.turn_order_index == 0 || dead_monster:
+		attacks_executed = 0
 		statuses_enacted = false
 		battle.turn += 1
 		if dead_monster:
@@ -33,8 +50,6 @@ func enter(_messages: Array = []):
 		battle.update_active_monsters()
 
 	_log_turn_info()
-	battle.ui_manager.set_turn_display("trn: %s idx: %s" % [battle.turn, battle.turn_order_index])
-
 	if battle.battle_participants[battle.turn_order_index].is_player:
 		battle.transition_state_to(battle.STATE_SELECTING_ACTION)
 	else:
