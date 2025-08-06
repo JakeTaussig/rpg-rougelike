@@ -128,6 +128,8 @@ func _exit_current_event():
 
 	_update_ui_text()
 	_show_ui_elements()
+
+	%ContinueButton.disabled = false
 	%ContinueButton.grab_focus()
 
 
@@ -275,6 +277,7 @@ func _update_ui_text():
 func _hide_ui_elements():
 	# press the icon button for the event, changing the background color
 	%FloorProgressDisplay.get_child(floor_event_index).set_pressed(true)
+	%ContinueButton.disabled = true
 
 	# Make the label for the recently unloaded event invisible
 	var event_label: Label = %FloorProgressDescriptions.get_child(floor_event_index)
