@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://bvus86ffkl23k"]
+
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinkets/trinket.gd" id="1_65ohn"]
+[ext_resource type="Texture2D" uid="uid://dkik0pq5unr1c" path="res://assets/sprites/trinket_icons/nazar.png" id="1_g7eqt"]
+[ext_resource type="Script" uid="uid://b6m0ls2xxicuf" path="res://resources/trinket_strategies/nazar_strategy.gd" id="3_uc4eh"]
+
+[sub_resource type="Resource" id="Resource_8v4pe"]
+script = ExtResource("3_uc4eh")
+metadata/_custom_type_script = "uid://b6m0ls2xxicuf"
+
+[resource]
+script = ExtResource("1_65ohn")
+trinket_name = "Nazar"
+icon = ExtResource("1_g7eqt")
+description = "Quicker Recovery from Status Effects"
+apply_once = true
+strategy = SubResource("Resource_8v4pe")
+metadata/_custom_type_script = "uid://c7ph0ydi5trjd"

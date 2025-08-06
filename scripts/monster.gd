@@ -58,7 +58,12 @@ var previous_move: Move
 
 var is_alive = true
 var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
-var status_effect_turn_counter: int = 0
+
+signal status_effect_turn_counter_updated
+var status_effect_turn_counter: int = 0:
+	set(_status_effect_turn_counter):
+		status_effect_turn_counter = _status_effect_turn_counter
+		status_effect_turn_counter_updated.emit()
 var vacuum_benefactor: Monster = null
 
 
