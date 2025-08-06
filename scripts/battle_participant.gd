@@ -28,7 +28,16 @@ var selected_monster: Monster:
 
 func play_attack_animation():
 	var ap: AnimationPlayer = $AnimationPlayer
-	ap.play("attack_shake")
+
+	var speed = 1
+	var from_start = false
+
+	# reverse the animation for the player sprite
+	if is_player:
+		speed = -1
+		from_start = true
+
+	ap.play("attack_shake", -1, speed, from_start)
 
 # This is used as a fallback to apply new Trinkets and remove secondary move effects after battle.
 var selected_monster_backup: Monster
