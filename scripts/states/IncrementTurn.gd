@@ -19,14 +19,16 @@ func enter(_messages: Array = []):
 
 	# Execute attacks before updating the turn order
 	if battle.turn_order_index == battle.active_monsters.size() - 1 and attacks_executed < battle.active_monsters.size():
+		var current_attack = battle.get_sorted_attacks()[attacks_executed]
+
 		attacks_executed += 1
 		if battle.active_monsters[attacks_executed - 1] == battle.player.selected_monster:
-			battle.transition_state_to(battle.STATE_ATTACK, [battle.player_attack])
+			battle.transition_state_to(battle.STATE_ATTACK, [current_attack])
 		else:
 			# if the enemy is alive, process its attack. otherwise, return to
 			# the start of the IncrementTurn workflow
 			if battle.enemy.selected_monster.hp > 0:
-				battle.transition_state_to(battle.STATE_ATTACK, [battle.enemy_attack])
+				battle.transition_state_to(battle.STATE_ATTACK, [current_attack])
 			else:
 				battle.transition_state_to(battle.STATE_INCREMENT_TURN)
 
