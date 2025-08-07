@@ -320,6 +320,7 @@ offset_left = 17.0
 offset_top = 21.0
 offset_right = 17.0
 offset_bottom = 21.0
+show_hp_numbers = false
 
 [node name="StateDisplay" type="Label" parent="."]
 unique_name_in_owner = true
