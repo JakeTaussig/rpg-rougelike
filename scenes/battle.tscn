@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://jpf5gywks7wx" path="res://scenes/trinket_shelf.tscn" id="17_h4dll"]
 [ext_resource type="Texture2D" uid="uid://fs4ws7okfwn5" path="res://assets/sprites/trinket_icons/arrow.png" id="18_h4dll"]
 [ext_resource type="PackedScene" uid="uid://cv5e4qocm73cv" path="res://scenes/debug_menu.tscn" id="19_p0caf"]
-[ext_resource type="PackedScene" uid="uid://capm3p3n50hky" path="res://scenes/ui_manager.tscn" id="23_fpf3k"]
+[ext_resource type="PackedScene" uid="uid://capm3p3n50hky" path="res://scenes/battle_ui_manager.tscn" id="23_fpf3k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_djc8l"]
 content_margin_top = 0.0
