@@ -5,6 +5,8 @@ var participants_statused: bool = false
 func enter(messages: Array = []):
 	var message = ""
 	for monster in battle.active_monsters:
+		if monster.hp <= 0:
+			continue
 		if monster.status_effect != GameManager.moves_list.StatusEffect.NONE:
 			match monster.status_effect_turn_counter:
 				0:
