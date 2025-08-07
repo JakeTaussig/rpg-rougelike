@@ -6,7 +6,7 @@ const white = Color(1.0, 1.0, 1.0, 1.0)
 # ui references
 @onready var floor_progress_display = %FloorProgressDisplay
 @onready var floor_progress_descriptions = %FloorProgressDescriptions
-
+	
 
 func reset_ui_elements():
 	# reset the first event button to base styling

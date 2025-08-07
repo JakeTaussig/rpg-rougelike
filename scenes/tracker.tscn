@@ -1,0 +1,145 @@
+[gd_scene load_steps=3 format=3 uid="uid://tlm6nhptxwkx"]
+
+[ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="1_bfym8"]
+[ext_resource type="Script" uid="uid://dqx4yk84nwr8x" path="res://scripts/tracker.gd" id="1_g10r1"]
+
+[node name="Tracker" type="Control"]
+layout_mode = 3
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_g10r1")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 97.0
+offset_bottom = 72.0
+
+[node name="TrackerInfo" type="GridContainer" parent="Panel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 64.0
+offset_bottom = 71.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="Character_Name" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "Char"
+
+[node name="Placeholder" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+
+[node name="HP_Info" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "HP:"
+
+[node name="HP" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0000/0000"
+
+[node name="ATK_Info" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "ATK:"
+
+[node name="ATK" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0"
+
+[node name="SP_ATK_Info" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "SP_ATK:"
+
+[node name="SP_ATK" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0"
+
+[node name="DEF_Info" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "DEF:"
+
+[node name="DEF" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0"
+
+[node name="SP_DEF_INFO" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "SP_DEF:"
+
+[node name="SP_DEF" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0"
+
+[node name="SPEED_Info" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "SPEED:"
+
+[node name="SPEED" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0"
+
+[node name="LUCK_Info" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "LUCK:"
+
+[node name="LUCK" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0"
+
+[node name="CRIT_Info" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "CRIT:"
+
+[node name="CRIT" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0.00"
+
+[node name="ACC_Info" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "ACC:"
+
+[node name="ACC" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "100"

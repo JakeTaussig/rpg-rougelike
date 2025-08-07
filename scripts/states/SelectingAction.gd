@@ -25,3 +25,9 @@ func exit():
 
 func _on_attack_pressed() -> void:
 	battle.transition_state_to(battle.STATE_SELECTING_ATTACK)
+
+
+func _on_tracker_pressed() -> void:
+	var tracker = battle.get_node("Tracker")
+	tracker.populate_player_tracker()
+	tracker.visible = !tracker.visible
