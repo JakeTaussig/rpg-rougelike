@@ -1,4 +1,4 @@
-class_name UIManager
+class_name BattleUIManager
 extends Node
 
 # UI References
