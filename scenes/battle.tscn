@@ -416,7 +416,9 @@ visible = false
 visible = false
 z_index = 1
 offset_left = 159.0
+offset_top = 9.0
 offset_right = 199.0
+offset_bottom = 49.0
 theme = ExtResource("2_p1qf1")
 
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]

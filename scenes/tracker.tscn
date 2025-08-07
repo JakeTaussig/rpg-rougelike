@@ -12,7 +12,7 @@ script = ExtResource("1_g10r1")
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
 offset_right = 97.0
-offset_bottom = 72.0
+offset_bottom = 65.0
 
 [node name="TrackerInfo" type="GridContainer" parent="Panel"]
 unique_name_in_owner = true
@@ -24,17 +24,6 @@ offset_bottom = 71.0
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 2
-
-[node name="Character_Name" type="Label" parent="Panel/TrackerInfo"]
-layout_mode = 2
-theme = ExtResource("1_bfym8")
-theme_type_variation = &"SmallTextLabel"
-text = "Char"
-
-[node name="Placeholder" type="Label" parent="Panel/TrackerInfo"]
-layout_mode = 2
-theme = ExtResource("1_bfym8")
-theme_type_variation = &"SmallTextLabel"
 
 [node name="HP_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -143,3 +132,18 @@ layout_mode = 2
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
 text = "100"
+
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 0
+offset_top = -9.0
+offset_right = 97.0
+
+[node name="Character_Name" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 96.0
+offset_bottom = 8.0
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "Char"

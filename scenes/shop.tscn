@@ -346,8 +346,8 @@ unique_name_in_owner = true
 z_index = 1
 layout_mode = 1
 offset_left = 159.0
-offset_top = 40.0
+offset_top = 43.0
 offset_right = 199.0
-offset_bottom = 80.0
+offset_bottom = 83.0
 
 [connection signal="pressed" from="GridContainer/TrinketContainer/ExitButtonRow/ExitButton" to="." method="_on_exit_button_pressed"]
