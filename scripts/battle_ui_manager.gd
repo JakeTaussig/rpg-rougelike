@@ -112,6 +112,11 @@ func set_button_style_enabled(button: Button, enabled: bool):
 		button.set_theme_type_variation("DisabledButton")
 	else:
 		button.set_theme_type_variation("Button")
+		
+
+func set_tracker_info(monster: Monster):
+	var tracker = GameManager.tracker
+	tracker.get_child(0).text = "%d/%d" % [monster.max_hp, monster.hp]
 
 
 func set_pp_info(text: String, disabled: bool):

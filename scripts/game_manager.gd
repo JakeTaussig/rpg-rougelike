@@ -18,6 +18,8 @@ var enemy: BattleParticipant
 var battle_scene = preload("res://scenes/battle.tscn")
 var battle_participant_scene := preload("res://scenes/battle_participant.tscn")
 var shop_scene = preload("res://scenes/shop.tscn")
+var tracker
+
 
 # All of the player's and enemy's stats will be multiplied by their respective value at the end of each floor
 var player_stat_multiplier := 1.2
@@ -35,6 +37,7 @@ func start_game():
 	_load_and_randomize_monsters()
 	player = _create_player()
 	enemy = _create_new_enemy()
+	tracker = %TrackerInfo
 	_exit_current_event()
 
 
