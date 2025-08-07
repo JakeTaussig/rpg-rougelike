@@ -37,7 +37,6 @@ func start_game():
 	_load_and_randomize_monsters()
 	player = _create_player()
 	enemy = _create_new_enemy()
-	tracker = %TrackerInfo
 	_exit_current_event()
 
 

@@ -1,0 +1,129 @@
+[gd_scene load_steps=3 format=3 uid="uid://tlm6nhptxwkx"]
+
+[ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="1_bfym8"]
+[ext_resource type="Script" uid="uid://dqx4yk84nwr8x" path="res://scripts/tracker.gd" id="1_g10r1"]
+
+[node name="Tracker" type="Control"]
+layout_mode = 3
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 56.0
+offset_bottom = 72.0
+script = ExtResource("1_g10r1")
+
+[node name="TrackerInfo" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -8.0
+offset_right = 62.0
+offset_bottom = 40.0
+theme_override_constants/h_separation = 0
+columns = 2
+
+[node name="HP_Info" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "HP:"
+
+[node name="HP" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0/0"
+
+[node name="ATK_Info" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "ATK:"
+
+[node name="ATK" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0"
+
+[node name="SP_ATK_Info" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "SP_ATK:"
+
+[node name="SP_ATK" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0"
+
+[node name="DEF_Info" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "DEF:"
+
+[node name="DEF" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0"
+
+[node name="SP_DEF_INFO" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "SP_DEF:"
+
+[node name="SP_DEF" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0"
+
+[node name="SPEED_Info" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "SPEED:"
+
+[node name="SPEED" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0"
+
+[node name="LUCK_Info" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "LUCK:"
+
+[node name="LUCK" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0"
+
+[node name="CRIT_Info" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "CRIT:"
+
+[node name="CRIT" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "0.00"
+
+[node name="ACC_Info" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "ACC:"
+
+[node name="ACC" type="Label" parent="TrackerInfo"]
+layout_mode = 2
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"SmallTextLabel"
+text = "100"

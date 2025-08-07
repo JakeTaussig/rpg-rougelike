@@ -15,6 +15,7 @@ const WHITE: Color = Color(1.0, 1.0, 1.0, 1.0)
 
 var trinkets: Array[Trinket] = []
 var purchased_trinkets: Array[bool] = []
+var global_ui_manager = GameManager.global_ui_manager
 
 
 func setup():
@@ -22,6 +23,7 @@ func setup():
 	_init_trinket_menu_buttons()
 	_render_trinkets()
 	_render_player_prana()
+	%Tracker.populate_player_tracker()
 	%ExitButton.grab_focus()
 
 
@@ -134,6 +136,7 @@ func _on_trinket_button_pressed(trinket_index: int):
 	# Remember to set the HP back to the monster's current hp, but make sure it doesn't exceed the potentially reduced max_hp
 	trinket.strategy.ApplyEffect(GameManager.player.selected_monster)
 	%TrinketShelf.render_trinkets()
+	%Tracker.populate_player_tracker()
 
 	purchased_trinkets[trinket_index] = true
 
