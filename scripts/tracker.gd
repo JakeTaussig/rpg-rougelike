@@ -2,6 +2,7 @@ extends Control
 class_name Tracker
 
 func populate_player_tracker():
+	$TrackerInfo/Character_Name.text = GameManager.player.selected_monster.character_name
 	$TrackerInfo/HP.text = "%d/%d" % [GameManager.player.selected_monster.hp, GameManager.player.selected_monster.max_hp]
 	$TrackerInfo/ATK.text = str(GameManager.player.selected_monster.atk)
 	$TrackerInfo/SP_ATK.text = str(GameManager.player.selected_monster.sp_atk)
