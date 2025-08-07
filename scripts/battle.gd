@@ -33,7 +33,27 @@ signal battle_ended(victory: bool)
 
 func _ready() -> void:
 	_init_states()
+	_init_backdrop_image()
 	call_deferred("_start_battle")
+
+func _init_backdrop_image():
+	match GameManager.floor_number:
+		1:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/earth_backdrop.png")
+		2:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/water_backdrop.png")
+		3:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/fire_backdrop.png")
+		4:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/air_backdrop.png")
+		5:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/ether_backdrop.png")
+		6:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/light_backdrop.png")
+		7:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/cosmic_backdrop.png")
+		_:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/earth_backdrop.png")
 
 
 func setup(_player: BattleParticipant, _enemy: BattleParticipant):
