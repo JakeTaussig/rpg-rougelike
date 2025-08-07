@@ -26,7 +26,7 @@ var enemy_level = 0
 
 var randomized_monsters: Array[Monster] = []
 
-@onready var global_ui = %GlobalUIManager
+@onready var global_ui_manager = %GlobalUIManager
 
 
 func start_game():
@@ -70,7 +70,7 @@ func _generate_floor_events():
 
 
 func _on_continue_button_pressed() -> void:
-	global_ui.hide_ui_elements()
+	global_ui_manager.hide_ui_elements()
 	_start_next_event()
 
 
@@ -87,7 +87,7 @@ func _start_next_event():
 
 func _run_battle():
 	current_battle = floor_events.pop_front()
-	global_ui.show_player_and_enemy()
+	global_ui_manager.show_player_and_enemy()
 	current_battle.setup(player, enemy)
 	add_child(current_battle)
 	current_battle.connect("battle_ended", Callable(self, "_on_battle_ended"))
@@ -119,14 +119,14 @@ func _exit_current_event():
 		floor_event_index = 0
 		floor_number += 1
 		_generate_floor_events()
-		global_ui.reset_ui_elements()
+		global_ui_manager.reset_ui_elements()
 
 
-	global_ui.hide_player_and_enemy() # don't render the player and enemy on the room transition screen
+	global_ui_manager.hide_player_and_enemy() # don't render the player and enemy on the room transition screen
 	await get_tree().process_frame  # Ensure new enemy exists and is valid
 
-	global_ui.update_ui_text()
-	global_ui.show_ui_elements()
+	global_ui_manager.update_ui_text()
+	global_ui_manager.show_ui_elements()
 
 	%ContinueButton.disabled = false
 	%ContinueButton.grab_focus()
