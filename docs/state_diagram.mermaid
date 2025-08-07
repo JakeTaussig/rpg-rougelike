@@ -13,11 +13,12 @@ flowchart TD
 
   IncrementTurn --> |Player Turn| SelectingAction
   SelectingAction --> |Attack menu selected| SelectingAttack
-  SelectingAttack --> |specific attack selected| Attack
+  SelectingAttack --> |player_attack set| IncrementTurn
 
   IncrementTurn --> |Enemy Turn| EnemyAttack
-  EnemyAttack --> Attack
+  EnemyAttack --> |enemy_attack set| IncrementTurn
 
+  IncrementTurn --> |More attacks to process| Attack
   Attack --> Info
 
   IncrementTurn --> |Player or Enemy Dead| GameEnd

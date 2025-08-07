@@ -34,7 +34,8 @@ func _on_move_pressed(index: int) -> void:
 		attackCommand.attacker = GameManager.player.selected_monster
 		attackCommand.target = GameManager.enemy.selected_monster
 		attackCommand.move = GameManager.player.selected_monster.moves[index]
-		battle.transition_state_to(battle.STATE_ATTACK, [attackCommand])
+		battle.player_attack = attackCommand
+		battle.transition_state_to(battle.STATE_INCREMENT_TURN)
 
 
 # initialize move names and connect PP info display

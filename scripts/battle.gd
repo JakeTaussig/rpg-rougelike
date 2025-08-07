@@ -14,6 +14,11 @@ const NONE := "NONE"
 var turn = 0
 var turn_order_index := -1
 
+# These are the attacks registered by the player and enemy for the given turn.
+# These fields are overridden each turn.
+var player_attack: AttackState.AttackCommand
+var enemy_attack: AttackState.AttackCommand
+
 var battle_participants = []
 var player: BattleParticipant
 var enemy: BattleParticipant
@@ -107,6 +112,31 @@ func _sort_participants_by_speed(a: Monster, b: Monster) -> bool:
 		return randf() < 0.5  # More readable than randi() % 2
 	return a.speed > b.speed
 
+func get_sorted_attacks():
+	var turn_attacks: Array[AttackState.AttackCommand] = [player_attack, enemy_attack]
+
+	if active_monsters[0] != GameManager.player.selected_monster:
+		turn_attacks = [enemy_attack, player_attack]
+
+	turn_attacks.sort_custom(_sort_attack_commands_by_monster_speed)
+	turn_attacks.sort_custom(_sort_attack_commands_by_priority)
+
+	return turn_attacks
+
+
+func _sort_attack_commands_by_monster_speed(a: AttackState.AttackCommand, b: AttackState.AttackCommand) -> bool:
+	return a.attacker.speed > b.attacker.speed
+
+
+func _sort_attack_commands_by_priority(a: AttackState.AttackCommand, b: AttackState.AttackCommand) -> bool:
+	if a.move.priority and not b.move.priority:
+		return true
+	elif b.move.priority and not a.move.priority:
+		return false
+	else:
+		# if both moves, or no moves are priority, default to the existing
+		# sorting (i.e. monster speed)
+		return false
 
 func transition_state_to(state_name: String, messages: Array = []):
 	if not %BattleStateMachine.has_node(state_name):
