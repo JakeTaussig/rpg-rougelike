@@ -91,8 +91,8 @@ func randomize_stat_spread(bst: int = 300, min_stat: int = 10) -> void:
 		stat_values[stat] += 1
 		remaining -= 1
 
-	max_hp = stat_values["max_hp"]
-	hp = max_hp
+	max_hp = 3 * stat_values["max_hp"]
+	hp = 3 * max_hp
 	atk = stat_values["atk"]
 	sp_atk = stat_values["sp_atk"]
 	def = stat_values["def"]
