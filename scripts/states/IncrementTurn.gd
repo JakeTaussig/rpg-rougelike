@@ -64,14 +64,10 @@ func _check_for_dead_monsters() -> String:
 	var message = ""
 	if enemy.selected_monster.hp <= 0 and player.selected_monster.hp <= 0:
 		message = "%s and %s wiped each other out!" % [enemy.selected_monster.character_name, player.selected_monster.character_name]
-		enemy.play_death_animation()
-		player.play_death_animation()
 	elif enemy.selected_monster.hp <= 0:
 		message = "%s defeated %s!" % [player.selected_monster.character_name, enemy.selected_monster.character_name]
-		enemy.play_death_animation()
 	elif player.selected_monster.hp <= 0:
 		message = "%s defeated %s!" % [enemy.selected_monster.character_name, player.selected_monster.character_name]
-		player.play_death_animation()
 
 	return message
 

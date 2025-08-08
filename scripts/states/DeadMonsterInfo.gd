@@ -1,6 +1,9 @@
 class_name DeadMonsterInfoState
 extends InfoState
 
+# DeadMonsterInfoState Inherits from InfoState. We need this state so that we
+# can block the continiue button while a monster's death animation plays
+
 func enter(_messages: Array = []):
 	battle.ui_manager.render_battlers()
 	battle.ui_manager.show_info_panel(true)
@@ -9,7 +12,7 @@ func enter(_messages: Array = []):
 	message_index = 0
 	_update_message()
 
-	# Block continue button while hp is being rendered.
+	# Block continue button while death animation is running.
 	GameManager.current_battle.ui_manager.disable_continue_button()
 	await play_death_animations()
 	GameManager.current_battle.ui_manager.enable_continue_button()

@@ -87,9 +87,6 @@ void fragment() {
 		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
 	}
 
-
-	//vec4 second_effect_color = texture(TEXTURE, corrected_uv);
 	COLOR.a *= clamp(1. - slice_effect_offset/fade, 0., 1.);
 
-	//COLOR = second_effect_color;
 }
