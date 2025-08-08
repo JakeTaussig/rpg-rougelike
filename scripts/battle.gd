@@ -9,6 +9,7 @@ const STATE_BATTLE_OVER := "BATTLE_OVER"
 const STATE_SELECTING_ATTACK := "SELECTING_ATTACK"
 const STATE_ATTACK := "ATTACK"
 const STATE_ENACT_STATUSES := "ENACT_STATUSES"
+const STATE_DEAD_MONSTER_INFO := "DEAD_MONSTER_INFO"
 const NONE := "NONE"
 
 var turn = 0
@@ -109,9 +110,7 @@ func _start_battle():
 
 
 func render_hp():
-	ui_manager.render_hp(player.selected_monster, enemy.selected_monster)
-
-
+	await ui_manager.render_hp(player.selected_monster, enemy.selected_monster)
 
 func _init_states():
 	# Initialize all states

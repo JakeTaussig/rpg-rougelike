@@ -28,26 +28,26 @@ var selected_monster: Monster:
 
 func play_death_animation():
 	var ap: AnimationPlayer = $AnimationPlayer
+	var speed = 1
+	var from_end = false
+	ap.play("horiz_slice", -1, speed, from_end)
 
-	ap.play("horiz_slice")
-	ap.connect("animation_finished", func(anim_name):
-		if anim_name == "horiz_slice":
-			hide()
-			ap.play("RESET")
-	)
+	await get_tree().create_timer(speed).timeout
+	hide()
+	ap.play("RESET")
 
 func play_attack_animation():
 	var ap: AnimationPlayer = $AnimationPlayer
 
 	var speed = 1
-	var from_start = false
+	var from_end = false
 
 	# reverse the animation for the player sprite
 	if is_player:
 		speed = -1
-		from_start = true
+		from_end = true
 
-	ap.play("attack_shake", -1, speed, from_start)
+	ap.play("attack_shake", -1, speed, from_end)
 
 # This is used as a fallback to apply new Trinkets and remove secondary move effects after battle.
 var selected_monster_backup: Monster

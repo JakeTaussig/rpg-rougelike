@@ -69,6 +69,11 @@ func set_info_text(text: String):
 func focus_continue_button():
 	continue_button.grab_focus()
 
+func disable_continue_button():
+	continue_button.disabled = true
+
+func enable_continue_button():
+	continue_button.disabled = false
 
 func focus_action_button():
 	%ActionButtons.get_child(0).grab_focus()

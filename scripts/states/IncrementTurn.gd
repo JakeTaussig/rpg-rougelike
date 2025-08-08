@@ -10,7 +10,7 @@ func enter(_messages: Array = []):
 		var message = _check_for_dead_monsters()
 		if message != "":
 			dead_monster = true
-			battle.transition_state_to(battle.STATE_INFO, [message])
+			battle.transition_state_to(battle.STATE_DEAD_MONSTER_INFO, [message])
 			return
 	# Checks if the current selected_monster is dead and if the battle is over
 	if battle.is_battle_over():
