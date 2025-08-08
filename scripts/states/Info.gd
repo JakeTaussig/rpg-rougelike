@@ -22,7 +22,7 @@ func enter(_messages: Array = []):
 
 
 func exit():
-	battle.ui_manager.clear_backdrop_material()
+	battle.ui_manager.reset_backdrop_material()
 	battle.ui_manager.show_info_panel(false)
 
 

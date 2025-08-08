@@ -36,6 +36,7 @@ script = ExtResource("1_a12nh")
 [node name="Backdrop" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 z_index = -1
+texture_filter = 1
 position = Vector2(128, 72)
 texture = ExtResource("1_dn72j")
 

@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://uxf5hi4ymdv6"]
+
+[ext_resource type="Shader" uid="uid://cg5njcp7k8g6k" path="res://assets/shaders/water.gdshader" id="1_dl0ts"]
+
+[resource]
+shader = ExtResource("1_dl0ts")
+shader_parameter/hFrames = 1
+shader_parameter/vFrames = 1
+shader_parameter/enableMovement = true
+shader_parameter/displacementPixels = 2
+shader_parameter/timeGap = 0.32999999262384005
+shader_parameter/speed = 0.33000000000174623
+shader_parameter/leftSideRelationTime = 0.43999999016512004
+shader_parameter/rightSideRelationTime = 0.32999999262384005
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/colorMix = 0.0
+shader_parameter/alpha = 0.9999999776480001
+shader_parameter/mask = Color(0, 0.6, 0.858824, 1)
