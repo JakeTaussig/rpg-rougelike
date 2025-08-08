@@ -58,7 +58,7 @@ func _render_status():
 		parent.material = load("res://assets/shaders/outline-material.tres").duplicate()
 
 	if outline_color == Color(1.0, 1.0, 1.0, 0.0):
-		outline_color = MovesList.type_to_color(parent.selected_monster.type)
+		outline_color = MovesList.type_to_outline_color(parent.selected_monster.type)
 
 	parent.material.set_shader_parameter("color", outline_color)
 	parent.material.set_shader_parameter("add_margins", false)
