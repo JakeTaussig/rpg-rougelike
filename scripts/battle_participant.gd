@@ -26,6 +26,16 @@ var selected_monster: Monster:
 		selected_monster.connect("attack_used", play_attack_animation)
 		render_battler()
 
+func play_death_animation():
+	var ap: AnimationPlayer = $AnimationPlayer
+
+	ap.play("horiz_slice")
+	ap.connect("animation_finished", func(anim_name):
+		if anim_name == "horiz_slice":
+			hide()
+			ap.play("RESET")
+	)
+
 func play_attack_animation():
 	var ap: AnimationPlayer = $AnimationPlayer
 
@@ -54,6 +64,7 @@ func render_battler():
 	flip_h = is_player
 	$StatusEmitter.status_effect = selected_monster.status_effect
 
+
 func is_defeated() -> bool:
 	if is_player:
 		if selected_monster.hp > 0:
@@ -62,6 +73,7 @@ func is_defeated() -> bool:
 		for monster in monsters:
 			if monster.hp > 0:
 				return false
+
 	return true
 
 
@@ -72,3 +84,4 @@ func swap_dead_monster():
 		if monsters.size() == 0:
 			return
 		selected_monster = monsters[0]
+		show()
