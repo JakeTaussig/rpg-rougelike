@@ -39,7 +39,11 @@ static func type_to_color(type: Type) -> Color:
 
 static func type_to_outline_color(type: Type) -> Color:
 	if type == Type.ETHER:
-		return Color(0.149, 0.169, 0.267, 1.0)
+		return Color(0.353, 0.412, 0.533, 1.0)
+	if type == Type.FIRE:
+		return Color(0.969, 0.463, 0.133, 1.0)
+	if type == Type.COSMIC:
+		return Color(0.965, 0.459, 0.478, 1.0)
 
 	return type_to_color(type)
 
