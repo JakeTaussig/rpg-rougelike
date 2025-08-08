@@ -26,18 +26,28 @@ var selected_monster: Monster:
 		selected_monster.connect("attack_used", play_attack_animation)
 		render_battler()
 
+func play_death_animation():
+	var ap: AnimationPlayer = $AnimationPlayer
+	var speed = 1
+	var from_end = false
+	ap.play("horiz_slice", -1, speed, from_end)
+
+	await get_tree().create_timer(speed).timeout
+	hide()
+	ap.play("RESET")
+
 func play_attack_animation():
 	var ap: AnimationPlayer = $AnimationPlayer
 
 	var speed = 1
-	var from_start = false
+	var from_end = false
 
 	# reverse the animation for the player sprite
 	if is_player:
 		speed = -1
-		from_start = true
+		from_end = true
 
-	ap.play("attack_shake", -1, speed, from_start)
+	ap.play("attack_shake", -1, speed, from_end)
 
 # This is used as a fallback to apply new Trinkets and remove secondary move effects after battle.
 var selected_monster_backup: Monster
@@ -54,6 +64,7 @@ func render_battler():
 	flip_h = is_player
 	$StatusEmitter.status_effect = selected_monster.status_effect
 
+
 func is_defeated() -> bool:
 	if is_player:
 		if selected_monster.hp > 0:
@@ -62,6 +73,7 @@ func is_defeated() -> bool:
 		for monster in monsters:
 			if monster.hp > 0:
 				return false
+
 	return true
 
 
@@ -72,3 +84,4 @@ func swap_dead_monster():
 		if monsters.size() == 0:
 			return
 		selected_monster = monsters[0]
+		show()

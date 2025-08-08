@@ -29,3 +29,7 @@ flowchart TD
   Info --> |More messages to display| Info
 
   EnactStatuses --> Info
+
+  IncrementTurn --> |Dead Monsters Found| DeadMonsterInfo
+  DeadMonsterInfo --> |Death animation finishes| IncrementTurn
+

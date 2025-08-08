@@ -10,6 +10,15 @@ uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical 
 
 varying flat vec4 modulate;
 
+// original source for slice effect: https://godotshaders.com/shader/slice-and-fade-out/
+uniform vec2 slice_direction = vec2(.0, .5);
+
+uniform float slice_effect_offset : hint_range(0., 1.);
+
+uniform float fade : hint_range(0., 1.);
+
+uniform float strip = 4.;
+
 void vertex() {
 	modulate = COLOR;
 
@@ -53,6 +62,12 @@ void fragment() {
 	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
 	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
 
+	vec2 norm = normalize(slice_direction);
+	vec2 pixels = SCREEN_UV / SCREEN_PIXEL_SIZE;
+	vec2 pdir = vec2(norm.y, -norm.x);
+	uv = uv + ((float(int(dot(pdir, pixels) / strip) & 0x1) * 2.) - 1.) * slice_effect_offset * pdir;
+
+
 	if (add_margins) {
 		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
 
@@ -71,4 +86,7 @@ void fragment() {
 		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
 		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
 	}
+
+	COLOR.a *= clamp(1. - slice_effect_offset/fade, 0., 1.);
+
 }
