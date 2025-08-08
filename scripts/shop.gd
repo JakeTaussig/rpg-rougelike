@@ -6,9 +6,14 @@ signal shop_ended
 # The shop will contain this many trinkets
 const N_TRINKETS: int = 3
 
+# The shop will contain this many consumables
+const N_CONSUMABLES: int = 3
+
 # TODO: introduce varying trinket costs
 # For now, every trinket will cost this much
 const TRINKET_COST: int = 165
+
+const CONSUMABLE_COST: int = 100
 
 const DISABLED_GRAY: Color = Color(0.545, 0.608, 0.706, 1.0)
 const WHITE: Color = Color(1.0, 1.0, 1.0, 1.0)
@@ -17,11 +22,16 @@ var trinkets: Array[Trinket] = []
 var purchased_trinkets: Array[bool] = []
 var global_ui_manager = GameManager.global_ui_manager
 
+# TODO: create Consumable class
+# var consumables: Array[Consumable] = []
+var consumables: Array[int] = []
+var purchased_consumables: Array[bool] = []
 
 func setup():
 	_roll_trinkets()
 	_init_trinket_menu_buttons()
 	_render_trinkets()
+	_render_consumables()
 	_render_player_prana()
 	%Tracker.populate_player_tracker()
 	%ExitButton.grab_focus()
@@ -53,6 +63,35 @@ func _init_trinket_menu_buttons():
 		trinket_button.connect("mouse_exited", _on_trinket_focus_exit)
 		trinket_button.pressed.connect(func(): _on_trinket_button_pressed(i))
 
+	for i in range(N_CONSUMABLES):
+		var consumable_entry: HBoxContainer = %ConsumableContainer.get_child(i)
+		var consumable_button: Button = consumable_entry.get_node("ConsumableName")
+		consumable_button.connect("mouse_entered", func(): consumable_button.grab_focus())
+		#consumable_button.connect("focus_entered", func(): _on_consumable_focus(i))
+		#consumable_button.connect("focus_exited", _on_consumable_focus_exit)
+		#consumable_button.connect("mouse_exited", _on_consumable_focus_exit)
+		#consumable_button.connect("mouse_exited", func(): consumable_button.release_focus())
+		consumable_button.pressed.connect(func(): _on_consumable_button_pressed(i))
+
+func _on_consumable_button_pressed(i: int):
+		# var consumable: Consumable = consumables[consumable_index]
+		var consumable_button: Button = %ConsumableContainer.get_child(i).get_node("ConsumableName")
+		var consumable_cost_label: RichTextLabel = %ConsumableContainer.get_child(i).get_node("ConsumableCost")
+		var consumable_icon: TextureRect = %ConsumableContainer.get_child(i).get_node("ConsumableIcon")
+
+		if GameManager.player.prana < CONSUMABLE_COST:
+			return
+
+		GameManager.player.selected_monster.hp += 25
+
+		# when the consumable is purchased:
+		# - disable its button
+		# - draw a line through the cost
+		# - render its icon in black-and-white
+		consumable_button.disabled = true
+		consumable_cost_label.text = "[s]%s[/s]" % consumable_cost_label.text
+		consumable_cost_label.add_theme_color_override("default_color", DISABLED_GRAY)
+		consumable_icon.material = load("res://assets/shaders/grayscale-material.tres")
 
 func _render_trinkets():
 	for i in range(N_TRINKETS):
@@ -61,6 +100,12 @@ func _render_trinkets():
 		trinket_entry.get_node("TrinketIcon").texture = trinkets[i].icon
 		trinket_entry.get_node("TrinketCost").text = "¶ %d" % TRINKET_COST
 
+func _render_consumables():
+	for i in range(N_CONSUMABLES):
+		var consumable_entry: HBoxContainer = %ConsumableContainer.get_child(i)
+		consumable_entry.get_node("ConsumableName").text = "HP Up"
+		#consumable_entry.get_node("ConsumableIcon").texture = trinkets[i].icon
+		consumable_entry.get_node("ConsumableCost").text = "¶ %d" % CONSUMABLE_COST
 
 func _render_player_prana():
 	%Prana.text = "¶ %d" % GameManager.player.prana
