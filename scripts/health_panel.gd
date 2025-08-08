@@ -22,6 +22,7 @@ func render_hp(monster: Monster):
 		%StatusLabelPanel.visible = false
 	var prior_hp = %HPBar.value
 	while damage > 0 and prior_hp > 0:
+		await get_tree().create_timer(0.01).timeout
 		if damage >= 2:
 			prior_hp -= 2
 			damage -= 2
