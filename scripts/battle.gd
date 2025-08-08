@@ -31,6 +31,7 @@ var previous_state_name: String
 var setup_done := false
 
 # Connected in GameManager
+@warning_ignore("unused_signal")
 signal battle_ended(victory: bool)
 
 @onready var ui_manager: BattleUIManager = %BattleUiManager
@@ -40,6 +41,19 @@ func _ready() -> void:
 	_init_states()
 	_init_backdrop_image()
 	call_deferred("_start_battle")
+	
+
+func _input(event: InputEvent):
+	if event.is_action_pressed("toggle_tracker"):
+		%PlayerTracker.populate_player_tracker()
+		%EnemyTracker.populate_enemy_tracker()
+		$Trackers.visible = not $Trackers.visible
+	if $Trackers.visible and event.is_action_pressed("switch_tracker"):
+		%PlayerTracker.visible = not %PlayerTracker.visible
+		%EnemyTracker.visible = not %EnemyTracker.visible
+	if current_state:
+		current_state.handle_input(event)
+	
 
 func _init_backdrop_image():
 	match GameManager.floor_number:
@@ -164,8 +178,3 @@ func get_attacker():
 
 func _on_continue_button_pressed() -> void:
 	current_state.handle_continue()
-
-
-func _input(event: InputEvent) -> void:
-	if current_state:
-		current_state.handle_input(event)

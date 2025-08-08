@@ -25,6 +25,8 @@ func enter(params: Array = []):
 	# if the debug setting is enabled, mention it
 	if GameManager.player.selected_monster.invincible and target == GameManager.player.selected_monster:
 		messages.append("DEBUG: Player takes no damage")
+		
+	battle.get_node("Trackers/PlayerTracker").populate_player_tracker()
 
 	# Transition to AttackingInfoState to show results
 	battle.transition_state_to(battle.STATE_INFO, messages)

@@ -28,6 +28,6 @@ func _on_attack_pressed() -> void:
 
 
 func _on_tracker_pressed() -> void:
-	var tracker = battle.get_node("Tracker")
-	tracker.populate_player_tracker()
-	tracker.visible = !tracker.visible
+	battle.get_node("Trackers/PlayerTracker").populate_player_tracker()
+	battle.get_node("Trackers/EnemyTracker").populate_enemy_tracker()
+	battle.get_node("Trackers").visible = not battle.get_node("Trackers").visible
