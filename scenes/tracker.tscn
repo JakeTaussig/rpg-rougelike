@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://tlm6nhptxwkx"]
+[gd_scene load_steps=4 format=3 uid="uid://tlm6nhptxwkx"]
 
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="1_bfym8"]
 [ext_resource type="Script" uid="uid://dqx4yk84nwr8x" path="res://scripts/tracker.gd" id="1_g10r1"]
+[ext_resource type="Script" uid="uid://5gqyd7etib2b" path="res://scripts/mark_tracker.gd" id="3_ocy8l"]
 
 [node name="Tracker" type="Control"]
 layout_mode = 3
@@ -33,9 +34,11 @@ text = "HP:"
 
 [node name="HP" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
+mouse_filter = 0
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
-text = "0000/0000"
+text = "?/?"
+script = ExtResource("3_ocy8l")
 
 [node name="ATK_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -45,9 +48,11 @@ text = "ATK:"
 
 [node name="ATK" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
+mouse_filter = 0
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
-text = "0"
+text = "?"
+script = ExtResource("3_ocy8l")
 
 [node name="SP_ATK_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -57,9 +62,11 @@ text = "SP_ATK:"
 
 [node name="SP_ATK" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
+mouse_filter = 0
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
-text = "0"
+text = "?"
+script = ExtResource("3_ocy8l")
 
 [node name="DEF_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -69,9 +76,11 @@ text = "DEF:"
 
 [node name="DEF" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
+mouse_filter = 0
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
-text = "0"
+text = "?"
+script = ExtResource("3_ocy8l")
 
 [node name="SP_DEF_INFO" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -81,9 +90,11 @@ text = "SP_DEF:"
 
 [node name="SP_DEF" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
+mouse_filter = 0
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
-text = "0"
+text = "?"
+script = ExtResource("3_ocy8l")
 
 [node name="SPEED_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -93,9 +104,11 @@ text = "SPEED:"
 
 [node name="SPEED" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
+mouse_filter = 0
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
-text = "0"
+text = "?"
+script = ExtResource("3_ocy8l")
 
 [node name="LUCK_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -105,9 +118,11 @@ text = "LUCK:"
 
 [node name="LUCK" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
+mouse_filter = 0
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
-text = "0"
+text = "?"
+script = ExtResource("3_ocy8l")
 
 [node name="CRIT_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -117,9 +132,11 @@ text = "CRIT:"
 
 [node name="CRIT" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
+mouse_filter = 0
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
-text = "0.00"
+text = "?"
+script = ExtResource("3_ocy8l")
 
 [node name="ACC_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -129,9 +146,11 @@ text = "ACC:"
 
 [node name="ACC" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
+mouse_filter = 0
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
-text = "100"
+text = "?"
+script = ExtResource("3_ocy8l")
 
 [node name="Panel2" type="Panel" parent="."]
 layout_mode = 0
