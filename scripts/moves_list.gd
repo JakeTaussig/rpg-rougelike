@@ -54,6 +54,8 @@ static func status_effect_to_color(status_effect: StatusEffect) -> Color:
 			return Color(0.918, 0.831, 0.667, 1.0)
 		MovesList.StatusEffect.UNVEIL:
 			return Color(0.71, 0.314, 0.533, 1.0)
+		MovesList.StatusEffect.NONE:
+			return Color(0.094, 0.078, 0.145, 1.0)
 
 	return Color(1.0, 1.0, 1.0, 0.0)
 
