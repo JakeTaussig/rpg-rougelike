@@ -40,8 +40,33 @@ func set_backdrop_material(material: ShaderMaterial):
 	backdrop.material = material
 
 
-func clear_backdrop_material():
+func reset_backdrop_material():
+	if GameManager.floor_number == 2:
+		backdrop.material = load("res://assets/shaders/water-material.tres")
+		return
+
 	backdrop.material = null
+
+# TODO: move to battle UI manager
+func init_backdrop_image():
+	reset_backdrop_material()
+	match GameManager.floor_number:
+		1:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/earth_backdrop.png")
+		2:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/water_backdrop.png")
+		3:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/fire_backdrop.png")
+		4:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/air_backdrop.png")
+		5:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/ether_backdrop.png")
+		6:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/light_backdrop.png")
+		7:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/cosmic_backdrop.png")
+		_:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/earth_backdrop.png")
 
 
 func render_hp(player_monster, enemy_monster):

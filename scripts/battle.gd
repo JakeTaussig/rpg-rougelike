@@ -40,9 +40,11 @@ signal battle_ended(victory: bool)
 
 func _ready() -> void:
 	_init_states()
-	_init_backdrop_image()
+	call_deferred("_init_ui")
 	call_deferred("_start_battle")
-	
+
+func _init_ui():
+	ui_manager.init_backdrop_image()
 
 func _input(event: InputEvent):
 	if event.is_action_pressed("toggle_tracker"):
@@ -54,26 +56,6 @@ func _input(event: InputEvent):
 		%EnemyTracker.visible = not %EnemyTracker.visible
 	if current_state:
 		current_state.handle_input(event)
-	
-
-func _init_backdrop_image():
-	match GameManager.floor_number:
-		1:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/earth_backdrop.png")
-		2:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/water_backdrop.png")
-		3:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/fire_backdrop.png")
-		4:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/air_backdrop.png")
-		5:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/ether_backdrop.png")
-		6:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/light_backdrop.png")
-		7:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/cosmic_backdrop.png")
-		_:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/earth_backdrop.png")
 
 
 func setup(_player: BattleParticipant, _enemy: BattleParticipant):
