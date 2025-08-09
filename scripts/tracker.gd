@@ -12,7 +12,7 @@ func populate_player_tracker():
 	$Panel/TrackerInfo/SP_DEF.text = str(GameManager.player.selected_monster.sp_def)
 	$Panel/TrackerInfo/SPEED.text = str(GameManager.player.selected_monster.speed)
 	$Panel/TrackerInfo/LUCK.text = str(GameManager.player.selected_monster.luck)
-	$Panel/TrackerInfo/CRIT.text = str(GameManager.player.selected_monster.crit_chance) + "(%d)" % GameManager.player.selected_monster.crit_checks
+	$Panel/TrackerInfo/CRIT.text ="%2.0f" % (100.0 * GameManager.player.selected_monster.crit_chance) + "% " + "(%d)" % GameManager.player.selected_monster.crit_checks
 	$Panel/TrackerInfo/ACC.text = str(GameManager.player.selected_monster.acc)
 
 
