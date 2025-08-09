@@ -272,12 +272,11 @@ theme_override_constants/separation = -1
 [node name="TrinketName" type="Label" parent="TrinketNameAndCost"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(78, 18)
+custom_minimum_size = Vector2(69, 18)
 layout_mode = 2
 theme = ExtResource("1_xfvoa")
 theme_override_styles/normal = SubResource("StyleBoxFlat_2fc2m")
 text = "Trnkt Name"
-horizontal_alignment = 2
 
 [node name="Placeholder3" type="Label" parent="TrinketNameAndCost"]
 visible = false
@@ -305,14 +304,14 @@ z_index = 2
 layout_mode = 0
 offset_left = 129.0
 offset_top = 55.0
-offset_right = 256.0
+offset_right = 255.0
 offset_bottom = 112.0
 theme_override_constants/separation = 0
 
 [node name="TrinketInfo" type="RichTextLabel" parent="TrinketInfoContainer"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(78, 48)
+custom_minimum_size = Vector2(47, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -345,9 +344,9 @@ show_trinket_name_on_panel = false
 unique_name_in_owner = true
 z_index = 1
 layout_mode = 1
-offset_left = 159.0
-offset_top = 43.0
-offset_right = 199.0
-offset_bottom = 83.0
+offset_left = 154.0
+offset_top = 16.0
+offset_right = 279.0
+offset_bottom = 86.0
 
 [connection signal="pressed" from="GridContainer/TrinketContainer/ExitButtonRow/ExitButton" to="." method="_on_exit_button_pressed"]

@@ -51,12 +51,29 @@ func _input(event: InputEvent):
 		%PlayerTracker.populate_player_tracker()
 		%EnemyTracker.populate_enemy_tracker()
 		$Trackers.visible = not $Trackers.visible
+		_hide_health_panels_for_trackers()
+
+
 	if $Trackers.visible and event.is_action_pressed("switch_tracker"):
 		%PlayerTracker.visible = not %PlayerTracker.visible
 		%EnemyTracker.visible = not %EnemyTracker.visible
+		_hide_health_panels_for_trackers()
+
 	if current_state:
 		current_state.handle_input(event)
 
+func _hide_health_panels_for_trackers():
+	if $Trackers.visible:
+		if %PlayerTracker.visible:
+			ui_manager.player_health_panel.hide()
+			ui_manager.enemy_health_panel.show()
+		if %EnemyTracker.visible:
+			ui_manager.enemy_health_panel.hide()
+			ui_manager.player_health_panel.show()
+
+	if not $Trackers.visible:
+		ui_manager.player_health_panel.show()
+		ui_manager.enemy_health_panel.show()
 
 func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 	# assigns as reference

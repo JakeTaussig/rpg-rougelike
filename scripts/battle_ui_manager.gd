@@ -158,8 +158,8 @@ func set_pp_info(text: String, disabled: bool):
 		pp_label.set_theme_type_variation("SmallTextRedTextLabel")
 
 	else:
-		pp_display.set_theme_type_variation("SmallTextLabel")
-		pp_label.set_theme_type_variation("SmallTextLabel")
+		pp_display.set_theme_type_variation("TinyTextLabel")
+		pp_label.set_theme_type_variation("TinyTextLabel")
 
 
 func set_type_info(type: MovesList.Type, disabled: bool):
@@ -174,8 +174,8 @@ func set_type_info(type: MovesList.Type, disabled: bool):
 		type_label.set_theme_type_variation("SmallTextDisabledLabel")
 		type_info.remove_theme_color_override("font_color")
 	else:
-		type_info.set_theme_type_variation("SmallTextLabel")
-		type_label.set_theme_type_variation("SmallTextLabel")
+		type_info.set_theme_type_variation("TinyTextLabel")
+		type_label.set_theme_type_variation("TinyTextLabel")
 
 		var type_color = MovesList.type_to_color(type)
 		type_info.add_theme_color_override("font_color", type_color)
@@ -188,8 +188,8 @@ func set_move_power(power: int, disabled: bool):
 		power_display.set_theme_type_variation("SmallTextDisabledLabel")
 		power_label.set_theme_type_variation("SmallTextDisabledLabel")
 	else:
-		power_display.set_theme_type_variation("SmallTextLabel")
-		power_label.set_theme_type_variation("SmallTextLabel")
+		power_display.set_theme_type_variation("TinyTextLabel")
+		power_label.set_theme_type_variation("TinyTextLabel")
 
 func set_move_accuracy(acc: int, disabled: bool):
 	var acc_display = moves_menu.get_node("MoveInfo/InfoContainer/Acc")
@@ -199,5 +199,5 @@ func set_move_accuracy(acc: int, disabled: bool):
 		acc_display.set_theme_type_variation("SmallTextDisabledLabel")
 		acc_label.set_theme_type_variation("SmallTextDisabledLabel")
 	else:
-		acc_display.set_theme_type_variation("SmallTextLabel")
-		acc_label.set_theme_type_variation("SmallTextLabel")
+		acc_display.set_theme_type_variation("TinyTextLabel")
+		acc_label.set_theme_type_variation("TinyTextLabel")
