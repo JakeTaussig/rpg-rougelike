@@ -91,6 +91,7 @@ func _on_trinket_focus(trinket_index: int):
 	%TrinketIconEnlarged.show()
 	%TrinketName.show()
 	%TrinketCost.show()
+	$Tracker.hide()
 
 
 func _on_trinket_focus_exit():
@@ -99,6 +100,7 @@ func _on_trinket_focus_exit():
 	%TrinketIconEnlarged.material = null
 	%TrinketName.hide()
 	%TrinketCost.hide()
+	$Tracker.show()
 
 
 func _on_trinket_button_pressed(trinket_index: int):
