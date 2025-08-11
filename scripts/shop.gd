@@ -25,7 +25,7 @@ var trinkets: Array[Trinket] = []
 var purchased_trinkets: Array[bool] = []
 var global_ui_manager = GameManager.global_ui_manager
 
-enum CONSUMABLES { HP_RESTORE, PP_RESTORE}
+enum CONSUMABLES { HP_RESTORE, PP_RESTORE, ATK_UP, SP_ATK_UP, DEF_UP, SP_DEF_UP}
 var consumables: Array[CONSUMABLES] = []
 var purchased_consumables: Array[bool] = []
 
@@ -54,7 +54,7 @@ func _roll_trinkets():
 		for trinket in trinkets_list:
 			if not GameManager.player.selected_monster.trinkets.has(trinket):
 				trinkets_list_copy.append(trinket)
-		
+
 		var trinket = trinkets_list_copy.pick_random()
 
 		if !trinkets.has(trinket):
@@ -63,7 +63,9 @@ func _roll_trinkets():
 
 func _roll_consumables():
 	while consumables.size() < N_CONSUMABLES:
-		var consumable_options: Array[CONSUMABLES] = [CONSUMABLES.HP_RESTORE, CONSUMABLES.PP_RESTORE]
+		var consumable_options: Array[CONSUMABLES] = []
+		for c in CONSUMABLES.values():
+			consumable_options.append(c)
 		var consumable = consumable_options.pick_random()
 
 		consumables.append(consumable)
@@ -129,6 +131,18 @@ func _on_consumable_button_pressed(i: int):
 				return move.pp == move.max_pp
 
 			moves.enter(on_move_button_pressed, is_move_disabled)
+		elif consumables[i] == CONSUMABLES.ATK_UP:
+			GameManager.player.selected_monster.atk += 10
+			mark_consumable_sold(i)
+		elif consumables[i] == CONSUMABLES.SP_ATK_UP:
+			GameManager.player.selected_monster.sp_atk += 10
+			mark_consumable_sold(i)
+		elif consumables[i] == CONSUMABLES.DEF_UP:
+			GameManager.player.selected_monster.def += 10
+			mark_consumable_sold(i)
+		elif consumables[i] == CONSUMABLES.SP_DEF_UP:
+			GameManager.player.selected_monster.sp_def += 10
+			mark_consumable_sold(i)
 
 func mark_consumable_sold(i: int):
 		var consumable_button: Button = %ConsumableContainer.get_child(i).get_node("ConsumableName")
@@ -169,8 +183,12 @@ func _render_trinkets():
 		trinket_entry.get_node("TrinketCost").text = "¶ %d" % TRINKET_COST
 
 func _render_consumables():
-	var HP_icon = load("res://assets/sprites/trinket_icons/heart.png")
-	var PP_icon = load("res://assets/sprites/trinket_icons/pp.png")
+	var HP_icon = load("res://assets/sprites/trinket_icons/red_hearts.png")
+	var PP_icon = load("res://assets/sprites/trinket_icons/pp_green.png")
+	var ATK_icon = load("res://assets/sprites/trinket_icons/sword_dark_blue.png")
+	var SP_ATK_icon = load("res://assets/sprites/trinket_icons/wand.png")
+	var DEF_icon = load("res://assets/sprites/trinket_icons/shield.png")
+	var SP_DEF_icon = load("res://assets/sprites/trinket_icons/magic-shield.png")
 
 	for i in range(N_CONSUMABLES):
 		var consumable_entry: HBoxContainer = %ConsumableContainer.get_child(i)
@@ -180,6 +198,19 @@ func _render_consumables():
 		elif consumables[i] == CONSUMABLES.PP_RESTORE:
 			consumable_entry.get_node("ConsumableName").text = "+5 PP"
 			consumable_entry.get_node("ConsumableIcon").texture = PP_icon
+		elif consumables[i] == CONSUMABLES.ATK_UP:
+			consumable_entry.get_node("ConsumableName").text = "+10 ATK"
+			consumable_entry.get_node("ConsumableIcon").texture = ATK_icon
+		elif consumables[i] == CONSUMABLES.SP_ATK_UP:
+			consumable_entry.get_node("ConsumableName").text = "+10 SP. ATK"
+			consumable_entry.get_node("ConsumableIcon").texture = SP_ATK_icon
+		elif consumables[i] == CONSUMABLES.DEF_UP:
+			consumable_entry.get_node("ConsumableName").text = "+10 DEF"
+			consumable_entry.get_node("ConsumableIcon").texture = DEF_icon
+		elif consumables[i] == CONSUMABLES.SP_DEF_UP:
+			consumable_entry.get_node("ConsumableName").text = "+10 SP. DEF"
+			consumable_entry.get_node("ConsumableIcon").texture = SP_DEF_icon
+
 
 		consumable_entry.get_node("ConsumableCost").text = "¶ %d" % CONSUMABLE_COST
 
