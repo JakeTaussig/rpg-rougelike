@@ -245,22 +245,25 @@ func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
 
 func _check_status_immunity(effect: MovesList.StatusEffect, target_type: MovesList.Type):
 	match effect:
-		MovesList.StatusEffect.BURN:
-			if target_type == MovesList.Type.FIRE:
+		MovesList.StatusEffect.POISON:
+			if target_type == MovesList.Type.EARTH:
 				return true
 		MovesList.StatusEffect.WHIRLPOOL:
 			if target_type == MovesList.Type.WATER:
 				return true
-		MovesList.StatusEffect.POISON:
-			if target_type == MovesList.Type.AIR:
+		MovesList.StatusEffect.BURN:
+			if target_type == MovesList.Type.FIRE:
 				return true
 		MovesList.StatusEffect.EXPOSE:
+			if target_type == MovesList.Type.AIR:
+				return true
+		MovesList.StatusEffect.VACUUM:
 			if target_type == MovesList.Type.ETHER:
 				return true
 		MovesList.StatusEffect.BLIND:
 			if target_type == MovesList.Type.LIGHT:
 				return true
-		MovesList.StatusEffect.VACUUM:
+		MovesList.StatusEffect.UNVEIL:
 			if target_type == MovesList.Type.COSMIC:
 				return true
 	return false
