@@ -9,6 +9,9 @@ const N_TRINKETS: int = 3
 # The shop will contain this many consumables
 const N_CONSUMABLES: int = 3
 
+const N_PAGES = 2
+var page = 0
+
 # TODO: introduce varying trinket costs
 # For now, every trinket will cost this much
 const TRINKET_COST: int = 165
@@ -30,8 +33,14 @@ var purchased_consumables: Array[bool] = []
 func setup():
 	_roll_trinkets()
 	_init_trinket_menu_buttons()
+	_init_consumable_menu_buttons()
 	_render_trinkets()
 	_render_consumables()
+
+	%TrinketContainer.show()
+	%ConsumableContainer.hide()
+
+
 	_render_player_prana()
 	%Tracker.populate_player_tracker()
 	%ExitButton.grab_focus()
@@ -63,6 +72,7 @@ func _init_trinket_menu_buttons():
 		trinket_button.connect("mouse_exited", _on_trinket_focus_exit)
 		trinket_button.pressed.connect(func(): _on_trinket_button_pressed(i))
 
+func _init_consumable_menu_buttons():
 	for i in range(N_CONSUMABLES):
 		var consumable_entry: HBoxContainer = %ConsumableContainer.get_child(i)
 		var consumable_button: Button = consumable_entry.get_node("ConsumableName")
@@ -101,10 +111,12 @@ func _render_trinkets():
 		trinket_entry.get_node("TrinketCost").text = "¶ %d" % TRINKET_COST
 
 func _render_consumables():
+	var HP_icon = load("res://assets/sprites/trinket_icons/heart.png")
+
 	for i in range(N_CONSUMABLES):
 		var consumable_entry: HBoxContainer = %ConsumableContainer.get_child(i)
-		consumable_entry.get_node("ConsumableName").text = "HP Up"
-		#consumable_entry.get_node("ConsumableIcon").texture = trinkets[i].icon
+		consumable_entry.get_node("ConsumableName").text = "+100 HP"
+		consumable_entry.get_node("ConsumableIcon").texture = HP_icon
 		consumable_entry.get_node("ConsumableCost").text = "¶ %d" % CONSUMABLE_COST
 
 func _render_player_prana():
@@ -137,6 +149,8 @@ func _on_trinket_focus(trinket_index: int):
 	%TrinketName.show()
 	%TrinketCost.show()
 
+	%Tracker.hide()
+
 
 func _on_trinket_focus_exit():
 	%TrinketInfo.hide()
@@ -144,6 +158,8 @@ func _on_trinket_focus_exit():
 	%TrinketIconEnlarged.material = null
 	%TrinketName.hide()
 	%TrinketCost.hide()
+
+	%Tracker.show()
 
 
 func _on_trinket_button_pressed(trinket_index: int):
@@ -188,3 +204,19 @@ func _on_trinket_button_pressed(trinket_index: int):
 
 func _on_exit_button_pressed() -> void:
 	shop_ended.emit()
+
+
+func _on_swap_page_button_pressed() -> void:
+	page += 1
+	if page == N_PAGES:
+		page = 0
+
+	if page == 0:
+		%ConsumableContainer.hide()
+		%TrinketContainer.show()
+		%ForSaleButton.text = "Trinkets For Sale (1/2)"
+
+	if page == 1:
+		%TrinketContainer.hide()
+		%ConsumableContainer.show()
+		%ForSaleButton.text = "Consumables For Sale (2/2)"
