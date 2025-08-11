@@ -7,7 +7,7 @@ class_name Tracker
 
 
 func populate_player_tracker():
-	$Panel/TrackerInfo/TitlePlaceholder/Character_Name.text = GameManager.player.selected_monster.character_name
+	$Panel/TrackerInfo/CharacterNamePlaceholder/CharacterName.text = GameManager.player.selected_monster.character_name
 	$Panel/TrackerInfo/HP.text = "%d/%d" % [GameManager.player.selected_monster.hp, GameManager.player.selected_monster.max_hp]
 	$Panel/TrackerInfo/ATK.text = str(GameManager.player.selected_monster.atk)
 	$Panel/TrackerInfo/SP_ATK.text = str(GameManager.player.selected_monster.sp_atk)
@@ -21,15 +21,15 @@ func populate_player_tracker():
 
 
 func populate_enemy_tracker():
-	$Panel/TrackerInfo/TitlePlaceholder/Character_Name.text = GameManager.enemy.selected_monster.character_name
+	$Panel/TrackerInfo/CharacterNamePlaceholder/CharacterName.text = GameManager.enemy.selected_monster.character_name
 	_render_title_and_funds()
 
 
 func _render_title_and_funds():
 	if show_funds:
-		%Character_Name.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT
+		#%CharacterName.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_RIGHT
 		%Funds.text = "¶ %d" % GameManager.player.prana
 
 	else:
-		%Character_Name.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
+		#%CharacterName.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
 		%Funds.hide()
