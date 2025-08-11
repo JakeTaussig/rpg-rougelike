@@ -103,6 +103,8 @@ func _on_consumable_button_pressed(i: int):
 			$Moves.hide()
 
 		if consumables[i] == CONSUMABLES.HP_RESTORE:
+			if GameManager.player.selected_monster.hp == GameManager.player.selected_monster.max_hp:
+				return
 			GameManager.player.selected_monster.hp += 50
 			mark_consumable_sold(i)
 
@@ -112,6 +114,9 @@ func _on_consumable_button_pressed(i: int):
 			# if the player chooses to go back, don't charge the player
 			var moves = $Moves
 			moves.show()
+
+			%Tracker.hide()
+			%ConsumableExitButton.hide()
 
 			var on_move_button_pressed = func(move_index: int):
 				var move = GameManager.player.selected_monster.moves[move_index]
@@ -279,7 +284,16 @@ func _on_swap_page_button_pressed() -> void:
 		%TrinketContainer.show()
 		%ForSaleButton.text = "Trinkets (1/2)"
 
+		if $Moves.visible:
+			$Moves.exit()
+			$Moves.hide()
+
 	if page == 1:
 		%TrinketContainer.hide()
 		%ConsumableContainer.show()
 		%ForSaleButton.text = "Consumables (2/2)"
+
+
+func _on_moves_hidden() -> void:
+		%Tracker.show()
+		%ConsumableExitButton.show()

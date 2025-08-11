@@ -27,9 +27,8 @@ func populate_enemy_tracker():
 
 func _render_title_and_funds():
 	if show_funds:
-		#%CharacterName.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_RIGHT
+		%Funds.show()
 		%Funds.text = "¶ %d" % GameManager.player.prana
 
 	else:
-		#%CharacterName.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
 		%Funds.hide()
