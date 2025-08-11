@@ -7,7 +7,7 @@
 [ext_resource type="StyleBox" uid="uid://po0ajij3ys1o" path="res://assets/styles/shop_button_hover.tres" id="5_2fc2m"]
 [ext_resource type="PackedScene" uid="uid://jpf5gywks7wx" path="res://scenes/trinket_shelf.tscn" id="6_8r1wq"]
 [ext_resource type="PackedScene" uid="uid://tlm6nhptxwkx" path="res://scenes/tracker.tscn" id="7_ajxib"]
-[ext_resource type="PackedScene" uid="uid://fv7kkv5dklb5" path="res://scenes/moves_list.tscn" id="8_y6sft"]
+[ext_resource type="PackedScene" uid="uid://fv7kkv5dklb5" path="res://scenes/moves_menu.tscn" id="8_y6sft"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7bace"]
 content_margin_left = 0.0

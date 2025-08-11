@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_p1qf1"]
-[ext_resource type="PackedScene" uid="uid://fv7kkv5dklb5" path="res://scenes/moves_list.tscn" id="4_p0caf"]
+[ext_resource type="PackedScene" uid="uid://fv7kkv5dklb5" path="res://scenes/moves_menu.tscn" id="4_p0caf"]
 [ext_resource type="PackedScene" uid="uid://bs4b2pu5fsx6o" path="res://scenes/health_panel.tscn" id="5_ekamt"]
 [ext_resource type="Script" uid="uid://brto6aw55bukl" path="res://scripts/states/Info.gd" id="7_v7i3o"]
 [ext_resource type="Script" uid="uid://buy2ylv1t0vt0" path="res://scripts/states/EnemyAttack.gd" id="8_66ngm"]
