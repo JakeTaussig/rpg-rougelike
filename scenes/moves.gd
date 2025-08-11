@@ -4,10 +4,7 @@ extends Control
 
 var last_focused_move_index: int = 0
 
-func _ready():
-	enter()
-
-func enter():
+func enter(on_move_pressed: Callable):
 	var move_buttons = moves_menu.get_children()
 	for i in GameManager.player.selected_monster.moves.size():
 		var move = GameManager.player.selected_monster.moves[i]
@@ -15,7 +12,7 @@ func enter():
 		move_buttons[i].text = move.move_name
 		move_buttons[i].focus_entered.connect(func(): _display_pp_info(i))
 		move_buttons[i].mouse_entered.connect(move_buttons[i].grab_focus)
-		move_buttons[i].pressed.connect(func(): _on_move_pressed(i))
+		move_buttons[i].pressed.connect(func(): on_move_pressed.call(i))
 
 		if move.pp <= 0:
 			move_buttons[i].set_theme_type_variation("DisabledButton")
@@ -33,18 +30,6 @@ func exit():
 			button.disconnect("focus_entered", dict.callable)
 		for dict in button.get_signal_connection_list("mouse_entered"):
 			button.disconnect("mouse_entered", dict.callable)
-
-
-func _on_move_pressed(index: int) -> void:
-	var move = GameManager.player.selected_monster.moves[index]
-	print("\tuser input:\t\tselect %s (idx %d)" % [move.move_name, index])
-	if move.pp > 0:
-		var attackCommand = AttackState.AttackCommand.new()
-		attackCommand.attacker = GameManager.player.selected_monster
-		attackCommand.target = GameManager.enemy.selected_monster
-		attackCommand.move = GameManager.player.selected_monster.moves[index]
-		GameManager.current_battle.player_attack = attackCommand
-		GameManager.current_battle.transition_state_to(GameManager.current_battle.STATE_INCREMENT_TURN)
 
 
 # callback used when a move is focused
