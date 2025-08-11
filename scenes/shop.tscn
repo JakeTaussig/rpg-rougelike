@@ -432,11 +432,11 @@ theme_override_constants/separation = -1
 [node name="TrinketName" type="Label" parent="TrinketNameAndCost"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(79, 18)
+visible = false
 layout_mode = 2
 theme = ExtResource("1_xfvoa")
 theme_override_styles/normal = SubResource("StyleBoxFlat_2fc2m")
 text = "Trnkt Name"
-horizontal_alignment = 2
 
 [node name="TrinketCost" type="RichTextLabel" parent="TrinketNameAndCost"]
 unique_name_in_owner = true
@@ -462,6 +462,7 @@ theme_override_constants/separation = 0
 [node name="TrinketInfo" type="RichTextLabel" parent="TrinketInfoContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(79, 48)
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -494,10 +495,10 @@ unique_name_in_owner = true
 visible = false
 z_index = 1
 layout_mode = 1
-offset_left = 159.0
-offset_top = 37.0
-offset_right = 199.0
-offset_bottom = 77.0
+offset_left = 154.0
+offset_top = 16.0
+offset_right = 279.0
+offset_bottom = 86.0
 
 [connection signal="pressed" from="Title/ForSaleButton" to="." method="_on_swap_page_button_pressed"]
 [connection signal="pressed" from="GridContainer/TrinketContainer/ExitButtonRow/ExitButton" to="." method="_on_exit_button_pressed"]

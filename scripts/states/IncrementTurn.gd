@@ -10,7 +10,7 @@ func enter(_messages: Array = []):
 		var message = _check_for_dead_monsters()
 		if message != "":
 			dead_monster = true
-			battle.transition_state_to(battle.STATE_INFO, [message])
+			battle.transition_state_to(battle.STATE_DEAD_MONSTER_INFO, [message])
 			return
 	# Checks if the current selected_monster is dead and if the battle is over
 	if battle.is_battle_over():
@@ -22,15 +22,10 @@ func enter(_messages: Array = []):
 		var current_attack = battle.get_sorted_attacks()[attacks_executed]
 
 		attacks_executed += 1
-		if current_attack.attacker == battle.player.selected_monster:
+		if battle.enemy.selected_monster.hp > 0:
 			battle.transition_state_to(battle.STATE_ATTACK, [current_attack])
 		else:
-			# if the enemy is alive, process its attack. otherwise, return to
-			# the start of the IncrementTurn workflow
-			if battle.enemy.selected_monster.hp > 0:
-				battle.transition_state_to(battle.STATE_ATTACK, [current_attack])
-			else:
-				battle.transition_state_to(battle.STATE_INCREMENT_TURN)
+			battle.transition_state_to(battle.STATE_INCREMENT_TURN)
 
 		return
 

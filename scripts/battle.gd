@@ -9,6 +9,7 @@ const STATE_BATTLE_OVER := "BATTLE_OVER"
 const STATE_SELECTING_ATTACK := "SELECTING_ATTACK"
 const STATE_ATTACK := "ATTACK"
 const STATE_ENACT_STATUSES := "ENACT_STATUSES"
+const STATE_DEAD_MONSTER_INFO := "DEAD_MONSTER_INFO"
 const NONE := "NONE"
 
 var turn = 0
@@ -31,6 +32,7 @@ var previous_state_name: String
 var setup_done := false
 
 # Connected in GameManager
+@warning_ignore("unused_signal")
 signal battle_ended(victory: bool)
 
 @onready var ui_manager: BattleUIManager = %BattleUiManager
@@ -38,28 +40,40 @@ signal battle_ended(victory: bool)
 
 func _ready() -> void:
 	_init_states()
-	_init_backdrop_image()
+	call_deferred("_init_ui")
 	call_deferred("_start_battle")
 
-func _init_backdrop_image():
-	match GameManager.floor_number:
-		1:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/earth_backdrop.png")
-		2:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/water_backdrop.png")
-		3:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/fire_backdrop.png")
-		4:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/air_backdrop.png")
-		5:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/ether_backdrop.png")
-		6:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/light_backdrop.png")
-		7:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/cosmic_backdrop.png")
-		_:
-			%Backdrop.texture = load("res://assets/sprites/backdrops/earth_backdrop.png")
+func _init_ui():
+	ui_manager.init_backdrop_image()
 
+func _input(event: InputEvent):
+	if event.is_action_pressed("toggle_tracker"):
+		%PlayerTracker.populate_player_tracker()
+		%EnemyTracker.populate_enemy_tracker()
+		$Trackers.visible = not $Trackers.visible
+		_hide_health_panels_for_trackers()
+
+
+	if $Trackers.visible and event.is_action_pressed("switch_tracker"):
+		%PlayerTracker.visible = not %PlayerTracker.visible
+		%EnemyTracker.visible = not %EnemyTracker.visible
+		_hide_health_panels_for_trackers()
+
+	if current_state:
+		current_state.handle_input(event)
+
+func _hide_health_panels_for_trackers():
+	if $Trackers.visible:
+		if %PlayerTracker.visible:
+			ui_manager.player_health_panel.hide()
+			ui_manager.enemy_health_panel.show()
+		if %EnemyTracker.visible:
+			ui_manager.enemy_health_panel.hide()
+			ui_manager.player_health_panel.show()
+
+	if not $Trackers.visible:
+		ui_manager.player_health_panel.show()
+		ui_manager.enemy_health_panel.show()
 
 func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 	# assigns as reference
@@ -95,9 +109,7 @@ func _start_battle():
 
 
 func render_hp():
-	ui_manager.render_hp(player.selected_monster, enemy.selected_monster)
-
-
+	await ui_manager.render_hp(player.selected_monster, enemy.selected_monster)
 
 func _init_states():
 	# Initialize all states
@@ -164,8 +176,3 @@ func get_attacker():
 
 func _on_continue_button_pressed() -> void:
 	current_state.handle_continue()
-
-
-func _input(event: InputEvent) -> void:
-	if current_state:
-		current_state.handle_input(event)

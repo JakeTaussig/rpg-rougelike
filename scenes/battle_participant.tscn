@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dspy5d5yn1fxj"]
+[gd_scene load_steps=11 format=3 uid="uid://dspy5d5yn1fxj"]
 
 [ext_resource type="Script" uid="uid://d0ejnncl5rkg0" path="res://scripts/battle_participant.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://cngw2ls1edyyl" path="res://scenes/status_emitter.tscn" id="3_dmbjg"]
+[ext_resource type="Material" uid="uid://cylohngiemf5m" path="res://assets/shaders/outline-material.tres" id="3_i87j4"]
 [ext_resource type="Texture2D" uid="uid://ccw3gkgcfoqh0" path="res://assets/sprites/characters/omenite.png" id="4_07hmd"]
 [ext_resource type="Shader" uid="uid://cwjiowobjkvf" path="res://assets/shaders/outline.gdshader" id="4_i87j4"]
 
@@ -14,9 +15,14 @@ shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
+shader_parameter/slice_direction = Vector2(0, 0.5)
+shader_parameter/slice_effect_offset = 0.0
+shader_parameter/fade = 0.0
+shader_parameter/strip = 4.0
 
 [sub_resource type="Animation" id="Animation_i87j4"]
 length = 0.001
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -29,10 +35,23 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/slice_effect_offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_07hmd"]
 resource_name = "attack_shake"
 length = 0.33333668
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -46,15 +65,33 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(-24, 0), Vector2(24, 0), Vector2(-24, 0), Vector2(24, 0), Vector2(-24, 0), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_eng1k"]
+resource_name = "horiz_slice"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/slice_effect_offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.8]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eng1k"]
 _data = {
 &"RESET": SubResource("Animation_i87j4"),
-&"attack_shake": SubResource("Animation_07hmd")
+&"attack_shake": SubResource("Animation_07hmd"),
+&"horiz_slice": SubResource("Animation_eng1k")
 }
 
 [node name="BattleParticipant" type="Sprite2D"]
 z_index = 1
 texture_filter = 1
+material = ExtResource("3_i87j4")
 texture = ExtResource("4_07hmd")
 flip_h = true
 script = ExtResource("1_3vyb7")
@@ -71,7 +108,6 @@ emission_sphere_radius = 24.0
 direction = Vector2(0, 0)
 spread = 90.0
 gravity = Vector2(0, -250)
-status_effect = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

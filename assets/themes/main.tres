@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=29 format=3 uid="uid://bb5xdt6d0xc8h"]
+[gd_resource type="Theme" load_steps=30 format=3 uid="uid://bb5xdt6d0xc8h"]
 
 [ext_resource type="StyleBox" uid="uid://dv2ftdeiv2dr3" path="res://assets/styles/focus_sbf.tres" id="2_7mpy8"]
 [ext_resource type="StyleBox" uid="uid://dlv23d40rqvlb" path="res://assets/styles/normal_sbf_rich_text_label.tres" id="2_upbfd"]
@@ -13,6 +13,7 @@
 [ext_resource type="StyleBox" uid="uid://dwb68ajbfeqp0" path="res://assets/styles/normal_sbf.tres" id="7_vv0yi"]
 [ext_resource type="StyleBox" uid="uid://bg1kpjok5bcns" path="res://assets/styles/hp_foreground_green_sbf.tres" id="8_vv0yi"]
 [ext_resource type="FontVariation" uid="uid://byy5gaadarqhp" path="res://assets/fonts/silkscreen-variation.tres" id="10_wlaw4"]
+[ext_resource type="StyleBox" uid="uid://b7wt7vwdy40sd" path="res://assets/styles/small_text_background_sbf.tres" id="12_ea6d7"]
 [ext_resource type="StyleBox" uid="uid://wlcpe3bsxrwh" path="res://assets/styles/tiny_text_background_sbf.tres" id="14_wlaw4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nowrw"]
@@ -211,9 +212,13 @@ SmallTextDisabledLabel/styles/normal = ExtResource("14_wlaw4")
 SmallTextLabel/base_type = &"Label"
 SmallTextLabel/font_sizes/font_size = 8
 SmallTextLabel/fonts/font = ExtResource("10_wlaw4")
-SmallTextLabel/styles/normal = ExtResource("14_wlaw4")
+SmallTextLabel/styles/normal = ExtResource("12_ea6d7")
 SmallTextRedTextLabel/base_type = &"SmallTextLabel"
 SmallTextRedTextLabel/colors/font_color = Color(0.894118, 0.231373, 0.266667, 1)
+TinyTextLabel/base_type = &"Label"
+TinyTextLabel/font_sizes/font_size = 8
+TinyTextLabel/fonts/font = ExtResource("10_wlaw4")
+TinyTextLabel/styles/normal = ExtResource("14_wlaw4")
 Tree/colors/font_color = Color(1, 1, 1, 1)
 Tree/colors/guide_color = Color(0.0705882, 0.305882, 0.537255, 1)
 Tree/colors/title_button_color = Color(1, 1, 1, 1)

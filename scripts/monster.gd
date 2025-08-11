@@ -142,8 +142,8 @@ func use_move(move: Move, target: Monster) -> AttackResults:
 	if status_effect == MovesList.StatusEffect.WHIRLPOOL:
 		# Whirlpool has a 50% chance to damage the affected character each turn
 		var whirlpool_activation_chance = 50
-		move_hit = _does_move_crit_or_status(whirlpool_activation_chance)
-		if move_hit:
+		var whirlpool_activated = _does_move_crit_or_status(whirlpool_activation_chance)
+		if whirlpool_activated:
 			move = GameManager.get_move_by_name("Whirlpool")
 			@warning_ignore("confusable_local_declaration")
 			var results = _attack(move, self, 1)

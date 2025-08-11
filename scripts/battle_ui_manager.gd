@@ -40,8 +40,33 @@ func set_backdrop_material(material: ShaderMaterial):
 	backdrop.material = material
 
 
-func clear_backdrop_material():
+func reset_backdrop_material():
+	if GameManager.floor_number == 2:
+		backdrop.material = load("res://assets/shaders/water-material.tres")
+		return
+
 	backdrop.material = null
+
+# TODO: move to battle UI manager
+func init_backdrop_image():
+	reset_backdrop_material()
+	match GameManager.floor_number:
+		1:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/earth_backdrop.png")
+		2:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/water_backdrop.png")
+		3:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/fire_backdrop.png")
+		4:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/air_backdrop.png")
+		5:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/ether_backdrop.png")
+		6:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/light_backdrop.png")
+		7:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/cosmic_backdrop.png")
+		_:
+			%Backdrop.texture = load("res://assets/sprites/backdrops/earth_backdrop.png")
 
 
 func render_hp(player_monster, enemy_monster):
@@ -69,6 +94,11 @@ func set_info_text(text: String):
 func focus_continue_button():
 	continue_button.grab_focus()
 
+func disable_continue_button():
+	continue_button.disabled = true
+
+func enable_continue_button():
+	continue_button.disabled = false
 
 func focus_action_button():
 	%ActionButtons.get_child(0).grab_focus()
@@ -128,8 +158,8 @@ func set_pp_info(text: String, disabled: bool):
 		pp_label.set_theme_type_variation("SmallTextRedTextLabel")
 
 	else:
-		pp_display.set_theme_type_variation("SmallTextLabel")
-		pp_label.set_theme_type_variation("SmallTextLabel")
+		pp_display.set_theme_type_variation("TinyTextLabel")
+		pp_label.set_theme_type_variation("TinyTextLabel")
 
 
 func set_type_info(type: MovesList.Type, disabled: bool):
@@ -144,8 +174,8 @@ func set_type_info(type: MovesList.Type, disabled: bool):
 		type_label.set_theme_type_variation("SmallTextDisabledLabel")
 		type_info.remove_theme_color_override("font_color")
 	else:
-		type_info.set_theme_type_variation("SmallTextLabel")
-		type_label.set_theme_type_variation("SmallTextLabel")
+		type_info.set_theme_type_variation("TinyTextLabel")
+		type_label.set_theme_type_variation("TinyTextLabel")
 
 		var type_color = MovesList.type_to_color(type)
 		type_info.add_theme_color_override("font_color", type_color)
@@ -158,8 +188,8 @@ func set_move_power(power: int, disabled: bool):
 		power_display.set_theme_type_variation("SmallTextDisabledLabel")
 		power_label.set_theme_type_variation("SmallTextDisabledLabel")
 	else:
-		power_display.set_theme_type_variation("SmallTextLabel")
-		power_label.set_theme_type_variation("SmallTextLabel")
+		power_display.set_theme_type_variation("TinyTextLabel")
+		power_label.set_theme_type_variation("TinyTextLabel")
 
 func set_move_accuracy(acc: int, disabled: bool):
 	var acc_display = moves_menu.get_node("MoveInfo/InfoContainer/Acc")
@@ -169,5 +199,5 @@ func set_move_accuracy(acc: int, disabled: bool):
 		acc_display.set_theme_type_variation("SmallTextDisabledLabel")
 		acc_label.set_theme_type_variation("SmallTextDisabledLabel")
 	else:
-		acc_display.set_theme_type_variation("SmallTextLabel")
-		acc_label.set_theme_type_variation("SmallTextLabel")
+		acc_display.set_theme_type_variation("TinyTextLabel")
+		acc_label.set_theme_type_variation("TinyTextLabel")

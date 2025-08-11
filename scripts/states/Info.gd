@@ -13,16 +13,16 @@ func enter(_messages: Array = []):
 	message_index = 0
 	_update_message()
 	# Block continue button while hp is being rendered.
-	GameManager.current_battle.ui_manager.continue_button.disabled = true
+	GameManager.current_battle.ui_manager.disable_continue_button()
 	await battle.render_hp()
-	GameManager.current_battle.ui_manager.continue_button.disabled = false
+	GameManager.current_battle.ui_manager.enable_continue_button()
 	if messages.size() == 0:
 		print("\tno messages; skipping INFO state")
 		handle_continue()
 
 
 func exit():
-	battle.ui_manager.clear_backdrop_material()
+	battle.ui_manager.reset_backdrop_material()
 	battle.ui_manager.show_info_panel(false)
 
 

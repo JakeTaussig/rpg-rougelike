@@ -37,6 +37,16 @@ static func type_to_color(type: Type) -> Color:
 
 	return Color(1.0, 1.0, 1.0, 0.0)
 
+static func type_to_outline_color(type: Type) -> Color:
+	if type == Type.ETHER:
+		return Color(0.353, 0.412, 0.533, 1.0)
+	if type == Type.FIRE:
+		return Color(0.969, 0.463, 0.133, 1.0)
+	if type == Type.COSMIC:
+		return Color(0.965, 0.459, 0.478, 1.0)
+
+	return type_to_color(type)
+
 
 static func status_effect_to_color(status_effect: StatusEffect) -> Color:
 	match status_effect:

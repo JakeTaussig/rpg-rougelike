@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=21 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://bm0o2eovnfws7" path="res://scripts/states/Attack.gd" id="13_6ni85"]
 [ext_resource type="Script" uid="uid://sdwupuxudrjb" path="res://scripts/states/BattleOver.gd" id="13_22uqi"]
 [ext_resource type="Script" uid="uid://d0rdycr2tr5ll" path="res://scripts/states/EnactStatuses.gd" id="14_6ni85"]
+[ext_resource type="Script" uid="uid://csb7lr8wxaxfr" path="res://scripts/states/DeadMonsterInfo.gd" id="14_p0caf"]
 [ext_resource type="PackedScene" uid="uid://jpf5gywks7wx" path="res://scenes/trinket_shelf.tscn" id="17_h4dll"]
 [ext_resource type="Texture2D" uid="uid://fs4ws7okfwn5" path="res://assets/sprites/trinket_icons/arrow.png" id="18_h4dll"]
 [ext_resource type="PackedScene" uid="uid://tlm6nhptxwkx" path="res://scenes/tracker.tscn" id="18_p0caf"]
@@ -35,6 +36,7 @@ script = ExtResource("1_a12nh")
 [node name="Backdrop" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 z_index = -1
+texture_filter = 1
 position = Vector2(128, 72)
 texture = ExtResource("1_dn72j")
 
@@ -222,7 +224,7 @@ texture_filter = 1
 custom_minimum_size = Vector2(25, 7)
 layout_mode = 2
 theme = ExtResource("2_p1qf1")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"TinyTextLabel"
 text = "PP:"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -233,7 +235,7 @@ texture_filter = 1
 custom_minimum_size = Vector2(43, 7)
 layout_mode = 2
 theme = ExtResource("2_p1qf1")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"TinyTextLabel"
 text = "0/15"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -243,7 +245,7 @@ texture_filter = 1
 custom_minimum_size = Vector2(0, 7)
 layout_mode = 2
 theme = ExtResource("2_p1qf1")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"TinyTextLabel"
 text = "Typ:"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -254,7 +256,7 @@ texture_filter = 1
 custom_minimum_size = Vector2(0, 7)
 layout_mode = 2
 theme = ExtResource("2_p1qf1")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"TinyTextLabel"
 text = "COSMIC"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -264,7 +266,7 @@ texture_filter = 1
 custom_minimum_size = Vector2(0, 7)
 layout_mode = 2
 theme = ExtResource("2_p1qf1")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"TinyTextLabel"
 text = "PWR:"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -275,7 +277,7 @@ texture_filter = 1
 custom_minimum_size = Vector2(0, 7)
 layout_mode = 2
 theme = ExtResource("2_p1qf1")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"TinyTextLabel"
 text = "50"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -285,7 +287,7 @@ texture_filter = 1
 custom_minimum_size = Vector2(0, 7)
 layout_mode = 2
 theme = ExtResource("2_p1qf1")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"TinyTextLabel"
 theme_override_styles/normal = SubResource("StyleBoxFlat_djc8l")
 text = "ACC:"
 horizontal_alignment = 2
@@ -367,6 +369,9 @@ script = ExtResource("13_6ni85")
 [node name="ENACT_STATUSES" type="Node" parent="BattleStateMachine"]
 script = ExtResource("14_6ni85")
 
+[node name="DEAD_MONSTER_INFO" type="Node" parent="BattleStateMachine"]
+script = ExtResource("14_p0caf")
+
 [node name="BattleUiManager" parent="." instance=ExtResource("23_fpf3k")]
 unique_name_in_owner = true
 
@@ -412,12 +417,27 @@ texture = ExtResource("18_h4dll")
 [node name="DebugMenu" parent="." instance=ExtResource("19_p0caf")]
 visible = false
 
-[node name="Tracker" parent="." instance=ExtResource("18_p0caf")]
+[node name="Trackers" type="Control" parent="."]
 visible = false
-z_index = 1
-offset_left = 159.0
-offset_right = 199.0
+z_index = 2
+layout_mode = 3
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayerTracker" parent="Trackers" instance=ExtResource("18_p0caf")]
+unique_name_in_owner = true
+z_index = 2
+layout_mode = 1
+offset_left = 154.0
+offset_right = 194.0
 theme = ExtResource("2_p1qf1")
+
+[node name="EnemyTracker" parent="Trackers" instance=ExtResource("18_p0caf")]
+unique_name_in_owner = true
+visible = false
+z_index = 2
+layout_mode = 1
+is_player = false
 
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Tracker" to="BattleStateMachine/SELECTING_ACTION" method="_on_tracker_pressed"]
