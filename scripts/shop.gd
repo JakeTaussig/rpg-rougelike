@@ -92,16 +92,23 @@ func _on_consumable_button_pressed(i: int):
 		if GameManager.player.prana < CONSUMABLE_COST:
 			return
 
-		GameManager.player.selected_monster.hp += 25
+		# charge the player for the trinket
+		GameManager.player.prana -= CONSUMABLE_COST
+		_render_player_prana()
+
+		GameManager.player.selected_monster.hp += 50
 
 		# when the consumable is purchased:
 		# - disable its button
 		# - draw a line through the cost
 		# - render its icon in black-and-white
+		# - re-render the tracker
 		consumable_button.disabled = true
 		consumable_cost_label.text = "[s]%s[/s]" % consumable_cost_label.text
 		consumable_cost_label.add_theme_color_override("default_color", DISABLED_GRAY)
 		consumable_icon.material = load("res://assets/shaders/grayscale-material.tres")
+		%Tracker.populate_player_tracker()
+
 
 func _render_trinkets():
 	for i in range(N_TRINKETS):
@@ -115,7 +122,7 @@ func _render_consumables():
 
 	for i in range(N_CONSUMABLES):
 		var consumable_entry: HBoxContainer = %ConsumableContainer.get_child(i)
-		consumable_entry.get_node("ConsumableName").text = "+100 HP"
+		consumable_entry.get_node("ConsumableName").text = "+50 HP"
 		consumable_entry.get_node("ConsumableIcon").texture = HP_icon
 		consumable_entry.get_node("ConsumableCost").text = "¶ %d" % CONSUMABLE_COST
 
@@ -216,9 +223,9 @@ func _on_swap_page_button_pressed() -> void:
 	if page == 0:
 		%ConsumableContainer.hide()
 		%TrinketContainer.show()
-		%ForSaleButton.text = "Trinkets For Sale (1/2)"
+		%ForSaleButton.text = "Trinkets (1/2)"
 
 	if page == 1:
 		%TrinketContainer.hide()
 		%ConsumableContainer.show()
-		%ForSaleButton.text = "Consumables For Sale (2/2)"
+		%ForSaleButton.text = "Consumables (2/2)"

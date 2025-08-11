@@ -59,9 +59,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_7bace")
 
 [node name="Title" type="HBoxContainer" parent="."]
 layout_mode = 0
+offset_left = 17.0
 offset_top = 21.0
 offset_right = 153.0
-offset_bottom = 37.0
+offset_bottom = 38.0
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
@@ -70,7 +71,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_xfvoa")
 theme_type_variation = &"BorderButton"
-text = "Trinkets For Sale (1/2)"
+text = "Trinkets (1/2)"
 
 [node name="Title2" type="HBoxContainer" parent="."]
 layout_mode = 0
@@ -431,15 +432,17 @@ theme_override_constants/separation = -1
 
 [node name="TrinketName" type="Label" parent="TrinketNameAndCost"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(79, 18)
 visible = false
+custom_minimum_size = Vector2(79, 18)
 layout_mode = 2
 theme = ExtResource("1_xfvoa")
 theme_override_styles/normal = SubResource("StyleBoxFlat_2fc2m")
 text = "Trnkt Name"
+horizontal_alignment = 2
 
 [node name="TrinketCost" type="RichTextLabel" parent="TrinketNameAndCost"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(4, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -461,8 +464,8 @@ theme_override_constants/separation = 0
 
 [node name="TrinketInfo" type="RichTextLabel" parent="TrinketInfoContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(79, 48)
 visible = false
+custom_minimum_size = Vector2(79, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -476,6 +479,7 @@ autowrap_mode = 2
 
 [node name="TrinketIconEnlarged" type="TextureRect" parent="TrinketInfoContainer"]
 unique_name_in_owner = true
+visible = false
 texture_filter = 1
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
@@ -492,13 +496,13 @@ show_trinket_name_on_panel = false
 
 [node name="Tracker" parent="." instance=ExtResource("7_ajxib")]
 unique_name_in_owner = true
-visible = false
 z_index = 1
 layout_mode = 1
 offset_left = 154.0
 offset_top = 16.0
 offset_right = 279.0
 offset_bottom = 86.0
+show_funds = true
 
 [connection signal="pressed" from="Title/ForSaleButton" to="." method="_on_swap_page_button_pressed"]
 [connection signal="pressed" from="GridContainer/TrinketContainer/ExitButtonRow/ExitButton" to="." method="_on_exit_button_pressed"]

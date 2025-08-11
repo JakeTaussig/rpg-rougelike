@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="1_bfym8"]
 [ext_resource type="Script" uid="uid://dqx4yk84nwr8x" path="res://scripts/tracker.gd" id="1_g10r1"]
 [ext_resource type="StyleBox" uid="uid://c854nh0fccd54" path="res://assets/styles/border_color_sbf.tres" id="2_dcoxp"]
-[ext_resource type="Script" path="res://scripts/mark_tracker.gd" id="3_ocy8l"]
+[ext_resource type="Script" uid="uid://5gqyd7etib2b" path="res://scripts/mark_tracker.gd" id="3_ocy8l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dcoxp"]
 content_margin_bottom = 4.0
@@ -36,33 +36,45 @@ theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 columns = 2
 
-[node name="Placeholder" type="Label" parent="Panel/TrackerInfo"]
+[node name="TitlePlaceholder" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_bfym8")
 theme_override_styles/normal = SubResource("StyleBoxFlat_dcoxp")
 
-[node name="Character_Name" type="Label" parent="Panel/TrackerInfo/Placeholder"]
+[node name="Character_Name" type="Label" parent="Panel/TrackerInfo/TitlePlaceholder"]
+unique_name_in_owner = true
+z_index = 1
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 0
 offset_left = -1.0
 offset_top = -2.0
 offset_right = 97.0
-offset_bottom = 15.0
+offset_bottom = 14.0
 size_flags_horizontal = 8
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"AllBorderLabel"
 text = "Wolferno"
-horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Placeholder2" type="Label" parent="Panel/TrackerInfo"]
-z_index = -1
+[node name="FundsPlaceholder" type="Label" parent="Panel/TrackerInfo"]
+layout_mode = 2
+theme_type_variation = &"TinyTextLabel"
+
+[node name="Funds" type="Label" parent="Panel/TrackerInfo/FundsPlaceholder"]
+unique_name_in_owner = true
+z_index = 1
 clip_contents = true
 custom_minimum_size = Vector2(1, 0)
-layout_mode = 2
+layout_mode = 0
+offset_left = -4.0
+offset_top = -5.0
+offset_right = 43.0
+offset_bottom = 11.0
 theme = ExtResource("1_bfym8")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"AllBorderLabel"
+text = "¶ 500"
+horizontal_alignment = 2
 clip_text = true
 
 [node name="HP_Info" type="Label" parent="Panel/TrackerInfo"]
