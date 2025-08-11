@@ -59,6 +59,9 @@ var previous_move: Move
 var is_alive = true
 var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
 
+var tracker_scene = preload("res://scenes/tracker.tscn")
+var tracker: Tracker
+
 signal status_effect_turn_counter_updated
 var status_effect_turn_counter: int = 0:
 	set(_status_effect_turn_counter):
@@ -111,6 +114,13 @@ func randomize_moves() -> void:
 	for move in all_moves.slice(0, 4):
 		moves.append(move.copy())
 
+
+#func create_tracker(_is_player = false) -> void:
+	#tracker = tracker.instantiate()
+	#tracker.is_player = true
+	#tracker.position.x = 154
+	#tracker.z_index = 2
+	#add_child(tracker)
 
 func increment_health(value: int) -> void:
 	hp += value

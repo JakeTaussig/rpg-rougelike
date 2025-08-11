@@ -18,7 +18,6 @@ var enemy: BattleParticipant
 var battle_scene = preload("res://scenes/battle.tscn")
 var battle_participant_scene := preload("res://scenes/battle_participant.tscn")
 var shop_scene = preload("res://scenes/shop.tscn")
-var tracker
 
 
 # All of the player's and enemy's stats will be multiplied by their respective value at the end of each floor
@@ -27,6 +26,7 @@ var enemy_stat_multiplier := 1.2
 var enemy_level = 0
 
 var randomized_monsters: Array[Monster] = []
+var tracker = preload("res://scenes/tracker.tscn")
 
 @onready var global_ui_manager = %GlobalUIManager
 
@@ -36,6 +36,7 @@ func start_game():
 	randomize()
 	_load_and_randomize_monsters()
 	player = _create_player()
+	_initialize_trackers()
 	enemy = _create_new_enemy()
 	_exit_current_event()
 
@@ -145,14 +146,17 @@ func _create_player() -> BattleParticipant:
 	var new_player = battle_participant_scene.instantiate()
 	new_player.set_script(preload("res://scripts/battle_participant.gd"))
 	new_player.setup_player(randomized_monsters[monster_index])
+	# You can't fight against yourself in battle.
+	randomized_monsters.remove_at(monster_index)
 	self.add_child(new_player)
 	new_player.name = "Player"
 	new_player.prana = 500
+
 	new_player.selected_monster_backup = new_player.selected_monster.duplicate(true)
 	%TrinketShelf.trinkets = new_player.selected_monster.trinkets
 
 	return new_player
-
+	
 
 func _create_new_enemy() -> BattleParticipant:
 	var monsters = randomized_monsters
@@ -190,6 +194,27 @@ func level_up_player_and_enemies():
 	# the player levels up
 	player.selected_monster.moves = monster_moves
 
+
+func _initialize_trackers():
+	_initialize_player_tracker(player)
+	for monster in randomized_monsters:
+		var t: Tracker = tracker.instantiate()
+		t.bind_monster(monster, false)
+		t.z_index = 2
+		t.visible = false
+		add_child(t)
+		monster.tracker = t
+
+
+func _initialize_player_tracker(new_player: BattleParticipant) -> void:
+	var t: Tracker = tracker.instantiate()
+	t.bind_monster(new_player.selected_monster, true)
+	t.z_index = 5
+	t.position.x = 154
+	t.visible = false
+	add_child(t)
+	new_player.selected_monster.tracker = t
+	
 
 func apply_trinkets():
 	var old_trinkets = player.selected_monster.trinkets

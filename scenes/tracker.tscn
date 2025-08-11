@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="1_bfym8"]
 [ext_resource type="Script" uid="uid://dqx4yk84nwr8x" path="res://scripts/tracker.gd" id="1_g10r1"]
 [ext_resource type="StyleBox" uid="uid://c854nh0fccd54" path="res://assets/styles/border_color_sbf.tres" id="2_dcoxp"]
-[ext_resource type="Script" path="res://scripts/mark_tracker.gd" id="3_ocy8l"]
+[ext_resource type="Script" uid="uid://5gqyd7etib2b" path="res://scripts/mark_tracker.gd" id="3_ocy8l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dcoxp"]
 content_margin_bottom = 4.0

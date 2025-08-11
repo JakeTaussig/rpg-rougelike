@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=20 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
@@ -16,7 +16,6 @@
 [ext_resource type="Script" uid="uid://csb7lr8wxaxfr" path="res://scripts/states/DeadMonsterInfo.gd" id="14_p0caf"]
 [ext_resource type="PackedScene" uid="uid://jpf5gywks7wx" path="res://scenes/trinket_shelf.tscn" id="17_h4dll"]
 [ext_resource type="Texture2D" uid="uid://fs4ws7okfwn5" path="res://assets/sprites/trinket_icons/arrow.png" id="18_h4dll"]
-[ext_resource type="PackedScene" uid="uid://tlm6nhptxwkx" path="res://scenes/tracker.tscn" id="18_p0caf"]
 [ext_resource type="PackedScene" uid="uid://cv5e4qocm73cv" path="res://scenes/debug_menu.tscn" id="19_p0caf"]
 [ext_resource type="PackedScene" uid="uid://capm3p3n50hky" path="res://scenes/battle_ui_manager.tscn" id="23_fpf3k"]
 
@@ -416,28 +415,6 @@ texture = ExtResource("18_h4dll")
 
 [node name="DebugMenu" parent="." instance=ExtResource("19_p0caf")]
 visible = false
-
-[node name="Trackers" type="Control" parent="."]
-visible = false
-z_index = 2
-layout_mode = 3
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="PlayerTracker" parent="Trackers" instance=ExtResource("18_p0caf")]
-unique_name_in_owner = true
-z_index = 2
-layout_mode = 1
-offset_left = 154.0
-offset_right = 194.0
-theme = ExtResource("2_p1qf1")
-
-[node name="EnemyTracker" parent="Trackers" instance=ExtResource("18_p0caf")]
-unique_name_in_owner = true
-visible = false
-z_index = 2
-layout_mode = 1
-is_player = false
 
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Attack" to="BattleStateMachine/SELECTING_ACTION" method="_on_attack_pressed"]
 [connection signal="pressed" from="BottomBar/Action/ActionButtons/Tracker" to="BattleStateMachine/SELECTING_ACTION" method="_on_tracker_pressed"]

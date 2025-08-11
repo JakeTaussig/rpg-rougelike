@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://duuaahsyxqyng"]
+[gd_scene load_steps=10 format=3 uid="uid://duuaahsyxqyng"]
 
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="1_xfvoa"]
 [ext_resource type="Script" uid="uid://do8vpqt1j0sqt" path="res://scripts/shop.gd" id="2_xfvoa"]
@@ -6,7 +6,6 @@
 [ext_resource type="StyleBox" uid="uid://bayawxbehrxwp" path="res://assets/styles/shop_button.tres" id="4_032fp"]
 [ext_resource type="StyleBox" uid="uid://po0ajij3ys1o" path="res://assets/styles/shop_button_hover.tres" id="5_2fc2m"]
 [ext_resource type="PackedScene" uid="uid://jpf5gywks7wx" path="res://scenes/trinket_shelf.tscn" id="6_8r1wq"]
-[ext_resource type="PackedScene" uid="uid://tlm6nhptxwkx" path="res://scenes/tracker.tscn" id="7_ajxib"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7bace"]
 content_margin_left = 0.0
@@ -339,14 +338,5 @@ trinket_name_label = NodePath("../TrinketNameAndCost/TrinketName")
 trinket_info_label = NodePath("../TrinketInfoContainer/TrinketInfo")
 trinket_info_texture_rect = NodePath("../TrinketInfoContainer/TrinketIconEnlarged")
 show_trinket_name_on_panel = false
-
-[node name="Tracker" parent="." instance=ExtResource("7_ajxib")]
-unique_name_in_owner = true
-z_index = 1
-layout_mode = 1
-offset_left = 154.0
-offset_top = 16.0
-offset_right = 279.0
-offset_bottom = 86.0
 
 [connection signal="pressed" from="GridContainer/TrinketContainer/ExitButtonRow/ExitButton" to="." method="_on_exit_button_pressed"]
