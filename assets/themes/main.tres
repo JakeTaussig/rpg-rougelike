@@ -39,7 +39,7 @@ bg_color = Color(0.0705882, 0.305882, 0.537255, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_baxcw"]
 content_margin_left = 3.0
 content_margin_top = 3.0
-content_margin_right = 1.0
+content_margin_right = 2.0
 content_margin_bottom = 4.0
 bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
 border_width_left = 1
@@ -215,6 +215,7 @@ SmallTextLabel/fonts/font = ExtResource("10_wlaw4")
 SmallTextLabel/styles/normal = ExtResource("12_ea6d7")
 SmallTextRedTextLabel/base_type = &"SmallTextLabel"
 SmallTextRedTextLabel/colors/font_color = Color(0.894118, 0.231373, 0.266667, 1)
+SmallTextRedTextLabel/styles/normal = ExtResource("14_wlaw4")
 TinyTextLabel/base_type = &"Label"
 TinyTextLabel/font_sizes/font_size = 8
 TinyTextLabel/fonts/font = ExtResource("10_wlaw4")
