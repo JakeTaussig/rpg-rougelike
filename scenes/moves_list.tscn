@@ -1,0 +1,194 @@
+[gd_scene load_steps=5 format=3 uid="uid://fv7kkv5dklb5"]
+
+[ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="1_ed62s"]
+[ext_resource type="Script" uid="uid://bqkvyme2ghry7" path="res://scenes/moves.gd" id="1_huxp1"]
+[ext_resource type="Script" uid="uid://mb41k8rtgn0q" path="res://scripts/back_button.gd" id="2_huxp1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_djc8l"]
+content_margin_top = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+
+[node name="Moves" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_huxp1")
+
+[node name="BackButton" type="Button" parent="."]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 0
+offset_top = 95.0
+offset_right = 32.0
+offset_bottom = 112.0
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../MovesMenu/Move1")
+theme = ExtResource("1_ed62s")
+theme_type_variation = &"BorderButton"
+text = "back"
+script = ExtResource("2_huxp1")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_top = 111.0
+offset_right = 187.0
+offset_bottom = 144.0
+theme = ExtResource("1_ed62s")
+theme_type_variation = &"FullBorderPanel"
+
+[node name="MovesMenu" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1.0
+offset_top = 112.0
+offset_right = 186.0
+offset_bottom = 144.0
+theme = ExtResource("1_ed62s")
+columns = 2
+
+[node name="Move1" type="Button" parent="MovesMenu"]
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../BackButton")
+focus_neighbor_right = NodePath("../Move2")
+focus_neighbor_bottom = NodePath("../Move3")
+theme = ExtResource("1_ed62s")
+text = "   Move 1"
+alignment = 0
+
+[node name="Move2" type="Button" parent="MovesMenu"]
+custom_minimum_size = Vector2(72, 15)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Move1")
+focus_neighbor_top = NodePath("../../BackButton")
+focus_neighbor_bottom = NodePath("../Move4")
+theme = ExtResource("1_ed62s")
+text = "   Move 2"
+alignment = 0
+
+[node name="Move3" type="Button" parent="MovesMenu"]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Move1")
+focus_neighbor_right = NodePath("../Move4")
+text = "   Move 3"
+alignment = 0
+
+[node name="Move4" type="Button" parent="MovesMenu"]
+custom_minimum_size = Vector2(92, 15)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Move3")
+focus_neighbor_top = NodePath("../Move2")
+text = "   Move 4
+"
+alignment = 0
+
+[node name="MoveInfo" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 23)
+layout_mode = 0
+offset_left = 186.0
+offset_top = 111.0
+offset_right = 256.0
+offset_bottom = 144.0
+theme = ExtResource("1_ed62s")
+theme_type_variation = &"FullBorderPanel"
+
+[node name="InfoContainer" type="GridContainer" parent="MoveInfo"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 85.0
+offset_bottom = 33.0
+theme_override_constants/h_separation = 0
+columns = 2
+
+[node name="PPInfoLabel" type="Label" parent="MoveInfo/InfoContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(25, 7)
+layout_mode = 2
+theme = ExtResource("1_ed62s")
+theme_type_variation = &"TinyTextLabel"
+text = "PP:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PPInfo" type="Label" parent="MoveInfo/InfoContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(43, 7)
+layout_mode = 2
+theme = ExtResource("1_ed62s")
+theme_type_variation = &"TinyTextLabel"
+text = "0/15"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TypeInfoLabel" type="Label" parent="MoveInfo/InfoContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+theme = ExtResource("1_ed62s")
+theme_type_variation = &"TinyTextLabel"
+text = "Typ:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TypeInfo" type="Label" parent="MoveInfo/InfoContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+theme = ExtResource("1_ed62s")
+theme_type_variation = &"TinyTextLabel"
+text = "COSMIC"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PowerLabel" type="Label" parent="MoveInfo/InfoContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+theme = ExtResource("1_ed62s")
+theme_type_variation = &"TinyTextLabel"
+text = "PWR:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Power" type="Label" parent="MoveInfo/InfoContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+theme = ExtResource("1_ed62s")
+theme_type_variation = &"TinyTextLabel"
+text = "50"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="AccLabel" type="Label" parent="MoveInfo/InfoContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+theme = ExtResource("1_ed62s")
+theme_type_variation = &"TinyTextLabel"
+theme_override_styles/normal = SubResource("StyleBoxFlat_djc8l")
+text = "ACC:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Acc" type="Label" parent="MoveInfo/InfoContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+theme = ExtResource("1_ed62s")
+theme_type_variation = &"SmallTextLabel"
+theme_override_styles/normal = SubResource("StyleBoxFlat_djc8l")
+text = "80%"
+horizontal_alignment = 2
+vertical_alignment = 1
