@@ -215,6 +215,7 @@ SmallTextLabel/fonts/font = ExtResource("10_wlaw4")
 SmallTextLabel/styles/normal = ExtResource("12_ea6d7")
 SmallTextRedTextLabel/base_type = &"SmallTextLabel"
 SmallTextRedTextLabel/colors/font_color = Color(0.894118, 0.231373, 0.266667, 1)
+SmallTextRedTextLabel/styles/normal = ExtResource("14_wlaw4")
 TinyTextLabel/base_type = &"Label"
 TinyTextLabel/font_sizes/font_size = 8
 TinyTextLabel/fonts/font = ExtResource("10_wlaw4")

@@ -4,7 +4,7 @@ extends Control
 
 var last_focused_move_index: int = 0
 
-func enter(on_move_pressed: Callable):
+func enter(on_move_pressed: Callable, is_move_disabled: Callable):
 	var move_buttons = moves_menu.get_children()
 	for i in GameManager.player.selected_monster.moves.size():
 		var move = GameManager.player.selected_monster.moves[i]
@@ -14,7 +14,7 @@ func enter(on_move_pressed: Callable):
 		move_buttons[i].mouse_entered.connect(move_buttons[i].grab_focus)
 		move_buttons[i].pressed.connect(func(): on_move_pressed.call(i))
 
-		if move.pp <= 0:
+		if is_move_disabled.call(move):
 			move_buttons[i].set_theme_type_variation("DisabledButton")
 		else:
 			move_buttons[i].set_theme_type_variation("Button")
