@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bppwan6jspjq0" path="res://assets/sprites/trinket_icons/human.png" id="1_i835e"]
 [ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinkets/trinket.gd" id="2_i835e"]
-[ext_resource type="Script" uid="uid://ytr80rh1biwm" path="res://resources/trinket_strategies/change_type_earth_strategy.gd" id="3_i835e"]
+[ext_resource type="Script" path="res://resources/trinket_strategies/change_type_earth_strategy.gd" id="3_i835e"]
 
 [sub_resource type="Resource" id="Resource_y4fx8"]
 script = ExtResource("3_i835e")
@@ -13,6 +13,5 @@ script = ExtResource("2_i835e")
 trinket_name = "Earthize"
 icon = ExtResource("1_i835e")
 description = "Change the player's type to EARTH"
-apply_once = true
 strategy = SubResource("Resource_y4fx8")
 metadata/_custom_type_script = "uid://c7ph0ydi5trjd"
