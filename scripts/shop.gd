@@ -27,11 +27,13 @@ var global_ui_manager = GameManager.global_ui_manager
 
 # TODO: create Consumable class
 # var consumables: Array[Consumable] = []
-var consumables: Array[int] = []
+enum CONSUMABLES { HP_RESTORE, PP_RESTORE}
+var consumables: Array[CONSUMABLES] = []
 var purchased_consumables: Array[bool] = []
 
 func setup():
 	_roll_trinkets()
+	_roll_consumables()
 	_init_trinket_menu_buttons()
 	_init_consumable_menu_buttons()
 	_render_trinkets()
@@ -61,6 +63,14 @@ func _roll_trinkets():
 			trinkets.append(trinket)
 			purchased_trinkets.append(false)
 
+func _roll_consumables():
+	while consumables.size() < N_CONSUMABLES:
+		var consumable_options: Array[CONSUMABLES] = [CONSUMABLES.HP_RESTORE, CONSUMABLES.PP_RESTORE]
+		var consumable = consumable_options.pick_random()
+
+		consumables.append(consumable)
+		purchased_consumables.append(false)
+
 
 func _init_trinket_menu_buttons():
 	for i in range(N_TRINKETS):
@@ -84,19 +94,47 @@ func _init_consumable_menu_buttons():
 		consumable_button.pressed.connect(func(): _on_consumable_button_pressed(i))
 
 func _on_consumable_button_pressed(i: int):
-		# var consumable: Consumable = consumables[consumable_index]
+		if GameManager.player.prana < CONSUMABLE_COST:
+			return
+
+		# If the Moves menu (Used for PP restores)  is already up, close it before processing another consumable
+		if $Moves.visible:
+			$Moves.exit()
+			$Moves.hide()
+
+		if consumables[i] == CONSUMABLES.HP_RESTORE:
+			GameManager.player.selected_monster.hp += 50
+			mark_consumable_sold(i)
+
+		elif consumables[i] == CONSUMABLES.PP_RESTORE:
+			# pop up the list of player moves.
+			# if the player selects one, restore 5 PP to that move
+			# if the player chooses to go back, don't charge the player
+			var moves = $Moves
+			moves.show()
+
+			var on_move_button_pressed = func(move_index: int):
+				var move = GameManager.player.selected_monster.moves[move_index]
+
+				if purchased_consumables[i]:
+					return
+
+				move.pp = min(move.pp + 5, move.max_pp)
+				moves.disable_all_buttons()
+				mark_consumable_sold(i)
+			var is_move_disabled = func(move: Move):
+				return move.pp == move.max_pp
+
+			moves.enter(on_move_button_pressed, is_move_disabled)
+
+func mark_consumable_sold(i: int):
 		var consumable_button: Button = %ConsumableContainer.get_child(i).get_node("ConsumableName")
 		var consumable_cost_label: RichTextLabel = %ConsumableContainer.get_child(i).get_node("ConsumableCost")
 		var consumable_icon: TextureRect = %ConsumableContainer.get_child(i).get_node("ConsumableIcon")
 
-		if GameManager.player.prana < CONSUMABLE_COST:
-			return
-
 		# charge the player for the trinket
 		GameManager.player.prana -= CONSUMABLE_COST
 		_render_player_prana()
-
-		GameManager.player.selected_monster.hp += 50
 
 		# when the consumable is purchased:
 		# - disable its button
@@ -107,8 +145,18 @@ func _on_consumable_button_pressed(i: int):
 		consumable_cost_label.text = "[s]%s[/s]" % consumable_cost_label.text
 		consumable_cost_label.add_theme_color_override("default_color", DISABLED_GRAY)
 		consumable_icon.material = load("res://assets/shaders/grayscale-material.tres")
+		purchased_consumables[i] = true
 		%Tracker.populate_player_tracker()
 
+func _input(event: InputEvent):
+	# the "Back" button in the moves list emits the "ui_cancel" event when pressed
+	# the ESC key is also bound to this event
+	# we want to close the moves menu (Associated with PP restore consumables)
+	# when "ui_cancel" is pressed
+	if event.is_action_pressed("ui_cancel"):
+		if $Moves.visible:
+			$Moves.exit()
+			$Moves.hide()
 
 func _render_trinkets():
 	for i in range(N_TRINKETS):
@@ -119,11 +167,17 @@ func _render_trinkets():
 
 func _render_consumables():
 	var HP_icon = load("res://assets/sprites/trinket_icons/heart.png")
+	var PP_icon = load("res://assets/sprites/trinket_icons/pp.png")
 
 	for i in range(N_CONSUMABLES):
 		var consumable_entry: HBoxContainer = %ConsumableContainer.get_child(i)
-		consumable_entry.get_node("ConsumableName").text = "+50 HP"
-		consumable_entry.get_node("ConsumableIcon").texture = HP_icon
+		if consumables[i] == CONSUMABLES.HP_RESTORE:
+			consumable_entry.get_node("ConsumableName").text = "+50 HP"
+			consumable_entry.get_node("ConsumableIcon").texture = HP_icon
+		elif consumables[i] == CONSUMABLES.PP_RESTORE:
+			consumable_entry.get_node("ConsumableName").text = "+5 PP"
+			consumable_entry.get_node("ConsumableIcon").texture = PP_icon
+
 		consumable_entry.get_node("ConsumableCost").text = "¶ %d" % CONSUMABLE_COST
 
 func _render_player_prana():

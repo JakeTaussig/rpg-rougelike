@@ -10,15 +10,18 @@ func enter(on_move_pressed: Callable, is_move_disabled: Callable):
 		var move = GameManager.player.selected_monster.moves[i]
 
 		move_buttons[i].text = move.move_name
-		move_buttons[i].focus_entered.connect(func(): _display_pp_info(i))
+		move_buttons[i].focus_entered.connect(func(): _display_pp_info(i, is_move_disabled))
 		move_buttons[i].mouse_entered.connect(move_buttons[i].grab_focus)
-		move_buttons[i].pressed.connect(func(): on_move_pressed.call(i))
+		move_buttons[i].pressed.connect(func():
+			on_move_pressed.call(i)
+			_display_pp_info(i, is_move_disabled)
+		)
 
 		if is_move_disabled.call(move):
 			move_buttons[i].set_theme_type_variation("DisabledButton")
 		else:
 			move_buttons[i].set_theme_type_variation("Button")
-			
+
 	move_buttons[last_focused_move_index].grab_focus()
 
 func exit():
@@ -31,16 +34,19 @@ func exit():
 		for dict in button.get_signal_connection_list("mouse_entered"):
 			button.disconnect("mouse_entered", dict.callable)
 
+func disable_all_buttons():
+	for move_button in moves_menu.get_children():
+		move_button.set_theme_type_variation("DisabledButton")
 
 # callback used when a move is focused
 # displays the PP and type of the move in $"Moves/MovesInfo"
-func _display_pp_info(move_index: int) -> void:
+func _display_pp_info(move_index: int, is_move_disabled: Callable) -> void:
 	last_focused_move_index = move_index
 
 	var move = GameManager.player.selected_monster.moves[move_index]
 
 	var text = "%d / %d" % [move.pp, move.max_pp]
-	var disabled: bool = move.pp <= 0
+	var disabled: bool = is_move_disabled.call(move)
 	set_pp_info(text, disabled)
 
 	set_type_info(move.type, disabled)
