@@ -114,6 +114,8 @@ func _on_consumable_button_pressed(i: int):
 
 			var on_move_button_pressed = func(move_index: int):
 				var move = GameManager.player.selected_monster.moves[move_index]
+				if move.pp >= move.max_pp:
+					return
 
 				if purchased_consumables[i]:
 					return
