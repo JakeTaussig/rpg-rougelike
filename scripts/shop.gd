@@ -25,8 +25,6 @@ var trinkets: Array[Trinket] = []
 var purchased_trinkets: Array[bool] = []
 var global_ui_manager = GameManager.global_ui_manager
 
-# TODO: create Consumable class
-# var consumables: Array[Consumable] = []
 enum CONSUMABLES { HP_RESTORE, PP_RESTORE}
 var consumables: Array[CONSUMABLES] = []
 var purchased_consumables: Array[bool] = []
@@ -87,10 +85,6 @@ func _init_consumable_menu_buttons():
 		var consumable_entry: HBoxContainer = %ConsumableContainer.get_child(i)
 		var consumable_button: Button = consumable_entry.get_node("ConsumableName")
 		consumable_button.connect("mouse_entered", func(): consumable_button.grab_focus())
-		#consumable_button.connect("focus_entered", func(): _on_consumable_focus(i))
-		#consumable_button.connect("focus_exited", _on_consumable_focus_exit)
-		#consumable_button.connect("mouse_exited", _on_consumable_focus_exit)
-		#consumable_button.connect("mouse_exited", func(): consumable_button.release_focus())
 		consumable_button.pressed.connect(func(): _on_consumable_button_pressed(i))
 
 func _on_consumable_button_pressed(i: int):
@@ -125,8 +119,10 @@ func _on_consumable_button_pressed(i: int):
 					return
 
 				move.pp = min(move.pp + 5, move.max_pp)
-				moves.disable_all_buttons()
 				mark_consumable_sold(i)
+				# we needs to disable the move buttons after the move has been sold
+				# so that you can't repeatedly click the button to restore PP
+				moves.disable_all_buttons()
 			var is_move_disabled = func(move: Move):
 				return move.pp == move.max_pp
 
@@ -216,8 +212,6 @@ func _on_trinket_focus(trinket_index: int):
 	%TrinketCost.show()
 	$Tracker.hide()
 
-	%Tracker.hide()
-
 
 func _on_trinket_focus_exit():
 	%TrinketInfo.hide()
@@ -226,8 +220,6 @@ func _on_trinket_focus_exit():
 	%TrinketName.hide()
 	%TrinketCost.hide()
 	$Tracker.show()
-
-	%Tracker.show()
 
 
 func _on_trinket_button_pressed(trinket_index: int):
