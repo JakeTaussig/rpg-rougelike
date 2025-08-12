@@ -113,14 +113,7 @@ func randomize_moves() -> void:
 	all_moves.shuffle()
 	for move in all_moves.slice(0, 4):
 		moves.append(move.copy())
-
-
-#func create_tracker(_is_player = false) -> void:
-	#tracker = tracker.instantiate()
-	#tracker.is_player = true
-	#tracker.position.x = 154
-	#tracker.z_index = 2
-	#add_child(tracker)
+		
 
 func increment_health(value: int) -> void:
 	hp += value
