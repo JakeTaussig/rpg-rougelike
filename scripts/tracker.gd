@@ -11,14 +11,12 @@ func bind_monster(m: Monster, p: bool) -> void:
 
 
 func _ready():
+	$Panel/TrackerInfo/Placeholder/Character_Name.text = monster.character_name
 	if is_player:
 		populate_player_tracker()
-	else:
-		$Panel/TrackerInfo/Placeholder/Character_Name.text = monster.character_name
 
 
 func populate_player_tracker():
-	$Panel/TrackerInfo/Placeholder/Character_Name.text = monster.character_name
 	$Panel/TrackerInfo/HP.text = "%d/%d" % [monster.hp, monster.max_hp]
 	$Panel/TrackerInfo/ATK.text = str(monster.atk)
 	$Panel/TrackerInfo/SP_ATK.text = str(monster.sp_atk)

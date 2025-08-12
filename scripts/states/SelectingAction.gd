@@ -26,8 +26,8 @@ func exit():
 func _on_attack_pressed() -> void:
 	battle.transition_state_to(battle.STATE_SELECTING_ATTACK)
 
-
-func _on_tracker_pressed() -> void:
-	battle.get_node("Trackers/PlayerTracker").populate_player_tracker()
-	battle.get_node("Trackers/EnemyTracker").populate_enemy_tracker()
-	battle.get_node("Trackers").visible = not battle.get_node("Trackers").visible
+# No longer functional - this button will likely be removed anyway.
+#func _on_tracker_pressed() -> void:
+	#battle.get_node("Trackers/PlayerTracker").populate_player_tracker()
+	#battle.get_node("Trackers/EnemyTracker").populate_enemy_tracker()
+	#battle.get_node("Trackers").visible = not battle.get_node("Trackers").visible

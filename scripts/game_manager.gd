@@ -36,7 +36,6 @@ func start_game():
 	randomize()
 	_load_and_randomize_monsters()
 	player = _create_player()
-	_initialize_trackers()
 	enemy = _create_new_enemy()
 	_exit_current_event()
 
@@ -115,6 +114,7 @@ func _exit_current_event():
 		# Eventually, we'll need a way of doing this procedurally.
 		enemy = _create_new_enemy()
 	if current_shop:
+		player.selected_monster.tracker.visible = false
 		current_shop.queue_free()
 
 	if floor_events.is_empty():
@@ -123,6 +123,7 @@ func _exit_current_event():
 		floor_number += 1
 		_generate_floor_events()
 		global_ui_manager.reset_ui_elements()
+	player.selected_monster.tracker = %GlobalUIManager/Trackers/PlayerTracker
 
 
 	global_ui_manager.hide_player_and_enemy() # don't render the player and enemy on the room transition screen
@@ -151,7 +152,7 @@ func _create_player() -> BattleParticipant:
 	self.add_child(new_player)
 	new_player.name = "Player"
 	new_player.prana = 500
-
+	_initialize_player_tracker(new_player)
 	new_player.selected_monster_backup = new_player.selected_monster.duplicate(true)
 	%TrinketShelf.trinkets = new_player.selected_monster.trinkets
 
@@ -164,6 +165,19 @@ func _create_new_enemy() -> BattleParticipant:
 	new_enemy.set_script(preload("res://scripts/enemy.gd"))
 	# 2nd param = AI types 0 = RANDOM, 1 = AGGRESSIVE, 2 = HIGH_EV
 	new_enemy.setup_enemy(monsters, 0, enemy_stat_multiplier, enemy_level)
+	# The trackers need to be created on the first floor, on later floors they need to be reattached to the corresponding enemies. 
+	if floor_number == 0:
+		for monster in new_enemy.monsters:
+			var t: Tracker = tracker.instantiate()
+			t.bind_monster(monster, false)
+			t.z_index = 2
+			t.visible = false
+			t.name = monster.character_name
+			%GlobalUIManager/Trackers.add_child(t)
+			monster.tracker = t
+	else:
+		for monster in new_enemy.monsters:
+			monster.tracker = get_node("GlobalUIManager/Trackers/" + monster.character_name)
 
 	# Replace old enemy node in the scene
 	if enemy:
@@ -181,7 +195,7 @@ func level_up_player_and_enemies():
 	# Only the enemy stat multiplier increases, because the player stays the same, while the enemies are generated every time.
 	enemy_level += 1
 	var old_max_hp = player.selected_monster_backup.max_hp
-	# Level up the backup so that trinkets don't effect the stats, then re-apply the trinket
+	# Level up the backup so that trinkets don't effect the stats, then re-apply the trinkets
 	player.selected_monster_backup.level_up(player_stat_multiplier)
 	# The HP gets reset to what the monster's hp was at the end of battle, plus the level up bonus
 	var monster_hp = player.selected_monster.hp + (player.selected_monster_backup.max_hp - old_max_hp)
@@ -195,24 +209,14 @@ func level_up_player_and_enemies():
 	player.selected_monster.moves = monster_moves
 
 
-func _initialize_trackers():
-	_initialize_player_tracker(player)
-	for monster in randomized_monsters:
-		var t: Tracker = tracker.instantiate()
-		t.bind_monster(monster, false)
-		t.z_index = 2
-		t.visible = false
-		add_child(t)
-		monster.tracker = t
-
-
 func _initialize_player_tracker(new_player: BattleParticipant) -> void:
 	var t: Tracker = tracker.instantiate()
 	t.bind_monster(new_player.selected_monster, true)
 	t.z_index = 5
 	t.position.x = 154
 	t.visible = false
-	add_child(t)
+	t.name = "PlayerTracker"
+	%GlobalUIManager/Trackers.add_child(t)
 	new_player.selected_monster.tracker = t
 	
 

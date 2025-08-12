@@ -31,6 +31,8 @@ var previous_state_name: String
 
 var setup_done := false
 
+var trackers_open := false
+
 # Connected in GameManager
 @warning_ignore("unused_signal")
 signal battle_ended(victory: bool)
@@ -48,32 +50,28 @@ func _init_ui():
 
 func _input(event: InputEvent):
 	if event.is_action_pressed("toggle_tracker"):
-		%PlayerTracker.populate_player_tracker()
-		%EnemyTracker.populate_enemy_tracker()
-		$Trackers.visible = not $Trackers.visible
-		_hide_health_panels_for_trackers()
+		player.selected_monster.tracker.populate_player_tracker()
+		trackers_open = !trackers_open
+		if trackers_open:
+			ui_manager.display_tracker()
+			ui_manager.hide_health_panels_for_trackers()
+		else:
+			ui_manager.player_health_panel.show()
+			ui_manager.enemy_health_panel.show()
+			player.selected_monster.tracker.visible = false
+			enemy.selected_monster.tracker.visible = false
 
 
-	if $Trackers.visible and event.is_action_pressed("switch_tracker"):
-		%PlayerTracker.visible = not %PlayerTracker.visible
-		%EnemyTracker.visible = not %EnemyTracker.visible
-		_hide_health_panels_for_trackers()
+	if trackers_open and event.is_action_pressed("switch_tracker"):
+		player.selected_monster.tracker.visible = not player.selected_monster.tracker.visible
+		enemy.selected_monster.tracker.visible = not enemy.selected_monster.tracker.visible
+		ui_manager.hide_health_panels_for_trackers()
+		ui_manager.last_active_tracker_index = !ui_manager.last_active_tracker_index
+		
 
 	if current_state:
 		current_state.handle_input(event)
-
-func _hide_health_panels_for_trackers():
-	if $Trackers.visible:
-		if %PlayerTracker.visible:
-			ui_manager.player_health_panel.hide()
-			ui_manager.enemy_health_panel.show()
-		if %EnemyTracker.visible:
-			ui_manager.enemy_health_panel.hide()
-			ui_manager.player_health_panel.show()
-
-	if not $Trackers.visible:
-		ui_manager.player_health_panel.show()
-		ui_manager.enemy_health_panel.show()
+		
 
 func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 	# assigns as reference

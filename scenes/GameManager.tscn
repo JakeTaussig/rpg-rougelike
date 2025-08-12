@@ -201,4 +201,6 @@ texture = ExtResource("3_4dhvd")
 unique_name_in_owner = true
 script = ExtResource("9_2chjq")
 
+[node name="Trackers" type="Node2D" parent="GlobalUIManager"]
+
 [connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]
