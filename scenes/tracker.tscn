@@ -85,7 +85,7 @@ size_flags_horizontal = 8
 mouse_filter = 0
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
-text = "??"
+text = "?"
 script = ExtResource("3_ocy8l")
 
 [node name="ATK_Info" type="Label" parent="Panel/TrackerInfo"]
