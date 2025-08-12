@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_p1qf1"]
-[ext_resource type="Script" uid="uid://mb41k8rtgn0q" path="res://scripts/back_button.gd" id="4_saiin"]
+[ext_resource type="PackedScene" uid="uid://fv7kkv5dklb5" path="res://scenes/moves_menu.tscn" id="4_p0caf"]
 [ext_resource type="PackedScene" uid="uid://bs4b2pu5fsx6o" path="res://scenes/health_panel.tscn" id="5_ekamt"]
 [ext_resource type="Script" uid="uid://brto6aw55bukl" path="res://scripts/states/Info.gd" id="7_v7i3o"]
 [ext_resource type="Script" uid="uid://buy2ylv1t0vt0" path="res://scripts/states/EnemyAttack.gd" id="8_66ngm"]
@@ -18,16 +18,6 @@
 [ext_resource type="Texture2D" uid="uid://fs4ws7okfwn5" path="res://assets/sprites/trinket_icons/arrow.png" id="18_h4dll"]
 [ext_resource type="PackedScene" uid="uid://cv5e4qocm73cv" path="res://scenes/debug_menu.tscn" id="19_p0caf"]
 [ext_resource type="PackedScene" uid="uid://capm3p3n50hky" path="res://scenes/battle_ui_manager.tscn" id="23_fpf3k"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_djc8l"]
-content_margin_top = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.0941176, 0.0784314, 0.145098, 1)
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_a12nh")
@@ -124,185 +114,9 @@ offset_bottom = 32.0
 theme = ExtResource("2_p1qf1")
 text = "Continue"
 
-[node name="Moves" type="Control" parent="BottomBar"]
+[node name="Moves" parent="BottomBar" instance=ExtResource("4_p0caf")]
 unique_name_in_owner = true
 visible = false
-layout_mode = 3
-anchors_preset = 0
-
-[node name="BackButton" type="Button" parent="BottomBar/Moves"]
-custom_minimum_size = Vector2(0, 5)
-layout_mode = 0
-offset_top = 95.0
-offset_right = 32.0
-offset_bottom = 112.0
-focus_neighbor_right = NodePath(".")
-focus_neighbor_bottom = NodePath("../MovesMenu/Move1")
-theme = ExtResource("2_p1qf1")
-theme_type_variation = &"BorderButton"
-text = "back"
-script = ExtResource("4_saiin")
-
-[node name="Panel" type="Panel" parent="BottomBar/Moves"]
-layout_mode = 0
-offset_top = 111.0
-offset_right = 187.0
-offset_bottom = 144.0
-theme = ExtResource("2_p1qf1")
-theme_type_variation = &"FullBorderPanel"
-
-[node name="MovesMenu" type="GridContainer" parent="BottomBar/Moves"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 1.0
-offset_top = 112.0
-offset_right = 186.0
-offset_bottom = 144.0
-theme = ExtResource("2_p1qf1")
-columns = 2
-
-[node name="Move1" type="Button" parent="BottomBar/Moves/MovesMenu"]
-custom_minimum_size = Vector2(92, 0)
-layout_mode = 2
-focus_neighbor_left = NodePath(".")
-focus_neighbor_top = NodePath("../../BackButton")
-focus_neighbor_right = NodePath("../Move2")
-focus_neighbor_bottom = NodePath("../Move3")
-theme = ExtResource("2_p1qf1")
-text = "   Move 1"
-alignment = 0
-
-[node name="Move2" type="Button" parent="BottomBar/Moves/MovesMenu"]
-custom_minimum_size = Vector2(72, 15)
-layout_mode = 2
-focus_neighbor_left = NodePath("../Move1")
-focus_neighbor_top = NodePath("../../BackButton")
-focus_neighbor_bottom = NodePath("../Move4")
-theme = ExtResource("2_p1qf1")
-text = "   Move 2"
-alignment = 0
-
-[node name="Move3" type="Button" parent="BottomBar/Moves/MovesMenu"]
-layout_mode = 2
-focus_neighbor_left = NodePath(".")
-focus_neighbor_top = NodePath("../Move1")
-focus_neighbor_right = NodePath("../Move4")
-text = "   Move 3"
-alignment = 0
-
-[node name="Move4" type="Button" parent="BottomBar/Moves/MovesMenu"]
-custom_minimum_size = Vector2(92, 15)
-layout_mode = 2
-focus_neighbor_left = NodePath("../Move3")
-focus_neighbor_top = NodePath("../Move2")
-text = "   Move 4
-"
-alignment = 0
-
-[node name="MoveInfo" type="Panel" parent="BottomBar/Moves"]
-custom_minimum_size = Vector2(0, 23)
-layout_mode = 0
-offset_left = 186.0
-offset_top = 111.0
-offset_right = 256.0
-offset_bottom = 144.0
-theme = ExtResource("2_p1qf1")
-theme_type_variation = &"FullBorderPanel"
-
-[node name="InfoContainer" type="GridContainer" parent="BottomBar/Moves/MoveInfo"]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 85.0
-offset_bottom = 33.0
-theme_override_constants/h_separation = 0
-columns = 2
-
-[node name="PPInfoLabel" type="Label" parent="BottomBar/Moves/MoveInfo/InfoContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(25, 7)
-layout_mode = 2
-theme = ExtResource("2_p1qf1")
-theme_type_variation = &"TinyTextLabel"
-text = "PP:"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="PPInfo" type="Label" parent="BottomBar/Moves/MoveInfo/InfoContainer"]
-unique_name_in_owner = true
-texture_filter = 1
-custom_minimum_size = Vector2(43, 7)
-layout_mode = 2
-theme = ExtResource("2_p1qf1")
-theme_type_variation = &"TinyTextLabel"
-text = "0/15"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="TypeInfoLabel" type="Label" parent="BottomBar/Moves/MoveInfo/InfoContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(0, 7)
-layout_mode = 2
-theme = ExtResource("2_p1qf1")
-theme_type_variation = &"TinyTextLabel"
-text = "Typ:"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="TypeInfo" type="Label" parent="BottomBar/Moves/MoveInfo/InfoContainer"]
-unique_name_in_owner = true
-texture_filter = 1
-custom_minimum_size = Vector2(0, 7)
-layout_mode = 2
-theme = ExtResource("2_p1qf1")
-theme_type_variation = &"TinyTextLabel"
-text = "COSMIC"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="PowerLabel" type="Label" parent="BottomBar/Moves/MoveInfo/InfoContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(0, 7)
-layout_mode = 2
-theme = ExtResource("2_p1qf1")
-theme_type_variation = &"TinyTextLabel"
-text = "PWR:"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Power" type="Label" parent="BottomBar/Moves/MoveInfo/InfoContainer"]
-unique_name_in_owner = true
-texture_filter = 1
-custom_minimum_size = Vector2(0, 7)
-layout_mode = 2
-theme = ExtResource("2_p1qf1")
-theme_type_variation = &"TinyTextLabel"
-text = "50"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="AccLabel" type="Label" parent="BottomBar/Moves/MoveInfo/InfoContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(0, 7)
-layout_mode = 2
-theme = ExtResource("2_p1qf1")
-theme_type_variation = &"TinyTextLabel"
-theme_override_styles/normal = SubResource("StyleBoxFlat_djc8l")
-text = "ACC:"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Acc" type="Label" parent="BottomBar/Moves/MoveInfo/InfoContainer"]
-unique_name_in_owner = true
-texture_filter = 1
-custom_minimum_size = Vector2(0, 7)
-layout_mode = 2
-theme = ExtResource("2_p1qf1")
-theme_type_variation = &"SmallTextLabel"
-theme_override_styles/normal = SubResource("StyleBoxFlat_djc8l")
-text = "80%"
-horizontal_alignment = 2
-vertical_alignment = 1
 
 [node name="HealthPanels" type="Node2D" parent="."]
 position = Vector2(-1, 0)

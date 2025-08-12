@@ -6,16 +6,22 @@
 [ext_resource type="Script" uid="uid://5gqyd7etib2b" path="res://scripts/mark_tracker.gd" id="3_ocy8l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dcoxp"]
-content_margin_bottom = 4.0
-bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_bottom = 4.0
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 2.0
+content_margin_bottom = 3.0
+bg_color = Color(0.0705882, 0.305882, 0.537255, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0705882, 0.305882, 0.537255, 1)
+expand_margin_bottom = 1.0
 
 [node name="Tracker" type="Control"]
 layout_mode = 3
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 102.0
+offset_bottom = 113.0
 script = ExtResource("1_g10r1")
 
 [node name="Panel" type="Panel" parent="."]
@@ -24,46 +30,47 @@ offset_right = 102.0
 offset_bottom = 112.0
 theme_override_styles/panel = ExtResource("2_dcoxp")
 
+[node name="TitleContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_top = -7.0
+offset_right = 102.0
+offset_bottom = 33.0
+
+[node name="CharacterName" type="Label" parent="Panel/TitleContainer"]
+unique_name_in_owner = true
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"AllBorderLabel"
+theme_override_styles/normal = SubResource("StyleBoxFlat_dcoxp")
+text = "Wolferno"
+vertical_alignment = 1
+
+[node name="Funds" type="Label" parent="Panel/TitleContainer"]
+unique_name_in_owner = true
+visible = false
+z_index = 1
+clip_contents = true
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("1_bfym8")
+theme_type_variation = &"AllBorderLabel"
+text = "¶ 5000"
+horizontal_alignment = 2
+
 [node name="TrackerInfo" type="GridContainer" parent="Panel"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 2.0
-offset_top = 7.0
+offset_top = 22.0
 offset_right = 100.0
-offset_bottom = 112.0
+offset_bottom = 128.0
 theme = ExtResource("1_bfym8")
 theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 columns = 2
-
-[node name="Placeholder" type="Label" parent="Panel/TrackerInfo"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("1_bfym8")
-theme_override_styles/normal = SubResource("StyleBoxFlat_dcoxp")
-
-[node name="Character_Name" type="Label" parent="Panel/TrackerInfo/Placeholder"]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 0
-offset_left = -1.0
-offset_top = -2.0
-offset_right = 97.0
-offset_bottom = 15.0
-size_flags_horizontal = 8
-theme = ExtResource("1_bfym8")
-theme_type_variation = &"AllBorderLabel"
-text = "Wolferno"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Placeholder2" type="Label" parent="Panel/TrackerInfo"]
-z_index = -1
-clip_contents = true
-custom_minimum_size = Vector2(1, 0)
-layout_mode = 2
-theme = ExtResource("1_bfym8")
-theme_type_variation = &"SmallTextLabel"
-clip_text = true
 
 [node name="HP_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -72,15 +79,18 @@ theme_type_variation = &"SmallTextLabel"
 text = "HP:"
 
 [node name="HP" type="Label" parent="Panel/TrackerInfo"]
+layout_direction = 2
 layout_mode = 2
+size_flags_horizontal = 8
 mouse_filter = 0
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
-text = "?/?"
+text = "??"
 script = ExtResource("3_ocy8l")
 
 [node name="ATK_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
 text = "ATK:"

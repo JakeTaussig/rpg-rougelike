@@ -137,7 +137,6 @@ func use_move(move: Move, target: Monster) -> AttackResults:
 	# This will need to be adjusted should the possiblity of using 2 moves on a single turn come into play.
 	if status_effect != MovesList.StatusEffect.NONE:
 		status_effect_turn_counter += 1
-	move.pp -= 1
 	var move_hit: bool = 1
 	var status_applied: bool = 0
 	var damage = 0
@@ -156,6 +155,9 @@ func use_move(move: Move, target: Monster) -> AttackResults:
 		move_hit = true
 	else:
 		move_hit = _does_move_hit(move.acc)
+
+	# Decrease the move's PP now that we know the attacker didn't get caught in the whirlpool
+	move.pp -= 1
 
 	if move_hit:
 		if move.pre_attack_strategy != null:
@@ -248,22 +250,25 @@ func _roll_and_apply_status_effect(move: Move, target: Monster) -> bool:
 
 func _check_status_immunity(effect: MovesList.StatusEffect, target_type: MovesList.Type):
 	match effect:
-		MovesList.StatusEffect.BURN:
-			if target_type == MovesList.Type.FIRE:
+		MovesList.StatusEffect.POISON:
+			if target_type == MovesList.Type.EARTH:
 				return true
 		MovesList.StatusEffect.WHIRLPOOL:
 			if target_type == MovesList.Type.WATER:
 				return true
-		MovesList.StatusEffect.POISON:
-			if target_type == MovesList.Type.AIR:
+		MovesList.StatusEffect.BURN:
+			if target_type == MovesList.Type.FIRE:
 				return true
 		MovesList.StatusEffect.EXPOSE:
+			if target_type == MovesList.Type.AIR:
+				return true
+		MovesList.StatusEffect.VACUUM:
 			if target_type == MovesList.Type.ETHER:
 				return true
 		MovesList.StatusEffect.BLIND:
 			if target_type == MovesList.Type.LIGHT:
 				return true
-		MovesList.StatusEffect.VACUUM:
+		MovesList.StatusEffect.UNVEIL:
 			if target_type == MovesList.Type.COSMIC:
 				return true
 	return false
