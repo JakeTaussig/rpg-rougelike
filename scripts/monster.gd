@@ -134,7 +134,6 @@ func use_move(move: Move, target: Monster) -> AttackResults:
 	# This will need to be adjusted should the possiblity of using 2 moves on a single turn come into play.
 	if status_effect != MovesList.StatusEffect.NONE:
 		status_effect_turn_counter += 1
-	move.pp -= 1
 	var move_hit: bool = 1
 	var status_applied: bool = 0
 	var damage = 0
@@ -153,6 +152,9 @@ func use_move(move: Move, target: Monster) -> AttackResults:
 		move_hit = true
 	else:
 		move_hit = _does_move_hit(move.acc)
+
+	# Decrease the move's PP now that we know the attacker didn't get caught in the whirlpool
+	move.pp -= 1
 
 	if move_hit:
 		if move.pre_attack_strategy != null:
