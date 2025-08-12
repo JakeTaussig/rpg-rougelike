@@ -4,6 +4,7 @@ var statuses_enacted = false
 var dead_monster = false
 var attacks_executed = 0
 
+
 func enter(_messages: Array = []):
 	# check for dead monsters
 	if not dead_monster:

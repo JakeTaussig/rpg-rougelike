@@ -31,6 +31,8 @@ var previous_state_name: String
 
 var setup_done := false
 
+var trackers_open := false
+
 # Connected in GameManager
 @warning_ignore("unused_signal")
 signal battle_ended(victory: bool)
@@ -43,37 +45,33 @@ func _ready() -> void:
 	call_deferred("_init_ui")
 	call_deferred("_start_battle")
 
+
 func _init_ui():
 	ui_manager.init_backdrop_image()
 
+
 func _input(event: InputEvent):
 	if event.is_action_pressed("toggle_tracker"):
-		%PlayerTracker.populate_player_tracker()
-		%EnemyTracker.populate_enemy_tracker()
-		$Trackers.visible = not $Trackers.visible
-		_hide_health_panels_for_trackers()
+		player.selected_monster.tracker.populate_player_tracker()
+		trackers_open = !trackers_open
+		if trackers_open:
+			ui_manager.display_tracker()
+			ui_manager.hide_health_panels_for_trackers()
+		else:
+			ui_manager.player_health_panel.show()
+			ui_manager.enemy_health_panel.show()
+			player.selected_monster.tracker.visible = false
+			enemy.selected_monster.tracker.visible = false
 
-
-	if $Trackers.visible and event.is_action_pressed("switch_tracker"):
-		%PlayerTracker.visible = not %PlayerTracker.visible
-		%EnemyTracker.visible = not %EnemyTracker.visible
-		_hide_health_panels_for_trackers()
+	if trackers_open and event.is_action_pressed("switch_tracker"):
+		player.selected_monster.tracker.visible = not player.selected_monster.tracker.visible
+		enemy.selected_monster.tracker.visible = not enemy.selected_monster.tracker.visible
+		ui_manager.hide_health_panels_for_trackers()
+		ui_manager.last_active_tracker_index = !ui_manager.last_active_tracker_index
 
 	if current_state:
 		current_state.handle_input(event)
 
-func _hide_health_panels_for_trackers():
-	if $Trackers.visible:
-		if %PlayerTracker.visible:
-			ui_manager.player_health_panel.hide()
-			ui_manager.enemy_health_panel.show()
-		if %EnemyTracker.visible:
-			ui_manager.enemy_health_panel.hide()
-			ui_manager.player_health_panel.show()
-
-	if not $Trackers.visible:
-		ui_manager.player_health_panel.show()
-		ui_manager.enemy_health_panel.show()
 
 func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 	# assigns as reference
@@ -84,9 +82,10 @@ func setup(_player: BattleParticipant, _enemy: BattleParticipant):
 	print("Assigned player:", _player.name, _player.selected_monster.character_name)
 	print("Assigned enemy:", enemy.name, enemy.selected_monster.character_name)
 
-	player.selected_monster.trinkets_updated.connect(func():
-		%TrinketShelf.render_trinkets()
-		update_active_monsters()
+	player.selected_monster.trinkets_updated.connect(
+		func():
+			%TrinketShelf.render_trinkets()
+			update_active_monsters()
 	)
 
 
@@ -111,6 +110,7 @@ func _start_battle():
 func render_hp():
 	await ui_manager.render_hp(player.selected_monster, enemy.selected_monster)
 
+
 func _init_states():
 	# Initialize all states
 	for child in %BattleStateMachine.get_children():
@@ -123,6 +123,7 @@ func _sort_participants_by_speed(a: Monster, b: Monster) -> bool:
 	if a.speed == b.speed:
 		return randf() < 0.5  # More readable than randi() % 2
 	return a.speed > b.speed
+
 
 func get_sorted_attacks():
 	var turn_attacks: Array[AttackState.AttackCommand] = [player_attack, enemy_attack]
@@ -149,6 +150,7 @@ func _sort_attack_commands_by_priority(a: AttackState.AttackCommand, b: AttackSt
 		# if both moves, or no moves are priority, default to the existing
 		# sorting (i.e. monster speed)
 		return false
+
 
 func transition_state_to(state_name: String, messages: Array = []):
 	if not %BattleStateMachine.has_node(state_name):

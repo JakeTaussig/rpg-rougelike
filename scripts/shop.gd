@@ -42,7 +42,7 @@ func setup():
 
 
 	_render_player_prana()
-	%Tracker.populate_player_tracker()
+	GameManager.player.selected_monster.tracker.visible = true
 	%ExitButton.grab_focus()
 
 
@@ -212,7 +212,7 @@ func _on_trinket_focus(trinket_index: int):
 	%TrinketIconEnlarged.show()
 	%TrinketName.show()
 	%TrinketCost.show()
-	$Tracker.hide()
+	GameManager.player.selected_monster.tracker.hide()
 
 
 func _on_trinket_focus_exit():
@@ -221,7 +221,7 @@ func _on_trinket_focus_exit():
 	%TrinketIconEnlarged.material = null
 	%TrinketName.hide()
 	%TrinketCost.hide()
-	$Tracker.show()
+	GameManager.player.selected_monster.tracker.show()
 
 
 func _on_trinket_button_pressed(trinket_index: int):
@@ -259,7 +259,7 @@ func _on_trinket_button_pressed(trinket_index: int):
 	# Remember to set the HP back to the monster's current hp, but make sure it doesn't exceed the potentially reduced max_hp
 	trinket.strategy.ApplyEffect(GameManager.player.selected_monster)
 	%TrinketShelf.render_trinkets()
-	%Tracker.populate_player_tracker()
+	GameManager.player.selected_monster.tracker.populate_player_tracker()
 
 	purchased_trinkets[trinket_index] = true
 

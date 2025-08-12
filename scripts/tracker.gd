@@ -1,22 +1,34 @@
 extends Control
 class_name Tracker
 
-@export var is_player := true
+@export var is_player := false
+var monster: Monster
+
+
+func bind_monster(m: Monster, p: bool) -> void:
+	monster = m
+	is_player = p
+
+
+func _ready():
+	$Panel/TitleContainer/CharacterName.text = monster.character_name
+	if is_player:
+		populate_player_tracker()
+
 
 @export var show_funds := false
 
 
 func populate_player_tracker():
-	$Panel/TitleContainer/CharacterName.text = GameManager.player.selected_monster.character_name
-	$Panel/TrackerInfo/HP.text = "%d/%d" % [GameManager.player.selected_monster.hp, GameManager.player.selected_monster.max_hp]
-	$Panel/TrackerInfo/ATK.text = str(GameManager.player.selected_monster.atk)
-	$Panel/TrackerInfo/SP_ATK.text = str(GameManager.player.selected_monster.sp_atk)
-	$Panel/TrackerInfo/DEF.text = str(GameManager.player.selected_monster.def)
-	$Panel/TrackerInfo/SP_DEF.text = str(GameManager.player.selected_monster.sp_def)
-	$Panel/TrackerInfo/SPEED.text = str(GameManager.player.selected_monster.speed)
-	$Panel/TrackerInfo/LUCK.text = str(GameManager.player.selected_monster.luck)
-	$Panel/TrackerInfo/CRIT.text ="%2.0f" % (100.0 * GameManager.player.selected_monster.crit_chance) + "% " + "(%d)" % GameManager.player.selected_monster.crit_checks
-	$Panel/TrackerInfo/ACC.text = str(GameManager.player.selected_monster.acc)
+	$Panel/TrackerInfo/HP.text = "%d/%d" % [monster.hp, monster.max_hp]
+	$Panel/TrackerInfo/ATK.text = str(monster.atk)
+	$Panel/TrackerInfo/SP_ATK.text = str(monster.sp_atk)
+	$Panel/TrackerInfo/DEF.text = str(monster.def)
+	$Panel/TrackerInfo/SP_DEF.text = str(monster.sp_def)
+	$Panel/TrackerInfo/SPEED.text = str(monster.speed)
+	$Panel/TrackerInfo/LUCK.text = str(monster.luck)
+	$Panel/TrackerInfo/CRIT.text = "%2.0f" % (100.0 * monster.crit_chance) + "% " + "(%d)" % monster.crit_checks
+	$Panel/TrackerInfo/ACC.text = str(monster.acc)
 	_render_title_and_funds()
 
 

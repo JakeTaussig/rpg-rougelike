@@ -59,13 +59,15 @@ var previous_move: Move
 var is_alive = true
 var status_effect: MovesList.StatusEffect = MovesList.StatusEffect.NONE
 
+var tracker_scene = preload("res://scenes/tracker.tscn")
+var tracker: Tracker
+
 signal status_effect_turn_counter_updated
 var status_effect_turn_counter: int = 0:
 	set(_status_effect_turn_counter):
 		status_effect_turn_counter = _status_effect_turn_counter
 		status_effect_turn_counter_updated.emit()
 var vacuum_benefactor: Monster = null
-
 
 var trinkets: Array[Trinket] = []
 signal trinkets_updated
@@ -128,7 +130,10 @@ func level_up(stat_multiplier: float):
 	speed = int(float(speed) * stat_multiplier)
 	luck = int(float(luck) * stat_multiplier)
 
+
 signal attack_used
+
+
 func use_move(move: Move, target: Monster) -> AttackResults:
 	# This is done here rather than in EnactStatuses.gd so that speed doesn't have an impact on how long status effects will last.
 	# This will need to be adjusted should the possiblity of using 2 moves on a single turn come into play.
@@ -181,10 +186,11 @@ func use_move(move: Move, target: Monster) -> AttackResults:
 		results.target = target
 		var additional_message = move.post_attack_strategy.ApplyEffect(results)
 		results.additional_message = additional_message
-		
+
 	attack_used.emit()
 
 	return results
+
 
 func _does_move_hit(accuracy: int) -> bool:
 	# take the monster's own accuracy (acc) into effect (the accuracy variable is the move's accuracy)
@@ -338,6 +344,7 @@ func _recover_from_poison():
 	status_effect = MovesList.StatusEffect.NONE
 	status_effect_turn_counter = 0
 	return "%s recovered from poison!" % character_name
+
 
 func _recover_from_expose():
 	status_effect = MovesList.StatusEffect.NONE
