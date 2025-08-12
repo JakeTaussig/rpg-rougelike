@@ -1,18 +1,19 @@
 [gd_scene load_steps=2 format=3 uid="uid://dbi8ifmdi4emq"]
 
-[ext_resource type="FontFile" uid="uid://cat0riahaukr6" path="res://assets/fonts/LoRes 15 OT Bold Alt Oakland.ttf" id="1_ep5rh"]
+[ext_resource type="FontFile" uid="uid://dflcgferctyot" path="res://assets/fonts/LoRes 12 OT Bold.ttf" id="1_ep5rh"]
 
-[node name="Panel" type="Panel"]
+[node name="LoadingScreen" type="Panel"]
 anchors_preset = -1
-offset_right = 768.0
-offset_bottom = 433.0
+offset_right = 248.0
+offset_bottom = 144.0
 
-[node name="Label" type="Label" parent="."]
+[node name="QuoteDisplay" type="Label" parent="."]
 layout_mode = 0
-offset_left = 136.0
-offset_top = 48.0
-offset_right = 584.0
-offset_bottom = 148.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 240.0
+offset_bottom = 96.0
 theme_override_fonts/font = ExtResource("1_ep5rh")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 12
+text = "Hello World!"
 autowrap_mode = 2
