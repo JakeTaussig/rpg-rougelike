@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://l26f3xxw3hc3"]
+
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinkets/trinket.gd" id="1_2tg0k"]
+[ext_resource type="Texture2D" uid="uid://du3j5w1dtjmjm" path="res://assets/sprites/trinket_icons/eyeglasses.png" id="1_hc6yj"]
+[ext_resource type="Script" uid="uid://bc4cccj6qbd83" path="res://resources/trinket_strategies/eyeglasses_strategy.gd" id="3_a1q6x"]
+
+[sub_resource type="Resource" id="Resource_x2s7w"]
+script = ExtResource("3_a1q6x")
+metadata/_custom_type_script = "uid://bc4cccj6qbd83"
+
+[resource]
+script = ExtResource("1_2tg0k")
+trinket_name = "Eyeglasses"
+icon = ExtResource("1_hc6yj")
+description = "Increases accuracy by 10%"
+strategy = SubResource("Resource_x2s7w")
+metadata/_custom_type_script = "uid://c7ph0ydi5trjd"
