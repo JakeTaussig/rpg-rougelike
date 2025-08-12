@@ -11,7 +11,7 @@ func bind_monster(m: Monster, p: bool) -> void:
 
 
 func _ready():
-	$Panel/TrackerInfo/Placeholder/Character_Name.text = monster.character_name
+	$Panel/TitleContainer/CharacterName.text = monster.character_name
 	if is_player:
 		populate_player_tracker()
 
@@ -28,7 +28,7 @@ func populate_player_tracker():
 	$Panel/TrackerInfo/LUCK.text = str(monster.luck)
 	$Panel/TrackerInfo/CRIT.text ="%2.0f" % (100.0 * monster.crit_chance) + "% " + "(%d)" % monster.crit_checks
 	$Panel/TrackerInfo/ACC.text = str(monster.acc)
-  _render_title_and_funds()
+	_render_title_and_funds()
 
 
 func populate_enemy_tracker():

@@ -8,7 +8,7 @@
 [ext_resource type="StyleBox" uid="uid://dhp7hd78r457v" path="res://assets/styles/room_event_button_normal.tres" id="4_jg7te"]
 [ext_resource type="StyleBox" uid="uid://po0ajij3ys1o" path="res://assets/styles/shop_button_hover.tres" id="4_mx40s"]
 [ext_resource type="StyleBox" uid="uid://ngawdqhj6nkv" path="res://assets/styles/room_event_button_pressed.tres" id="6_2uts2"]
-[ext_resource type="Script" path="res://scripts/global_ui_manager.gd" id="9_2chjq"]
+[ext_resource type="Script" uid="uid://dycdtb6jkiqsx" path="res://scripts/global_ui_manager.gd" id="9_2chjq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtub8"]
 content_margin_left = 2.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bpa0ix5wqg68n"]
+[gd_scene load_steps=19 format=3 uid="uid://bpa0ix5wqg68n"]
 
 [ext_resource type="Script" uid="uid://bc6wki4amvsx" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://b2eajagu6j5pi" path="res://assets/sprites/pokemon_rpg_screen_grayscale.png" id="1_dn72j"]
