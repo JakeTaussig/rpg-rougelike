@@ -19,7 +19,6 @@ var battle_scene = preload("res://scenes/battle.tscn")
 var battle_participant_scene := preload("res://scenes/battle_participant.tscn")
 var shop_scene = preload("res://scenes/shop.tscn")
 
-
 # All of the player's and enemy's stats will be multiplied by their respective value at the end of each floor
 var player_stat_multiplier := 1.2
 var enemy_stat_multiplier := 1.2
@@ -108,6 +107,7 @@ func _on_battle_ended(victory: bool):
 		return
 	_exit_current_event()
 
+
 func _exit_current_event():
 	if current_battle:
 		current_battle.queue_free()
@@ -125,8 +125,7 @@ func _exit_current_event():
 		global_ui_manager.reset_ui_elements()
 	player.selected_monster.tracker = %GlobalUIManager/Trackers/PlayerTracker
 
-
-	global_ui_manager.hide_player_and_enemy() # don't render the player and enemy on the room transition screen
+	global_ui_manager.hide_player_and_enemy()  # don't render the player and enemy on the room transition screen
 	await get_tree().process_frame  # Ensure new enemy exists and is valid
 
 	global_ui_manager.update_ui_text()
@@ -157,7 +156,7 @@ func _create_player() -> BattleParticipant:
 	%TrinketShelf.trinkets = new_player.selected_monster.trinkets
 
 	return new_player
-	
+
 
 func _create_new_enemy() -> BattleParticipant:
 	var monsters = randomized_monsters
@@ -165,7 +164,7 @@ func _create_new_enemy() -> BattleParticipant:
 	new_enemy.set_script(preload("res://scripts/enemy.gd"))
 	# 2nd param = AI types 0 = RANDOM, 1 = AGGRESSIVE, 2 = HIGH_EV
 	new_enemy.setup_enemy(monsters, 0, enemy_stat_multiplier, enemy_level)
-	# The trackers need to be created on the first floor, on later floors they need to be reattached to the corresponding enemies. 
+	# The trackers need to be created on the first floor, on later floors they need to be reattached to the corresponding enemies.
 	if floor_number == 0:
 		for monster in new_enemy.monsters:
 			var t: Tracker = tracker.instantiate()
@@ -218,7 +217,7 @@ func _initialize_player_tracker(new_player: BattleParticipant) -> void:
 	t.name = "PlayerTracker"
 	%GlobalUIManager/Trackers.add_child(t)
 	new_player.selected_monster.tracker = t
-	
+
 
 func apply_trinkets():
 	var old_trinkets = player.selected_monster.trinkets

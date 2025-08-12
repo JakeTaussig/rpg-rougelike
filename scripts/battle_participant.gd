@@ -10,7 +10,6 @@ class_name BattleParticipant
 		if monsters.size() > 0:
 			selected_monster = monsters[0]
 
-
 var prana: int = 0
 
 
@@ -26,6 +25,7 @@ var selected_monster: Monster:
 		selected_monster.connect("attack_used", play_attack_animation)
 		render_battler()
 
+
 func play_death_animation():
 	var ap: AnimationPlayer = $AnimationPlayer
 	var speed = 1
@@ -35,6 +35,7 @@ func play_death_animation():
 	await get_tree().create_timer(speed).timeout
 	hide()
 	ap.play("RESET")
+
 
 func play_attack_animation():
 	var ap: AnimationPlayer = $AnimationPlayer
@@ -49,9 +50,9 @@ func play_attack_animation():
 
 	ap.play("attack_shake", -1, speed, from_end)
 
+
 # This is used as a fallback to apply new Trinkets and remove secondary move effects after battle.
 var selected_monster_backup: Monster
-	
 
 var is_player = true:
 	set(_is_player):

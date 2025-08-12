@@ -49,6 +49,7 @@ func reset_backdrop_material():
 
 	backdrop.material = null
 
+
 # TODO: move to battle UI manager
 func init_backdrop_image():
 	reset_backdrop_material()
@@ -96,11 +97,14 @@ func set_info_text(text: String):
 func focus_continue_button():
 	continue_button.grab_focus()
 
+
 func disable_continue_button():
 	continue_button.disabled = true
 
+
 func enable_continue_button():
 	continue_button.disabled = false
+
 
 func focus_action_button():
 	%ActionButtons.get_child(0).grab_focus()
@@ -144,13 +148,13 @@ func set_button_style_enabled(button: Button, enabled: bool):
 		button.set_theme_type_variation("DisabledButton")
 	else:
 		button.set_theme_type_variation("Button")
-		
+
 
 func set_tracker_info(monster: Monster):
 	var tracker = GameManager.tracker
 	tracker.get_child(0).text = "%d/%d" % [monster.max_hp, monster.hp]
-	
-	
+
+
 func display_tracker():
 	if last_active_tracker_index == false:
 		GameManager.current_battle.player.selected_monster.tracker.visible = true

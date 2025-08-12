@@ -4,6 +4,7 @@ extends InfoState
 # DeadMonsterInfoState Inherits from InfoState. We need this state so that we
 # can block the continiue button while a monster's death animation plays
 
+
 func enter(_messages: Array = []):
 	battle.ui_manager.render_battlers()
 	battle.ui_manager.show_info_panel(true)
@@ -20,6 +21,7 @@ func enter(_messages: Array = []):
 	if messages.size() == 0:
 		print("\tno messages; skipping INFO state")
 		handle_continue()
+
 
 func play_death_animations():
 	var player = GameManager.player

@@ -17,6 +17,7 @@ func handle_input(event: InputEvent):
 	if event.is_action_pressed("ui_cancel"):
 		battle.transition_state_to(battle.STATE_SELECTING_ACTION)
 
+
 func on_move_pressed(index: int) -> void:
 	var move = GameManager.player.selected_monster.moves[index]
 	print("\tuser input:\t\tselect %s (idx %d)" % [move.move_name, index])
@@ -27,6 +28,7 @@ func on_move_pressed(index: int) -> void:
 		attackCommand.move = GameManager.player.selected_monster.moves[index]
 		GameManager.current_battle.player_attack = attackCommand
 		GameManager.current_battle.transition_state_to(GameManager.current_battle.STATE_INCREMENT_TURN)
+
 
 func is_move_disabled(move) -> bool:
 	if move.pp <= 0:

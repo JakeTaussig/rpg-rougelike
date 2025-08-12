@@ -4,6 +4,7 @@ extends Control
 
 var last_focused_move_index: int = 0
 
+
 func enter(on_move_pressed: Callable, is_move_disabled: Callable):
 	var move_buttons = moves_menu.get_children()
 	for i in GameManager.player.selected_monster.moves.size():
@@ -12,9 +13,10 @@ func enter(on_move_pressed: Callable, is_move_disabled: Callable):
 		move_buttons[i].text = move.move_name
 		move_buttons[i].focus_entered.connect(func(): _display_pp_info(i, is_move_disabled))
 		move_buttons[i].mouse_entered.connect(move_buttons[i].grab_focus)
-		move_buttons[i].pressed.connect(func():
-			on_move_pressed.call(i)
-			_display_pp_info(i, is_move_disabled)
+		move_buttons[i].pressed.connect(
+			func():
+				on_move_pressed.call(i)
+				_display_pp_info(i, is_move_disabled)
 		)
 
 		if is_move_disabled.call(move):
@@ -23,6 +25,7 @@ func enter(on_move_pressed: Callable, is_move_disabled: Callable):
 			move_buttons[i].set_theme_type_variation("Button")
 
 	move_buttons[last_focused_move_index].grab_focus()
+
 
 func exit():
 	var move_buttons = moves_menu.get_children()
@@ -34,9 +37,11 @@ func exit():
 		for dict in button.get_signal_connection_list("mouse_entered"):
 			button.disconnect("mouse_entered", dict.callable)
 
+
 func disable_all_buttons():
 	for move_button in moves_menu.get_children():
 		move_button.set_theme_type_variation("DisabledButton")
+
 
 # callback used when a move is focused
 # displays the PP and type of the move in $"Moves/MovesInfo"
@@ -52,7 +57,6 @@ func _display_pp_info(move_index: int, is_move_disabled: Callable) -> void:
 	set_type_info(move.type, disabled)
 	set_move_power(move.base_power, disabled)
 	set_move_accuracy(move.acc, disabled)
-
 
 
 func set_pp_info(text: String, disabled: bool):
@@ -86,6 +90,7 @@ func set_type_info(type: MovesList.Type, disabled: bool):
 		var type_color = MovesList.type_to_color(type)
 		type_info.add_theme_color_override("font_color", type_color)
 
+
 func set_move_power(power: int, disabled: bool):
 	var power_display = get_node("MoveInfo/InfoContainer/Power")
 	var power_label = get_node("MoveInfo/InfoContainer/PowerLabel")
@@ -96,6 +101,7 @@ func set_move_power(power: int, disabled: bool):
 	else:
 		power_display.set_theme_type_variation("TinyTextLabel")
 		power_label.set_theme_type_variation("TinyTextLabel")
+
 
 func set_move_accuracy(acc: int, disabled: bool):
 	var acc_display = get_node("MoveInfo/InfoContainer/Acc")

@@ -15,6 +15,7 @@ func _ready():
 	if is_player:
 		populate_player_tracker()
 
+
 @export var show_funds := false
 
 
@@ -26,7 +27,7 @@ func populate_player_tracker():
 	$Panel/TrackerInfo/SP_DEF.text = str(monster.sp_def)
 	$Panel/TrackerInfo/SPEED.text = str(monster.speed)
 	$Panel/TrackerInfo/LUCK.text = str(monster.luck)
-	$Panel/TrackerInfo/CRIT.text ="%2.0f" % (100.0 * monster.crit_chance) + "% " + "(%d)" % monster.crit_checks
+	$Panel/TrackerInfo/CRIT.text = "%2.0f" % (100.0 * monster.crit_chance) + "% " + "(%d)" % monster.crit_checks
 	$Panel/TrackerInfo/ACC.text = str(monster.acc)
 	_render_title_and_funds()
 
