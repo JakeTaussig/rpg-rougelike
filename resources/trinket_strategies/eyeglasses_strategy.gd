@@ -3,4 +3,4 @@ extends TrinketStrategy
 
 
 func ApplyEffect(monster: Monster):
-	monster.acc += 0.1
+	monster.acc += 0.15
