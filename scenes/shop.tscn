@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://duuaahsyxqyng"]
+[gd_scene load_steps=12 format=3 uid="uid://duuaahsyxqyng"]
 
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="1_xfvoa"]
 [ext_resource type="Script" uid="uid://do8vpqt1j0sqt" path="res://scripts/shop.gd" id="2_xfvoa"]
@@ -20,6 +20,10 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.0705882, 0.305882, 0.537255, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ajxib"]
+content_margin_top = 5.0
+bg_color = Color(0.0705882, 0.305882, 0.537255, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2fc2m"]
 content_margin_left = 3.0
 content_margin_top = 4.0
@@ -33,12 +37,11 @@ border_width_bottom = 1
 border_color = Color(0.0705882, 0.305882, 0.537255, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8r1wq"]
-content_margin_left = 3.0
-content_margin_top = 3.0
+content_margin_left = 2.0
+content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 3.0
 bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
-border_width_left = 1
 border_width_right = 1
 border_color = Color(0.0705882, 0.305882, 0.537255, 1)
 
@@ -52,6 +55,7 @@ script = ExtResource("2_xfvoa")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
+offset_left = -2.0
 offset_right = 256.0
 offset_bottom = 144.0
 theme = ExtResource("1_xfvoa")
@@ -68,6 +72,7 @@ theme_override_constants/separation = 0
 
 [node name="ForSaleButton" type="Button" parent="Title"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(82, 0)
 layout_mode = 2
 theme = ExtResource("1_xfvoa")
 theme_type_variation = &"BorderButton"
@@ -75,10 +80,10 @@ text = "Trinkets (1/2)"
 
 [node name="Title2" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 160.0
-offset_top = 21.0
-offset_right = 256.0
-offset_bottom = 37.0
+offset_left = 154.0
+offset_top = 5.0
+offset_right = 255.0
+offset_bottom = 21.0
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
@@ -89,7 +94,6 @@ size_flags_horizontal = 0
 theme = ExtResource("1_xfvoa")
 theme_type_variation = &"AllBorderLabel"
 text = "Prana:"
-horizontal_alignment = 2
 
 [node name="Placeholder2" type="Label" parent="Title2"]
 layout_mode = 2
@@ -97,18 +101,22 @@ size_flags_horizontal = 3
 theme = ExtResource("1_xfvoa")
 theme_type_variation = &"AllBorderLabel"
 
-[node name="Prana" type="Label" parent="Title2"]
+[node name="Prana" type="RichTextLabel" parent="Title2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 theme = ExtResource("1_xfvoa")
-theme_type_variation = &"AllBorderLabel"
+theme_type_variation = &"AllBorderTinyTextRichTextLabel"
+theme_override_styles/normal = SubResource("StyleBoxFlat_ajxib")
 text = "¶ 100"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 0
 offset_top = 37.0
-offset_right = 256.0
+offset_right = 128.0
 offset_bottom = 181.0
 theme = ExtResource("1_xfvoa")
 theme_override_constants/v_separation = 0
@@ -152,7 +160,7 @@ clip_text = true
 [node name="TrinketCost" type="RichTextLabel" parent="GridContainer/TrinketContainer/TrinketPlaceholder1"]
 layout_mode = 2
 theme = ExtResource("1_xfvoa")
-theme_type_variation = &"AllBorderRichTextLabel"
+theme_type_variation = &"AllBorderTinyTextRichTextLabel"
 bbcode_enabled = true
 text = "¶ 100"
 fit_content = true
@@ -190,7 +198,7 @@ clip_text = true
 [node name="TrinketCost" type="RichTextLabel" parent="GridContainer/TrinketContainer/TrinketPlaceholder2"]
 layout_mode = 2
 theme = ExtResource("1_xfvoa")
-theme_type_variation = &"AllBorderRichTextLabel"
+theme_type_variation = &"AllBorderTinyTextRichTextLabel"
 bbcode_enabled = true
 text = "¶ 100"
 fit_content = true
@@ -228,7 +236,7 @@ clip_text = true
 [node name="TrinketCost" type="RichTextLabel" parent="GridContainer/TrinketContainer/TrinketPlaceholder3"]
 layout_mode = 2
 theme = ExtResource("1_xfvoa")
-theme_type_variation = &"AllBorderRichTextLabel"
+theme_type_variation = &"AllBorderTinyTextRichTextLabel"
 bbcode_enabled = true
 text = "¶ 100"
 fit_content = true
@@ -307,7 +315,7 @@ alignment = 2
 [node name="ConsumableCost" type="RichTextLabel" parent="GridContainer/ConsumableContainer/ConsumablePlaceholder"]
 layout_mode = 2
 theme = ExtResource("1_xfvoa")
-theme_type_variation = &"AllBorderRichTextLabel"
+theme_type_variation = &"AllBorderTinyTextRichTextLabel"
 bbcode_enabled = true
 text = "¶ 100"
 fit_content = true
@@ -343,7 +351,7 @@ text_overrun_behavior = 1
 [node name="ConsumableCost" type="RichTextLabel" parent="GridContainer/ConsumableContainer/ConsumablePlaceholder2"]
 layout_mode = 2
 theme = ExtResource("1_xfvoa")
-theme_type_variation = &"AllBorderRichTextLabel"
+theme_type_variation = &"AllBorderTinyTextRichTextLabel"
 bbcode_enabled = true
 text = "¶ 100"
 fit_content = true
@@ -378,7 +386,7 @@ alignment = 2
 [node name="ConsumableCost" type="RichTextLabel" parent="GridContainer/ConsumableContainer/ConsumablePlaceholder3"]
 layout_mode = 2
 theme = ExtResource("1_xfvoa")
-theme_type_variation = &"AllBorderRichTextLabel"
+theme_type_variation = &"AllBorderTinyTextRichTextLabel"
 bbcode_enabled = true
 text = "¶ 100"
 fit_content = true
@@ -423,69 +431,71 @@ autowrap_mode = 0
 [node name="TrinketNameAndCost" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
 z_index = 2
-custom_minimum_size = Vector2(127, 0)
+layout_direction = 3
 layout_mode = 0
-offset_left = 128.0
-offset_top = 37.0
-offset_right = 255.0
-offset_bottom = 55.0
+offset_left = -255.0
+offset_top = 21.0
+offset_right = -138.0
+offset_bottom = 39.0
 theme_override_constants/separation = -1
-
-[node name="TrinketName" type="Label" parent="TrinketNameAndCost"]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(79, 18)
-layout_mode = 2
-theme = ExtResource("1_xfvoa")
-theme_override_styles/normal = SubResource("StyleBoxFlat_2fc2m")
-text = "Trnkt Name"
-horizontal_alignment = 2
 
 [node name="TrinketCost" type="RichTextLabel" parent="TrinketNameAndCost"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(4, 0)
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_xfvoa")
-theme_type_variation = &"AllBorderRichTextLabel"
+theme_type_variation = &"AllBorderTinyTextRichTextLabel"
 bbcode_enabled = true
 text = "¶ 100"
+horizontal_alignment = 2
+
+[node name="TrinketName" type="Label" parent="TrinketNameAndCost"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_xfvoa")
+theme_override_styles/normal = SubResource("StyleBoxFlat_2fc2m")
+text = "Trnkt Name"
 horizontal_alignment = 2
 
 [node name="TrinketInfoContainer" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
 z_index = 2
 layout_mode = 0
-offset_left = 128.0
-offset_top = 55.0
-offset_right = 255.0
+offset_left = 138.0
+offset_top = 39.0
+offset_right = 256.0
 offset_bottom = 103.0
-theme_override_constants/separation = 0
+theme_override_constants/separation = 1
+
+[node name="TrinketIconEnlarged" type="TextureRect" parent="TrinketInfoContainer"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("3_1l46r")
+stretch_mode = 4
 
 [node name="TrinketInfo" type="RichTextLabel" parent="TrinketInfoContainer"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(79, 48)
+custom_minimum_size = Vector2(49, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme = ExtResource("1_xfvoa")
+theme_type_variation = &"AllBorderTinyTextRichTextLabel"
 theme_override_styles/normal = SubResource("StyleBoxFlat_8r1wq")
 bbcode_enabled = true
 text = "... Trinket Description ... asdfasd fasdfasdfa sdfasdf"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
-
-[node name="TrinketIconEnlarged" type="TextureRect" parent="TrinketInfoContainer"]
-unique_name_in_owner = true
-visible = false
-texture_filter = 1
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture = ExtResource("3_1l46r")
-stretch_mode = 4
 
 [node name="TrinketShelf" parent="." node_paths=PackedStringArray("trinket_name_label", "trinket_info_label", "trinket_info_texture_rect") instance=ExtResource("6_8r1wq")]
 unique_name_in_owner = true
