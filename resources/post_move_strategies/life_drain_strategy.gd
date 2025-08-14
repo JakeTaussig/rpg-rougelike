@@ -1,5 +1,5 @@
 extends PostAttackStrategy
-class_name GigaDrainStrategy
+class_name LifeDrainStrategy
 
 
 func ApplyEffect(AttackResults: Monster.AttackResults) -> String:
@@ -16,4 +16,4 @@ func ApplyEffect(AttackResults: Monster.AttackResults) -> String:
 	if gained_hp > 0:
 		return "%s drained %d HP." % [AttackResults.attacker.character_name, gained_hp]
 	else:
-		return "%s's HP is full.\nGiga Drain did not drain any HP." % AttackResults.attacker.character_name
+		return "%s's HP is full.\nDid not drain any HP." % AttackResults.attacker.character_name

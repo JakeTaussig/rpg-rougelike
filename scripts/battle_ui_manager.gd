@@ -12,6 +12,8 @@ var turn_display: Label
 var action_menu: Control
 var moves_menu: Control
 var player_prompt: Label
+# 0 = player, 1 = enemy
+var last_active_tracker_index: bool = false
 
 var initialized = false
 
@@ -46,6 +48,7 @@ func reset_backdrop_material():
 		return
 
 	backdrop.material = null
+
 
 # TODO: move to battle UI manager
 func init_backdrop_image():
@@ -94,11 +97,14 @@ func set_info_text(text: String):
 func focus_continue_button():
 	continue_button.grab_focus()
 
+
 func disable_continue_button():
 	continue_button.disabled = true
 
+
 func enable_continue_button():
 	continue_button.disabled = false
+
 
 func focus_action_button():
 	%ActionButtons.get_child(0).grab_focus()
@@ -142,8 +148,26 @@ func set_button_style_enabled(button: Button, enabled: bool):
 		button.set_theme_type_variation("DisabledButton")
 	else:
 		button.set_theme_type_variation("Button")
-		
+
 
 func set_tracker_info(monster: Monster):
 	var tracker = GameManager.tracker
 	tracker.get_child(0).text = "%d/%d" % [monster.max_hp, monster.hp]
+
+
+func display_tracker():
+	if last_active_tracker_index == false:
+		GameManager.current_battle.player.selected_monster.tracker.visible = true
+		GameManager.current_battle.enemy.selected_monster.tracker.visible = false
+	elif last_active_tracker_index == true:
+		GameManager.current_battle.enemy.selected_monster.tracker.visible = true
+		GameManager.current_battle.player.selected_monster.tracker.visible = false
+
+
+func hide_health_panels_for_trackers():
+	if GameManager.player.selected_monster.tracker.visible:
+		player_health_panel.hide()
+		enemy_health_panel.show()
+	if GameManager.enemy.selected_monster.tracker.visible:
+		enemy_health_panel.hide()
+		player_health_panel.show()

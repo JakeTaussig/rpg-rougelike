@@ -36,14 +36,11 @@ func setup():
 	_init_consumable_menu_buttons()
 	_render_trinkets()
 	_render_consumables()
-
+	_render_player_prana()
 	%TrinketContainer.show()
 	%ConsumableContainer.hide()
-
-
-	_render_player_prana()
-	%Tracker.populate_player_tracker()
 	%TrinketExitButton.grab_focus()
+	GameManager.player.selected_monster.tracker.visible = true
 
 
 func _roll_trinkets():
@@ -60,6 +57,7 @@ func _roll_trinkets():
 		if !trinkets.has(trinket):
 			trinkets.append(trinket)
 			purchased_trinkets.append(false)
+
 
 func _roll_consumables():
 	while consumables.size() < N_CONSUMABLES:
@@ -85,6 +83,7 @@ func _init_trinket_menu_buttons():
 		trinket_button.connect("mouse_exited", _on_trinket_focus_exit)
 		trinket_button.pressed.connect(func(): _on_trinket_button_pressed(i))
 
+
 func _init_consumable_menu_buttons():
 	%ConsumableExitButton.connect("mouse_entered", func(): %ConsumableExitButton.grab_focus())
 
@@ -95,6 +94,7 @@ func _init_consumable_menu_buttons():
 		consumable_button.connect("focus_entered", func(): _on_consumable_focus(i))
 		consumable_button.connect("focus_exited", _on_consumable_focus_exit)
 		consumable_button.pressed.connect(func(): _on_consumable_button_pressed(i))
+
 
 func _on_consumable_button_pressed(i: int):
 		if GameManager.player.prana < CONSUMABLE_COST:
@@ -118,7 +118,7 @@ func _on_consumable_button_pressed(i: int):
 			var moves = $Moves
 			moves.show()
 
-			%Tracker.hide()
+			GameManager.player.selected_monster.tracker.hide()
 			%ConsumableExitButton.hide()
 
 			var on_move_button_pressed = func(move_index: int):
@@ -151,6 +151,7 @@ func _on_consumable_button_pressed(i: int):
 			GameManager.player.selected_monster.sp_def += 10
 			mark_consumable_sold(i)
 
+
 func mark_consumable_sold(i: int):
 		var consumable_button: Button = %ConsumableContainer.get_child(i).get_node("ConsumableName")
 		var consumable_cost_label: RichTextLabel = %ConsumableContainer.get_child(i).get_node("ConsumableCost")
@@ -170,7 +171,8 @@ func mark_consumable_sold(i: int):
 		consumable_cost_label.add_theme_color_override("default_color", DISABLED_GRAY)
 		consumable_icon.material = load("res://assets/shaders/grayscale-material.tres")
 		purchased_consumables[i] = true
-		%Tracker.populate_player_tracker()
+		GameManager.player.selected_monster.tracker.populate_player_tracker()
+
 
 func _input(event: InputEvent):
 	# the "Back" button in the moves list emits the "ui_cancel" event when pressed
@@ -182,12 +184,14 @@ func _input(event: InputEvent):
 			$Moves.exit()
 			$Moves.hide()
 
+
 func _render_trinkets():
 	for i in range(N_TRINKETS):
 		var trinket_entry: HBoxContainer = %TrinketContainer.get_child(i)
 		trinket_entry.get_node("TrinketName").text = trinkets[i].trinket_name
 		trinket_entry.get_node("TrinketIcon").texture = trinkets[i].icon
 		trinket_entry.get_node("TrinketCost").text = "¶ %d" % TRINKET_COST
+
 
 func _render_consumables():
 	var HP_icon = load("res://assets/sprites/trinket_icons/red_hearts.png")
@@ -221,6 +225,7 @@ func _render_consumables():
 
 		consumable_entry.get_node("ConsumableCost").text = "¶ %d" % CONSUMABLE_COST
 
+
 func _render_player_prana():
 	%Prana.text = "¶ %d" % GameManager.player.prana
 
@@ -235,27 +240,27 @@ func _on_consumable_focus(consumable_index: int):
 		var current_hp = GameManager.player.selected_monster.hp
 		var max_hp = GameManager.player.selected_monster.max_hp
 		var incremented_hp = min(current_hp + 50, max_hp)
-		$Tracker.get_node("Panel/TrackerInfo/HP").text = _set_bbcode_color("%d>%d" % [current_hp, incremented_hp], Color(0.173, 0.91, 0.961, 1.0))
+		GameManager.player.selected_monster.tracker.get_node("Panel/TrackerInfo/HP").text = _set_bbcode_color("%d>%d" % [current_hp, incremented_hp], Color(0.173, 0.91, 0.961, 1.0))
 	elif consumable == CONSUMABLES.ATK_UP:
 		var current_attack = GameManager.player.selected_monster.atk
 		var incremented_attack = current_attack + 10
-		$Tracker.get_node("Panel/TrackerInfo/ATK").text = _set_bbcode_color("%d>%d" % [current_attack, incremented_attack], Color(0.173, 0.91, 0.961, 1.0))
+		GameManager.player.selected_monster.tracker.get_node("Panel/TrackerInfo/ATK").text = _set_bbcode_color("%d>%d" % [current_attack, incremented_attack], Color(0.173, 0.91, 0.961, 1.0))
 	elif consumable == CONSUMABLES.SP_ATK_UP:
 		var current_sp_attack = GameManager.player.selected_monster.sp_atk
 		var incremented_sp_attack = current_sp_attack + 10
-		$Tracker.get_node("Panel/TrackerInfo/SP_ATK").text = _set_bbcode_color("%d>%d" % [current_sp_attack, incremented_sp_attack], Color(0.173, 0.91, 0.961, 1.0))
+		GameManager.player.selected_monster.tracker.get_node("Panel/TrackerInfo/SP_ATK").text = _set_bbcode_color("%d>%d" % [current_sp_attack, incremented_sp_attack], Color(0.173, 0.91, 0.961, 1.0))
 	elif consumable == CONSUMABLES.DEF_UP:
 		var current_def = GameManager.player.selected_monster.def
 		var incremented_def = current_def + 10
-		$Tracker.get_node("Panel/TrackerInfo/DEF").text = _set_bbcode_color("%d>%d" % [current_def, incremented_def], Color(0.173, 0.91, 0.961, 1.0))
+		GameManager.player.selected_monster.tracker.get_node("Panel/TrackerInfo/DEF").text = _set_bbcode_color("%d>%d" % [current_def, incremented_def], Color(0.173, 0.91, 0.961, 1.0))
 	elif consumable == CONSUMABLES.SP_DEF_UP:
 		var current_sp_def = GameManager.player.selected_monster.sp_def
 		var incremented_sp_def = current_sp_def + 10
-		$Tracker.get_node("Panel/TrackerInfo/SP_DEF").text = _set_bbcode_color("%d>%d" % [current_sp_def, incremented_sp_def], Color(0.173, 0.91, 0.961, 1.0))
+		GameManager.player.selected_monster.tracker.get_node("Panel/TrackerInfo/SP_DEF").text = _set_bbcode_color("%d>%d" % [current_sp_def, incremented_sp_def], Color(0.173, 0.91, 0.961, 1.0))
 
 
 func _on_consumable_focus_exit():
-	$Tracker.populate_player_tracker()
+	GameManager.player.selected_monster.tracker.populate_player_tracker()
 
 # When a trinket is focused, show its information (name, icon, description,
 # cost) on the right side of the shop UI
@@ -282,7 +287,7 @@ func _on_trinket_focus(trinket_index: int):
 	%TrinketIconEnlarged.show()
 	%TrinketName.show()
 	%TrinketCost.show()
-	$Tracker.hide()
+	GameManager.player.selected_monster.tracker.hide()
 
 
 func _on_trinket_focus_exit():
@@ -291,7 +296,7 @@ func _on_trinket_focus_exit():
 	%TrinketIconEnlarged.material = null
 	%TrinketName.hide()
 	%TrinketCost.hide()
-	$Tracker.show()
+	GameManager.player.selected_monster.tracker.show()
 
 
 func _on_trinket_button_pressed(trinket_index: int):
@@ -329,7 +334,7 @@ func _on_trinket_button_pressed(trinket_index: int):
 	# Remember to set the HP back to the monster's current hp, but make sure it doesn't exceed the potentially reduced max_hp
 	trinket.strategy.ApplyEffect(GameManager.player.selected_monster)
 	%TrinketShelf.render_trinkets()
-	%Tracker.populate_player_tracker()
+	GameManager.player.selected_monster.tracker.populate_player_tracker()
 
 	purchased_trinkets[trinket_index] = true
 
@@ -359,7 +364,7 @@ func _on_swap_page_button_pressed() -> void:
 
 
 func _on_moves_hidden() -> void:
-		%Tracker.show()
+		GameManager.player.selected_monster.tracker.show()
 		%ConsumableExitButton.show()
 
 static func _set_bbcode_color(input_string: String, color: Color):

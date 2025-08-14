@@ -13,6 +13,5 @@ script = ExtResource("2_56pco")
 trinket_name = "Inferno"
 icon = ExtResource("1_56pco")
 description = "Change the player's type to FIRE"
-apply_once = true
 strategy = SubResource("Resource_ntt54")
 metadata/_custom_type_script = "uid://c7ph0ydi5trjd"

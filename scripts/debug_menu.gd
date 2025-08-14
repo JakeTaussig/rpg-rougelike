@@ -141,6 +141,7 @@ func _on_trinkets_list_mouse_entered() -> void:
 func _on_moves_list_mouse_entered() -> void:
 	%MovesList.grab_focus()
 
+
 func _on_make_player_invincible_pressed() -> void:
 	var player_monster = GameManager.player.selected_monster
 
@@ -156,6 +157,7 @@ func _on_make_player_invincible_pressed() -> void:
 	# we need to modify this setting after the if statement above, because HP
 	# can not be modified once the player is invincible.
 	player_monster.invincible = !player_monster.invincible
+
 
 func _on_make_player_invincible_entered() -> void:
 	%MakePlayerInvincible.grab_focus()

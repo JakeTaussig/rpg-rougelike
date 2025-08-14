@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MovesList" load_steps=34 format=3 uid="uid://btnh7hoa1cll6"]
+[gd_resource type="Resource" script_class="MovesList" load_steps=35 format=3 uid="uid://btnh7hoa1cll6"]
 
 [ext_resource type="Script" uid="uid://dj7o2vdrnopw3" path="res://scripts/move.gd" id="1_ofag1"]
 [ext_resource type="Resource" uid="uid://c22tuotquomd3" path="res://resources/moves/tackle.tres" id="2_bdaju"]
@@ -33,7 +33,8 @@
 [ext_resource type="Resource" uid="uid://b0ju3kghscwec" path="res://resources/moves/star_punch.tres" id="30_l7rbn"]
 [ext_resource type="Resource" uid="uid://ixb2cygujrp7" path="res://resources/moves/backteria_bomb.tres" id="31_iegqq"]
 [ext_resource type="Resource" uid="uid://v4csg22jsjxh" path="res://resources/moves/piercing_veil.tres" id="32_i3a4d"]
+[ext_resource type="Resource" uid="uid://cu18kyklhijgj" path="res://resources/moves/root_drain.tres" id="33_mp3fn"]
 
 [resource]
 script = ExtResource("7_2u8do")
-moves = Array[ExtResource("1_ofag1")]([ExtResource("2_jqwdi"), ExtResource("5_p5lyi"), ExtResource("2_bdaju"), ExtResource("5_6riy4"), ExtResource("3_4xer7"), ExtResource("11_1l5jq"), ExtResource("8_8pfnk"), ExtResource("5_uk1h8"), ExtResource("13_xga3l"), ExtResource("11_6s8og"), ExtResource("4_ux0hn"), ExtResource("6_f500o"), ExtResource("14_uqw6k"), ExtResource("17_8pfnk"), ExtResource("18_6s8og"), ExtResource("17_odeqs"), ExtResource("18_uqw6k"), ExtResource("19_uh1dj"), ExtResource("20_uh1dj"), ExtResource("21_jhvhe"), ExtResource("22_icaam"), ExtResource("23_xu35p"), ExtResource("24_eaafm"), ExtResource("25_m6wdt"), ExtResource("26_iegqq"), ExtResource("27_i3a4d"), ExtResource("28_mp3fn"), ExtResource("29_vrl0i"), ExtResource("30_l7rbn"), ExtResource("31_iegqq"), ExtResource("32_i3a4d")])
+moves = Array[ExtResource("1_ofag1")]([ExtResource("2_jqwdi"), ExtResource("5_p5lyi"), ExtResource("2_bdaju"), ExtResource("5_6riy4"), ExtResource("3_4xer7"), ExtResource("11_1l5jq"), ExtResource("8_8pfnk"), ExtResource("5_uk1h8"), ExtResource("13_xga3l"), ExtResource("11_6s8og"), ExtResource("4_ux0hn"), ExtResource("6_f500o"), ExtResource("14_uqw6k"), ExtResource("17_8pfnk"), ExtResource("18_6s8og"), ExtResource("17_odeqs"), ExtResource("18_uqw6k"), ExtResource("19_uh1dj"), ExtResource("20_uh1dj"), ExtResource("21_jhvhe"), ExtResource("22_icaam"), ExtResource("23_xu35p"), ExtResource("24_eaafm"), ExtResource("25_m6wdt"), ExtResource("26_iegqq"), ExtResource("27_i3a4d"), ExtResource("28_mp3fn"), ExtResource("29_vrl0i"), ExtResource("30_l7rbn"), ExtResource("31_iegqq"), ExtResource("32_i3a4d"), ExtResource("33_mp3fn")])
