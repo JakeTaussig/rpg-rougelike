@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://c0jgar8vfdvng"]
+
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinkets/trinket.gd" id="1_att7i"]
+[ext_resource type="Texture2D" uid="uid://beyvvaedc12tm" path="res://assets/sprites/trinket_icons/steam_sale.png" id="1_vq30i"]
+[ext_resource type="Script" uid="uid://qi57350wwoi8" path="res://resources/trinket_strategies/steam_sale_strategy.gd" id="3_lu8vi"]
+
+[sub_resource type="Resource" id="Resource_o41a4"]
+script = ExtResource("3_lu8vi")
+metadata/_custom_type_script = "uid://qi57350wwoi8"
+
+[resource]
+script = ExtResource("1_att7i")
+trinket_name = "Steam Sale"
+icon = ExtResource("1_vq30i")
+description = "Halves Shop prices"
+apply_once = true
+strategy = SubResource("Resource_o41a4")
+metadata/_custom_type_script = "uid://c7ph0ydi5trjd"
