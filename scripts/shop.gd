@@ -60,11 +60,21 @@ func _roll_trinkets():
 
 
 func _roll_consumables():
+	# consumable_options is a list of all consumables
+	var consumable_options: Array[CONSUMABLES] = []
+
+	# first_consumable_options contains just HP and PP restores
+	# the first consumable in the list will be drawn from this pool
+	var first_consumable_options: Array[CONSUMABLES] = []
+	for c in CONSUMABLES.values():
+		consumable_options.append(c)
+		if c == CONSUMABLES.HP_RESTORE || c == CONSUMABLES.PP_RESTORE:
+			first_consumable_options.append(c)
+
 	while consumables.size() < N_CONSUMABLES:
-		var consumable_options: Array[CONSUMABLES] = []
-		for c in CONSUMABLES.values():
-			consumable_options.append(c)
 		var consumable = consumable_options.pick_random()
+		if consumables.size() == 0:
+			consumable = first_consumable_options.pick_random()
 
 		consumables.append(consumable)
 		purchased_consumables.append(false)
