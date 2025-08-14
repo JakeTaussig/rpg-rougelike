@@ -36,14 +36,11 @@ func setup():
 	_init_consumable_menu_buttons()
 	_render_trinkets()
 	_render_consumables()
-
+	_render_player_prana()
 	%TrinketContainer.show()
 	%ConsumableContainer.hide()
-
-
-	_render_player_prana()
-	GameManager.player.selected_monster.tracker.visible = true
 	%ExitButton.grab_focus()
+	GameManager.player.selected_monster.tracker.visible = true
 
 
 func _roll_trinkets():
@@ -60,6 +57,7 @@ func _roll_trinkets():
 		if !trinkets.has(trinket):
 			trinkets.append(trinket)
 			purchased_trinkets.append(false)
+
 
 func _roll_consumables():
 	while consumables.size() < N_CONSUMABLES:
@@ -80,12 +78,14 @@ func _init_trinket_menu_buttons():
 		trinket_button.connect("mouse_exited", _on_trinket_focus_exit)
 		trinket_button.pressed.connect(func(): _on_trinket_button_pressed(i))
 
+
 func _init_consumable_menu_buttons():
 	for i in range(N_CONSUMABLES):
 		var consumable_entry: HBoxContainer = %ConsumableContainer.get_child(i)
 		var consumable_button: Button = consumable_entry.get_node("ConsumableName")
 		consumable_button.connect("mouse_entered", func(): consumable_button.grab_focus())
 		consumable_button.pressed.connect(func(): _on_consumable_button_pressed(i))
+
 
 func _on_consumable_button_pressed(i: int):
 		if GameManager.player.prana < CONSUMABLE_COST:
@@ -109,7 +109,7 @@ func _on_consumable_button_pressed(i: int):
 			var moves = $Moves
 			moves.show()
 
-			%Tracker.hide()
+			GameManager.player.selected_monster.tracker.hide()
 			%ConsumableExitButton.hide()
 
 			var on_move_button_pressed = func(move_index: int):
@@ -130,6 +130,7 @@ func _on_consumable_button_pressed(i: int):
 
 			moves.enter(on_move_button_pressed, is_move_disabled)
 
+
 func mark_consumable_sold(i: int):
 		var consumable_button: Button = %ConsumableContainer.get_child(i).get_node("ConsumableName")
 		var consumable_cost_label: RichTextLabel = %ConsumableContainer.get_child(i).get_node("ConsumableCost")
@@ -149,7 +150,8 @@ func mark_consumable_sold(i: int):
 		consumable_cost_label.add_theme_color_override("default_color", DISABLED_GRAY)
 		consumable_icon.material = load("res://assets/shaders/grayscale-material.tres")
 		purchased_consumables[i] = true
-		%Tracker.populate_player_tracker()
+		GameManager.player.selected_monster.populate_player_tracker()
+
 
 func _input(event: InputEvent):
 	# the "Back" button in the moves list emits the "ui_cancel" event when pressed
@@ -161,12 +163,14 @@ func _input(event: InputEvent):
 			$Moves.exit()
 			$Moves.hide()
 
+
 func _render_trinkets():
 	for i in range(N_TRINKETS):
 		var trinket_entry: HBoxContainer = %TrinketContainer.get_child(i)
 		trinket_entry.get_node("TrinketName").text = trinkets[i].trinket_name
 		trinket_entry.get_node("TrinketIcon").texture = trinkets[i].icon
 		trinket_entry.get_node("TrinketCost").text = "¶ %d" % TRINKET_COST
+
 
 func _render_consumables():
 	var HP_icon = load("res://assets/sprites/trinket_icons/heart.png")
@@ -183,9 +187,9 @@ func _render_consumables():
 
 		consumable_entry.get_node("ConsumableCost").text = "¶ %d" % CONSUMABLE_COST
 
+
 func _render_player_prana():
 	%Prana.text = "¶ %d" % GameManager.player.prana
-
 
 # When a trinket is focused, show its information (name, icon, description,
 # cost) on the right side of the shop UI
@@ -289,5 +293,5 @@ func _on_swap_page_button_pressed() -> void:
 
 
 func _on_moves_hidden() -> void:
-		%Tracker.show()
+		GameManager.player.selected_monster.tracker.show()
 		%ConsumableExitButton.show()
