@@ -14,10 +14,6 @@ var page = 0
 
 # TODO: introduce varying trinket costs
 # For now, every trinket will cost this much
-const TRINKET_COST: int = 165
-
-const CONSUMABLE_COST: int = 100
-
 const DISABLED_GRAY: Color = Color(0.545, 0.608, 0.706, 1.0)
 const WHITE: Color = Color(1.0, 1.0, 1.0, 1.0)
 
@@ -90,7 +86,7 @@ func _init_consumable_menu_buttons():
 
 
 func _on_consumable_button_pressed(i: int):
-		if GameManager.player.prana < CONSUMABLE_COST:
+		if GameManager.player.prana < GameManager.CONSUMABLE_COST:
 			return
 
 		# If the Moves menu (Used for PP restores)  is already up, close it before processing another consumable
@@ -139,7 +135,7 @@ func mark_consumable_sold(i: int):
 		var consumable_icon: TextureRect = %ConsumableContainer.get_child(i).get_node("ConsumableIcon")
 
 		# charge the player for the trinket
-		GameManager.player.prana -= CONSUMABLE_COST
+		GameManager.player.prana -= GameManager.CONSUMABLE_COST
 		_render_player_prana()
 
 		# when the consumable is purchased:
@@ -177,7 +173,7 @@ func _render_trinkets():
 
 
 		trinket_entry.get_node("TrinketIcon").texture = trinkets[i].icon
-		trinket_entry.get_node("TrinketCost").text = "¶ %d" % TRINKET_COST
+		trinket_entry.get_node("TrinketCost").text = "¶ %d" % GameManager.TRINKET_COST
 
 
 func _render_consumables():
@@ -193,7 +189,7 @@ func _render_consumables():
 			consumable_entry.get_node("ConsumableName").text = "+5 PP"
 			consumable_entry.get_node("ConsumableIcon").texture = PP_icon
 
-		consumable_entry.get_node("ConsumableCost").text = "¶ %d" % CONSUMABLE_COST
+		consumable_entry.get_node("ConsumableCost").text = "¶ %d" % GameManager.CONSUMABLE_COST
 
 
 func _render_player_prana():
@@ -213,7 +209,7 @@ func _on_trinket_focus(trinket_index: int):
 	else:
 		%TrinketName.remove_theme_font_override("font")
 
-	%TrinketCost.text = "¶ %d" % TRINKET_COST
+	%TrinketCost.text = "¶ %d" % GameManager.TRINKET_COST
 
 	var trinket_cost_label = %TrinketNameAndCost/TrinketCost
 
@@ -248,7 +244,7 @@ func _on_trinket_button_pressed(trinket_index: int):
 	var trinket_cost_label: RichTextLabel = %TrinketContainer.get_child(trinket_index).get_node("TrinketCost")
 	var trinket_icon: TextureRect = %TrinketContainer.get_child(trinket_index).get_node("TrinketIcon")
 
-	if GameManager.player.prana < TRINKET_COST:
+	if GameManager.player.prana < GameManager.TRINKET_COST:
 		return
 
 	# when the trinket is purchased:
@@ -269,7 +265,7 @@ func _on_trinket_button_pressed(trinket_index: int):
 	%TrinketIconEnlarged.material = load("res://assets/shaders/grayscale-material.tres")
 
 	# charge the player for the trinket
-	GameManager.player.prana -= TRINKET_COST
+	GameManager.player.prana -= GameManager.TRINKET_COST
 	_render_player_prana()
 
 	# Give the trinket to the player, apply it, and redisplay the trinket shelf
