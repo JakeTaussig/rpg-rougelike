@@ -15,8 +15,8 @@ var current_shop: Shop
 var player: BattleParticipant
 var enemy: BattleParticipant
 
-var CONSUMABLE_COST = 111
-var TRINKET_COST = 200
+var CONSUMABLE_COST = 100
+var TRINKET_COST = 165
 
 var battle_scene = preload("res://scenes/battle.tscn")
 var battle_participant_scene := preload("res://scenes/battle_participant.tscn")
