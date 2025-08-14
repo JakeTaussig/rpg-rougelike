@@ -25,6 +25,8 @@ enum CONSUMABLES { HP_RESTORE, PP_RESTORE}
 var consumables: Array[CONSUMABLES] = []
 var purchased_consumables: Array[bool] = []
 
+const narrow_font = preload("res://assets/fonts/LoRes 9 OT Narrow Regular.ttf")
+
 func setup():
 	_roll_trinkets()
 	_roll_consumables()
@@ -163,7 +165,13 @@ func _input(event: InputEvent):
 func _render_trinkets():
 	for i in range(N_TRINKETS):
 		var trinket_entry: HBoxContainer = %TrinketContainer.get_child(i)
-		trinket_entry.get_node("TrinketName").text = trinkets[i].trinket_name
+		var trinket_name = trinkets[i].trinket_name
+		trinket_entry.get_node("TrinketName").text = trinket_name
+
+		if trinket_name.length() >= 11:
+			trinket_entry.get_node("TrinketName").add_theme_font_override("font", narrow_font)
+
+
 		trinket_entry.get_node("TrinketIcon").texture = trinkets[i].icon
 		trinket_entry.get_node("TrinketCost").text = "¶ %d" % GameManager.TRINKET_COST
 
@@ -195,6 +203,12 @@ func _on_trinket_focus(trinket_index: int):
 	%TrinketInfo.text = trinket.description
 	%TrinketIconEnlarged.texture = trinket.icon
 	%TrinketName.text = trinket.trinket_name
+
+	if trinket.trinket_name.length() >= 11:
+		%TrinketName.add_theme_font_override("font", narrow_font)
+	else:
+		%TrinketName.remove_theme_font_override("font")
+
 	%TrinketCost.text = "¶ %d" % GameManager.TRINKET_COST
 
 	var trinket_cost_label = %TrinketNameAndCost/TrinketCost
