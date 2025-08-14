@@ -25,7 +25,7 @@ var trinkets: Array[Trinket] = []
 var purchased_trinkets: Array[bool] = []
 var global_ui_manager = GameManager.global_ui_manager
 
-enum CONSUMABLES { HP_RESTORE, PP_RESTORE, ATK_UP, SP_ATK_UP, DEF_UP, SP_DEF_UP}
+enum CONSUMABLES { HP_RESTORE, PP_RESTORE, ATK_UP, SP_ATK_UP, DEF_UP, SP_DEF_UP, SPEED_UP, LUCK_UP }
 var consumables: Array[CONSUMABLES] = []
 var purchased_consumables: Array[bool] = []
 
@@ -150,6 +150,12 @@ func _on_consumable_button_pressed(i: int):
 		elif consumables[i] == CONSUMABLES.SP_DEF_UP:
 			GameManager.player.selected_monster.sp_def += 10
 			mark_consumable_sold(i)
+		elif consumables[i] == CONSUMABLES.SPEED_UP:
+			GameManager.player.selected_monster.speed += 10
+			mark_consumable_sold(i)
+		elif consumables[i] == CONSUMABLES.LUCK_UP:
+			GameManager.player.selected_monster.luck += 10
+			mark_consumable_sold(i)
 
 
 func mark_consumable_sold(i: int):
@@ -200,6 +206,8 @@ func _render_consumables():
 	var SP_ATK_icon = load("res://assets/sprites/trinket_icons/wand.png")
 	var DEF_icon = load("res://assets/sprites/trinket_icons/shield.png")
 	var SP_DEF_icon = load("res://assets/sprites/trinket_icons/magic-shield.png")
+	var SPEED_icon = load("res://assets/sprites/trinket_icons/fast_forward.png")
+	var LUCK_icon = load("res://assets/sprites/trinket_icons/clover.png")
 
 	for i in range(N_CONSUMABLES):
 		var consumable_entry: HBoxContainer = %ConsumableContainer.get_child(i)
@@ -221,6 +229,12 @@ func _render_consumables():
 		elif consumables[i] == CONSUMABLES.SP_DEF_UP:
 			consumable_entry.get_node("ConsumableName").text = "+10 SP. DEF"
 			consumable_entry.get_node("ConsumableIcon").texture = SP_DEF_icon
+		elif consumables[i] == CONSUMABLES.SPEED_UP:
+			consumable_entry.get_node("ConsumableName").text = "+10 SPEED"
+			consumable_entry.get_node("ConsumableIcon").texture = SPEED_icon
+		elif consumables[i] == CONSUMABLES.LUCK_UP:
+			consumable_entry.get_node("ConsumableName").text = "+10 LUCK"
+			consumable_entry.get_node("ConsumableIcon").texture = LUCK_icon
 
 
 		consumable_entry.get_node("ConsumableCost").text = "¶ %d" % CONSUMABLE_COST
@@ -257,6 +271,14 @@ func _on_consumable_focus(consumable_index: int):
 		var current_sp_def = GameManager.player.selected_monster.sp_def
 		var incremented_sp_def = current_sp_def + 10
 		GameManager.player.selected_monster.tracker.get_node("Panel/TrackerInfo/SP_DEF").text = _set_bbcode_color("%d>%d" % [current_sp_def, incremented_sp_def], Color(0.173, 0.91, 0.961, 1.0))
+	elif consumable == CONSUMABLES.SPEED_UP:
+		var current_speed = GameManager.player.selected_monster.speed
+		var incremented_speed = current_speed + 10
+		GameManager.player.selected_monster.tracker.get_node("Panel/TrackerInfo/SPEED").text = _set_bbcode_color("%d>%d" % [current_speed, incremented_speed], Color(0.173, 0.91, 0.961, 1.0))
+	elif consumable == CONSUMABLES.LUCK_UP:
+		var current_luck = GameManager.player.selected_monster.luck
+		var incremented_luck = current_luck + 10
+		GameManager.player.selected_monster.tracker.get_node("Panel/TrackerInfo/LUCK").text = _set_bbcode_color("%d>%d" % [current_luck, incremented_luck], Color(0.173, 0.91, 0.961, 1.0))
 
 
 func _on_consumable_focus_exit():
