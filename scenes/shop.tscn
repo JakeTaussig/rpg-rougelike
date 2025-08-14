@@ -83,7 +83,7 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
 [node name="Funds" type="Label" parent="Title2"]
-custom_minimum_size = Vector2(47, 0)
+custom_minimum_size = Vector2(46, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_xfvoa")
@@ -91,19 +91,14 @@ theme_type_variation = &"AllBorderLabel"
 text = "Prana:"
 horizontal_alignment = 2
 
-[node name="Placeholder2" type="Label" parent="Title2"]
+[node name="Prana" type="Label" parent="Title2"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_xfvoa")
 theme_type_variation = &"AllBorderLabel"
-
-[node name="Prana" type="Label" parent="Title2"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("1_xfvoa")
-theme_type_variation = &"AllBorderLabel"
 text = "¶ 100"
+horizontal_alignment = 3
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 0
@@ -451,7 +446,7 @@ theme = ExtResource("1_xfvoa")
 theme_type_variation = &"AllBorderRichTextLabel"
 bbcode_enabled = true
 text = "¶ 100"
-horizontal_alignment = 2
+horizontal_alignment = 3
 
 [node name="TrinketInfoContainer" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
