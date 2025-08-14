@@ -159,7 +159,8 @@ func _create_player() -> BattleParticipant:
 
 
 func _create_new_enemy() -> BattleParticipant:
-	var monsters = randomized_monsters
+	randomized_monsters.shuffle()
+	var monsters = randomized_monsters.slice(0, 3 + floor_number)
 	var new_enemy = battle_participant_scene.instantiate()
 	new_enemy.set_script(preload("res://scripts/enemy.gd"))
 	# 2nd param = AI types 0 = RANDOM, 1 = AGGRESSIVE, 2 = HIGH_EV
