@@ -235,23 +235,23 @@ func _on_consumable_focus(consumable_index: int):
 		var current_hp = GameManager.player.selected_monster.hp
 		var max_hp = GameManager.player.selected_monster.max_hp
 		var incremented_hp = min(current_hp + 50, max_hp)
-		$Tracker.get_node("Panel/TrackerInfo/HP").text = _set_bbcode_color("%d->%d" % [current_hp, incremented_hp], Color(0.173, 0.91, 0.961, 1.0))
+		$Tracker.get_node("Panel/TrackerInfo/HP").text = _set_bbcode_color("%d>%d" % [current_hp, incremented_hp], Color(0.173, 0.91, 0.961, 1.0))
 	elif consumable == CONSUMABLES.ATK_UP:
 		var current_attack = GameManager.player.selected_monster.atk
 		var incremented_attack = current_attack + 10
-		$Tracker.get_node("Panel/TrackerInfo/ATK").text = _set_bbcode_color("%d->%d" % [current_attack, incremented_attack], Color(0.173, 0.91, 0.961, 1.0))
+		$Tracker.get_node("Panel/TrackerInfo/ATK").text = _set_bbcode_color("%d>%d" % [current_attack, incremented_attack], Color(0.173, 0.91, 0.961, 1.0))
 	elif consumable == CONSUMABLES.SP_ATK_UP:
 		var current_sp_attack = GameManager.player.selected_monster.sp_atk
 		var incremented_sp_attack = current_sp_attack + 10
-		$Tracker.get_node("Panel/TrackerInfo/SP_ATK").text = _set_bbcode_color("%d->%d" % [current_sp_attack, incremented_sp_attack], Color(0.173, 0.91, 0.961, 1.0))
+		$Tracker.get_node("Panel/TrackerInfo/SP_ATK").text = _set_bbcode_color("%d>%d" % [current_sp_attack, incremented_sp_attack], Color(0.173, 0.91, 0.961, 1.0))
 	elif consumable == CONSUMABLES.DEF_UP:
 		var current_def = GameManager.player.selected_monster.def
 		var incremented_def = current_def + 10
-		$Tracker.get_node("Panel/TrackerInfo/DEF").text = _set_bbcode_color("%d->%d" % [current_def, incremented_def], Color(0.173, 0.91, 0.961, 1.0))
+		$Tracker.get_node("Panel/TrackerInfo/DEF").text = _set_bbcode_color("%d>%d" % [current_def, incremented_def], Color(0.173, 0.91, 0.961, 1.0))
 	elif consumable == CONSUMABLES.SP_DEF_UP:
 		var current_sp_def = GameManager.player.selected_monster.sp_def
 		var incremented_sp_def = current_sp_def + 10
-		$Tracker.get_node("Panel/TrackerInfo/SP_DEF").text = _set_bbcode_color("%d->%d" % [current_sp_def, incremented_sp_def], Color(0.173, 0.91, 0.961, 1.0))
+		$Tracker.get_node("Panel/TrackerInfo/SP_DEF").text = _set_bbcode_color("%d>%d" % [current_sp_def, incremented_sp_def], Color(0.173, 0.91, 0.961, 1.0))
 
 
 func _on_consumable_focus_exit():
