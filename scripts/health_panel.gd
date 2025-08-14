@@ -21,18 +21,35 @@ func render_hp(monster: Monster):
 	else:
 		%StatusLabelPanel.visible = false
 	var prior_hp = %HPBar.value
-	while damage > 0 and prior_hp > 0:
-		await get_tree().create_timer(0.01).timeout
-		if damage >= 2:
-			prior_hp -= 2
-			damage -= 2
-		else:
-			prior_hp -= damage
-			damage = 0
-		%HPBar.value = prior_hp
-		_set_hp_bar_color()
-		%HPNumber.text = "%d / %d" % [prior_hp, monster.max_hp]
-		await get_tree().process_frame
+	if damage > 0:
+		while damage > 0 and prior_hp > 0:
+			await get_tree().create_timer(0.01).timeout
+			if damage >= 2:
+				prior_hp -= 2
+				damage -= 2
+			else:
+				prior_hp -= damage
+				damage = 0
+			%HPBar.value = prior_hp
+			_set_hp_bar_color()
+			%HPNumber.text = "%d / %d" % [prior_hp, monster.max_hp]
+			await get_tree().process_frame
+	# For cases in which the monster healed (via giga drain or similar)
+	# Without the second condition, the HP bar will render weird upon monsters first appearing in the scene
+	elif damage < 0 and -damage < monster.max_hp:
+		var heal = -damage
+		while heal > 0 and prior_hp < monster.max_hp:
+			await get_tree().create_timer(0.01).timeout
+			if heal >= 2:
+				prior_hp += 2
+				heal -= 2
+			else:
+				prior_hp += heal
+				heal = 0
+			%HPBar.value = prior_hp
+			_set_hp_bar_color()
+			%HPNumber.text = "%d / %d" % [prior_hp, monster.max_hp]
+			await get_tree().process_frame
 
 	# Set again here, for cases in which we need to render and no damage was done.
 	%HPBar.value = monster.hp
