@@ -55,7 +55,6 @@ script = ExtResource("2_xfvoa")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_left = -2.0
 offset_right = 256.0
 offset_bottom = 144.0
 theme = ExtResource("1_xfvoa")
@@ -256,8 +255,8 @@ theme_override_constants/separation = -1
 
 [node name="ExitButton" type="Button" parent="GridContainer/TrinketContainer/ExitButtonRow"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(99, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 theme = ExtResource("1_xfvoa")
 theme_override_styles/normal = ExtResource("4_032fp")
 theme_override_styles/pressed = ExtResource("5_2fc2m")
@@ -267,16 +266,6 @@ theme_override_styles/focus = ExtResource("5_2fc2m")
 action_mode = 0
 text = "Leave Shop"
 alignment = 2
-
-[node name="TrinketCostPlaceholder" type="RichTextLabel" parent="GridContainer/TrinketContainer/ExitButtonRow"]
-layout_mode = 2
-theme = ExtResource("1_xfvoa")
-theme_type_variation = &"AllBorderRichTextLabel"
-bbcode_enabled = true
-text = "          "
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
 
 [node name="ConsumableContainer" type="VBoxContainer" parent="GridContainer"]
 unique_name_in_owner = true
@@ -406,8 +395,8 @@ theme_override_constants/separation = -1
 
 [node name="ConsumableExitButton" type="Button" parent="GridContainer/ConsumableContainer/ExitButtonRow"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(99, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 theme = ExtResource("1_xfvoa")
 theme_override_styles/normal = ExtResource("4_032fp")
 theme_override_styles/pressed = ExtResource("5_2fc2m")
@@ -417,16 +406,6 @@ theme_override_styles/focus = ExtResource("5_2fc2m")
 action_mode = 0
 text = "Leave Shop"
 alignment = 2
-
-[node name="TrinketCostPlaceholder" type="RichTextLabel" parent="GridContainer/ConsumableContainer/ExitButtonRow"]
-layout_mode = 2
-theme = ExtResource("1_xfvoa")
-theme_type_variation = &"AllBorderRichTextLabel"
-bbcode_enabled = true
-text = "          "
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
 
 [node name="TrinketNameAndCost" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
