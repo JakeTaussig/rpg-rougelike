@@ -15,6 +15,8 @@ var current_shop: Shop
 var player: BattleParticipant
 var enemy: BattleParticipant
 
+# The shop will contain this many trinkets
+var N_TRINKETS: int = 3
 var CONSUMABLE_COST = 100
 var TRINKET_COST = 165
 

@@ -3,9 +3,6 @@ class_name Shop
 
 signal shop_ended
 
-# The shop will contain this many trinkets
-const N_TRINKETS: int = 3
-
 # The shop will contain this many consumables
 const N_CONSUMABLES: int = 3
 
@@ -42,7 +39,7 @@ func setup():
 
 
 func _roll_trinkets():
-	while trinkets.size() < N_TRINKETS:
+	while trinkets.size() < GameManager.N_TRINKETS:
 		var trinkets_list = GameManager.trinkets_list.trinkets
 		var trinkets_list_copy = []
 		# Trinkets the player has can't be added to the shop
@@ -67,14 +64,29 @@ func _roll_consumables():
 
 
 func _init_trinket_menu_buttons():
-	for i in range(N_TRINKETS):
-		var trinket_entry: HBoxContainer = %TrinketContainer.get_child(i)
-		var trinket_button: Button = trinket_entry.get_node("TrinketName")
-		trinket_button.connect("mouse_entered", func(): trinket_button.grab_focus())
-		trinket_button.connect("focus_entered", func(): _on_trinket_focus(i))
-		trinket_button.connect("focus_exited", _on_trinket_focus_exit)
-		trinket_button.connect("mouse_exited", _on_trinket_focus_exit)
-		trinket_button.pressed.connect(func(): _on_trinket_button_pressed(i))
+	for i in range(GameManager.N_TRINKETS):
+		init_trinket_menu_button(i)
+
+func init_trinket_menu_button(i: int):
+	var trinket_entry = %TrinketContainer.get_child(i)
+	if trinket_entry is not HBoxContainer:
+		trinket_entry = %TrinketContainer.get_child(0).duplicate()
+		%TrinketContainer.add_child(trinket_entry)
+		%TrinketContainer.move_child(trinket_entry, i)
+
+	var trinket_button: Button = trinket_entry.get_node("TrinketName")
+	var trinket_cost_label: RichTextLabel = trinket_entry.get_node("TrinketCost")
+	var trinket_icon: TextureRect = trinket_entry.get_node("TrinketIcon")
+
+	trinket_button.disabled = false
+	trinket_cost_label.add_theme_color_override("default_color", WHITE)
+	trinket_icon.material = null
+
+	trinket_button.connect("mouse_entered", func(): trinket_button.grab_focus())
+	trinket_button.connect("focus_entered", func(): _on_trinket_focus(i))
+	trinket_button.connect("focus_exited", _on_trinket_focus_exit)
+	trinket_button.connect("mouse_exited", _on_trinket_focus_exit)
+	trinket_button.pressed.connect(func(): _on_trinket_button_pressed(i))
 
 
 func _init_consumable_menu_buttons():
@@ -163,7 +175,7 @@ func _input(event: InputEvent):
 
 
 func _render_trinkets():
-	for i in range(N_TRINKETS):
+	for i in range(GameManager.N_TRINKETS):
 		var trinket_entry: HBoxContainer = %TrinketContainer.get_child(i)
 		var trinket_name = trinkets[i].trinket_name
 		trinket_entry.get_node("TrinketName").text = trinket_name
