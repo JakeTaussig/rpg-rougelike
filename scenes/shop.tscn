@@ -442,24 +442,22 @@ horizontal_alignment = 2
 unique_name_in_owner = true
 z_index = 2
 layout_mode = 0
-offset_left = 138.0
+offset_left = 154.0
 offset_top = 39.0
 offset_right = 256.0
-offset_bottom = 103.0
+offset_bottom = 88.0
 theme_override_constants/separation = 1
 
 [node name="TrinketIconEnlarged" type="TextureRect" parent="TrinketInfoContainer"]
 unique_name_in_owner = true
-visible = false
 texture_filter = 1
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("3_1l46r")
 stretch_mode = 4
 
 [node name="TrinketInfo" type="RichTextLabel" parent="TrinketInfoContainer"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(49, 48)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -468,7 +466,7 @@ theme = ExtResource("1_xfvoa")
 theme_type_variation = &"AllBorderTinyTextRichTextLabel"
 theme_override_styles/normal = SubResource("StyleBoxFlat_8r1wq")
 bbcode_enabled = true
-text = "... Trinket Description ... asdfasd fasdfasdfa sdfasdf"
+text = "... Trinket Description ... asdfasd fasd"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
