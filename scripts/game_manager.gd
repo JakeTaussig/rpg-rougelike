@@ -116,14 +116,14 @@ func _run_shop():
 
 
 func _on_battle_ended(victory: bool):
+	$LoadingScreen.visible = true
+	$LoadingScreen/QuoteDisplay.text = quotes.pop_back().text
 	if not victory:
 		# TODO: game over screen
 		return
-	$LoadingScreen.visible = true
-	$LoadingScreen/QuoteDisplay.text = quotes.pop_back().text
-	await get_tree().create_timer(5).timeout
-	$LoadingScreen.visible = false
 	_exit_current_event()
+	await get_tree().create_timer(10).timeout
+	$LoadingScreen.visible = false
 
 
 func _exit_current_event():
