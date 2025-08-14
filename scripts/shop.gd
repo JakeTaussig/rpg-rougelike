@@ -41,7 +41,7 @@ func setup():
 	%ConsumableContainer.hide()
 	%TrinketExitButton.grab_focus()
 	GameManager.player.selected_monster.tracker.visible = true
-
+	GameManager.player.selected_monster.tracker.populate_player_tracker()
 
 func _roll_trinkets():
 	while trinkets.size() < N_TRINKETS:
