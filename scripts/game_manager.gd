@@ -32,16 +32,30 @@ var enemy_level = 0
 var randomized_monsters: Array[Monster] = []
 var tracker = preload("res://scenes/tracker.tscn")
 
+var quotes: Array
+
 @onready var global_ui_manager = %GlobalUIManager
 
 
 func start_game():
 	# Called once to seed the random number generator
 	randomize()
+	_load_quotes()
 	_load_and_randomize_monsters()
 	player = _create_player()
 	enemy = _create_new_enemy()
 	_exit_current_event()
+	
+
+func _load_quotes():
+	var file_path = "res://assets/quotes.json"
+	var raw_json = FileAccess.get_file_as_string(file_path)
+	var parsed = JSON.parse_string(raw_json)
+	if typeof(parsed) == TYPE_ARRAY:
+		quotes = parsed
+		quotes.shuffle()
+	else:
+		push_error("Failed to parse quotes.json")
 
 
 func _load_and_randomize_monsters():
@@ -107,10 +121,12 @@ func _run_shop():
 
 
 func _on_battle_ended(victory: bool):
+	await global_ui_manager.fade_in_loading_screen()
 	if not victory:
 		# TODO: game over screen
 		return
 	_exit_current_event()
+	await global_ui_manager.wait_and_fade_out_loading_screen()
 
 
 func _exit_current_event():
@@ -135,6 +151,7 @@ func _exit_current_event():
 
 	global_ui_manager.update_ui_text()
 	global_ui_manager.show_ui_elements()
+
 
 	%ContinueButton.disabled = false
 	%ContinueButton.grab_focus()

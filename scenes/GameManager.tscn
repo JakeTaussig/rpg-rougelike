@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cai3whynl4v0w"]
+[gd_scene load_steps=12 format=3 uid="uid://cai3whynl4v0w"]
 
 [ext_resource type="Script" uid="uid://dcg6p6ohqcsxp" path="res://scripts/game_manager.gd" id="1_34tde"]
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="2_qppyr"]
@@ -9,6 +9,7 @@
 [ext_resource type="StyleBox" uid="uid://po0ajij3ys1o" path="res://assets/styles/shop_button_hover.tres" id="4_mx40s"]
 [ext_resource type="StyleBox" uid="uid://ngawdqhj6nkv" path="res://assets/styles/room_event_button_pressed.tres" id="6_2uts2"]
 [ext_resource type="Script" uid="uid://dycdtb6jkiqsx" path="res://scripts/global_ui_manager.gd" id="9_2chjq"]
+[ext_resource type="PackedScene" uid="uid://dbi8ifmdi4emq" path="res://scenes/loading_screen.tscn" id="10_1jauj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtub8"]
 content_margin_left = 2.0
@@ -202,5 +203,14 @@ unique_name_in_owner = true
 script = ExtResource("9_2chjq")
 
 [node name="Trackers" type="Node2D" parent="GlobalUIManager"]
+
+[node name="LoadingScreen" parent="." instance=ExtResource("10_1jauj")]
+unique_name_in_owner = true
+visible = false
+z_index = 1000
+layout_mode = 0
+anchors_preset = 0
+offset_right = 768.0
+offset_bottom = 433.0
 
 [connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]

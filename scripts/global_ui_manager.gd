@@ -6,7 +6,10 @@ const white = Color(1.0, 1.0, 1.0, 1.0)
 # ui references
 @onready var floor_progress_display = %FloorProgressDisplay
 @onready var floor_progress_descriptions = %FloorProgressDescriptions
-	
+
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func reset_ui_elements():
 	# reset the first event button to base styling
@@ -118,6 +121,37 @@ func show_ui_elements():
 
 	# Show any trinkets the player has obtained since last time
 	%TrinketShelf.render_trinkets()
+	
+
+func fade_in_loading_screen():
+	%LoadingScreen/QuoteDisplay.text = GameManager.quotes.pop_back().text
+	var panel = %LoadingScreen
+	var tween = create_tween()
+	
+	panel.visible = true
+	panel.modulate.a = 0.0
+	
+	# Fade in over 2.5 seconds
+	tween.tween_property(panel, "modulate:a", 1.0, 2.5)
+	await tween.finished
+	
+func wait_and_fade_out_loading_screen() -> void:
+	var panel := %LoadingScreen
+	if !is_instance_valid(panel):
+		return
+
+	panel.visible = true
+	panel.modulate.a = 1.0
+
+	# Wait 2s even if paused
+	await get_tree().create_timer(8.0, false, false, true).timeout
+
+	# Create tween bound to THIS node (which processes always)
+	var tween := create_tween()
+	tween.tween_property(panel, "modulate:a", 0.0, 2.5)
+
+	await tween.finished
+	panel.hide()
 
 
 func hide_player_and_enemy():
