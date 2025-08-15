@@ -39,8 +39,7 @@ func give_player_stat_up(monster: Monster) -> String:
 			return "%s's defense increased by %d, from %d to %d" % [monster.character_name, 5, monster.def - 5, monster.def]
 		"SP_DEF":
 			monster.sp_def += 5
-			return "%s's sp. def	for additional_message in results.additional_trinket_messages:
-		messages.append(additional_message) increased by %d, from %d to %d" % [monster.character_name, 5, monster.sp_def - 5, monster.sp_def]
+			return "%s's sp. def increased by %d, from %d to %d" % [monster.character_name, 5, monster.sp_def - 5, monster.sp_def]
 		"SPEED":
 			monster.speed += 5
 			return "%s's speed increased by %d, from %d to %d" % [monster.character_name, 5, monster.speed - 5, monster.speed]
