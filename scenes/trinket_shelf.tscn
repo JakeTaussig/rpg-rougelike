@@ -18,6 +18,7 @@ expand_margin_left = 1.0
 expand_margin_right = 1.0
 
 [node name="TrinketShelf" type="Panel"]
+anchors_preset = -1
 offset_right = 155.0
 offset_bottom = 21.0
 script = ExtResource("1_5xmw3")
@@ -25,7 +26,7 @@ script = ExtResource("1_5xmw3")
 [node name="TrinketIconContainer" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
@@ -96,3 +97,14 @@ theme = ExtResource("2_hvr8j")
 theme_type_variation = &"IconButton"
 theme_override_styles/normal = SubResource("StyleBoxFlat_h4dll")
 icon = ExtResource("3_ya8va")
+
+[node name="salePopUp" type="Button" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 2.0
+offset_top = 21.0
+offset_right = 78.0
+offset_bottom = 38.0
+theme_type_variation = &"BorderButton"
+text = "Sell for ¶ 50?"

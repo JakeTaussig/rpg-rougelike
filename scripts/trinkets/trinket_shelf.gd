@@ -19,6 +19,8 @@ var last_focused_idx = 0
 
 @export var show_trinket_name_on_panel: bool = true
 
+var SELL_AMT = 50
+
 
 func _ready():
 	if trinkets.size() == 0 && GameManager.player != null:
@@ -31,10 +33,45 @@ func _ready():
 		trinket_button.focus_entered.connect(func(): _display_trinket_info(i))
 		trinket_button.focus_exited.connect(_hide_trinket_info)
 
+		trinket_button.pressed.connect(func(): _trinket_button_pressed(i))
+
 	render_trinkets()
 
 
+func _trinket_button_pressed(i: int):
+	if i < trinkets.size():
+		var desired_x_position = (i * 19) + 2
+
+		# Remove any existing popups before creating a new one
+		var existing_popup = $SalePopUpTemp
+		if existing_popup:
+			existing_popup.queue_free()
+			return
+
+		var new_popup = %salePopUp.duplicate()
+		new_popup.name = "SalePopUpTemp"
+		new_popup.text = "Sell for ¶ %d?" % SELL_AMT
+		new_popup.connect("pressed", func(): _on_sale_pop_up_pressed(i))
+		new_popup.position.x = desired_x_position
+		add_child(new_popup)
+		new_popup.show()
+
+func _on_sale_pop_up_pressed(trinket_index: int) -> void:
+	GameManager.player.sell_trinket(trinket_index, SELL_AMT)
+	render_trinkets()
+	if GameManager.current_shop:
+		GameManager.current_shop._render_player_prana()
+
+	var existing_popup = $SalePopUpTemp
+	if existing_popup:
+		existing_popup.queue_free()
+
+
 func render_trinkets():
+	for i in range(8):
+		var trinket_button: Button = %TrinketIconContainer.get_child(i)
+		trinket_button.icon = load("res://assets/sprites/trinket_icons/arrow.png")
+
 	for i in range(trinkets.size()):
 		var trinket: Trinket = trinkets[i]
 		var trinket_button: Button = %TrinketIconContainer.get_child(i)
