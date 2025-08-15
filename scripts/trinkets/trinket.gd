@@ -8,3 +8,4 @@ enum TrinketCategory { ATK, TYPE }
 @export var apply_once: bool = false
 
 @export var strategy: TrinketStrategy = TrinketStrategy.new()
+@export var post_move_strategy: PostAttackStrategy = PostAttackStrategy.new()

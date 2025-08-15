@@ -181,15 +181,29 @@ func use_move(move: Move, target: Monster) -> AttackResults:
 			status_applied = _roll_and_apply_status_effect(move, target)
 	var results = AttackResults.new(move, damage, move_hit, status_applied, is_critical)
 
-	if move_hit and move.post_attack_strategy != null:
+	if move_hit:
 		results.attacker = self
 		results.target = target
+	if move.post_attack_strategy != null:
 		var additional_message = move.post_attack_strategy.ApplyEffect(results)
-		results.additional_message = additional_message
+		results.additional_messages.append(additional_message)
+
+	var trinket_messages = apply_post_move_trinket_effects(results)
+	for additional_message in trinket_messages:
+		results.additional_trinket_messages.append(additional_message)
 
 	attack_used.emit()
 
 	return results
+
+func apply_post_move_trinket_effects(attackResults: Monster.AttackResults):
+	var messages = []
+	for trinket in trinkets:
+		var message = trinket.post_move_strategy.ApplyEffect(attackResults)
+		if message:
+			messages.append(message)
+
+	return messages
 
 
 func _does_move_hit(accuracy: int) -> bool:
@@ -401,7 +415,8 @@ class AttackResults:
 
 	var attacker: Monster
 	var target: Monster
-	var additional_message: String
+	var additional_messages: Array[String]
+	var additional_trinket_messages: Array[String]
 
 	func _init(_move: Move, _damage: int, _move_hit: bool, _status_applied: bool, _is_critical: bool):
 		move = _move
