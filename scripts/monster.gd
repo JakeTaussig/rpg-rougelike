@@ -77,6 +77,11 @@ func emit_trinkets_updated_signal():
 	trinkets_updated.emit()
 
 
+func sell_trinket(trinket_index):
+	trinkets.pop_at(trinket_index)
+	emit_trinkets_updated_signal()
+
+
 func randomize_stat_spread(bst: int = 300, min_stat: int = 10) -> void:
 	var stat_keys = ["max_hp", "atk", "sp_atk", "def", "sp_def", "speed", "luck"]
 	var stat_values = {}

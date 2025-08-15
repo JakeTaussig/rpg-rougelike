@@ -86,3 +86,8 @@ func swap_dead_monster():
 			return
 		selected_monster = monsters[0]
 		show()
+
+
+func sell_trinket(trinket_index: int, trinket_sell_value: int):
+	selected_monster.sell_trinket(trinket_index)
+	prana += trinket_sell_value
