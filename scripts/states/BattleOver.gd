@@ -17,6 +17,10 @@ func enter(_messages: Array = []):
 
 		if GameManager.floor_events.is_empty():
 			GameManager.level_up_player_and_enemies()
+			var interest_message = GameManager.apply_interest()
+			if interest_message:
+				_messages.append(interest_message)
+
 			match GameManager.floor_number:
 				1:
 					_messages.append("You cleared the 1st circle of hell!")
