@@ -43,7 +43,7 @@ func _trinket_button_pressed(i: int):
 		var desired_x_position = (i * 19) + 2
 
 		# Remove any existing popups before creating a new one
-		var existing_popup = get_node_or_null("SalePopUpTemp")
+		var existing_popup = $SalePopUpTemp
 		if existing_popup:
 			existing_popup.queue_free()
 			return
@@ -62,7 +62,7 @@ func _on_sale_pop_up_pressed(trinket_index: int) -> void:
 	if GameManager.current_shop:
 		GameManager.current_shop._render_player_prana()
 
-	var existing_popup = get_node_or_null("SalePopUpTemp")
+	var existing_popup = $SalePopUpTemp
 	if existing_popup:
 		existing_popup.queue_free()
 
