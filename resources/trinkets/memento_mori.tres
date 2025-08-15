@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://dri5uip12pdtd"]
+
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinkets/trinket.gd" id="1_p6yii"]
+[ext_resource type="Texture2D" uid="uid://c5ru8mdxdty7f" path="res://assets/sprites/trinket_icons/skull.png" id="1_vthlg"]
+[ext_resource type="Script" uid="uid://bl8v7srm53c5f" path="res://resources/post_move_strategies/memento_mori_strategy.gd" id="2_c561k"]
+
+[sub_resource type="Resource" id="Resource_nenwa"]
+script = ExtResource("2_c561k")
+metadata/_custom_type_script = "uid://bl8v7srm53c5f"
+
+[resource]
+script = ExtResource("1_p6yii")
+trinket_name = "Memento Mori"
+icon = ExtResource("1_vthlg")
+description = "Gain a stat up if you kill an enemy in one hit"
+post_move_strategy = SubResource("Resource_nenwa")
+metadata/_custom_type_script = "uid://c7ph0ydi5trjd"
