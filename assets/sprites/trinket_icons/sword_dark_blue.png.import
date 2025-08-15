@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2eajagu6j5pi"
-path="res://.godot/imported/pokemon_rpg_screen_grayscale.png-dad1b91d9fa88723b3168cc5c3c89650.ctex"
+uid="uid://ddb474qcw8yco"
+path="res://.godot/imported/sword_dark_blue.png-a697c9b4f747584ecccf0890e4e8e4d1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/pokemon_rpg_screen_grayscale.png"
-dest_files=["res://.godot/imported/pokemon_rpg_screen_grayscale.png-dad1b91d9fa88723b3168cc5c3c89650.ctex"]
+source_file="res://assets/sprites/trinket_icons/sword_dark_blue.png"
+dest_files=["res://.godot/imported/sword_dark_blue.png-a697c9b4f747584ecccf0890e4e8e4d1.ctex"]
 
 [params]
 

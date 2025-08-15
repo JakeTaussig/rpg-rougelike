@@ -65,7 +65,7 @@ unique_name_in_owner = true
 layout_mode = 0
 offset_left = 2.0
 offset_top = 22.0
-offset_right = 100.0
+offset_right = 101.0
 offset_bottom = 128.0
 theme = ExtResource("1_bfym8")
 theme_override_constants/h_separation = 1
@@ -78,14 +78,15 @@ theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
 text = "HP:"
 
-[node name="HP" type="Label" parent="Panel/TrackerInfo"]
+[node name="HP" type="RichTextLabel" parent="Panel/TrackerInfo"]
 layout_direction = 2
 layout_mode = 2
-size_flags_horizontal = 8
-mouse_filter = 0
 theme = ExtResource("1_bfym8")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"SmallTextRichTextLabel"
+bbcode_enabled = true
 text = "?"
+fit_content = true
+autowrap_mode = 0
 script = ExtResource("3_ocy8l")
 
 [node name="ATK_Info" type="Label" parent="Panel/TrackerInfo"]
@@ -95,11 +96,11 @@ theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
 text = "ATK:"
 
-[node name="ATK" type="Label" parent="Panel/TrackerInfo"]
+[node name="ATK" type="RichTextLabel" parent="Panel/TrackerInfo"]
 layout_mode = 2
-mouse_filter = 0
 theme = ExtResource("1_bfym8")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"SmallTextRichTextLabel"
+bbcode_enabled = true
 text = "?"
 script = ExtResource("3_ocy8l")
 
@@ -109,11 +110,11 @@ theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
 text = "SP_ATK:"
 
-[node name="SP_ATK" type="Label" parent="Panel/TrackerInfo"]
+[node name="SP_ATK" type="RichTextLabel" parent="Panel/TrackerInfo"]
 layout_mode = 2
-mouse_filter = 0
 theme = ExtResource("1_bfym8")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"SmallTextRichTextLabel"
+bbcode_enabled = true
 text = "?"
 script = ExtResource("3_ocy8l")
 
@@ -123,11 +124,11 @@ theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
 text = "DEF:"
 
-[node name="DEF" type="Label" parent="Panel/TrackerInfo"]
+[node name="DEF" type="RichTextLabel" parent="Panel/TrackerInfo"]
 layout_mode = 2
-mouse_filter = 0
 theme = ExtResource("1_bfym8")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"SmallTextRichTextLabel"
+bbcode_enabled = true
 text = "?"
 script = ExtResource("3_ocy8l")
 
@@ -137,11 +138,11 @@ theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
 text = "SP_DEF:"
 
-[node name="SP_DEF" type="Label" parent="Panel/TrackerInfo"]
+[node name="SP_DEF" type="RichTextLabel" parent="Panel/TrackerInfo"]
 layout_mode = 2
-mouse_filter = 0
 theme = ExtResource("1_bfym8")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"SmallTextRichTextLabel"
+bbcode_enabled = true
 text = "?"
 script = ExtResource("3_ocy8l")
 
@@ -151,11 +152,11 @@ theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
 text = "SPEED:"
 
-[node name="SPEED" type="Label" parent="Panel/TrackerInfo"]
+[node name="SPEED" type="RichTextLabel" parent="Panel/TrackerInfo"]
 layout_mode = 2
-mouse_filter = 0
 theme = ExtResource("1_bfym8")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"SmallTextRichTextLabel"
+bbcode_enabled = true
 text = "?"
 script = ExtResource("3_ocy8l")
 
@@ -165,11 +166,11 @@ theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
 text = "LUCK:"
 
-[node name="LUCK" type="Label" parent="Panel/TrackerInfo"]
+[node name="LUCK" type="RichTextLabel" parent="Panel/TrackerInfo"]
 layout_mode = 2
-mouse_filter = 0
 theme = ExtResource("1_bfym8")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"SmallTextRichTextLabel"
+bbcode_enabled = true
 text = "?"
 script = ExtResource("3_ocy8l")
 
@@ -179,12 +180,15 @@ theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
 text = "CRIT:"
 
-[node name="CRIT" type="Label" parent="Panel/TrackerInfo"]
+[node name="CRIT" type="RichTextLabel" parent="Panel/TrackerInfo"]
 layout_mode = 2
-mouse_filter = 0
 theme = ExtResource("1_bfym8")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"SmallTextRichTextLabel"
+bbcode_enabled = true
 text = "?"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 script = ExtResource("3_ocy8l")
 
 [node name="ACC_Info" type="Label" parent="Panel/TrackerInfo"]
@@ -193,10 +197,10 @@ theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextLabel"
 text = "ACC:"
 
-[node name="ACC" type="Label" parent="Panel/TrackerInfo"]
+[node name="ACC" type="RichTextLabel" parent="Panel/TrackerInfo"]
 layout_mode = 2
-mouse_filter = 0
 theme = ExtResource("1_bfym8")
-theme_type_variation = &"SmallTextLabel"
+theme_type_variation = &"SmallTextRichTextLabel"
+bbcode_enabled = true
 text = "?"
 script = ExtResource("3_ocy8l")

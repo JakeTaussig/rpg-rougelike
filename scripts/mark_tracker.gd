@@ -1,4 +1,4 @@
-extends Label
+extends RichTextLabel
 class_name MarkTracker
 
 var click_counter = 0

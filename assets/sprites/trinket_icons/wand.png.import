@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2eajagu6j5pi"
-path="res://.godot/imported/pokemon_rpg_screen_grayscale.png-dad1b91d9fa88723b3168cc5c3c89650.ctex"
+uid="uid://cy1f3m1fc4la1"
+path="res://.godot/imported/wand.png-e13c923df05c634b841e3939070fc289.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/pokemon_rpg_screen_grayscale.png"
-dest_files=["res://.godot/imported/pokemon_rpg_screen_grayscale.png-dad1b91d9fa88723b3168cc5c3c89650.ctex"]
+source_file="res://assets/sprites/trinket_icons/wand.png"
+dest_files=["res://.godot/imported/wand.png-e13c923df05c634b841e3939070fc289.ctex"]
 
 [params]
 

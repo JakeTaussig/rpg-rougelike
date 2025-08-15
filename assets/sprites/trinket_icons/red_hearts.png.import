@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2eajagu6j5pi"
-path="res://.godot/imported/pokemon_rpg_screen_grayscale.png-dad1b91d9fa88723b3168cc5c3c89650.ctex"
+uid="uid://dow7vmsbv4bx8"
+path="res://.godot/imported/red_hearts.png-d2a85634ac10058e014e6f631d1a766f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/pokemon_rpg_screen_grayscale.png"
-dest_files=["res://.godot/imported/pokemon_rpg_screen_grayscale.png-dad1b91d9fa88723b3168cc5c3c89650.ctex"]
+source_file="res://assets/sprites/trinket_icons/red_hearts.png"
+dest_files=["res://.godot/imported/red_hearts.png-d2a85634ac10058e014e6f631d1a766f.ctex"]
 
 [params]
 
