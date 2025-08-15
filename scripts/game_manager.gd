@@ -116,14 +116,12 @@ func _run_shop():
 
 
 func _on_battle_ended(victory: bool):
-	$LoadingScreen.visible = true
-	$LoadingScreen/QuoteDisplay.text = quotes.pop_back().text
+	await global_ui_manager.fade_in_loading_screen()
 	if not victory:
 		# TODO: game over screen
 		return
 	_exit_current_event()
-	await get_tree().create_timer(10).timeout
-	$LoadingScreen.visible = false
+	await global_ui_manager.wait_and_fade_out_loading_screen()
 
 
 func _exit_current_event():
@@ -148,6 +146,7 @@ func _exit_current_event():
 
 	global_ui_manager.update_ui_text()
 	global_ui_manager.show_ui_elements()
+
 
 	%ContinueButton.disabled = false
 	%ContinueButton.grab_focus()
