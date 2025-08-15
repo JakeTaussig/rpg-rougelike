@@ -29,6 +29,8 @@ var player_stat_multiplier := 1.2
 var enemy_stat_multiplier := 1.2
 var enemy_level = 0
 
+var interest: float = 0.0
+
 var randomized_monsters: Array[Monster] = []
 var tracker = preload("res://scenes/tracker.tscn")
 
@@ -213,6 +215,14 @@ func _create_new_enemy() -> BattleParticipant:
 	self.add_child(new_enemy)
 	new_enemy.name = "Enemy"
 	return new_enemy
+
+func apply_interest():
+	var original_prana = player.prana
+	player.prana = player.prana + (player.prana * GameManager.interest)
+
+	if player.prana > original_prana:
+		return "%s's prana increased from %d to %d." % [GameManager.player.selected_monster.character_name, original_prana, player.prana]
+	
 
 
 func level_up_player_and_enemies():
