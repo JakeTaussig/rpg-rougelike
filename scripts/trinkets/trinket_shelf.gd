@@ -38,30 +38,33 @@ func _ready():
 	render_trinkets()
 
 
-var sale_pop_up
 func _trinket_button_pressed(i: int):
 	if i < trinkets.size():
 		var desired_x_position = (i * 19) + 2
 
-		if not sale_pop_up:
-			sale_pop_up = %salePopUp.duplicate()
-			sale_pop_up.connect("pressed", func(): _on_sale_pop_up_pressed(i))
-			sale_pop_up.text = "Sell for ¶ %d?" % SELL_AMT
+		# Remove any existing popups before creating a new one
+		var existing_popup = get_node_or_null("SalePopUpTemp")
+		if existing_popup:
+			existing_popup.queue_free()
+			return
 
-		if sale_pop_up.visible:
-			sale_pop_up.queue_free()
-
-		else:
-			sale_pop_up.show()
-			sale_pop_up.position[0] = desired_x_position
-			add_child(sale_pop_up)
+		var new_popup = %salePopUp.duplicate()
+		new_popup.name = "SalePopUpTemp"
+		new_popup.text = "Sell for ¶ %d?" % SELL_AMT
+		new_popup.connect("pressed", func(): _on_sale_pop_up_pressed(i))
+		new_popup.position.x = desired_x_position
+		add_child(new_popup)
+		new_popup.show()
 
 func _on_sale_pop_up_pressed(trinket_index: int) -> void:
 	GameManager.player.sell_trinket(trinket_index, SELL_AMT)
 	render_trinkets()
 	if GameManager.current_shop:
 		GameManager.current_shop._render_player_prana()
-	sale_pop_up.queue_free()
+
+	var existing_popup = get_node_or_null("SalePopUpTemp")
+	if existing_popup:
+		existing_popup.queue_free()
 
 
 func render_trinkets():
