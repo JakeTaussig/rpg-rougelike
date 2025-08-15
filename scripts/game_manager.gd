@@ -103,6 +103,7 @@ func _run_shop():
 	current_shop = floor_events.pop_front()
 	add_child(current_shop)
 	current_shop.setup()
+	player.selected_monster.tracker.position[1] += 16
 	current_shop.connect("shop_ended", Callable(self, "_exit_current_event"))
 
 
@@ -120,6 +121,7 @@ func _exit_current_event():
 		enemy = _create_new_enemy()
 	if current_shop:
 		player.selected_monster.tracker.visible = false
+		player.selected_monster.tracker.position[1] -= 16
 		current_shop.queue_free()
 
 	if floor_events.is_empty():
