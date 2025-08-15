@@ -3,9 +3,6 @@ class_name Shop
 
 signal shop_ended
 
-# The shop will contain this many trinkets
-const N_TRINKETS: int = 3
-
 # The shop will contain this many consumables
 const N_CONSUMABLES: int = 3
 
@@ -14,10 +11,6 @@ var page = 0
 
 # TODO: introduce varying trinket costs
 # For now, every trinket will cost this much
-const TRINKET_COST: int = 165
-
-const CONSUMABLE_COST: int = 100
-
 const DISABLED_GRAY: Color = Color(0.545, 0.608, 0.706, 1.0)
 const WHITE: Color = Color(1.0, 1.0, 1.0, 1.0)
 
@@ -28,6 +21,8 @@ var global_ui_manager = GameManager.global_ui_manager
 enum CONSUMABLES { HP_RESTORE, PP_RESTORE, ATK_UP, SP_ATK_UP, DEF_UP, SP_DEF_UP, SPEED_UP, LUCK_UP }
 var consumables: Array[CONSUMABLES] = []
 var purchased_consumables: Array[bool] = []
+
+const narrow_font = preload("res://assets/fonts/LoRes 9 OT Narrow Regular.ttf")
 
 func setup():
 	_roll_trinkets()
@@ -44,7 +39,7 @@ func setup():
 	GameManager.player.selected_monster.tracker.populate_player_tracker()
 
 func _roll_trinkets():
-	while trinkets.size() < N_TRINKETS:
+	while trinkets.size() < GameManager.N_TRINKETS:
 		var trinkets_list = GameManager.trinkets_list.trinkets
 		var trinkets_list_copy = []
 		# Trinkets the player has can't be added to the shop
@@ -83,15 +78,29 @@ func _roll_consumables():
 func _init_trinket_menu_buttons():
 	%TrinketExitButton.connect("mouse_entered", func(): %ConsumableExitButton.grab_focus())
 
+	for i in range(GameManager.N_TRINKETS):
+		init_trinket_menu_button(i)
 
-	for i in range(N_TRINKETS):
-		var trinket_entry: HBoxContainer = %TrinketContainer.get_child(i)
-		var trinket_button: Button = trinket_entry.get_node("TrinketName")
-		trinket_button.connect("mouse_entered", func(): trinket_button.grab_focus())
-		trinket_button.connect("focus_entered", func(): _on_trinket_focus(i))
-		trinket_button.connect("focus_exited", _on_trinket_focus_exit)
-		trinket_button.connect("mouse_exited", _on_trinket_focus_exit)
-		trinket_button.pressed.connect(func(): _on_trinket_button_pressed(i))
+func init_trinket_menu_button(i: int):
+	var trinket_entry = %TrinketContainer.get_child(i)
+	if trinket_entry is not HBoxContainer:
+		trinket_entry = %TrinketContainer.get_child(0).duplicate()
+		%TrinketContainer.add_child(trinket_entry)
+		%TrinketContainer.move_child(trinket_entry, i)
+
+	var trinket_button: Button = trinket_entry.get_node("TrinketName")
+	var trinket_cost_label: RichTextLabel = trinket_entry.get_node("TrinketCost")
+	var trinket_icon: TextureRect = trinket_entry.get_node("TrinketIcon")
+
+	trinket_button.disabled = false
+	trinket_cost_label.add_theme_color_override("default_color", WHITE)
+	trinket_icon.material = null
+
+	trinket_button.connect("mouse_entered", func(): trinket_button.grab_focus())
+	trinket_button.connect("focus_entered", func(): _on_trinket_focus(i))
+	trinket_button.connect("focus_exited", _on_trinket_focus_exit)
+	trinket_button.connect("mouse_exited", _on_trinket_focus_exit)
+	trinket_button.pressed.connect(func(): _on_trinket_button_pressed(i))
 
 
 func _init_consumable_menu_buttons():
@@ -107,7 +116,7 @@ func _init_consumable_menu_buttons():
 
 
 func _on_consumable_button_pressed(i: int):
-		if GameManager.player.prana < CONSUMABLE_COST:
+		if GameManager.player.prana < GameManager.CONSUMABLE_COST:
 			return
 
 		# If the Moves menu (Used for PP restores)  is already up, close it before processing another consumable
@@ -174,7 +183,7 @@ func mark_consumable_sold(i: int):
 		var consumable_icon: TextureRect = %ConsumableContainer.get_child(i).get_node("ConsumableIcon")
 
 		# charge the player for the trinket
-		GameManager.player.prana -= CONSUMABLE_COST
+		GameManager.player.prana -= GameManager.CONSUMABLE_COST
 		_render_player_prana()
 
 		# when the consumable is purchased:
@@ -202,11 +211,17 @@ func _input(event: InputEvent):
 
 
 func _render_trinkets():
-	for i in range(N_TRINKETS):
+	for i in range(GameManager.N_TRINKETS):
 		var trinket_entry: HBoxContainer = %TrinketContainer.get_child(i)
-		trinket_entry.get_node("TrinketName").text = trinkets[i].trinket_name
+		var trinket_name = trinkets[i].trinket_name
+		trinket_entry.get_node("TrinketName").text = trinket_name
+
+		if trinket_name.length() >= 11:
+			trinket_entry.get_node("TrinketName").add_theme_font_override("font", narrow_font)
+
+
 		trinket_entry.get_node("TrinketIcon").texture = trinkets[i].icon
-		trinket_entry.get_node("TrinketCost").text = "¶ %d" % TRINKET_COST
+		trinket_entry.get_node("TrinketCost").text = "¶ %d" % GameManager.TRINKET_COST
 
 
 func _render_consumables():
@@ -247,7 +262,7 @@ func _render_consumables():
 			consumable_entry.get_node("ConsumableIcon").texture = LUCK_icon
 
 
-		consumable_entry.get_node("ConsumableCost").text = "¶ %d" % CONSUMABLE_COST
+		consumable_entry.get_node("ConsumableCost").text = "¶ %d" % GameManager.CONSUMABLE_COST
 
 
 func _render_player_prana():
@@ -302,7 +317,13 @@ func _on_trinket_focus(trinket_index: int):
 	%TrinketInfo.text = trinket.description
 	%TrinketIconEnlarged.texture = trinket.icon
 	%TrinketName.text = trinket.trinket_name
-	%TrinketCost.text = "¶ %d" % TRINKET_COST
+
+	if trinket.trinket_name.length() >= 11:
+		%TrinketName.add_theme_font_override("font", narrow_font)
+	else:
+		%TrinketName.remove_theme_font_override("font")
+
+	%TrinketCost.text = "¶ %d" % GameManager.TRINKET_COST
 
 	var trinket_cost_label = %TrinketNameAndCost/TrinketCost
 
@@ -337,7 +358,7 @@ func _on_trinket_button_pressed(trinket_index: int):
 	var trinket_cost_label: RichTextLabel = %TrinketContainer.get_child(trinket_index).get_node("TrinketCost")
 	var trinket_icon: TextureRect = %TrinketContainer.get_child(trinket_index).get_node("TrinketIcon")
 
-	if GameManager.player.prana < TRINKET_COST:
+	if GameManager.player.prana < GameManager.TRINKET_COST:
 		return
 
 	# when the trinket is purchased:
@@ -358,7 +379,7 @@ func _on_trinket_button_pressed(trinket_index: int):
 	%TrinketIconEnlarged.material = load("res://assets/shaders/grayscale-material.tres")
 
 	# charge the player for the trinket
-	GameManager.player.prana -= TRINKET_COST
+	GameManager.player.prana -= GameManager.TRINKET_COST
 	_render_player_prana()
 
 	# Give the trinket to the player, apply it, and redisplay the trinket shelf

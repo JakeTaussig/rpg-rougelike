@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://bvi5ls5b3m5u"]
+
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinkets/trinket.gd" id="1_qx2a4"]
+[ext_resource type="Texture2D" uid="uid://dx87p7xibfla5" path="res://assets/sprites/trinket_icons/overstock.png" id="1_y0iyb"]
+[ext_resource type="Script" uid="uid://qior2wqdlamr" path="res://resources/trinket_strategies/overstock_strategy.gd" id="3_5xvff"]
+
+[sub_resource type="Resource" id="Resource_we8a4"]
+script = ExtResource("3_5xvff")
+metadata/_custom_type_script = "uid://qior2wqdlamr"
+
+[resource]
+script = ExtResource("1_qx2a4")
+trinket_name = "Overstock"
+icon = ExtResource("1_y0iyb")
+description = "Shops stock an additional trinket."
+apply_once = true
+strategy = SubResource("Resource_we8a4")
+metadata/_custom_type_script = "uid://c7ph0ydi5trjd"

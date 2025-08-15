@@ -15,6 +15,11 @@ var current_shop: Shop
 var player: BattleParticipant
 var enemy: BattleParticipant
 
+# The shop will contain this many trinkets
+var N_TRINKETS: int = 3
+var CONSUMABLE_COST = 100
+var TRINKET_COST = 165
+
 var battle_scene = preload("res://scenes/battle.tscn")
 var battle_participant_scene := preload("res://scenes/battle_participant.tscn")
 var shop_scene = preload("res://scenes/shop.tscn")
