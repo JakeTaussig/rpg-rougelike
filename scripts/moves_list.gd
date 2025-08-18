@@ -7,23 +7,23 @@ enum Type { EARTH, WATER, FIRE, AIR, ETHER, LIGHT, COSMIC }
 
 enum StatusEffect { NONE, POISON, WHIRLPOOL, BURN, EXPOSE, BLIND, VACUUM, UNVEIL }
 
-const TYPES = {Type.EARTH: 3, # Root Chakra/Muladhara
-			   Type.WATER: 2, # Sacral Chakra/Svadhisthana
-			   Type.FIRE: 1, # Solar Plexus/Manipura
-			   Type.AIR: 4, # Heart Charka/Anahata
-			   Type.ETHER: 5, # Throat Charka/Vishuddha
-			   Type.LIGHT: 6, # Third Eye/Ajna
-			   Type.COSMIC: 0} # Crown Chakra/Sahasrara
-			
+const TYPES = {Type.EARTH: 0, # Root Chakra/Muladhara
+			   Type.WATER: 1, # Sacral Chakra/Svadhisthana
+			   Type.FIRE: 2, # Solar Plexus/Manipura
+			   Type.AIR: 3, # Heart Charka/Anahata
+			   Type.ETHER: 4, # Throat Charka/Vishuddha
+			   Type.LIGHT: 5, # Third Eye/Ajna
+			   Type.COSMIC: 6} # Crown Chakra/Sahasrara
+
 const TYPE_CHART = [
-# COSMIC FIRE WATER EARTH AIR  ETHER  LIGHT
-[ 1.0,  1.0,  1.0,  1.0,  1.0,  1.0,  1.0 ], # COSMIC
-[ 1.0,  1.0,  0.75,  1.5,  1.0,  0.75,  1.5 ], # FIRE
-[ 1.0,  1.5,  1.0,  0.75,  1.5,  1.0,  0.75 ], # WATER
-[ 1.0,  0.75,  1.5,  1.0,  1.5,  0.75,  1.0 ], # EARTH
-[ 1.0,  1.0,  0.75,  0.75,  1.0,  1.5,  1.5 ], # AIR
-[ 1.0,  1.5,  1.0,  1.5,  0.75,  1.0,  0.75 ], # ETHER
-[ 1.0,  0.75,  1.5,  1.0,  0.75,  1.5,  1.0 ]  # LIGHT
+# EARTH WATER FIRE  AIR    ETHER LIGHT COSMIC
+[ 1.0,  1.5,  0.75,  1.5,   0.75,   1.0,  1.0 ],  #  EARTH
+[ 0.75,  1.0,  1.5,  1.5,   1.0,   0.75,  1.0 ],  #  WATER
+[ 1.5,  0.75,  1.0,  1.0,   0.75,   1.5,  1.0 ],  #  FIRE
+[ 0.75,  0.75,  1.0,  1.0,   1.5,   1.5,  1.0 ],  #  AIR
+[ 1.5,  1.0,  1.5,  0.75,   1.0,   0.75,  1.0 ],  #  ETHER
+[ 1.0,  1.5,  0.75,  0.75,   1.5,   1.0,  1.0 ],   #  LIGHT
+[ 1.0,  1.0,  1.0,  1.0,   1.0,   1.0,  1.0 ]  #  COSMIC
 ]
 
 
