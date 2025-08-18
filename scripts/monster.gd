@@ -210,8 +210,8 @@ func _does_move_crit_or_status(accuracy: int) -> bool:
 func _attack(move: Move, target: Monster, is_physical: bool) -> AttackResults:
 	var power = move.base_power
 	var damage = 0
-	# If the move is the same type as the user, same type attack bonus is 1.0, otherwise it's 1.5
-	var stab = get_stab(move)
+	# The effectiveness modifier calulates super-effective/not-very-effective and STAB
+	var effectiveness_modifier = get_move_effectiveness(move, target)
 
 	var is_critical = _does_move_crit_or_status(int(crit_chance * 100))
 	for i in range(crit_checks - 1):
@@ -220,11 +220,11 @@ func _attack(move: Move, target: Monster, is_physical: bool) -> AttackResults:
 	if is_physical:
 		power = power * atk
 		damage = float(power) / target.def
-		damage *= stab
+		damage *= effectiveness_modifier
 	else:
 		power = power * sp_atk
 		damage = float(power) / target.sp_def
-		damage *= stab
+		damage *= effectiveness_modifier
 	if is_critical:
 		damage *= crit_factor
 
@@ -277,10 +277,17 @@ func _check_status_immunity(effect: MovesList.StatusEffect, target_type: MovesLi
 	return false
 
 
-func get_stab(move: Move) -> float:
-	# Keep STAB for future chakra alignment.
+func get_move_effectiveness(move: Move, defender: Monster) -> float:
 	var same_type_attack_bonus: float = 1.5 if self.type == move.type else 1.0
-	return 1.0 * same_type_attack_bonus
+	var base_modifier = get_effectiveness_modifier(move, defender)
+	return base_modifier * same_type_attack_bonus
+
+
+func get_effectiveness_modifier(move: Move, defender: Monster) -> float:
+	var atk_idx = MovesList.TYPES[move.type]
+	var def_idx = MovesList.TYPES[defender.type]
+	var base_modifier = MovesList.TYPE_CHART[atk_idx][def_idx]
+	return base_modifier
 
 
 func enact_status_effect() -> String:
