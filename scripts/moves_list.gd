@@ -16,6 +16,18 @@ const TYPES = {Type.EARTH: 0, # Root Chakra/Muladhara
 			   Type.ETHER: 4, # Throat Charka/Vishuddha
 			   Type.LIGHT: 5, # Third Eye/Ajna
 			   Type.COSMIC: 6} # Crown Chakra/Sahasrara
+			
+			
+const TYPE_CHART = [
+# COSMIC FIRE WATER EARTH AIR  ETHER  LIGHT
+[ 1.0,  1.0,  1.0,  1.0,  1.0,  1.0,  1.0 ], # COSMIC
+[ 1.0,  1.0,  0.75,  1.5,  1.0,  0.75,  1.5 ], # FIRE
+[ 1.0,  1.5,  1.0,  0.75,  1.5,  1.0,  0.75 ], # WATER
+[ 1.0,  0.75,  1.5,  1.0,  1.5,  0.75,  1.0 ], # EARTH
+[ 1.0,  1.0,  0.75,  0.75,  1.0,  1.5,  1.5 ], # AIR
+[ 1.0,  1.5,  1.0,  1.5,  0.75,  1.0,  0.75 ], # ETHER
+[ 1.0,  0.75,  1.5,  1.0,  0.75,  1.5,  1.0 ]  # LIGHT
+]
 
 
 static func type_to_color(type: Type) -> Color:
