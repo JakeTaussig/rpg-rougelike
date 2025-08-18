@@ -29,9 +29,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ep5rh")
 [node name="QuoteDisplay" type="Label" parent="."]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 8.0
+offset_top = -1.0
 offset_right = 240.0
-offset_bottom = 96.0
+offset_bottom = 87.0
 theme_override_fonts/font = ExtResource("1_ep5rh")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_hprjd")
