@@ -5,8 +5,6 @@ class_name MovesList
 
 enum Type { EARTH, WATER, FIRE, AIR, ETHER, LIGHT, COSMIC }
 
-# Some status effects will need to be re-done to correspond to the appropriate
-# chakra types.
 enum StatusEffect { NONE, POISON, WHIRLPOOL, BURN, EXPOSE, BLIND, VACUUM, UNVEIL }
 
 const TYPES = {Type.EARTH: 0, # Root Chakra/Muladhara
@@ -16,6 +14,17 @@ const TYPES = {Type.EARTH: 0, # Root Chakra/Muladhara
 			   Type.ETHER: 4, # Throat Charka/Vishuddha
 			   Type.LIGHT: 5, # Third Eye/Ajna
 			   Type.COSMIC: 6} # Crown Chakra/Sahasrara
+
+const TYPE_CHART = [
+# EARTH WATER FIRE  AIR    ETHER LIGHT COSMIC
+[ 1.0,  1.5,  0.75,  1.5,   0.75,   1.0,  1.0 ],  #  EARTH
+[ 0.75,  1.0,  1.5,  1.5,   1.0,   0.75,  1.0 ],  #  WATER
+[ 1.5,  0.75,  1.0,  1.0,   0.75,   1.5,  1.0 ],  #  FIRE
+[ 0.75,  0.75,  1.0,  1.0,   1.5,   1.5,  1.0 ],  #  AIR
+[ 1.5,  1.0,  1.5,  0.75,   1.0,   0.75,  1.0 ],  #  ETHER
+[ 1.0,  1.5,  0.75,  0.75,   1.5,   1.0,  1.0 ],   #  LIGHT
+[ 1.0,  1.0,  1.0,  1.0,   1.0,   1.0,  1.0 ]  #  COSMIC
+]
 
 
 static func type_to_color(type: Type) -> Color:
@@ -36,6 +45,7 @@ static func type_to_color(type: Type) -> Color:
 			return Color(0.71, 0.314, 0.533, 1.0)
 
 	return Color(1.0, 1.0, 1.0, 0.0)
+
 
 static func type_to_outline_color(type: Type) -> Color:
 	if type == Type.ETHER:
