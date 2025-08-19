@@ -5,7 +5,7 @@ class_name MovesList
 
 enum Type { EARTH, WATER, FIRE, AIR, ETHER, LIGHT, COSMIC }
 
-enum StatusEffect { NONE, POISON, WHIRLPOOL, BURN, EXPOSE, BLIND, VACUUM, UNVEIL }
+enum StatusEffect { NONE, POISON, WHIRLPOOL, BURN, EXPOSE, BLIND, VACUUM, DELUSION }
 
 const TYPES = {Type.EARTH: 0, # Root Chakra/Muladhara
 			   Type.WATER: 1, # Sacral Chakra/Svadhisthana
@@ -72,7 +72,7 @@ static func status_effect_to_color(status_effect: StatusEffect) -> Color:
 			return Color(0.227, 0.267, 0.4, 1.0)
 		MovesList.StatusEffect.BLIND:
 			return Color(0.918, 0.831, 0.667, 1.0)
-		MovesList.StatusEffect.UNVEIL:
+		MovesList.StatusEffect.DELUSION:
 			return Color(0.71, 0.314, 0.533, 1.0)
 
 	return Color(1.0, 1.0, 1.0, 0.0)
@@ -92,7 +92,7 @@ static func type_abbreviation(effect) -> String:
 			return "BLD"
 		MovesList.StatusEffect.VACUUM:
 			return "VAC"
-		MovesList.StatusEffect.UNVEIL:
-			return "VEL"
+		MovesList.StatusEffect.DELUSION:
+			return "DEL"
 	printerr("Failed to match type abbreviation")
 	return ""

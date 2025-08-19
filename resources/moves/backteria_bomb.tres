@@ -5,7 +5,6 @@
 [resource]
 script = ExtResource("1_1s1bc")
 move_name = "Bacteria Bomb"
-type = 3
 base_power = 75
 status_effect = 1
 status_effect_chance = 33

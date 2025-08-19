@@ -61,6 +61,12 @@ func _check_for_dead_monsters() -> String:
 	if enemy.selected_monster.hp <= 0 and player.selected_monster.hp <= 0:
 		message = "%s and %s wiped each other out!" % [enemy.selected_monster.character_name, player.selected_monster.character_name]
 	elif enemy.selected_monster.hp <= 0:
+		if battle.trackers_open:
+				battle.ui_manager.player_health_panel.show()
+				battle.ui_manager.enemy_health_panel.show()
+				battle.player.selected_monster.tracker.visible = false
+				battle.enemy.selected_monster.tracker.visible = false
+				battle.trackers_open = false
 		message = "%s defeated %s!" % [player.selected_monster.character_name, enemy.selected_monster.character_name]
 	elif player.selected_monster.hp <= 0:
 		message = "%s defeated %s!" % [enemy.selected_monster.character_name, player.selected_monster.character_name]

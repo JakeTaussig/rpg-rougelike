@@ -206,7 +206,17 @@ func _create_new_enemy() -> BattleParticipant:
 			monster.tracker = t
 	else:
 		for monster in new_enemy.monsters:
-			monster.tracker = get_node("GlobalUIManager/Trackers/" + monster.character_name)
+			var monster_tracker = get_node_or_null("GlobalUIManager/Trackers/" + monster.character_name)
+			if monster_tracker:
+				monster.tracker = monster_tracker
+			else:
+				var t: Tracker = tracker.instantiate()
+				t.bind_monster(monster, false)
+				t.z_index = 2
+				t.visible = false
+				t.name = monster.character_name
+				%GlobalUIManager/Trackers.add_child(t)
+				monster.tracker = t
 
 	# Replace old enemy node in the scene
 	if enemy:
