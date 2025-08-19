@@ -34,6 +34,11 @@ var tracker = preload("res://scenes/tracker.tscn")
 
 var quotes: Array
 
+# When selling trinkets is put into the game, these need to be set back to false upon selling the insight trinkets.
+var reveal_enemy_attacking_stats := false
+var reveal_enemy_defensive_stats := false
+var reveal_enemy_misc_stats := false
+
 @onready var global_ui_manager = %GlobalUIManager
 
 

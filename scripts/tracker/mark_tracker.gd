@@ -13,10 +13,10 @@ func _gui_input(event: InputEvent) -> void:
 		match click_counter:
 			1:
 				text = "+"
-				add_theme_color_override("font_color", Color.GREEN)
+				add_theme_color_override("default_color", Color.GREEN)
 			2:
 				text = "="
-				add_theme_color_override("font_color", Color.WHITE)
+				add_theme_color_override("default_color", Color.WHITE)
 			3:
 				text = "-"
-				add_theme_color_override("font_color", Color.RED)
+				add_theme_color_override("default_color", Color.RED)

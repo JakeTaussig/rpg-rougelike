@@ -14,6 +14,8 @@ func _ready():
 	$Panel/TitleContainer/CharacterName.text = monster.character_name
 	if is_player:
 		populate_player_tracker()
+	else:
+		populate_enemy_tracker()
 
 
 @export var show_funds := false
@@ -33,7 +35,17 @@ func populate_player_tracker():
 
 
 func populate_enemy_tracker():
-	$Panel/TitleContainer/CharacterName.text = GameManager.enemy.selected_monster.character_name
+	if GameManager.reveal_enemy_attacking_stats:
+		$Panel/TrackerInfo/ATK.text = str(monster.atk)
+		$Panel/TrackerInfo/SP_ATK.text = str(monster.sp_atk)
+	if GameManager.reveal_enemy_defensive_stats:
+		$Panel/TrackerInfo/DEF.text = str(monster.def)
+		$Panel/TrackerInfo/SP_DEF.text = str(monster.sp_def)
+	if GameManager.reveal_enemy_misc_stats:
+		$Panel/TrackerInfo/SPEED.text = str(monster.speed)
+		$Panel/TrackerInfo/LUCK.text = str(monster.luck)
+		$Panel/TrackerInfo/CRIT.text = "%2.0f" % (100.0 * monster.crit_chance) + "% " + "(%d)" % monster.crit_checks
+		$Panel/TrackerInfo/ACC.text = str(monster.acc)
 	_render_title_and_funds()
 
 

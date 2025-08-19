@@ -10,7 +10,7 @@ metadata/_custom_type_script = "uid://b0v7xkkm5ti0"
 
 [resource]
 script = ExtResource("1_rxab4")
-trinket_name = "Dmg Up"
+trinket_name = "Damage Up"
 icon = ExtResource("1_14v0i")
 description = "atk +20%[br]def +20%"
 strategy = SubResource("Resource_14v0i")
