@@ -57,8 +57,14 @@ func _generate_attack_messages(attacker, target, results: Monster.AttackResults)
 		elif effectiveness_multiplier < 1.0:
 			messages.append("%s was not very effective!" % used_move_name)
 
-		# if the damage killed someone we don't need to see any more messages (We might need to to send out the enemies next monster
 		if battle.is_battle_over():
+			# don't mention the regular additional messages if the battle is over.
+			# we don't need to hear about status effects and things like that.
+			#
+			# we're still interested in long-term powerups we may have received from trinkets
+			for additional_message in results.additional_trinket_messages:
+				messages.append(additional_message)
+
 			return messages
 	# This condition only triggers when a status effect only move hit, but a status effect is already applied to the target. Or when a target is immune to the status effect.
 	elif not results.status_applied:
@@ -95,8 +101,11 @@ func _generate_attack_messages(attacker, target, results: Monster.AttackResults)
 			MovesList.StatusEffect.BLIND:
 				messages.append(target.enact_blind_on_self())
 
-	if results.additional_message:
-		messages.append(results.additional_message)
+	for additional_message in results.additional_messages:
+		messages.append(additional_message)
+
+	for additional_message in results.additional_trinket_messages:
+		messages.append(additional_message)
 
 	return messages
 
