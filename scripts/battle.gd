@@ -52,16 +52,17 @@ func _init_ui():
 
 func _input(event: InputEvent):
 	if event.is_action_pressed("toggle_tracker"):
-		player.selected_monster.tracker.populate_player_tracker()
-		trackers_open = !trackers_open
-		if trackers_open:
-			ui_manager.display_tracker()
-			ui_manager.hide_health_panels_for_trackers()
-		else:
-			ui_manager.player_health_panel.show()
-			ui_manager.enemy_health_panel.show()
-			player.selected_monster.tracker.visible = false
-			enemy.selected_monster.tracker.visible = false
+		if not is_battle_over():
+			player.selected_monster.tracker.populate_player_tracker()
+			trackers_open = !trackers_open
+			if trackers_open:
+				ui_manager.display_tracker()
+				ui_manager.hide_health_panels_for_trackers()
+			else:
+				ui_manager.player_health_panel.show()
+				ui_manager.enemy_health_panel.show()
+				player.selected_monster.tracker.visible = false
+				enemy.selected_monster.tracker.visible = false
 
 	if trackers_open and event.is_action_pressed("switch_tracker"):
 		player.selected_monster.tracker.visible = not player.selected_monster.tracker.visible
