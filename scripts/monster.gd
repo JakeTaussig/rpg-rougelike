@@ -271,7 +271,7 @@ func _check_status_immunity(effect: MovesList.StatusEffect, target_type: MovesLi
 		MovesList.StatusEffect.BLIND:
 			if target_type == MovesList.Type.LIGHT:
 				return true
-		MovesList.StatusEffect.UNVEIL:
+		MovesList.StatusEffect.DELUSION:
 			if target_type == MovesList.Type.COSMIC:
 				return true
 	return false
@@ -298,6 +298,8 @@ func enact_status_effect() -> String:
 			return _enact_poison_on_self()
 		MovesList.StatusEffect.VACUUM:
 			return enact_vacuum_on_self()
+		MovesList.StatusEffect.DELUSION:
+			return enact_delusion_on_self()
 	return ""
 
 
@@ -315,6 +317,8 @@ func recover_from_status_effect() -> String:
 			return _recover_from_vacuum()
 		MovesList.StatusEffect.BLIND:
 			return _recover_from_blind()
+		MovesList.StatusEffect.DELUSION:
+			return _recover_from_delusion()
 	return ""
 
 
@@ -330,8 +334,8 @@ func enact_burn_on_self():
 
 func _recover_from_burn():
 	status_effect = MovesList.StatusEffect.NONE
+	atk = int(float(atk) * 2)
 	status_effect_turn_counter = 0
-	atk = int(float(atk) * 1.5)
 	return "%s recovered from burn!" % character_name
 
 
@@ -396,6 +400,20 @@ func _recover_from_blind():
 	acc = acc * 2
 	status_effect_turn_counter = 0
 	return "%s recovered from blind!" % character_name
+	
+	
+func enact_delusion_on_self():
+	if status_effect_turn_counter == 0:
+		speed = int(float(speed * 0.5))
+		return "%s's speed was lowered by 50" % character_name + "%!"
+	return ""
+
+
+func _recover_from_delusion():
+	status_effect = MovesList.StatusEffect.NONE
+	speed = speed * 2
+	status_effect_turn_counter = 0
+	return "%s escaped the delusion!" % character_name
 
 
 # Inner class. Used for bundling move results
