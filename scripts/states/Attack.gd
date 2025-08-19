@@ -68,15 +68,15 @@ func _generate_attack_messages(attacker, target, results: Monster.AttackResults)
 			# TODO: This message will trigger if a status effect only move misses.
 			messages.append(
 				(
-					"%s used %s and attempted to apply %s on %s, but %s is immune!"
+					"%s used %s and tried to apply %s on %s, but %s is immune!"
 					% [attacker.character_name, used_move_name, attempted_status_effect_string, target.character_name, target.character_name]
 				)
 			)
 		else:
 			messages.append(
 				(
-					"%s used %s and attempted to apply %s on %s, but %s is already afflicted with %s!"
-					% [attacker.character_name, used_move_name, attempted_status_effect_string, target.character_name, target.character_name, target_status_effect_string]
+					"%s tried to apply %s on %s, but they are already afflicted with %s!"
+					% [attacker.character_name, attempted_status_effect_string, target.character_name, target_status_effect_string]
 				)
 			)
 
@@ -88,12 +88,14 @@ func _generate_attack_messages(attacker, target, results: Monster.AttackResults)
 			messages.append("%s used %s and applied %s on %s!" % [attacker.character_name, used_move_name, status_effect_string, target.character_name])
 		else:
 			messages.append("%s was afflicted with %s!" % [target.character_name, status_effect_string])
-		# Burn and blind need to be applied instantly since they affect the stats of the afflicted user.
+		# Burn, blind, and delusion need to be applied instantly since they affect the stats of the afflicted user.
 		match status_effect:
 			MovesList.StatusEffect.BURN:
 				messages.append(target.enact_burn_on_self())
 			MovesList.StatusEffect.BLIND:
 				messages.append(target.enact_blind_on_self())
+			MovesList.StatusEffect.DELUSION:
+				messages.append(target.enact_delusion_on_self())
 
 	if results.additional_message:
 		messages.append(results.additional_message)

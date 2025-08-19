@@ -28,7 +28,7 @@ func enter(_messages: Array = []):
 					messages.append("You cleared the %dth circle of hell!" % GameManager.floor_number)
 			_messages.append(
 				(
-					"%s's struggle made their Soul stronger! All of their stats were increased by %.1fx!"
+					"%s's Soul became stronger! All of their stats were increased by %.1fx!"
 					% [player.selected_monster.character_name, GameManager.player_stat_multiplier]
 				)
 			)
