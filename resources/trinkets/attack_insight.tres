@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://bpck2ecaahfim"]
+
+[ext_resource type="Texture2D" uid="uid://du2r5rtig4eoj" path="res://assets/sprites/trinket_icons/eyeball_red.png" id="1_lsv83"]
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinkets/trinket.gd" id="1_vdgk1"]
+[ext_resource type="Script" uid="uid://dvjlo5c7lt1pc" path="res://resources/trinket_strategies/attack_insight_strategy.gd" id="3_lsv83"]
+
+[sub_resource type="Resource" id="Resource_pgngf"]
+script = ExtResource("3_lsv83")
+metadata/_custom_type_script = "uid://dvjlo5c7lt1pc"
+
+[resource]
+script = ExtResource("1_vdgk1")
+trinket_name = "Attack Insight"
+icon = ExtResource("1_lsv83")
+description = "Reveals the enemy's ATK and SP_ATK stats."
+apply_once = true
+strategy = SubResource("Resource_pgngf")
+metadata/_custom_type_script = "uid://c7ph0ydi5trjd"
