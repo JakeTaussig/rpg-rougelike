@@ -85,4 +85,6 @@ func swap_dead_monster():
 		if monsters.size() == 0:
 			return
 		selected_monster = monsters[0]
+		if not is_player:
+			selected_monster.tracker.populate_enemy_tracker()
 		show()

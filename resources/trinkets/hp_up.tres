@@ -10,7 +10,7 @@ metadata/_custom_type_script = "uid://bcxsgub47ke5n"
 
 [resource]
 script = ExtResource("1_qunqy")
-trinket_name = "HP Up"
+trinket_name = "Health Up"
 icon = ExtResource("1_cr0h2")
 description = "+100 Max Hp"
 strategy = SubResource("Resource_lucmb")

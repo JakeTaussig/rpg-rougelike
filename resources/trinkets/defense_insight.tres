@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Trinket" load_steps=5 format=3 uid="uid://dybswnc4q30ae"]
+
+[ext_resource type="Texture2D" uid="uid://cq231qmn84i85" path="res://assets/sprites/trinket_icons/eyeball_blue.png" id="1_qhfit"]
+[ext_resource type="Script" uid="uid://c7ph0ydi5trjd" path="res://scripts/trinkets/trinket.gd" id="1_xqedv"]
+[ext_resource type="Script" uid="uid://dshde1ye6uux3" path="res://resources/trinket_strategies/defend_insight_strategy.gd" id="3_hvkmu"]
+
+[sub_resource type="Resource" id="Resource_nv1f1"]
+script = ExtResource("3_hvkmu")
+metadata/_custom_type_script = "uid://dshde1ye6uux3"
+
+[resource]
+script = ExtResource("1_xqedv")
+trinket_name = "Defend Insight"
+icon = ExtResource("1_qhfit")
+description = "Reveals the enemy's DEF and SP_DEF stats."
+apply_once = true
+strategy = SubResource("Resource_nv1f1")
+metadata/_custom_type_script = "uid://c7ph0ydi5trjd"

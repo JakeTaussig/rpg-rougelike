@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://tlm6nhptxwkx"]
+[gd_scene load_steps=8 format=3 uid="uid://tlm6nhptxwkx"]
 
 [ext_resource type="Theme" uid="uid://bb5xdt6d0xc8h" path="res://assets/themes/main.tres" id="1_bfym8"]
-[ext_resource type="Script" uid="uid://dqx4yk84nwr8x" path="res://scripts/tracker.gd" id="1_g10r1"]
+[ext_resource type="Script" uid="uid://dqx4yk84nwr8x" path="res://scripts/tracker/tracker.gd" id="1_g10r1"]
 [ext_resource type="StyleBox" uid="uid://c854nh0fccd54" path="res://assets/styles/border_color_sbf.tres" id="2_dcoxp"]
-[ext_resource type="Script" uid="uid://5gqyd7etib2b" path="res://scripts/mark_tracker.gd" id="3_ocy8l"]
+[ext_resource type="Script" uid="uid://c56a8t6a1w48e" path="res://scripts/tracker/mark_tracker_misc.gd" id="4_2o4v1"]
+[ext_resource type="Script" uid="uid://bkp3qxxnieemy" path="res://scripts/tracker/mark_tracker_attack.gd" id="5_2oy2a"]
+[ext_resource type="Script" uid="uid://gqb4id53ahso" path="res://scripts/tracker/mark_tracker_defense.gd" id="6_k524b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dcoxp"]
 content_margin_left = 3.0
@@ -79,6 +81,7 @@ theme_type_variation = &"SmallTextLabel"
 text = "HP:"
 
 [node name="HP" type="RichTextLabel" parent="Panel/TrackerInfo"]
+custom_minimum_size = Vector2(32, 0)
 layout_direction = 2
 layout_mode = 2
 theme = ExtResource("1_bfym8")
@@ -87,7 +90,7 @@ bbcode_enabled = true
 text = "?"
 fit_content = true
 autowrap_mode = 0
-script = ExtResource("3_ocy8l")
+script = ExtResource("4_2o4v1")
 
 [node name="ATK_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -97,12 +100,13 @@ theme_type_variation = &"SmallTextLabel"
 text = "ATK:"
 
 [node name="ATK" type="RichTextLabel" parent="Panel/TrackerInfo"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextRichTextLabel"
 bbcode_enabled = true
 text = "?"
-script = ExtResource("3_ocy8l")
+script = ExtResource("5_2oy2a")
 
 [node name="SP_ATK_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -111,12 +115,13 @@ theme_type_variation = &"SmallTextLabel"
 text = "SP_ATK:"
 
 [node name="SP_ATK" type="RichTextLabel" parent="Panel/TrackerInfo"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextRichTextLabel"
 bbcode_enabled = true
 text = "?"
-script = ExtResource("3_ocy8l")
+script = ExtResource("5_2oy2a")
 
 [node name="DEF_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -125,12 +130,13 @@ theme_type_variation = &"SmallTextLabel"
 text = "DEF:"
 
 [node name="DEF" type="RichTextLabel" parent="Panel/TrackerInfo"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextRichTextLabel"
 bbcode_enabled = true
 text = "?"
-script = ExtResource("3_ocy8l")
+script = ExtResource("6_k524b")
 
 [node name="SP_DEF_INFO" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -139,12 +145,14 @@ theme_type_variation = &"SmallTextLabel"
 text = "SP_DEF:"
 
 [node name="SP_DEF" type="RichTextLabel" parent="Panel/TrackerInfo"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextRichTextLabel"
 bbcode_enabled = true
-text = "?"
-script = ExtResource("3_ocy8l")
+text = "?
+"
+script = ExtResource("6_k524b")
 
 [node name="SPEED_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -153,12 +161,14 @@ theme_type_variation = &"SmallTextLabel"
 text = "SPEED:"
 
 [node name="SPEED" type="RichTextLabel" parent="Panel/TrackerInfo"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextRichTextLabel"
 bbcode_enabled = true
-text = "?"
-script = ExtResource("3_ocy8l")
+text = "?
+"
+script = ExtResource("4_2o4v1")
 
 [node name="LUCK_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -167,12 +177,13 @@ theme_type_variation = &"SmallTextLabel"
 text = "LUCK:"
 
 [node name="LUCK" type="RichTextLabel" parent="Panel/TrackerInfo"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextRichTextLabel"
 bbcode_enabled = true
 text = "?"
-script = ExtResource("3_ocy8l")
+script = ExtResource("4_2o4v1")
 
 [node name="CRIT_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -181,6 +192,7 @@ theme_type_variation = &"SmallTextLabel"
 text = "CRIT:"
 
 [node name="CRIT" type="RichTextLabel" parent="Panel/TrackerInfo"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextRichTextLabel"
@@ -189,7 +201,7 @@ text = "?"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
-script = ExtResource("3_ocy8l")
+script = ExtResource("4_2o4v1")
 
 [node name="ACC_Info" type="Label" parent="Panel/TrackerInfo"]
 layout_mode = 2
@@ -198,9 +210,10 @@ theme_type_variation = &"SmallTextLabel"
 text = "ACC:"
 
 [node name="ACC" type="RichTextLabel" parent="Panel/TrackerInfo"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 theme = ExtResource("1_bfym8")
 theme_type_variation = &"SmallTextRichTextLabel"
 bbcode_enabled = true
 text = "?"
-script = ExtResource("3_ocy8l")
+script = ExtResource("4_2o4v1")

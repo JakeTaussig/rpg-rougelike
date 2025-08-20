@@ -34,6 +34,11 @@ var tracker = preload("res://scenes/tracker.tscn")
 
 var quotes: Array
 
+# When selling trinkets is put into the game, these need to be set back to false upon selling the insight trinkets.
+var reveal_enemy_attacking_stats := false
+var reveal_enemy_defending_stats := false
+var reveal_enemy_misc_stats := false
+
 @onready var global_ui_manager = %GlobalUIManager
 
 
@@ -138,6 +143,8 @@ func _exit_current_event():
 	if current_shop:
 		player.selected_monster.tracker.visible = false
 		player.selected_monster.tracker.position[1] -= 16
+		player.selected_monster.tracker.populate_tracker()
+		enemy.selected_monster.tracker.populate_tracker()
 		current_shop.queue_free()
 
 	if floor_events.is_empty():
